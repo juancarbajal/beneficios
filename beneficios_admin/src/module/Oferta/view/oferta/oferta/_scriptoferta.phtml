@@ -1,0 +1,42 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        <?php foreach ($this->imagenesXAsignar as $dato) : ?>
+        imagenes.push('<?= $dato ?>');
+        <?php endforeach; ?>
+    });
+</script>
+
+<?php
+$id_empresa = (!empty($this->id_empresa)) ? $this->id_empresa : "";
+$tipo_oferta = (!empty($this->form->get('Tipo')->getValue())) ? $this->form->get('Tipo')->getValue() : "";
+$pais = (!empty($this->form->get('Pais')->getValue())) ? $this->form->get('Pais')->getValue() : "";
+$dato_stock = (!empty($this->form->get('Stock')->getValue())) ? $this->form->get('Stock')->getValue() : "";
+$this->inlineScript()->captureStart();
+echo <<<JS
+$(document).ready(function () {
+    var empresa_id = '$id_empresa';
+    var tipo_oferta = '$tipo_oferta';
+    var pais = '$pais';
+    var stock = '$dato_stock';
+    var value = [];
+
+    if (empresa_id !== '') {
+        value.name = tipo_oferta;
+        value.emp = empresa_id;
+        value.step = "edit";
+        cargarBolsa(value, "");
+    } else {
+        value.name = tipo_oferta;
+        value.step = "edit";
+        cargarBolsa(value, $("#empresa-prov").val());
+    }
+
+    var text = parseInt(pais);
+    if (isNaN(text)) text = 1;
+    $("#pais").find("option").filter(function () {
+        return $(this).val() == text;
+    }).attr('selected', true).change();
+});
+JS;
+$this->inlineScript()->captureEnd();
+$this->inlineScript();

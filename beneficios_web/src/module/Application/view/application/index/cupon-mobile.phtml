@@ -1,0 +1,237 @@
+<style>
+    .left-info-c ul li {
+        text-align: center;
+    }
+
+    .tarjetas-img {
+        width: 100px;
+    }
+</style>
+<div class="fluid-list cupon-interna">
+    <div class="fluid-list cupon-cnt">
+        <?php
+        $imgCupon = $this->imgCupon;
+        if (count($this->imgCupon) > 1) { ?>
+            <div class="fluid-list slider-home box-sombra">
+                <div class="fluid-list sombra-interna">
+                    <div class="slider slider-promocion box-sombra-caja">
+                        <?php foreach ($imgCupon as $img) { ?>
+                            <div class="info-cupon">
+                                <img src="<?php
+                                $trozos = explode(".", $img->imagenOferta);
+                                $ext = end($trozos);
+                                $img->imagenOferta = str_replace('.' . $ext, '', $img->imagenOferta) . '-large.' . $ext;
+                                echo $this->rofertas . $img->imagenOferta; ?>"/>
+                            </div>
+                        <?php } ?>
+                    </div>
+                </div>
+            </div>
+        <?php } else { ?>
+            <?php foreach ($imgCupon as $img) { ?>
+                <figure>
+                    <img src="<?php
+                    $trozos = explode(".", $img->imagenOferta);
+                    $ext = end($trozos);
+                    $img->imagenOferta = str_replace('.' . $ext, '', $img->imagenOferta) . '-large.' . $ext;
+                    echo $this->rofertas . $img->imagenOferta
+                    ?>">
+                </figure>
+            <?php } ?>
+        <?php } ?>
+
+        <h1 class="justificar">
+            <?php if ($cupon->datoBeneficio != null) { ?>
+
+                <?php if ($cupon->idTipoBeneficio == 1) { ?>
+                    <strong>-<?= $cupon->datoBeneficio ?>% Descuento</strong>
+                <?php } elseif ($cupon->idTipoBeneficio == 2) { ?>
+                    <strong>-S/.<?= $cupon->datoBeneficio ?> Descuento</strong>
+                <?php } elseif ($cupon->idTipoBeneficio == 3) { ?>
+                    <strong><?= $cupon->datoBeneficio ?> en</strong>
+                <?php } else { ?>
+                    <strong><?= $cupon->datoBeneficio ?></strong>
+                <?php } ?>
+
+            <?php } ?>
+            <?= $cupon->TituloOferta ?>
+        </h1>
+        <?php
+        if ($cupon->vigencia != null) {
+            $date = new DateTime($cupon->vigencia);
+            $mes = $date->format('m');
+            ?>
+            <em class="fluid-list">Cupón válido hasta
+                el <?php echo ' ' . $date->format('d') . ' de ' . $this->meses[$mes - 1] ?></em>
+        <?php } ?>
+
+        <div class="cupon-fixed-btn">
+            <?php if ($cupon->EstadoOferta == 'Publicado' and $cupon->caducadoTiempo >= 0) : ?>
+                <?php if ($cupon->TipoAtributo == 'Split') : ?>
+                    <a href="#" class="btn btn-primary btn-cupon" data-toggle="modal"
+                       data-target="#elegirOpcion">
+                        <span>Elegir Cupón</span>
+                    </a>
+                <?php else : ?>
+                    <a href="#" class="btn btn-primary btn-cupon" data-toggle="modal"
+                       data-target="#enviarMail">
+                        <span>Descargar Cupón</span>
+                    </a>
+                <?php endif; ?>
+            <?php else : ?>
+                <a class="btn btn-primary btn-cupon btn-full" style="cursor: default;background: #609EE8">
+                    <span>Beneficio Caducado</span>
+                </a>
+            <?php endif; ?>
+        </div>
+
+        <div class="fluid-list cnt-condiciones-info">
+            <h3 class="title-interna">Condiciones de Uso</h3>
+            <?= $cupon->condicionesUso ?>
+        </div>
+
+        <div class="fluid-list cnt-empresa-terminos">
+            <div class="panel-group" id="preguntasF" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingOne">
+                        <h4 class="panel-title">
+                            <a class="collapsed" role="button" data-toggle="collapse"
+                               data-parent="#preguntasF"
+                               href="#collapseOne" aria-expanded="false" aria-controls="collapseTwo">Sobre
+                                la
+                                empresa <span class="glyphicon glyphicon-triangle-bottom"
+                                              aria-hidden="true"></span><span
+                                    class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel"
+                         aria-labelledby="headingOne">
+                        <div class="panel-body">
+                            <?php if ($this->identity()['flagcheckboxLogo']) { ?>
+                            <figure>
+                                <img src="<?= $this->rlogos . $cupon->LogoEmpresa ?>"/>
+                            </figure>
+                            <?php } ?>
+                            <p>
+                                <?= $cupon->DescripcionEmpresa ?>
+                            </p>
+                            <div class="fluid-list left-info-c">
+                                <ul>
+                                    <li>
+                                        <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                                        <div class="cnt-info-list">
+                                            <h4>Dirección: </h4>
+                                            <em><?= $cupon->DireccionOferta ?></em>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
+                                        <div class="cnt-info-list">
+                                            <h4>Teléfonos: </h4>
+                                            <em><?= $cupon->TelefonoOferta ?></em>
+                                        </div>
+                                    </li>
+                                    <?php if ($cupon->webEmpresa != null) { ?>
+                                        <li>
+                                            <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
+                                            <div class="cnt-info-list">
+                                                <h4>Sitio Web: </h4>
+                                                <em><?= $cupon->webEmpresa ?></em>
+                                            </div>
+                                        </li>
+                                    <?php } ?>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php if (count($tarjetas) > 0) { ?>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingThree">
+                            <h4 class="panel-title">
+                                <a class="collapsed" role="button" data-toggle="collapse"
+                                   data-parent="#preguntasF"
+                                   href="#collapseThree" aria-expanded="false"
+                                   aria-controls="collapseThree">Tarjetas TEBCA
+                                    <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
+                             aria-labelledby="headingThree">
+                            <div class="panel-body">
+                                <div class="fluid-list left-info-c">
+                                    <ul>
+                                        <?php foreach ($tarjetas as $data) { ?>
+                                            <li>
+                                                <img src="/img/<?= $data->Imagen ?>" alt="<?= $data->Descripcion ?>"
+                                                     class="tarjetas-img">
+                                                <div class="cnt-info-list">
+                                                    <em><?= $data->Descripcion ?></em>
+                                                </div>
+                                            </li>
+                                        <?php } ?>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
+                <?php if (strlen(trim($cupon->CondicionesTebca)) > 0) { ?>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingFour">
+                            <h4 class="panel-title">
+                                <a class="collapsed" role="button" data-toggle="collapse"
+                                   data-parent="#preguntasF"
+                                   href="#collapseFour" aria-expanded="false"
+                                   aria-controls="collapseFour">Términos y Condiciones de Uso de TEBCA
+                                    <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseFour" class="panel-collapse collapse" role="tabpanel"
+                             aria-labelledby="headingFour">
+                            <div class="panel-body">
+                                <div class="fluid-list left-info-c">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="fluid-list cnt-terminos">
+                                                <p><?= $cupon->CondicionesTebca ?></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingTwo">
+                        <h4 class="panel-title">
+                            <a class="collapsed" role="button" data-toggle="collapse"
+                               data-parent="#preguntasF"
+                               href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Términos
+                                Legales <span class="glyphicon glyphicon-triangle-bottom"
+                                              aria-hidden="true"></span><span
+                                    class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel"
+                         aria-labelledby="headingTwo">
+                        <div class="panel-body">
+                            <p class="justificar"><?= $this->conf['termcondiciones'] ?></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php
+echo $this->partial('application/index/mobile/_ofertasrelacionadas');
+echo $this->partial('application/index/_domain');

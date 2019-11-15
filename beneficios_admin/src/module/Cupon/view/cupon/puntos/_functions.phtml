@@ -1,0 +1,11 @@
+<?php
+$totalPagar = $this->totalPagar;
+$this->inlineScript()->captureStart();
+echo <<<JS
+$(document).ready(function () {
+    var total = Number('$totalPagar') == 0 ? '' : Number('$totalPagar');
+    $("#total-pagar").val(total);
+});
+JS;
+$this->inlineScript()->captureEnd();
+$this->inlineScript();

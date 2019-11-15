@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>Beneficios</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="../../src/public/css/plugins.min.css?43" media="screen" rel="stylesheet" type="text/css">
+    <link href="../../src/public/movil/css/main.min.css?43" media="screen" rel="stylesheet" type="text/css">
+    <link href="../../src/public/css/style.css?43" media="screen" rel="stylesheet" type="text/css">
+    <link href="/img/favicon-01.ico" rel="shortcut icon" type="image/x-icon">
+    <link href="/img/Icon-bnfs-1.png" rel="apple-touch-icon">
+    <link href="/img/Icon-bnfs-1.png" rel="apple-touch-icon" sizes="152x152">
+    <link href="/img/Icon-bnfs-2.png" rel="apple-touch-icon" sizes="120x120">
+    <link href="/img/Icon-bnfs-3.png" rel="apple-touch-icon" sizes="76x76">
+    <!--[if lt IE 9]><script type="text/javascript" src="/js/html5shiv.min.js?43"></script><![endif]-->
+    <!--[if lt IE 9]><script type="text/javascript" src="/js/respond.min.js?43"></script><![endif]-->
+    <script type="text/javascript" src="../../src/public/js/modernizr-2.8.3.min.js?43"></script>
+    <script type="text/javascript" src="../../src/public/js/plugins.min.js?43"></script>
+    <script type="text/javascript" src="../../src/public/movil/js/main.min.js?43"></script>
+    <script type="text/javascript">
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-72638106-1', 'auto');
+    ga('send', 'pageview');
+
+    jQuery.support.cors = true;
+
+
+    function ja(param1, param2, param3) {
+        var params = {
+            id_empresa: (param2) ? param2 : '',
+            slug: (param1) ? param1 : '',
+            dni: (param3) ? param3 : 'anonimo',
+            id_key: 'i3s89e7jasl06g1j5os25ouur2',
+            dispositivo: 'mobile',
+            ip: '190.216.172.56',
+            os: 'Ios',
+            navegador: 'Safari',
+            subdominio: ''
+        };
+        $.ajax({
+            type: 'GET',
+            url: 'api/v1/save_event',
+            data: params,
+            cache: false,
+            crossDomain: true,
+            success: function(data) {
+                if (data.error) {
+                    console.log("Error Analytics");
+                }
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        if ('' !== '') {
+            if ('' !== 'null') {
+                ja('', '', '');
+            }
+        }
+    });
+    </script>
+</head>
+
+<body class="login-wrapper">
+    <!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
+    <div id="bg">
+        <img src="/img/bg.jpg" alt="">
+    </div>
+    <div class="login-beneficios">
+        <div class="fluid-list header-login">
+            <span></span>
+        </div>
+        <div class="fluid-list contenido-login">
+            <h4 class="text-center">BIENVENIDO</h4>
+            <p class="text-center">Estás a punto de descubrir un mundo de beneficios increíbles para disfrutar de lo que más te gusta con descuentos insuperables.</p>
+            <form method="post" name="loginForm" autocomplete="off" action="&#x2F;login" id="loginForm">
+                <input type="hidden" name="empresa_id" id="empresa_id" class="form-control" value="">
+                <div class="form-group has-feedback has-feedback-left validate-dni">
+                    <div class="form-control-feedback">
+                        <i class="glyphicon glyphicon-user text-muted"></i>
+                    </div>
+                    <input type="text" name="dni" id="NumeroDocumento" class="form-control" placeholder="Nro.&#x20;de&#x20;Documento" autocomplete="off" size="40" value="">
+                    <div class="cnt-error"></div>
+                </div>
+                <div class="form-group has-feedback has-feedback-left ">
+                    <div class="form-control-feedback">
+                        <i class="glyphicon glyphicon-envelope text-muted"></i>
+                    </div>
+                    <input type="text" name="email" id="email" class="form-control" placeholder="Correo" autocomplete="off" size="40" value="">
+                    <div class="cnt-error"></div>
+                </div>
+                <div class="form-group has-empresa has-feedback-left">
+                    <select id="empresa" name="empresa" style="display: none">
+                        <option value="">Seleccione una empresa</option>
+                    </select>
+                    <div class="cnt-error"></div>
+                </div>
+                <input type="hidden" name="csrf" value="0f1bbc266aded74f1ff999f33c58e297-34d89b46d65353fb0ccafb8df4403c73">
+                <div class="form-group has-buttons">
+                    <button type="submit" class="btn btn-primary btn-block text-center"><span>Ingresa aquí</span>
+                    </button>
+                </div>
+            </form>
+            <h5 class="text-center">Si trabajas en Recursos Humanos y estás interesado en este servicio, escríbenos a
+            <a href="#">contacto@beneficios.pe</a>
+        </h5>
+        </div>
+    </div>
+    <script type="text/javascript" src="../../src/public/js/login/login.js?43"></script>
+    <script>
+    $(document).ready(function() {
+        empresas_e.push('tebca');
+        getSubDominio('bw-qa-ptos.jnq.io');
+    });
+    </script>
+</body>
+</html>

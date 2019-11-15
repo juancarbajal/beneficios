@@ -1,0 +1,93 @@
+<?php
+
+$environment = 'local';
+
+$db = array(
+    'local' => array(
+        'hostname' => '127.0.0.1',
+        'database' => 'db_beneficios_dev',
+        'username' => 'root',
+        'password' => '123456',
+        'port' => '3306',
+    )
+);
+
+return array(
+    'db' => array_merge(
+        array(
+            'driver' => 'pdo_mysql',
+            'options' => array('buffer_results' => true),
+            'profiler' => true,
+            'driver_options' => array(
+                PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'utf8\''
+            )
+        ),
+        $db[$environment]
+    ),
+    'mail' => array(
+        'message' => array(
+            'from' => 'contacto@beneficios.pe',
+            'from_name' => 'Beneficios.pe'
+        ),
+        'transport' => array(
+            'options' => array(
+                'host' => 'smtp.gmail.com',
+                'connection_class' => 'login',
+                'connection_config' => array(
+                    'ssl' => 'ssl',
+                    'username' => 'contacto@beneficios.pe',
+                    'password' => 'catalinacatalina',
+                ),
+                'port' => 465,
+            ),
+        ),
+    ),
+    //Directorio de Imagenes
+    'categoria' => 'http://b-web.jnq.io/category/',
+    'campania' => 'http://b-web.jnq.io/campaign/',
+    //Dimensiones
+    'oferta_img' => array('width' => 360, 'height' => 203),
+    'oferta_medium' => array('width' => 555, 'height' => 313),
+    'oferta_large' => array('width' => 750, 'height' => 425),
+    'banner_lead' => array('width' => 1140, 'height' => 285),//dimensiones para el banner de lead
+    'banners' => array('width' => 1140, 'height' => 180),
+    'imagen_principal' => array('width' => 263, 'height' => 388),
+    'galeria' => array('width' => 818, 'height' => 360),
+    'popup' => array('width' => 607, 'height' => 1023),
+    //Logos de Empresa
+    'logo'          => array('width' => 190, 'height' => 100),
+    'logo_fixed'    => array('width' => 150, 'height' => 90),
+    'logo_large'    => array('width' => 160, 'height' => 100),
+    'logo_medium'   => array('width' => 140, 'height' => 80),
+    'logo_small'    => array('width' => 90, 'height' => 50),
+    'logo_site' => array('width' => 100, 'height' => 30),
+    //JS y CSS
+    'version_script' => '35',
+    'time_session' => 900,
+    'debug_mode' => false,
+    'email_sender' => array(
+        'demanda' => "Ajustiniano98@gmail.com",
+        'asignacion' => "Ajustiniano98@gmail.com",
+        'referidos' => "Ajustiniano98@gmail.com",
+    ),
+    'cron' => array(
+        'cupon-puntos' => array(
+            'dia' => "Todos",
+            'hora' => "00:00"
+        ),
+        'cupon-premios' => array(
+            'dia' => "Todos",
+            'hora' => "00:00"
+        )
+    ),
+    'URL_WEB' => 'http://beneficios.io/',
+    'size_file_upload' => 20971520,
+
+    'ids_vista_google_analytics' => '113588585',
+    'ids_vista_google_analytics_crm' => '115140374',
+    'service_account_email' => 'beneficios@spheric-duality-116315.iam.gserviceaccount.com',
+    'key_file_analytics' => 'client_secrets.p12',
+    'API_LARAVEL_HOST' => 'http://dominio',
+    'API_LARAVEL_USER' => 'username',
+    'API_LARAVEL_PASS' => 'password',
+);

@@ -1,0 +1,31 @@
+<nav class="navbar navbar-static-top" role="navigation">
+    <!-- Sidebar toggle button-->
+    <a href="#" id="scroll-sidebar" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </a>
+
+    <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+            <li class="user user-menu">
+                <a href="#" class="not-active">
+                    <?php if (!empty($this->identity()->Nombres) or !empty($this->identity()->Apellidos)) { ?>
+                        <span class="hidden-xs">
+                        <?php echo $this->identity()->Nombres . ' ' . $this->identity()->Apellidos; ?>
+                    </span>
+                    <?php } ?>
+                </a>
+            </li>
+            <!-- Control Sidebar Toggle Button -->
+            <li>
+                <a href="/logout"><i class="fa fa-sign-out"></i>Salir</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<?php
+echo $this->inlineScript()->prependFile($this->basePath('js/scroll.js?' . $this->configItem('version_script')));
+?>
+

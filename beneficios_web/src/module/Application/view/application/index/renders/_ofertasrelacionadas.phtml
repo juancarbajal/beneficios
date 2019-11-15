@@ -1,0 +1,101 @@
+<?php
+use Application\Service\MobileDetect;
+
+$ofertas = $this->ofertas_relacionadas;
+?>
+<div class="fluid-list cnt-relaciondos">
+    <h4 class="borde-titulo" style="text-align: center">Ofertas relacionadas</h4>
+    <div class="row margin-b">
+        <?php for ($i = 0; $i <= 2; $i++) {
+            if (isset($ofertas[$i])) {
+                ?>
+                <div class="col-md-4 margin-bottom-movil">
+                    <article class="item-product">
+                        <h2><a href="/<?= $category?>/coupon/<?= $ofertas[$i]->SlugOferta ?>" title="<?=$ofertas[$i]->nombreEmpresa ?>"><?=$ofertas[$i]->nombreEmpresa ?></a></h2>
+                        <p><?php $tamaño = 55;
+                                        if ($ofertas[$i]->datoBeneficio != null) { ?>
+
+                                            <?php if ($ofertas[$i]->idTipoBeneficio == 1) { ?>
+                                                <strong>-<?= $ofertas[$i]->datoBeneficio ?>% Dscto. </strong>
+                                            <?php } elseif ($ofertas[$i]->idTipoBeneficio == 2) { ?>
+                                                <strong>-S/.<?= $ofertas[$i]->datoBeneficio ?> Dscto. </strong>
+                                            <?php } elseif ($ofertas[$i]->idTipoBeneficio == 3) { ?>
+                                                <strong><?= $ofertas[$i]->datoBeneficio ?> en</strong>
+                                            <?php } else { ?>
+                                                <strong><?= $ofertas[$i]->datoBeneficio ?></strong>
+                                            <?php } ?>
+
+                                            <?php
+                                        } else {
+                                            $tamaño = 75;
+                                        }
+
+                                        if (strlen($ofertas[$i]->TituloCortoOferta) >= $tamaño) {
+                                            echo substr($ofertas[$i]->TituloCortoOferta, 0, $tamaño) . "...";
+                                        } else {
+                                            echo $ofertas[$i]->TituloCortoOferta;
+                                        }
+                                        ?>
+			</p>
+                        <div class="fluid-list b-prec">
+                            <!--<em>De <span class="p-bef">S/299</span> a <span>S/59</span></em><!--Mostrar los dos precios-->
+                            <a href="/<?= $category?>/coupon/<?= $ofertas[$i]->SlugOferta ?>" class="btn-belcorp right">Detalle</a>
+                        </div>
+                        <figure>
+                            <a href="/<?= $category?>/coupon/<?= $ofertas[$i]->SlugOferta ?>" title="">
+                                <img src="<?php echo $this->rofertas . $ofertas[$i]->imagenOferta ?>" alt="">
+                            </a>
+                        </figure>
+                    </article>
+                </div>
+            <?php }
+        } ?>
+    </div>
+    <div class="row margin-b">
+        <?php for ($i = 3; $i <= 5; $i++) {
+            if (isset($ofertas[$i])) {
+                ?>
+                <div class="col-md-4 margin-bottom-movil">
+                    <article class="item-product">
+                        <h2><a href="/<?= $category?>/coupon/<?= $ofertas[$i]->SlugOferta ?>" title=""><?=$ofertas[$i]->nombreEmpresa ?></a></h2>
+                        <p>
+			  <?php $tamaño = 55;
+                                        if ($ofertas[$i]->datoBeneficio != null) { ?>
+
+                                            <?php if ($ofertas[$i]->idTipoBeneficio == 1) { ?>
+                                                <strong>-<?= $ofertas[$i]->datoBeneficio ?>% Dscto. </strong>
+                                            <?php } elseif ($ofertas[$i]->idTipoBeneficio == 2) { ?>
+                                                <strong>-S/.<?= $ofertas[$i]->datoBeneficio ?> Dscto. </strong>
+                                            <?php } elseif ($ofertas[$i]->idTipoBeneficio == 3) { ?>
+                                                <strong><?= $ofertas[$i]->datoBeneficio ?> en</strong>
+                                            <?php } else { ?>
+                                                <strong><?= $ofertas[$i]->datoBeneficio ?></strong>
+                                            <?php } ?>
+
+                                            <?php
+                                        } else {
+                                            $tamaño = 75;
+                                        }
+
+                                        if (strlen($ofertas[$i]->TituloCortoOferta) >= $tamaño) {
+                                            echo substr($ofertas[$i]->TituloCortoOferta, 0, $tamaño) . "...";
+                                        } else {
+                                            echo $ofertas[$i]->TituloCortoOferta;
+                                        }
+                                        ?>
+			</p>
+                        <div class="fluid-list b-prec">
+                            <!--<em>De <span class="p-bef">S/299</span> a <span>S/59</span></em><!--Mostrar los dos precios-->
+                            <a href="/<?= $category?>/coupon/<?= $ofertas[$i]->SlugOferta ?>" class="btn-belcorp right">Detalle</a>
+                        </div>
+                        <figure>
+                            <a href="/<?= $category?>/coupon/<?= $ofertas[$i]->SlugOferta ?>" title="">
+                                <img src="<?= $this->rofertas . $ofertas[$i]->imagenOferta ?>" alt="">
+                            </a>
+                        </figure>
+                    </article>
+                </div>
+            <?php }
+        } ?>
+    </div>
+</div>

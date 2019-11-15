@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        .margin {
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+<table>
+    <tr>
+        <td colspan="2">
+            <p class="margin">
+                <b><?php echo $this->mensaje ?></b>
+            </p>
+        </td>
+    </tr>
+    <?php foreach ($this->datos as $key => $value) {
+        if ($key == 'Oferta') { ?>
+            <?php if(!is_null($this->titleSplit)){ ?>
+                <tr>
+                    <th colspan="2"><h3 align="center"><?= $this->titleSplit ?></h3></th>
+                </tr>
+                <?php }?>
+            <tr>
+                <th colspan="2"><h3 align="center"><?= $value ?></h3></th>
+            </tr>
+        <?php } else { ?>
+            <tr>
+                <th align="left"><?= $key ?> :</th>
+                <td><?= $value ?></td>
+            </tr>
+        <?php }
+    } ?>
+    <?php if (count($this->otros) > 0): ?>
+        <tr>
+            <td colspan="2">
+                <hr>
+            </td>
+        </tr>
+        <?php foreach ($this->otros as $key => $value) { ?>
+            <tr>
+                <th align="left"><?= $key ?> :</th>
+                <td><?= $value ?></td>
+            </tr>
+        <?php } ?>
+    <?php endif; ?>
+    <tr>
+        <td colspan="2">
+            <p class="margin">
+                <b>Subdominio: </b><?= $this->subdominio ?>
+            </p>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

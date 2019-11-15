@@ -1,0 +1,14 @@
+<div class="modal fade main-premios" tabindex="-1" role="dialog" id="flyoutMovilPremios">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <button type="button" class="close close-flyout" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <div id="flyoutPremios" class="modal-body">
+                <h4>¡Felicitaciones!</h4>
+                <p>Tienes <strong><?= $this->identity()["puntos"] ?> puntos</strong> disponibles<br>
+                    para Beneficios especiales y<br>
+                    <strong><?= $this->identity()["premios"] ?> Premios</strong> esperando por tí</p>
+                <a href="<?= $this->url('premios') ?>">¡Descúbrelos aquí!</a>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

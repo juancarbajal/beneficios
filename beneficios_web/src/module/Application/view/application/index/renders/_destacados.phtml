@@ -1,0 +1,167 @@
+<div class="fluid-list destacados-cnt title-bloques">
+    <?php use Application\Service\MobileDetect;
+
+    if (false /*count($this->ofertas_premiun) != 0*/) { ?>
+        <h3 class="hidden-xs">Beneficios Destacados</h3>
+        <?php
+    }
+    foreach ($this->ofertas_premiun as $fila) { ?>
+        <!-- row 1 -->
+        <?php if ($fila['tipo'] == 1) { ?>
+            <?php if (!empty($fila['ofertas'])) : ?>
+                <div class="fluid-list margin-b two-primary cnt-productos-one">
+                    <?php foreach ($fila['ofertas'] as $oferta) { ?>
+                        <article class="fluid-list item-product">
+                            <div class="content-bloque first-bloque">
+                                <h2><a href="/<?= $category ?>/coupon/<?= $oferta->SlugOferta ?>" title="<?=$oferta->nombreEmpresa ?>">
+                                                   <?=$oferta->nombreEmpresa ?>
+                                    </a></h2>
+                                <p>               <?php if ($oferta->datoBeneficio != null) { ?>
+
+                                                        <?php if ($oferta->idTipoBeneficio == 1) { ?>
+                                                            <strong>-<?= $oferta->datoBeneficio ?>% Descuento</strong>
+                                                        <?php } elseif ($oferta->idTipoBeneficio == 2) { ?>
+                                                            <strong>-S/.<?= $oferta->datoBeneficio ?> Descuento</strong>
+                                                        <?php } elseif ($oferta->idTipoBeneficio == 3) { ?>
+                                                            <strong><?= $oferta->datoBeneficio ?> en</strong>
+                                                        <?php } else { ?>
+                                                            <strong><?= $oferta->datoBeneficio ?></strong>
+                                                        <?php } ?>
+
+                                                    <?php } ?> 
+						    <?=$oferta->TituloCortoOferta ?>
+                                </p>
+                                <div class="b-prec">
+                                    <!--<em>De <span class="p-bef">S/299</span> a <span>S/59</span></em>-->
+                                    <a href="/<?= $category ?>/coupon/<?= $oferta->SlugOferta ?>" class="btn-belcorp right">Detalle</a>
+                                </div>
+                            </div>
+                            <div class="content-bloque second-bloque">
+                                <figure>
+                                    <a href="/<?= $category ?>/coupon/<?= $oferta->SlugOferta ?>" title="" style="background: url(<?php
+                                                $partes = explode(".", $oferta->imagenOferta);
+                                                $ext = end($partes);
+                                                $imgOferta = str_replace('.' . $ext, '', $oferta->imagenOferta) . '-medium.' . $ext;
+                                                echo $this->rofertas . $imgOferta
+                                                ?>) no-repeat;background-size: cover;background-position: center center;">
+                                        <img src="<?php
+                                                $partes = explode(".", $oferta->imagenOferta);
+                                                $ext = end($partes);
+                                                $imgOferta = str_replace('.' . $ext, '', $oferta->imagenOferta) . '-medium.' . $ext;
+                                                echo $this->rofertas . $imgOferta
+                                                ?>" alt="">
+                                    </a>
+                                </figure>
+                            </div>
+                        </article>
+                    <?php } ?>
+                </div>
+            <?php endif; ?>
+        <?php } ?>
+        <!-- row 2 -->
+        <?php if ($fila['tipo'] == 2) { ?>
+            <?php if (!empty($fila['ofertas'])) : ?>
+                <div class="row margin-b">
+                    <?php foreach ($fila['ofertas'] as $oferta) { ?>
+                        <div class="col-md-6 margin-bottom-movil">
+                            <article class="item-product">
+                                <h2><a href="/<?= $category ?>/coupon/<?= $oferta->SlugOferta ?>" title="<?=$oferta->nombreEmpresa ?>"><?=$oferta->nombreEmpresa ?></a></h2>
+                                <p><?php if ($oferta->datoBeneficio != null) { ?>
+
+                                                        <?php if ($oferta->idTipoBeneficio == 1) { ?>
+                                                            <strong>-<?= $oferta->datoBeneficio ?>% Descuento</strong>
+                                                        <?php } elseif ($oferta->idTipoBeneficio == 2) { ?>
+                                                            <strong>-S/.<?= $oferta->datoBeneficio ?> Descuento</strong>
+                                                        <?php } elseif ($oferta->idTipoBeneficio == 3) { ?>
+                                                            <strong><?= $oferta->datoBeneficio ?> en</strong>
+                                                        <?php } else { ?>
+                                                            <strong><?= $oferta->datoBeneficio ?></strong>
+                                                        <?php } ?>
+
+                                                    <?php } ?> 
+						    <?=$oferta->TituloCortoOferta ?>
+				</p>
+                                <div class="fluid-list b-prec">
+                                    <!--<em>De <span class="p-bef">S/299</span> a <span>S/59</span></em>-->
+                                    <a href="/<?= $category ?>/coupon/<?= $oferta->SlugOferta ?>" class="btn-belcorp right">Detalle</a>
+                                </div>
+                                <figure>
+                                    <a href="/<?= $category ?>/coupon/<?= $oferta->SlugOferta ?>" title="">
+                                        <img src="<?php
+                                        $partes = explode(".", $oferta->imagenOferta);
+                                        $ext = end($partes);
+                                        $imgOferta = str_replace('.' . $ext, '', $oferta->imagenOferta) . '-medium.' . $ext;
+                                        echo $this->rofertas . $imgOferta
+                                        ?>" alt="">
+                                    </a>
+                                </figure>
+                            </article>
+                        </div>
+                    <?php } ?>
+                </div>
+            <?php endif; ?>
+        <?php } ?>
+        <!-- row 3 -->
+        <?php if ($fila['tipo'] == 3) { ?>
+            <?php if (!empty($fila['ofertas'])) : ?>
+                <div class="fluid-list flujo-cupones title-bloques">
+                    <div class="row margin-b">
+                        <?php foreach ($fila['ofertas'] as $oferta) { ?>
+                            <div class="col-md-4 margin-bottom-movil">
+                                <article class="item-product">
+                                    <h2><a href="/<?= $category ?>/coupon/<?= $oferta->SlugOferta ?>" title="<?=$oferta->nombreEmpresa ?>"><?=$oferta->nombreEmpresa ?></a></h2>
+                                    <p><?php if ($oferta->datoBeneficio != null) { ?>
+
+                                                        <?php if ($oferta->idTipoBeneficio == 1) { ?>
+                                                            <strong>-<?= $oferta->datoBeneficio ?>% Descuento</strong>
+                                                        <?php } elseif ($oferta->idTipoBeneficio == 2) { ?>
+                                                            <strong>-S/.<?= $oferta->datoBeneficio ?> Descuento</strong>
+                                                        <?php } elseif ($oferta->idTipoBeneficio == 3) { ?>
+                                                            <strong><?= $oferta->datoBeneficio ?> en</strong>
+                                                        <?php } else { ?>
+                                                            <strong><?= $oferta->datoBeneficio ?></strong>
+                                                        <?php } ?>
+
+                                                    <?php } ?> 
+						    <?=$oferta->TituloCortoOferta ?>
+				    </p>
+                                    <div class="fluid-list b-prec">
+                                        <!--<em>De <span class="p-bef">S/299</span> a <span>S/59</span></em><!--Mostrar los dos precios-->
+                                        <a href="/<?= $category ?>/coupon/<?= $oferta->SlugOferta ?>" class="btn-belcorp right">Detalle</a>
+                                    </div>
+                                    <figure>
+                                        <a href="/<?= $category ?>/coupon/<?= $oferta->SlugOferta ?>" title="">
+                                            <img src="<?php echo $this->rofertas . $oferta->imagenOferta ?>" alt="">
+                                        </a>
+                                    </figure>
+                                </article>
+                            </div>
+                        <?php } ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+        <?php } ?>
+    <?php } ?>
+</div>
+
+<!-- Banner -->
+<?php if (!empty($banners[3])): ?>
+    <div class="fluid-list anuncio-banner margin-r ">
+        <?php
+        $link = "";
+        if (isset($banners[3]['link'])) {
+            $banners[3]['link'] = str_replace("[NumeroDocumento]", $this->identity()["NumeroDocumento"], $banners[3]['link']);
+            $banners[3]['link'] = str_replace("[Nombre]", $this->identity()["Nombre"], $banners[3]['link']);
+            $banners[3]['link'] = str_replace("[Apellido]", $this->identity()["Apellido"], $banners[3]['link']);
+            $banners[3]['link'] = str_replace("[email]", $this->identity()["email"], $banners[3]['link']);
+            $banners[3]['link'] = str_replace("[flagsupervisor]", $this->identity()["flagsupervisor"], $banners[3]['link']);
+            $link = 'href="' . $banners[3]['link'] . '" target="_blank"';
+        } else {
+            $link = '';
+        }
+        ?>
+        <a <?= $link ?>>
+            <img class="img-responsive" src="<?= $rbanners . $banners[3]['image'] ?>" title=""/>
+        </a>
+    </div>
+<?php endif; ?>

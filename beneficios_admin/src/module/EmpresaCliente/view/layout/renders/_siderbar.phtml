@@ -1,0 +1,803 @@
+2<?php
+$child = $this->viewModel()->getCurrent()->getChildren();
+$item = $child[0];
+?>
+<aside class="main-sidebar scroll-main-sidebar">
+    <section class="sidebar">
+        <ul class="sidebar-menu">
+            <li class="header">MENU PRINCIPAL</li>
+            <?php #region Empresas
+            if ($this->identity()->TipoUsuario != 'oferta' && $this->identity()->TipoUsuario != 'proveedor' && $this->identity()->TipoUsuario != 'cliente' && $this->identity()->TipoUsuario != 'verisure') : ?>
+                <!-- EMPRESAS -->
+                <li class="treeview <?php echo $item->empresa; ?> ">
+                    <a href="#">
+                        <i class="fa fa-building"></i>
+                        <span>EMPRESAS</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class=" <?php echo $item->elistar; ?> ">
+                            <a href="<?= $this->url('empresa', array('action' => 'index')); ?>">
+                                <i class="fa fa-circle-o"></i>Lista de Empresas</a>
+                        </li>
+                        <li class=" <?php echo $item->eadd; ?> ">
+                            <a href="<?= $this->url('empresa', array('action' => 'add')); ?>">
+                                <i class="fa fa-circle-o"></i>Registrar Empresas</a>
+                        </li>
+                    </ul>
+                </li>
+            <?php endif;
+            #endregion?>
+            <?php #region USUARIOS FINALES
+            if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'demanda' || $this->identity()->TipoUsuario == 'cliente') : ?>
+                <li class="treeview <?php echo $item->final; ?> ">
+                    <a href="#">
+                        <i class="fa fa-users"></i>
+                        <span>USUARIOS FINALES</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class=" <?php echo $item->flistar; ?> ">
+                            <a href="<?= $this->url('cliente', array('action' => 'index')); ?>">
+                                <i class="fa fa-circle-o"></i>Lista de Usuarios Finales</a>
+                        </li>
+                        <li class=" <?php echo $item->fadd; ?> ">
+                            <a href="<?= $this->url('cliente', array('action' => 'add')); ?>">
+                                <i class="fa fa-circle-o"></i>Registrar Usuarios Finales</a>
+                        </li>
+                        <li class=" <?php echo $item->fload; ?> ">
+                            <a href="<?= $this->url('cliente-load', array('action' => 'load')); ?>">
+                                <i class="fa fa-circle-o"></i>Carga de Usuarios Finales</a>
+                        </li>
+                        <li class=" <?php echo $item->fdisabled; ?> ">
+                            <a href="<?= $this->url('cliente-load', array('action' => 'disabled')); ?>">
+                                <i class="fa fa-circle-o"></i>Desactivar Usuarios Finales</a>
+                        </li>
+                    </ul>
+                </li>
+            <?php endif;
+            #endregion ?>
+            <?php #region BENEFICIOS
+            if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin' || $this->identity()->TipoUsuario == 'proveedor') : ?>
+                <li class="treeview <?php echo $item->beneficios ?>">
+                    <a href="#">
+                        <i class="fa fa-share"></i>
+                        <span>BENEFICIOS</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <?php #region PAQUETES
+                        if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin' || $this->identity()->TipoUsuario == 'oferta') : ?>
+                            <li class="treeview <?php echo $item->paquete; ?> ">
+                                <a href="#">
+                                    <i class="fa fa-archive"></i>
+                                    <span>PAQUETES</span>
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li class=" <?php echo $item->plistar; ?> ">
+                                        <a href="<?= $this->url('paquete', array('action' => 'list')); ?>">
+                                            <i class="fa fa-circle-o"></i>Lista de Paquetes</a>
+                                    </li>
+                                    <li class=" <?php echo $item->padd; ?> ">
+                                        <a href="<?= $this->url('paquete', array('action' => 'add')); ?>">
+                                            <i class="fa fa-circle-o"></i>Registrar Paquetes</a>
+                                    </li>
+                                    <li class=" <?php echo $item->palistar; ?> ">
+                                        <a href="<?= $this->url('paquete', array('action' => 'index')); ?>">
+                                            <i class="fa fa-circle-o"></i>Lista de Paquetes Asignados</a>
+                                    </li>
+                                    <li class=" <?php echo $item->passing; ?> ">
+                                        <a href="<?= $this->url('paquete', array('action' => 'assing')); ?>">
+                                            <i class="fa fa-circle-o"></i>Asignar Paquetes</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        <?php endif;
+                        #endregion?>
+                        <?php #region OFERTAS
+                        if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'oferta') : ?>
+                            <li class="treeview <?php echo $item->oferta; ?> ">
+                                <a href="#">
+                                    <i class="fa fa-tags"></i>
+                                    <span>OFERTAS</span>
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li class=" <?php echo $item->olistar; ?> ">
+                                        <a href="<?= $this->url('oferta', array('action' => 'index')); ?>">
+                                            <i class="fa fa-circle-o"></i>Lista de Ofertas</a>
+                                    </li>
+                                    <li class=" <?php echo $item->oadd; ?> ">
+                                        <a href="<?= $this->url('oferta', array('action' => 'add')); ?>">
+                                            <i class="fa fa-circle-o"></i>Registrar Ofertas</a>
+                                    </li>
+                                    <li class=" <?php echo $item->oassign; ?> ">
+                                        <a href="<?= $this->url('oferta', array('action' => 'assign')); ?>">
+                                            <i class="fa fa-circle-o"></i>Asignar Ofertas</a>
+                                    </li>
+                                    <li class=" <?php echo $item->olead; ?> ">
+                                        <a href="<?= $this->url('registrar-lead', array('action' => 'index')); ?>">
+                                            <i class="fa fa-circle-o"></i>Leads</a>
+                                    </li>
+                                    <li class=" <?php echo $item->oablock; ?> ">
+                                        <a href="<?= $this->url('oferta-bloque', array('action' => 'index')); ?>">
+                                            <i class="fa fa-circle-o"></i>Asignación en Bloques</a>
+                                    </li>
+                                    <li class=" <?php echo $item->oacodigo; ?> ">
+                                        <a href="<?= $this->url('registrar-codigos', array('action' => 'index')); ?>">
+                                            <i class="fa fa-circle-o"></i>Asignación de Codigos</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        <?php endif;
+                        #endregion ?>
+                        <?php #region CAMPAÑAS
+                        if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'oferta') : ?>
+                            <li class="treeview <?php echo $item->campania; ?> ">
+                                <a href="#">
+                                    <i class="fa fa-flag"></i>
+                                    <span>CAMPAÑAS</span>
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li class="<?php echo $item->calistar; ?>">
+                                        <a href="<?= $this->url('campania', array('action' => 'index')); ?>">
+                                            <i class="fa fa-circle-o"></i>Lista de Campañas</a>
+                                    </li>
+                                    <li class="<?php echo $item->caadd; ?>">
+                                        <a href="<?= $this->url('campania', array('action' => 'add')); ?>">
+                                            <i class="fa fa-circle-o"></i>Registrar Campaña</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        <?php endif;
+                        #endregion?>
+                        <?php #region REDIMIR CUPONES
+                        if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin' || $this->identity()->TipoUsuario == 'proveedor') : ?>
+                            <li class="treeview <?php echo $item->cupon; ?>">
+                                <a href="<?= $this->url('cupon', array('action' => 'index')); ?>">
+                                    <i class="fa fa-ticket"></i><span>REDIMIR CUPONES</span>
+                                </a>
+                            </li>
+                        <?php endif;
+                        #endregion ?>
+                        <?php #region PAQUETES COMPRADOS
+                        if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin' || $this->identity()->TipoUsuario == 'proveedor') : ?>
+                            <li class=" treeview <?php echo $item->paqcomp; ?>">
+                                <a href="<?= $this->url('paquetes-comprados', array('action' => 'index')); ?>">
+                                    <i class="fa fa-file-text"></i><span>PAQUETES COMPRADOS</span>
+                                </a>
+                            </li>
+                        <?php endif;
+                        #endregion  ?>
+                        <?php #region OFERTAS CONSUMIDAS
+                        if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin' || $this->identity()->TipoUsuario == 'proveedor') : ?>
+                            <li class="treeview <?php echo $item->paqoff; ?>">
+                                <a href="<?= $this->url('paquete-oferta', array('action' => 'index')); ?>">
+                                    <i class="fa fa-file-text"></i><span>OFERTAS CONSUMIDAS</span>
+                                </a>
+                            </li>
+                        <?php endif;
+                        #endregion ?>
+                    </ul>
+                </li>
+            <?php endif;
+            #endregion ?>
+            <?php #region REPORTES BENEFICIOS
+            if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin') : ?>
+                <li class="treeview <?php echo $item->reportes; ?>">
+                    <a href="#">
+                        <i class="fa fa-file-text-o"></i>
+                        <span>REPORTES BENEFICIOS</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class=" <?php echo $item->reporteuno; ?>">
+                            <a href="<?= $this->url('reportes', array('action' => 'reporteUno')); ?>">
+                                <i class="fa fa-circle-o"></i>Reporte Uno</a>
+                        </li>
+                        <li class="<?php echo $item->reportedos; ?>">
+                            <a href="<?= $this->url('reporte-uso', array('action' => 'reporteDos')); ?>">
+                                <i class="fa fa-circle-o"></i>Reporte de Uso Anterior</a>
+                        </li>
+                        <li class="<?php echo $item->reportetres; ?>">
+                            <a href="<?= $this->url('reportes', array('action' => 'reporteTres')); ?>">
+                                <i class="fa fa-circle-o"></i>Reporte Tres</a>
+                        </li>
+                        <li class="<?php echo $item->reportedescarga; ?>">
+                            <a href="<?= $this->url('reporte-descarga', array('action' => 'index')); ?>">
+                                <i class="fa fa-circle-o"></i>Reporte de Uso</a>
+                        </li>
+                        <li class="<?php echo $item->reporteoferdes; ?>">
+                            <a href="<?= $this->url('reporte-oferta-descarga', array('action' => 'index')); ?>">
+                                <i class="fa fa-circle-o"></i>Reporte Oferta Descargas</a>
+                        </li>
+                        <li class="<?php echo $item->reportednis; ?>">
+                            <a href="<?= $this->url('reporte-dni', array('action' => 'reporteDnis')); ?>">
+                                <i class="fa fa-circle-o"></i>Reporte DNIs</a>
+                        </li>
+                        <li class="<?php echo $item->reportednis; ?>">
+                            <a href="<?= $this->url('reporte-ofertas', array('action' => 'index')); ?>">
+                                <i class="fa fa-circle-o"></i>Reporte de Ofertas Publicadas</a>
+                        </li>
+                    </ul>
+                </li>
+            <?php endif;
+            #endregion?>
+            <?php #region REPORTES BENEFICIOS DEMANDA
+            if ($this->identity()->TipoUsuario == 'demanda' || $this->identity()->TipoUsuario == 'cliente') : ?>
+                <li class="treeview <?php echo $item->reportes; ?>">
+                    <a href="#">
+                        <i class="fa fa-file-text-o"></i>
+                        <span>REPORTES</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <?php if ($this->identity()->TipoUsuario == 'demanda'): ?>
+                            <li class="<?php echo $item->reportednis; ?>">
+                                <a href="<?= $this->url('reporte-dni', array('action' => 'reporteDnis')); ?>">
+                                    <i class="fa fa-circle-o"></i>Reporte DNIs</a>
+                            </li>
+                        <?php endif; ?>
+                        <li class="<?php echo $item->reportedescarga; ?>">
+                            <a href="<?= $this->url('reporte-descarga', array('action' => 'index')); ?>">
+                                <i class="fa fa-circle-o"></i>Reporte de Uso</a>
+                        </li>
+                    </ul>
+                </li>
+            <?php endif;
+            #endregion ?>
+            <?php #region PUNTOS
+            if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin' || $this->identity()->TipoUsuario == 'cliente' || $this->identity()->TipoUsuario == 'proveedor') :?>
+                <li class="treeview <?php echo $item->puntos; ?>">
+                    <a href="#">
+                        <i class="fa fa-star"></i>
+                        <span>PUNTOS</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <?php #region CAMPAÑA PUNTOS
+                        if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin') : ?>
+                            <li class="treeview <?php echo $item->puntos_camp; ?>">
+                                <a href="#">
+                                    <i class="fa fa-circle-o"></i>
+                                    <span>CAMPAÑA</span>
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li class="<?php echo $item->camptos; ?>">
+                                        <a href="<?= $this->url('campanias-puntos', array('action' => 'index')); ?>">
+                                            <i class="fa fa-circle-o"></i>Lista de Campañas</a>
+                                    </li>
+                                    <li class="<?php echo $item->camptosadd; ?>">
+                                        <a href="<?= $this->url('campanias-puntos', array('action' => 'add')); ?>">
+                                            <i class="fa fa-circle-o"></i>Agregar Campañas</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        <?php endif;
+                        #endregion
+                        ?>
+                        <?php #region FORMULARIO DEMANDA
+                        if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin') : ?>
+                            <li class="treeview <?php echo $item->demanda; ?>">
+                                <a href="#">
+                                    <i class="fa fa-circle-o"></i>
+                                    <span>FORMULARIO DEMANDA</span>
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li class=" <?php echo $item->demandlist; ?>">
+                                        <a href="<?= $this->url('demandas-ofertas', array('action' => 'index')); ?>">
+                                            <i class="fa fa-circle-o"></i>Lista de Demandas</a>
+                                    </li>
+                                    <li class=" <?php echo $item->demandadd; ?>">
+                                        <a href="<?= $this->url('demandas-ofertas', array('action' => 'add')); ?>">
+                                            <i class="fa fa-circle-o"></i>Agregar Demanda</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        <?php endif;
+                        #endregion
+                        ?>
+
+                        <?php #region OFERTA PUNTOS
+                        if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin'  || $this->identity()->TipoUsuario == 'proveedor') : ?>
+                            <li class="treeview <?php echo $item->puntos_oferta_reporte; ?>">
+                                <a href="#">
+                                    <i class="fa fa-circle-o"></i>
+                                    <span>REPORTE PUNTOS</span>
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li class="<?php echo $item->reporteredimidosproveedor; ?>">
+                                        <a href="<?= $this->url('reporte-redimidos-proveedor', array('action' => 'index')); ?>">
+                                            <i class="fa fa-circle-o"></i>REPORTE REDIMIDOS</a>
+                                    </li>
+                                    <li class="<?php echo $item->reportepagadosproveedor; ?>">
+                                        <a href="<?= $this->url('reporte-pagados-proveedor', array('action' => 'index')); ?>">
+                                            <i class="fa fa-circle-o"></i>REPORTE PAGADOS</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        <?php endif;?>
+
+
+
+
+
+
+
+
+
+
+
+                        <?php #region OFERTA PUNTOS
+                        if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin') : ?>
+                            <li class="treeview <?php echo $item->puntos_oferta; ?>">
+                                <a href="#">
+                                    <i class="fa fa-circle-o"></i>
+                                    <span>OFERTAS</span>
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li class="<?php echo $item->offerptos; ?>">
+                                        <a href="<?= $this->url('ofertas-puntos', array('action' => 'index')); ?>">
+                                            <i class="fa fa-circle-o"></i>Lista de Ofertas</a>
+                                    </li>
+                                    <li class="<?php echo $item->offerptosadd; ?>">
+                                        <a href="<?= $this->url('ofertas-puntos', array('action' => 'add')); ?>">
+                                            <i class="fa fa-circle-o"></i>Agregar Ofertas</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        <?php endif;
+                        #endregion
+                        ?>
+                        <?php #region ASIGNACION
+                        if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin' || $this->identity()->TipoUsuario == 'cliente') : ?>
+                            <li class="<?php echo $item->asigptos; ?> ">
+                                <a href="<?= $this->url('asignaciones-puntos', array('action' => 'index')); ?>">
+                                    <i class="fa fa-circle-o"></i>ASIGNACION</a>
+                            </li>
+                        <?php endif;
+                        #endregion
+                        ?>
+                        <?php #region CANCELACION
+                        if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin') : ?>
+                            <li class="<?php echo $item->cancelptos; ?>">
+                                <a href="<?= $this->url('cancelar-puntos', array('action' => 'index')); ?>">
+                                    <i class="fa fa-circle-o"></i>CANCELACION</a>
+                            </li>
+                        <?php endif;
+                        #endregion
+                        ?>
+                        <?php #region CUPONES PUNTOS
+                        if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin' || $this->identity()->TipoUsuario == 'proveedor') : ?>
+                            <li class="treeview <?php echo $item->cuponPuntos; ?>">
+                                <a href="#">
+                                    <i class="fa fa-circle-o"></i>
+                                    <span>REDIMIR CUPONES</span>
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <?php if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin'): ?>
+                                        <li class="<?php echo $item->listCuponPuntos; ?>">
+                                            <a href="<?= $this->url('cupon-puntos', array('action' => 'index')); ?>">
+                                                <i class="fa fa-circle-o"></i>Lista de Cupones</a>
+                                        </li>
+                                    <?php endif; ?>
+                                    <li class="<?php echo $item->editCuponPuntos; ?>">
+                                        <a href="<?= $this->url('cupon-puntos', array('action' => 'edit')); ?>">
+                                            <i class="fa fa-circle-o"></i>Buscar Cupones</a>
+                                    </li>
+<!--                                    --><?php //if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin'): ?>
+<!--                                        <li class="--><?php //echo $item->reportone; ?><!--">-->
+<!--                                            <a href="--><?//= $this->url('cupon-puntos', array('action' => 'reportone')); ?><!--">-->
+<!--                                                <i class="fa fa-circle-o"></i>Reporte  Redimidos</a>-->
+<!--                                        </li>-->
+<!--                                        <li class="--><?php //echo $item->reporttwo; ?><!--">-->
+<!--                                            <a href="--><?//= $this->url('cupon-puntos', array('action' => 'reporttwo')); ?><!--">-->
+<!--                                                <i class="fa fa-circle-o"></i>Reporte  Pagados</a>-->
+<!--                                        </li>-->
+<!--                                    --><?php //endif; ?>
+
+                                </ul>
+                            </li>
+                        <?php endif;
+                        #endregion
+                        ?>
+                        <?php #region DELIVERY PUNTOS
+                        if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin') : ?>
+                            <li class="<?php echo $item->deliveryptos; ?>">
+                                <a href="<?= $this->url('delivery-puntos', array('action' => 'index')); ?>">
+                                    <i class="fa fa-circle-o"></i>CAMPOS DELIVERY</a>
+                            </li>
+                        <?php endif;
+                        #endregion
+                        ?>
+                    </ul>
+                </li>
+            <?php endif;
+            #endregion?>
+            <?php #region REPORTES PUNTOS
+            if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin' || $this->identity()->TipoUsuario == 'cliente') : ?>
+                <li class="treeview <?php echo $item->reportespuntos; ?>">
+                    <a href="#">
+                        <i class="fa fa-file-text-o"></i>
+                        <span>REPORTES PUNTOS</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <?php #region OFERTAS TOP
+                        if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin') : ?>
+                            <li class="<?php echo $item->ofertastop; ?>">
+                                <a href="<?= $this->url('ofertas-top', array('action' => 'index')); ?>">
+                                    <i class="fa fa-circle-o"></i>OFERTAS TOP</a>
+                            </li>
+                        <?php endif;
+                        #endregion
+                        ?>
+                        <?php #region INGRESOS GLOBALES
+                        if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin') : ?>
+                            <li class="<?php echo $item->ingreglob; ?>">
+                                <a href="<?= $this->url('ingresos-globales', array('action' => 'index')); ?>">
+                                    <i class="fa fa-circle-o"></i>INGRESOS GLOBALES</a>
+                            </li>
+                        <?php endif;
+                        #endregion
+                        ?>
+                        <?php #region PROVEEDOR CAMPAÑAS
+                        if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin') : ?>
+                            <li class="<?php echo $item->reportesprocamp; ?>">
+                                <a href="<?= $this->url('proveedor-campanias', array('action' => 'index')); ?>">
+                                    <i class="fa fa-circle-o"></i>PROVEEDOR CAMPAÑAS</a>
+                            </li>
+                        <?php endif;
+                        #endregion
+                        ?>
+                        <?php #region PROVEEDOR OFERTAS
+                        if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin') : ?>
+                            <li class="<?php echo $item->reportesproofertas; ?>">
+                                <a href="<?= $this->url('proveedor-ofertas', array('action' => 'index')); ?>">
+                                    <i class="fa fa-circle-o"></i>PROVEEDOR OFERTAS</a>
+                            </li>
+                        <?php endif;
+                        #endregion
+                        ?>
+                        <?php #region REPORTES
+                        if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin' || $this->identity()->TipoUsuario == 'cliente'):
+                            ?>
+                            <li class="<?php echo $item->reporteptos; ?>">
+                                <a href="<?= $this->url('reporte-puntos', array('action' => 'index')); ?>">
+                                    <i class="fa fa-circle-o"></i>REPORTES</a>
+                            </li>
+                        <?php endif;
+                        #endregion
+                        ?>
+
+                        <?php if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin'): ?>
+                            <li class="<?php echo $item->reporteredimidos; ?>">
+                                <a href="<?= $this->url('reporte-redimidos', array('action' => 'index')); ?>">
+                                    <i class="fa fa-circle-o"></i>REPORTE REDIMIDOS</a>
+                            </li>
+                            <li class="<?php echo $item->reportespagados; ?>">
+                                <a href="<?= $this->url('reporte-pagados', array('action' => 'index')); ?>">
+                                    <i class="fa fa-circle-o"></i>REPORTE PAGADOS</a>
+                            </li>
+                        <?php endif; ?>
+
+                    </ul>
+                </li>
+            <?php endif;
+            #endregion ?>
+            <?php #region PREMIOS
+            if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin' || $this->identity()->TipoUsuario == 'demanda') :?>
+                <li class="treeview <?php echo $item->premios; ?>">
+                    <a href="#">
+                        <i class="fa fa-star"></i>
+                        <span>PREMIOS</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <?php #region CAMPAÑA PREMIOS
+                        if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin' || $this->identity()->TipoUsuario == 'demanda') : ?>
+                            <li class="treeview <?php echo $item->premios_camp; ?>">
+                                <a href="#">
+                                    <i class="fa fa-circle-o"></i>
+                                    <span>CAMPAÑA</span>
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li class="<?php echo $item->camptos; ?>">
+                                        <a href="<?= $this->url('campanias-premios', array('action' => 'index')); ?>">
+                                            <i class="fa fa-circle-o"></i>Lista de Campañas</a>
+                                    </li>
+                                    <li class="<?php echo $item->camptosadd; ?>">
+                                        <a href="<?= $this->url('campanias-premios', array('action' => 'add')); ?>">
+                                            <i class="fa fa-circle-o"></i>Agregar Campañas</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        <?php endif;
+                        #endregion
+                        ?>
+                        <?php #region FORMULARIO DEMANDA
+                        if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin' || $this->identity()->TipoUsuario == 'demanda' || $this->identity()->TipoUsuario == 'oferta') : ?>
+                            <li class="treeview <?php echo $item->demanda; ?>">
+                                <a href="#">
+                                    <i class="fa fa-circle-o"></i>
+                                    <span>FORMULARIO DEMANDA</span>
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li class=" <?php echo $item->demandlist; ?>">
+                                        <a href="<?= $this->url('demandas-ofertas-premios', array('action' => 'index')); ?>">
+                                            <i class="fa fa-circle-o"></i>Lista de Demandas</a>
+                                    </li>
+                                    <li class=" <?php echo $item->demandadd; ?>">
+                                        <a href="<?= $this->url('demandas-ofertas-premios', array('action' => 'add')); ?>">
+                                            <i class="fa fa-circle-o"></i>Agregar Demanda</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        <?php endif;
+                        #endregion
+                        ?>
+                        <?php #region OFERTA PREMIOS
+                        if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin' || $this->identity()->TipoUsuario == 'oferta') : ?>
+                            <li class="treeview <?php echo $item->premios_oferta; ?>">
+                                <a href="#">
+                                    <i class="fa fa-circle-o"></i>
+                                    <span>OFERTAS</span>
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li class="<?php echo $item->offerptos; ?>">
+                                        <a href="<?= $this->url('ofertas-premios', array('action' => 'index')); ?>">
+                                            <i class="fa fa-circle-o"></i>Lista de Ofertas</a>
+                                    </li>
+                                    <li class="<?php echo $item->offerptosadd; ?>">
+                                        <a href="<?= $this->url('ofertas-premios', array('action' => 'add')); ?>">
+                                            <i class="fa fa-circle-o"></i>Agregar Ofertas</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        <?php endif;
+                        #endregion
+                        ?>
+                        <?php #region ASIGNACION
+                        if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin' || $this->identity()->TipoUsuario == 'demanda' || $this->identity()->TipoUsuario == 'cliente') : ?>
+                            <li class="<?php echo $item->asigpremios; ?> ">
+                                <a href="<?= $this->url('asignaciones-premios', array('action' => 'index')); ?>">
+                                    <i class="fa fa-circle-o"></i>ASIGNACION</a>
+                            </li>
+                        <?php endif;
+                        #endregion
+                        ?>
+                        <?php #region CANCELACION
+                        if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin') : ?>
+                            <li class="<?php echo $item->cancelpremios; ?>">
+                                <a href="<?= $this->url('cancelar-premios', array('action' => 'index')); ?>">
+                                    <i class="fa fa-circle-o"></i>CANCELACION</a>
+                            </li>
+                        <?php endif;
+                        #endregion
+                        ?>
+                        <?php #region CUPONES PREMIOS
+                        if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin') : ?>
+                            <li class="treeview <?php echo $item->cuponPremios; ?>">
+                                <a href="#">
+                                    <i class="fa fa-circle-o"></i>
+                                    <span>REDIMIR CUPONES</span>
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <?php if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin'): ?>
+                                        <li class="<?php echo $item->listCuponPremios; ?>">
+                                            <a href="<?= $this->url('cupon-premios', array('action' => 'index')); ?>">
+                                                <i class="fa fa-circle-o"></i>Lista de Cupones</a>
+                                        </li>
+                                    <?php endif; ?>
+                                    <li class="<?php echo $item->editCuponPremios; ?>">
+                                        <a href="<?= $this->url('cupon-premios', array('action' => 'edit')); ?>">
+                                            <i class="fa fa-circle-o"></i>Buscar Cupones</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        <?php endif;
+                        #endregion
+                        ?>
+                    </ul>
+                </li>
+            <?php endif;
+            #endregion?>
+            <?php #region REPORTES PREMIOS
+            if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin') : ?>
+                <li class="treeview <?php echo $item->reportespremios; ?>">
+                    <a href="#">
+                        <i class="fa fa-file-text-o"></i>
+                        <span>REPORTES PREMIOS</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <?php #region OFERTAS TOP
+                        if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin' || $this->identity()->TipoUsuario == 'cliente') : ?>
+                            <li class="<?php echo $item->ofertastop; ?>">
+                                <a href="<?= $this->url('ofertas-top-premios', array('action' => 'index')); ?>">
+                                    <i class="fa fa-circle-o"></i>OFERTAS TOP</a>
+                            </li>
+                        <?php endif;
+                        #endregion
+                        ?>
+                        <?php #region INGRESOS GLOBALES
+                        if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin' || $this->identity()->TipoUsuario == 'cliente') : ?>
+                            <li class="<?php echo $item->ingreglob; ?>">
+                                <a href="<?= $this->url('ingresos-globales-premios', array('action' => 'index')); ?>">
+                                    <i class="fa fa-circle-o"></i>INGRESOS GLOBALES</a>
+                            </li>
+                        <?php endif;
+                        #endregion
+                        ?>
+                        <?php #region PROVEEDOR CAMPAÑAS
+                        if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin') : ?>
+                            <li class="<?php echo $item->reportesprocamp; ?>">
+                                <a href="<?= $this->url('proveedor-campanias-premios', array('action' => 'index')); ?>">
+                                    <i class="fa fa-circle-o"></i>PROVEEDOR CAMPAÑAS</a>
+                            </li>
+                        <?php endif;
+                        #endregion
+                        ?>
+                        <?php #region PROVEEDOR OFERTAS
+                        if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin') : ?>
+                            <li class="<?php echo $item->reportesproofertas; ?>">
+                                <a href="<?= $this->url('proveedor-ofertas-premios', array('action' => 'index')); ?>">
+                                    <i class="fa fa-circle-o"></i>PROVEEDOR OFERTAS</a>
+                            </li>
+                        <?php endif;
+                        #endregion
+                        ?>
+                        <?php #region REPORTES
+                        if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'admin' || $this->identity()->TipoUsuario == 'cliente'):
+                            ?>
+                            <li class="<?php echo $item->reportepremios; ?>">
+                                <a href="<?= $this->url('reporte-premios', array('action' => 'index')); ?>">
+                                    <i class="fa fa-circle-o"></i>REPORTES</a>
+                            </li>
+                        <?php endif;
+                        #endregion
+                        ?>
+                    </ul>
+                </li>
+            <?php endif;
+            #endregion ?>
+            <?php #region RUBRO
+            if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'oferta') : ?>
+                <li class="treeview <?php echo $item->rubro; ?>">
+                    <a href="#">
+                        <i class="fa fa-th"></i>
+                        <span>RUBRO</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="<?php echo $item->rlistar; ?>">
+                            <a href="<?= $this->url('rubro', array('action' => 'index')); ?>">
+                                <i class="fa fa-circle-o"></i>Lista de Rubros</a>
+                        </li>
+                        <li class="<?php echo $item->radd; ?>">
+                            <a href="<?= $this->url('rubro', array('action' => 'add')); ?>">
+                                <i class="fa fa-circle-o"></i>Registrar Rubro</a>
+                        </li>
+                    </ul>
+                </li>
+            <?php endif;
+            #endregion?>
+            <?php #region CATEGORIA
+            if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'oferta') : ?>
+                <li class="treeview <?php echo $item->categoria; ?>">
+                    <a href="#">
+                        <i class="fa fa-cubes"></i>
+                        <span>CATEGORIA</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="<?php echo $item->clistar; ?>">
+                            <a href="<?= $this->url('categoria', array('action' => 'index')); ?>">
+                                <i class="fa fa-circle-o"></i>Lista de Categorias</a>
+                        </li>
+                        <li class="<?php echo $item->cadd; ?>">
+                            <a href="<?= $this->url('categoria', array('action' => 'add')); ?>">
+                                <i class="fa fa-circle-o"></i>Registrar Categorias</a>
+                        </li>
+                    </ul>
+                </li>
+            <?php endif;
+            #endregion?>
+            <?php #region ORDENAMIENTO
+            if ($this->identity()->TipoUsuario == 'super' || $this->identity()->TipoUsuario == 'oferta' || $this->identity()->TipoUsuario == 'demanda') : ?>
+                <li class="treeview <?php echo $item->ordenamiento; ?>">
+                    <a href="#">
+                        <i class="fa fa-list"></i>
+                        <span>ORDENAMIENTO</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <?php if ($this->identity()->TipoUsuario != 'demanda'): ?>
+                            <li class="<?php echo $item->orlistar; ?>">
+                                <a href="<?= $this->url('ordenamiento', array('action' => 'index')); ?>">
+                                    <i class="fa fa-circle-o"></i>Lista de Ordenamientos</a>
+                            </li>
+                        <?php endif; ?>
+                        <li class="<?php echo $item->orassign; ?>">
+                            <a href="<?= $this->url('ordenamiento', array('action' => 'assign')); ?>">
+                                <i class="fa fa-circle-o"></i>Asignar Ordenamientos</a>
+                        </li>
+                        <?php if ($this->identity()->TipoUsuario != 'demanda'): ?>
+                            <li class="<?php echo $item->orbanner; ?>">
+                                <a href="<?= $this->url('banners', array('action' => 'banner')); ?>">
+                                    <i class="fa fa-circle-o"></i>Banners</a>
+                            </li>
+                        <?php endif; ?>
+                    </ul>
+                </li>
+            <?php endif;
+            #endregion ?>
+            <?php #region USUARIOS DEL SISTEMA
+            if ($this->identity()->TipoUsuario == 'super') : ?>
+                <li class="treeview <?php echo $item->usuario; ?> ">
+                    <a href="#">
+                        <i class="fa fa-user"></i>
+                        <span>USUARIOS DEL SISTEMA</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class=" <?php echo $item->ulistar; ?> ">
+                            <a href="<?= $this->url('usuario', array('action' => 'index')); ?>">
+                                <i class="fa fa-circle-o"></i>Lista de Usuarios del Sistema</a>
+                        </li>
+                        <li class="<?php echo $item->uadd; ?> ">
+                            <a href="<?= $this->url('usuario', array('action' => 'add')); ?>">
+                                <i class="fa fa-circle-o"></i>Registrar Usuarios del Sistema</a>
+                        </li>
+                    </ul>
+                </li>
+            <?php endif;
+            #endregion ?>
+            <?php #region VERISURE
+            if ($this->identity()->TipoUsuario == 'super' or $this->identity()->TipoUsuario == 'admin' or $this->identity()->TipoUsuario == 'verisure') : ?>
+                <li class="treeview <?php echo $item->referido; ?> ">
+                    <a href="#">
+                        <i class="fa fa-id-card-o"></i>
+                        <span>REFERIDOS</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="<?php echo $item->ulistarcliente; ?> ">
+                            <a href="<?= $this->url('cliente-landing', array('action' => 'index')); ?>">
+                                <i class="fa fa-circle-o"></i>Lista Clientes/Colaboradores </a>
+                        </li>
+                        <li class="<?php echo $item->ulistar; ?> ">
+                            <a href="<?= $this->url('referido', array('action' => 'index')); ?>">
+                                <i class="fa fa-circle-o"></i>Lista Referidos </a>
+                        </li>
+                        <li class=" <?php echo $item->uload; ?> ">
+                            <a href="<?= $this->url('referido-load', array('action' => 'load')); ?>">
+                                <i class="fa fa-circle-o"></i>Asignar puntos </a>
+                        </li>
+                        <li class=" <?php echo $item->refconfig; ?> ">
+                            <a href="<?= $this->url('referido-config', array('action' => 'index')); ?>">
+                                <i class="fa fa-circle-o"></i>Configuraciones </a>
+                        </li>
+                        <li class=" <?php echo $item->referidoload; ?> ">
+                            <a href="<?= $this->url('referido-load-specialist', array('action' => 'load-specialist')); ?>">
+                                <i class="fa fa-circle-o"></i>Carga usuarios – especialistas</a>
+                        </li>
+
+                    </ul>
+                </li>
+            <?php endif;
+            #endregion ?>
+        </ul>
+    </section>
+</aside>

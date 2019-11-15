@@ -1,0 +1,208 @@
+<section class="content-header">
+    <br><br><br>
+
+    <h1 class="box-title">Registrar Campos Delivery</h1>
+    <br><br>
+    <?php if (isset($mensaje) && $mensaje != null) {
+        echo '<div class="callout alert alert-' . $type .
+            '"><button class="close" data-dismiss="alert" type="button">×</button>';
+        foreach ($mensaje as $message) {
+            echo '<li>' . $message . '</li>';
+        }
+        echo '</div>';
+    }
+    ?>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                </div>
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <?php
+                        $form = $this->form;
+                        $form->setAttribute('action', $this->url('delivery-puntos', array('action' => 'index')));
+                        $form->prepare();
+                        echo $this->form()->openTag($form);
+                        echo $this->formElement($form->get('csrf'));
+                        ?>
+                        <fieldset>
+                            <legend>Seleccionar Ofertas:</legend>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="<?= $this->formElementErrors($form->get('Oferta')) ? 'has-error' : '' ?>">
+                                        <div class="col-md-2"><label>Ofertas Puntos:</label></div>
+                                        <div class="col-md-6 col">
+                                            <div class="row-fluid campo">
+                                                <div class="col-md-11 null-padding input">
+                                                    <?= $this->formRow($form->get('Oferta')); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4"></div>
+                                    </div>
+                                </div>
+                                <br> <br> <br>
+                                <div class="form-group">
+                                    <div class="<?= $this->formElementErrors($form->get('CorreoContactoDelivery')) ? 'has-error' : '' ?>">
+                                        <div class="col-md-2"><label>Correo Contacto:</label></div>
+                                        <div class="col-md-6">
+                                            <div class="row-fluid campo">
+                                                <div class="col-md-11 null-padding input">
+                                                    <?= $this->formRow($form->get('CorreoContactoDelivery')); ?>
+                                                </div>
+                                                <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                            </div>
+                                            <div class="cnt-error"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br> <br> <br>
+                                <div class="form-group">
+                                    <div class="col-md-offset-9 col-md-3">
+                                        <p>(*) Campos Obligatorios</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Agregar Campos:</legend>
+                            <div class="container-lead">
+                                <div class="col-md-12 children">
+                                    <div class="form-group">
+                                        <div class="col-md-1"><label>Tipo:</label></div>
+                                        <div class="col-md-4">
+                                            <div class="col-md-4">
+                                                <label><input type="radio" class="details" checked="checked"
+                                                              name="tipo[]" value="0">Combo</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label><input type="radio" class="details"
+                                                              name="tipo[]" value="1">Texto</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="col-md-6">
+                                                <label>
+                                                    <input type="checkbox" name="obligatorio[]">Obligatorio
+                                                </label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>
+                                                    <input type="checkbox" name="activo[]" checked="checked">Activo
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br> <br>
+                                    <div class="form-group">
+                                        <div class="col-md-1"><label>Nombre:</label></div>
+                                        <div class="col-md-3">
+                                            <label>
+                                                <input class="form-control name-control" type="text" name="nombre[]">
+                                            </label>
+                                            <ul style="display:none;color:red;">
+                                                <li>El Nombre es requerido y no puede quedar vacío.</li>
+                                            </ul>
+                                        </div>
+                                        <div class="detail-container">
+                                            <div class="col-md-1"><label>Detalle:</label></div>
+                                            <div class="col-md-5">
+                                                <label>
+                                                    <textarea rows="2" cols="25" class="form-control detail-control"
+                                                              name="detalle[]"></textarea>
+                                                    <span>Separar por “;” cada item.</span>
+                                                </label>
+                                                <ul style="display:none;color:red;">
+                                                    <li>El detalle es necesario para el contenido del combobox, no puede
+                                                        quedar vacío.
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="button" class="btn btn-block btn-default add-block">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12"><p class="error"></p></div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <hr>
+                        <fieldset>
+                            <div class="form-group">
+                                <div class="<?php echo $this->formElementErrors($form->get('Condiciones'))
+                                    ? 'has-error' : '' ?>">
+                                    <div class="col-md-2"><label>Condiciones Delivery:</label></div>
+                                    <div class="col-md-10">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-2"><label>Texto:</label></div>
+                                            <div class="col-md-4">
+                                                <div class="row-fluid campo">
+                                                    <div class="col-md-11 null-padding">
+                                                        <?= $this->formRow($form->get('CondicionesTexto')); ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2"><label>Activo:</label></div>
+                                            <div class="col-md-4">
+                                                <div class="row-fluid campo">
+                                                    <div class="col-md-11 null-padding">
+                                                        <?= $this->formRow($form->get('CondicionesEstado')); ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br><br>
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-11 null-padding input">
+                                                <div class="box">
+                                                    <div class="box-body pad">
+                                                        <?= $this->formRow($form->get('Condiciones')); ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="box-footer">
+                            <div class="col-md-10">
+                                <?= $this->formSubmit($form->get('submit')); ?>
+                                <a href="<?= $this->url('delivery-puntos', array('action' => 'index')) ?>"
+                                   class="btn btn-default" role="button">Cancelar</a>
+                            </div>
+                        </div>
+                        <?php echo $this->form()->closeTag(); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<?php
+$this->inlineScript()->appendFile($this->basePath('js/puntos/oferta_delivery.js'));
+
+$this->errores = !empty($this->errores) ? $this->errores : '{}';
+
+$this->inlineScript()->captureStart();
+echo <<<JS
+$(document).ready(function () {
+    var errores = $this->errores;
+
+    $.each(errores, function (index, value) {
+        var campo = $('#nombre_' + value.id);
+        campo.val(value.valor);
+        campo.closest('.children').find('p.error')
+            .text('El campo nombre debe empezar con una letra, seguido de letras, números o guiones');
+    });
+});
+
+JS;
+$this->inlineScript()->captureEnd();
+$this->inlineScript();

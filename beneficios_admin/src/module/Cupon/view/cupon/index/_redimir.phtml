@@ -1,0 +1,34 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: luisvar
+ * Date: 23/11/15
+ * Time: 05:13 PM
+ */ ?>
+<!-- botton action-->
+<button type="button" class="btn btn-primary btn-lg hide" id="btn_modal" data-toggle="modal" data-target="#myModal">
+</button>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="btn_close_modal" type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title" id="myModalLabelRedimir">Importante</h3>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <h4 id="message-redimir"></h4>
+                        <input id="iddata" name="iddata" class="form-cupon" value="" type="hidden">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="redimir-button" type="button" class="btn btn-primary">Redimir</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>

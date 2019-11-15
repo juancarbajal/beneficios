@@ -1,0 +1,83 @@
+<div class="modal fade modal-vcenter modal-active" id="elegirOpcion" tabindex="-1" role="dialog"
+     aria-labelledby="elegirOpcion">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"><img src="http://beneficios.pe/img/login.png"/></h4>
+            </div>
+            <div class="modal-body">
+                <?php $count = 0; ?>
+                <?php foreach ($this->atributosData as $item): ?>
+                    <?php if ($item->Stock > 0): ?>
+                        <div class="fluid-list list-opciones">
+                            <a href="javascript:;" class="enviarPremios" data-value="<?= $item->id ?>">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="fluid-list header-modal-c">
+                        <?php if ($this->identity()['flagcheckboxLogo']) { ?>
+                                            <figure>
+                                                <img src="<?= $this->rlogos . $this->cupon->LogoEmpresa ?>"/>
+                                            </figure>
+                            <?php }?>
+                                            <h2>
+                                                <em>Opción <?= ++$count ?></em>
+                                                <span><?= $item->NombreAtributo ?></span>
+                                                <input type="hidden" id="nombreAtributo"
+                                                       value="<?= $item->NombreAtributo ?>">
+                                                <?php if ($item->FechaVigencia != null) :
+                                                    $date = new DateTime($item->FechaVigencia);
+                                                    $mes = $date->format('m'); ?>
+                                                    Cupón válido hasta el <?= '' . $date->format('d') . ' de ' . $this->meses[$mes - 1] ?>
+                                                <?php endif; ?>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span class="btn btn-cupon-e">Siguiente</span>
+                                        <input type="hidden" id="precioAtributo"
+                                               value="<?= $item->PrecioVentaPublico ?>">
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    <?php else: ?>
+                        <div class="fluid-list list-opciones">
+                            <a href="javascript:;" class="enviarPremios a-locked" role="button">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="fluid-list header-modal-c">
+                        <?php if ($this->identity()['flagcheckboxLogo']) { ?>
+                                            <figure>
+                                                <img src="<?= $this->rlogos . $this->cupon->LogoEmpresa ?>"/>
+                                            </figure>
+                            <?php }?>
+                                            <h2>
+                                                <em>Opción <?= ++$count ?></em>
+                                                <span><?= $item->NombreAtributo ?></span>
+                                                <input type="hidden" id="nombreAtributo"
+                                                       value="<?= $item->NombreAtributo ?>">
+                                                <?php if ($item->FechaVigencia != null) :
+                                                    $date = new DateTime($item->FechaVigencia);
+                                                    $mes = $date->format('m'); ?>
+                                                    Cupón válido hasta el <?= '' . $date->format('d') . ' de ' . $this->meses[$mes - 1] ?>
+                                                <?php endif; ?>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span class="btn btn-cupon-e">Agotado</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+                <div class="footer-m-e">
+                    <p>Al dar clic en siguiente podrás descargar el cupón.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

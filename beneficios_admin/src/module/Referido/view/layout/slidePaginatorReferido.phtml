@@ -1,0 +1,47 @@
+<?php if ($this->pageCount): ?>
+    <div class="box-footer clearfix">
+        <ul class="pagination pagination-sm no-margin pull-right">
+            <li class="<?= !isset($this->previous) ? 'disabled' : ''; ?>">
+                <a href="<?= $this->url(
+                    'referido',
+                    array(
+                        'page' => $this->first,
+                        'order_by' => $order_by,
+                        'order' => $order,
+                        'cliente' => $c,
+                        'fecha_ini' => $fi,
+                        'fecha_fin' => $fe
+                    )
+                ); ?>">&laquo;</a>
+            </li>
+            <?php foreach ($this->pagesInRange as $page): ?>
+                <li class="<?= $page == $this->current ? 'active' : ''; ?>">
+                    <a href="<?= $this->url(
+                        'referido',
+                        array(
+                            'page' => $page,
+                            'order_by' => $order_by,
+                            'order' => $order,
+                            'cliente' => $c,
+                            'fecha_ini' => $fi,
+                            'fecha_fin' => $fe
+                        )
+                    ); ?>"><?= $page; ?></a>
+                </li>
+            <?php endforeach; ?>
+            <li class="<?= !isset($this->next) ? 'disabled' : ''; ?>">
+                <a href="<?= $this->url(
+                    'referido',
+                    array(
+                        'page' => $this->last,
+                        'order_by' => $order_by,
+                        'order' => $order,
+                        'cliente' => $c,
+                        'fecha_ini' => $fi,
+                        'fecha_fin' => $fe
+                    )
+                ); ?>">&raquo;</a>
+            </li>
+        </ul>
+    </div>
+<?php endif; ?>

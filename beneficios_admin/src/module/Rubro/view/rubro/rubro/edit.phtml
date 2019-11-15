@@ -1,0 +1,87 @@
+<!--
+ * Created by PhpStorm.
+ * User: marlo
+ * Date: 10/09/15
+ * Time: 11:37 AM
+ -->
+<section class="content-header ">
+    <br><br><br>
+
+    <h1 class="box-title">Editar Rubro</h1>
+    <br><br>
+    <?php if (isset($msg)) {
+        echo '<div class="callout alert alert-' . $alert . '"><button class="close" data-dismiss="alert" type="button">×</button>';
+        foreach ($msg as $message) {
+            echo '<li>' . $message . '</li>';
+        }
+        echo '</div>';
+    } ?>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                </div>
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <?php
+                        $form->setAttribute('action', $this->url('rubro', array('action' => 'edit', 'id' => $id)));
+                        $form->setAttribute('class', 'form-horizontal');
+                        $form->prepare();
+                        echo $this->form()->openTag($form);
+                        echo $this->formElement($form->get('csrf'));
+
+                        ?>
+                        <div class="form-group">
+                            <div
+                                class="<?= (isset($errors['repeatc'])) ? $errors['repeatc'] : ''; ?> <?= $this->formElementErrors($form->get('Nombre')) ? 'has-error' : '' ?>">
+                                <div class="col-md-2 col-md-offset-2"><label>Nombre:</label></div>
+                                <div class="col-md-4">
+                                    <div class="row-fluid campo">
+                                        <div class="col-md-11 null-padding input">
+                                            <?php
+                                            echo $this->formHidden($form->get('id'));
+                                            echo $this->formRow($form->get('Nombre'));
+                                            ?>
+                                            <?= (isset($errors['repeat'])) ? '<ul><li>' . $errors['repeat'] . '</li></ul>' : ''; ?>
+                                        </div>
+                                        <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                        <p>Maxímo hasta 255 caracteres</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class=" <?= $this->formElementErrors($form->get('Descripcion')) ? 'has-error' : '' ?>">
+                                <div class="col-md-2 col-md-offset-2"><label>Descripción:</label></div>
+                                <div class="col-md-6">
+                                    <div class="row-fluid campo">
+                                        <div class="col-md-11 null-padding input">
+                                            <?php echo $this->formRow($form->get('Descripcion')); ?>
+                                        </div>
+                                        <div class="col-md-1 null-padding text-center p"><p></p></div>
+                                        <p>Maxímo hasta 255 caracteres</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-10 col-md-2">
+                                <p>(*) Campos Obligatorios</p>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <div class="col-md-10">
+                                <?php echo $this->formSubmit($form->get('submit')); ?>
+                                <a href="/rubro" class="btn btn-default">Cancelar</a>
+                            </div>
+                        </div>
+                        <hr>
+                        <?php echo $this->form()->closeTag(); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

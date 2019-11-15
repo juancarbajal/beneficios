@@ -1,0 +1,22 @@
+<?php
+$this->inlineScript()->appendFile($this->basePath('js/demanda/demandas_add.js'));
+
+$empresaCli = $this->form->get("EmpresaCliente")->getValue();
+$campania = $this->form->get("Campania")->getValue();
+$segmento = isset($this->dataSegJS) ? $this->dataSegJS : "{}";
+
+$this->inlineScript()->captureStart();
+echo <<<JS
+    $(document).ready(function() {
+        var empresa = Number('$empresaCli') == 0 ? '' : Number('$empresaCli'); 
+        var campania = Number('$campania') == 0 ? '' : Number('$campania'); 
+        var segmento = $segmento; 
+        
+        $("#empresa-cli").val(empresa).trigger("change");
+        $("#campanias").val(campania).trigger("change");
+        $('#segmentos').multiSelect('select', segmento);        
+    });
+JS;
+$this->inlineScript()->captureEnd();
+
+$this->inlineScript();

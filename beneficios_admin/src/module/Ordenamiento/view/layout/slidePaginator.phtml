@@ -1,0 +1,18 @@
+<?php
+if ($pageCount): ?>
+        <div class="box-footer clearfix">
+                <ul class="pagination pagination-sm no-margin pull-right">
+                        <li class="<?=($datos->getCurrentPageNumber()==1) ? 'disabled' : ''; ?>">
+                                <a href="<?=$this->url('ordenamiento', array('page' => $datos->getCurrentPageNumber()-1, 'order_by' => $order_by,'order' => $order, 'q1' => $q1)); ?>">«</a>
+                        </li>
+                        <?php foreach ($pagesInRange as $page): ?>
+                                <li class="<?=$page == $datos->getCurrentPageNumber() ? 'active' : ''; ?>">
+                                        <a href="<?=$this->url('ordenamiento', array('page' => $page, 'order_by' => $order_by,'order' => $order, 'q1' => $q1)); ?>"><?=$page; ?></a>
+                                </li>
+                        <?php endforeach; ?>
+                        <li class="<?=($datos->getCurrentPageNumber()==$pageCount) ? 'disabled' : ''; ?>">
+                                <a href="<?=$this->url('ordenamiento', array( 'page' => $datos->getCurrentPageNumber()+1, 'order_by' => $order_by,'order' => $order, 'q1' => $q1)); ?>">»</a>
+                        </li>
+                </ul>
+        </div>
+<?php endif; ?>

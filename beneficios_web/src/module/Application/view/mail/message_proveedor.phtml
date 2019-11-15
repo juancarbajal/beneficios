@@ -1,0 +1,77 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+        @import url(http://fonts.googleapis.com/css?family=Didact+Gothic:300,400);
+
+        body {
+            font-family: 'Didact Gothic', sans-serif;
+            font-size: 12px;
+            color: #666666;
+        }
+
+        h2 {
+            font-family: 'Didact Gothic', sans-serif;
+            color: #000000;
+        }
+
+        p {
+            font-size: 12px;
+            color: #666666;
+            font-family: 'Didact Gothic', sans-serif;
+            margin: 5px;
+        }
+
+        hr.hr-head {
+            background-color: #ADA2A2;
+            height: 3px;
+            border: 0;
+        }
+
+        hr.hr-dotted {
+            border-style: dotted;
+        }
+
+        hr.hr-footer {
+            background-color: #000;
+            height: 3px;
+            border: 0;
+        }
+
+        h4 {
+            font-size: 12px;
+            font-family: 'Didact Gothic', sans-serif;
+        }
+    </style>
+</head>
+<body>
+<table>
+    <tr>
+        <td style="padding: 0">
+            <hr class="hr-head">
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            <h2>Estimado <?= $empresa ?>:</h2>
+            <?= $mensaje_cuerpo ?>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding: 0">
+            <hr class="hr-dotted">
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            <img src="<?= $config['images']["imgBeneficios"] ?>" alt="" width="100px">
+        </td>
+    </tr>
+    <tr>
+        <td style="padding: 0">
+            <hr class="hr-footer">
+        </td>
+    </tr>
+</table>
+</body>
+</html>

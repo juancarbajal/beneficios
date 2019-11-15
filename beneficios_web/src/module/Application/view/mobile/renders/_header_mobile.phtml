@@ -1,0 +1,34 @@
+<header>
+    <div class="top-bar fluid-list">
+        <a class="navbar-toggle icon-menu-swipe menu-icon js-slideout-toggle">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </a>
+        <?php $child = $this->viewModel()->getCurrent()->getChildren();
+        $chil = $child[0]; ?>
+        <a href="/home" class="left company">
+            <img src="<?= (isset($chil->imgemp)) ?$chil->rlogos.$chil->imgemp :'/img/company.png' ?>">
+        </a>
+        <?php if ($this->identity()["exist_puntos"] or $this->identity()["have_asignacion"]
+            or $this->identity()["exist_premios"] or $this->identity()["have_asignacion_premios"]) { ?>
+        <a class="user-m js-slideout-toggle-user">
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+        </a>
+        <?php } ?>
+        <a href="#" class="search-lupa">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+        </a>
+    </div>
+    <div class="city_country fluid-list">
+        <a href="#" class="city-m">
+            <div class="city-movil">
+                <span><?php $child = $this->viewModel()->getCurrent()->getChildren();
+                    $chil = $child[0];
+                    echo $chil->ubigeo; ?> <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></span>
+                <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+            </div>
+        </a>
+    </div>
+</header>
+<script type="text/javascript" src="<?= $this->basePath('movil/js/_header.js?'.$this->configItem('version_script')); ?>"></script>

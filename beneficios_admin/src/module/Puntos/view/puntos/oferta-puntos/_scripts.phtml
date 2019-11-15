@@ -1,0 +1,107 @@
+<?php
+$this->inlineScript()->appendFile($this->basePath('js/puntos/ofertas_add.js'));
+
+$empresaCli = $this->form->get("EmpresaCli")->getValue();
+$campania = $this->form->get("CampaniaPuntos")->getValue();
+$segmento = (isset($this->segmentoAnt)) ? $this->segmentoAnt : "''";
+$precio = $this->form->get("TipoPrecio")->getValue();
+
+$dataAtributosId = (!empty($this->atributosId)) ? $this->atributosId : "''";
+$dataAtributos = (!empty($this->atributos)) ? $this->atributos : "''";
+$dataPreciosVenta = (!empty($this->preciosVenta)) ? $this->preciosVenta : "''";
+$dataPreciosBeneficio = (!empty($this->preciosBeneficio)) ? $this->preciosBeneficio : "''";
+$dataStocks = (!empty($this->stocks)) ? $this->stocks : "''";
+$dataVigencias = (!empty($this->vigencias)) ? $this->vigencias : "''";
+$dataAtributosMessage = (!empty($this->atributosMessage)) ? $this->atributosMessage : "''";
+$dataPreciosVentaMessage = (!empty($this->preciosVentaMessage)) ? $this->preciosVentaMessage : "''";
+$dataPreciosBeneficioMessage = (!empty($this->preciosBeneficioMessage)) ? $this->preciosBeneficioMessage : "''";
+$dataStocksMessage = (!empty($this->stocksMessage)) ? $this->stocksMessage : "''";
+$dataVigenciasMessage = (!empty($this->vigenciasMessage)) ? $this->vigenciasMessage : "''";
+
+$this->inlineScript()->captureStart();
+echo <<<JS
+$(document).ready(function () {
+    var empresa = Number('$empresaCli') == 0 ? '' : Number('$empresaCli');
+    var campania = Number('$campania') == 0 ? '' : Number('$campania');
+    var segmento = $segmento;
+    var precio = '$precio';
+
+    $("#empresa-cli").val(empresa).trigger("change");
+    $("#campanias").val(campania).trigger("change");
+    $('#segmentos').multiSelect('select', segmento);
+    $("#tipoPrecio").val(precio).trigger("change");
+    $("#pais").val('1').trigger("change");
+
+    $('#segmentos').change(function () {
+        var actual = $(this).val();
+        var cont = 0;
+
+        if (actual !== null) { 
+            $.grep(actual, function (element, index) {
+                if ($.inArray(element, segmento) == -1) cont++;
+            });
+            
+            if (cont == 0) {
+                $('input:hidden[name=action]').prop('disabled', true);
+                $('#copyButton').hide();
+            } else {
+                $('input:hidden[name=action]').prop('disabled', false);
+                $('#copyButton').show();
+            }
+        }
+    });
+
+    /* Recuperar Valores TipoPrecio */
+    var total = '$this->totalAtributos';
+    if (total !== '0') {
+        var atributosId = $dataAtributosId;console.log(atributosId);
+        var atributos = $dataAtributos;
+        var preciosVentas = $dataPreciosVenta;
+        var preciosBeneficios = $dataPreciosBeneficio;
+        var stocks = $dataStocks;
+        var vigencias = $dataVigencias;
+
+        var atributosmessage = $dataAtributosMessage;
+        var preciosVentasmessage = $dataPreciosVentaMessage;
+        var preciosBeneficiosmessage = $dataPreciosBeneficioMessage;
+        var stocksmessage = $dataStocksMessage;
+        var vigenciasmessage = $dataVigenciasMessage;
+
+        for (var i = 0; i < total - 1; i++) {
+            createPrecioFields(false);
+        }
+
+        $(".precio-content .data-list").each(function (index, value) {
+            $(value).find('textarea.atributos').val(atributos[index]);
+            $(value).find('div.atributos').html(atributosmessage[index]);
+
+            $(value).find('input.preciosVenta').val(preciosVentas[index]);
+            $(value).find('div.preciosVenta').html(preciosVentasmessage[index]);
+
+            $(value).find('input.preciosBeneficio').val(preciosBeneficios[index]);
+            $(value).find('div.preciosBeneficio').html(preciosBeneficiosmessage[index]);
+
+            $(value).find('input.stocks').val(stocks[index]);
+            $(value).find('div.stocks').html(stocksmessage[index]);
+
+            $(value).find('input.vigencias').val(vigencias[index]);
+            $(value).find('div.vigencias').html(vigenciasmessage[index]);
+            
+            if ($('input:hidden[name="id"]').length > 0) {
+                var nombre = $(value).find('textarea.atributos').attr('name');
+                
+                nombre = nombre.replace("atributos", "atributosId");
+
+                $('<input/>').attr({
+                    type: 'hidden',
+                    name: nombre,
+                    value: atributosId[index]
+                }).addClass("atributosId").appendTo(value);
+                
+            }
+        });
+    }
+});
+JS;
+$this->inlineScript()->captureEnd();
+$this->inlineScript();

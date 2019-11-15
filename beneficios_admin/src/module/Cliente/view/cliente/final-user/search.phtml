@@ -1,0 +1,179 @@
+<?php
+function getAge($birthdate){
+    $adjust = (date("md") >= date("md", strtotime($birthdate))) ? 0 : -1; // Si aún no hemos llegado al día y mes en este año restamos 1
+    $years = date("Y") - date("Y", strtotime($birthdate)); // Calculamos el número de años
+    return $years + $adjust; // Sumamos la diferencia de años más el ajuste
+}
+?>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Usuarios Finales del Sistema</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="dataTables_wrapper form-inline dt-bootstrap" id="example1_wrapper">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <?php
+                                    $form->setAttribute('action', $this->url('cliente', array('action' => 'search')));
+                                    $form->setAttribute('id', 'searchform');
+                                    $form->prepare();
+                                    echo $this->form()->openTag($form);
+                                    echo $this->formElement($form->get('csrf'));
+
+                                    ?>
+                                    <fieldset>
+                                        <legend>Busqueda:</legend>
+                                        <div class="form-group">
+                                            <div class="col-md-4">
+                                                <label>Nombre o Apellido o DNI: </label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <?= $this->formRow($form->get('cliente'));?>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-4">
+                                                <label>Nombre Comercia o Razon Social o RUC: </label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <?= $this->formRow($form->get('empresa'));?>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <?= $this->formSubmit($form->get('submit')); ?>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <?= $this->form()->closeTag(); ?>
+                                    <br><br>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <div class="pull-right">
+                                            <button class="btn btn-success">Carga</button>
+                                            <button class="btn btn-success">Exporta</button>
+                                        </div>
+                                    </div>
+                                    <br><br>
+                                    <table aria-describedby="example1_info" role="grid" id="example1" class="table table-bordered table-striped dataTable">
+                                        <thead>
+                                        <tr role="row">
+                                            <th aria-label="Nombres: activate to sort column descending" aria-sort="ascending" style="width: 162px;" colspan="1" rowspan="1" aria-controls="example1" tabindex="0" class="sorting_asc">Nombres</th>
+                                            <th aria-label="Apellidos: activate to sort column ascending" style="width: 207px;" colspan="1" rowspan="1" aria-controls="example1" tabindex="0" class="sorting">Apellidos</th>
+                                            <th aria-label="Género: activate to sort column ascending" style="width: 176px;" colspan="1" rowspan="1" aria-controls="example1" tabindex="0" class="sorting">Género</th>
+                                            <th aria-label="Edad: activate to sort column ascending" style="width: 139px;" colspan="1" rowspan="1" aria-controls="example1" tabindex="0" class="sorting">Edad</th>
+                                            <th aria-label="Numero Documento: activate to sort column ascending" style="width: 99px;" colspan="1" rowspan="1" aria-controls="example1" tabindex="0" class="sorting">Numero Documento</th>
+                                            <th aria-label="Empresa: activate to sort column ascending" style="width: 99px;" colspan="1" rowspan="1" aria-controls="example1" tabindex="0" class="sorting">Empresa</th>
+                                            <th style="width: 99px;" colspan="1" rowspan="1">Segmento</th>
+                                            <th style="width: 99px;" colspan="1" rowspan="1">Subgrupo</th>
+                                            <th style="width: 99px;" colspan="1" rowspan="1">Editar</th>
+                                            <th style="width: 99px;" colspan="1" rowspan="1">Estado</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php if(count($clientes)>0){
+                                            foreach($clientes as $cliente) :?>
+                                                <tr data-id="<?php echo $cliente->id?>" role="row">
+                                                    <td><?= $this->escapeHtml($cliente->Nombre);?></td>
+                                                    <td><?= $this->escapeHtml($cliente->Apellido);?></td>
+                                                    <?php
+                                                    if($cliente->Genero == 'H')
+                                                    {
+                                                        echo '<td>Masculino</td>';
+                                                    }
+                                                    else if($cliente->Genero == 'M')
+                                                    {
+                                                        echo '<td>Femenino</td>';
+                                                    }
+                                                    else
+                                                    {
+                                                        echo '<td></td>';
+                                                    }
+                                                    ?>
+                                                    <td><?= $this->escapeHtml(getAge($cliente->FechaNacimiento));?></td>
+                                                    <td><?= $this->escapeHtml($cliente->NumeroDocumento);?></td>
+                                                    <td><?= $this->escapeHtml($cliente->NombreComercial);?></td>
+                                                    <td><?= $this->escapeHtml($cliente->NombreSegmento);?></td>
+                                                    <td><?= $this->escapeHtml($cliente->NombreSubgrupo);?></td>
+                                                    <td><a href="cliente/edit/<?=$this->escapeHtml($cliente->id)?>/<?=$this->escapeHtml($cliente->idEmpresa)?>"><i class="btn btn-warning fa fa-pencil-square-o"></i></a></td>
+                                                    <td>
+                                                        <?php if($cliente->Eliminado==1): ?>
+                                                            <input id="elim<?=$cliente->id ?>" name="<?=$this->escapeHtml($cliente->Eliminado);?>" class="elim" type="checkbox" />
+                                                        <?php else: ?>
+                                                            <input id="elim<?=$cliente->id ?>" name="<?=$this->escapeHtml($cliente->Eliminado);?>" class="elim" type="checkbox" checked />
+                                                        <?php endif; ?>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach;
+                                        }else{
+                                            echo '<tr><td colspan="10">No hay Clientes Registrados</td></tr>';
+                                        }?>
+                                        </tbody>
+                                        <tfoot>
+                                        <tr role="row">
+                                            <th style="width: 162px;" colspan="1" rowspan="1">Nombres</th>
+                                            <th style="width: 162px;" colspan="1" rowspan="1">Apellidos</th>
+                                            <th style="width: 162px;" colspan="1" rowspan="1">Género</th>
+                                            <th style="width: 162px;" colspan="1" rowspan="1">Edad</th>
+                                            <th style="width: 162px;" colspan="1" rowspan="1">Numero Documento</th>
+                                            <th style="width: 162px;" colspan="1" rowspan="1">Empresa</th>
+                                            <th style="width: 99px;" colspan="1" rowspan="1">Segmento</th>
+                                            <th style="width: 99px;" colspan="1" rowspan="1">Subgrupo</th>
+                                            <th style="width: 99px;" colspan="1" rowspan="1">Editar</th>
+                                            <th style="width: 99px;" colspan="1" rowspan="1">Estado</th>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <div aria-live="polite" role="status" id="example1_info" class="dataTables_info">Mostrando 10 de 57 entradas</div>
+                                </div>
+                                <div class="col-sm-7">
+                                    <div id="example1_paginate" class="dataTables_paginate paging_simple_numbers">
+                                        <ul class="pagination">
+                                            <li id="example1_previous" class="paginate_button previous disabled">
+                                                <a tabindex="0" data-dt-idx="0" aria-controls="example1" href="#">Anterior</a>
+                                            </li>
+                                            <li class="paginate_button active">
+                                                <a tabindex="0" data-dt-idx="1" aria-controls="example1" href="#">1</a>
+                                            </li>
+                                            <li class="paginate_button ">
+                                                <a tabindex="0" data-dt-idx="2" aria-controls="example1" href="#">2</a>
+                                            </li>
+                                            <li class="paginate_button ">
+                                                <a tabindex="0" data-dt-idx="3" aria-controls="example1" href="#">3</a>
+                                            </li>
+                                            <li class="paginate_button ">
+                                                <a tabindex="0" data-dt-idx="4" aria-controls="example1" href="#">4</a>
+                                            </li>
+                                            <li class="paginate_button ">
+                                                <a tabindex="0" data-dt-idx="5" aria-controls="example1" href="#">5</a>
+                                            </li>
+                                            <li class="paginate_button ">
+                                                <a tabindex="0" data-dt-idx="6" aria-controls="example1" href="#">6</a>
+                                            </li>
+                                            <li id="example1_next" class="paginate_button next">
+                                                <a tabindex="0" data-dt-idx="7" aria-controls="example1" href="#">Siguiente</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </section>
+<?php echo $this->headScript()
+    ->prependFile($this->basePath('js/cliente/deleteclient.js?'.$this->configItem('version_script')));
+?>

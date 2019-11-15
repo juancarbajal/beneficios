@@ -1,0 +1,23 @@
+<?php if ($this->pageCount): ?>
+    <div class="box-footer clearfix">
+        <ul class="pagination pagination-sm no-margin pull-right">
+            <li class="<?= !isset($this->previous) ? 'disabled' : ''; ?>">
+                <a href="<?= $this->url('cupon-premios', array('action' => 'index', 'page' => $this->first,
+                    'order_by' => $this->order_by, 'order' => $this->order, 'q1' => $this->q1, 'q2' => $this->q2,
+                    'q3' => $this->q3, 'q4' => $this->q4, 'q5' => $this->q5, 'q6' => $this->q6, 'q7' => $this->q7)); ?>">&laquo;</a>
+            </li>
+            <?php foreach ($this->pagesInRange as $page): ?>
+                <li class="<?= $page == $this->current ? 'active' : ''; ?>">
+                    <a href="<?= $this->url('cupon-premios', array('action' => 'index', 'page' => $page,
+                        'order_by' => $this->order_by, 'order' => $this->order, 'q1' => $this->q1, 'q2' => $this->q2,
+                        'q3' => $this->q3, 'q4' => $this->q4, 'q5' => $this->q5, 'q6' => $this->q6, 'q7' => $this->q7)); ?>"><?= $page; ?></a>
+                </li>
+            <?php endforeach; ?>
+            <li class="<?= !isset($this->next) ? 'disabled' : ''; ?>">
+                <a href="<?= $this->url('cupon-premios', array('action' => 'index', 'page' => $this->last,
+                    'order_by' => $this->order_by, 'order' => $this->order, 'q1' => $this->q1, 'q2' => $this->q2,
+                    'q3' => $this->q3, 'q4' => $this->q4, 'q5' => $this->q5, 'q6' => $this->q6, 'q7' => $this->q7)); ?>">&raquo;</a>
+            </li>
+        </ul>
+    </div>
+<?php endif; ?>

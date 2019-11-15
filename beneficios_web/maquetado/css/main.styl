@@ -1,0 +1,876 @@
+@font-face
+  font-family 'centurygothicbold'
+  src url('../fonts/centurygothicbold.eot')
+  src url('../fonts/centurygothicbold.eot') format('embedded-opentype'),         url('../fonts/centurygothicbold.woff2') format('woff2'),         url('../fonts/centurygothicbold.woff') format('woff'),         url('../fonts/centurygothicbold.ttf') format('truetype'),         url('../fonts/centurygothicbold.svg#centurygothicbold') format('svg')
+
+@font-face
+  font-family 'centurygothic'
+  src url('../fonts/centurygothic.eot')
+  src url('../fonts/centurygothic.eot') format('embedded-opentype'),         url('../fonts/centurygothic.woff2') format('woff2'),         url('../fonts/centurygothic.woff') format('woff'),         url('../fonts/centurygothic.ttf') format('truetype'),         url('../fonts/centurygothic.svg#centurygothic') format('svg')
+
+html
+  color #222
+  font-size 1em
+  line-height 1.4
+
+::-moz-selection
+  background #b3d4fc
+  text-shadow none
+
+::selection
+  background #b3d4fc
+  text-shadow none
+
+hr
+  display block
+  height 1px
+  border 0
+  border-top 1px solid #ccc
+  margin 1em 0
+  padding 0
+
+audio,canvas,iframe,img,svg,video
+  vertical-align middle
+
+fieldset
+  border 0
+  margin 0
+  padding 0
+
+textarea
+  resize vertical
+
+body
+  font-family "centurygothic", arial
+  font-size 12px
+
+.fluid-list
+  display inline-block
+  width 100%
+  vertical-align top
+
+.text-center
+  text-align center
+  text-align center
+
+.right
+  float right
+
+.left
+  float left
+
+ul
+  &.list-reset
+    list-style none
+    padding-left 0
+    margin-bottom 0
+  &.menu-city
+    margin-top 4px
+    & > li
+      float left
+      border-left 1px solid #cccccc
+      padding-left 15px
+      margin-left 15px
+      &:first-child
+        border-left 0
+        padding-left 0
+        margin-left 0
+      & > a
+        font-size 13px
+        color #fff
+        text-decoration underline
+      & > span
+        font-size 13px
+        color #fff
+        margin-right 5px
+        & > span
+          font-size 20px
+          vertical-align top
+      & > .dropdown
+        display inline-block
+        & > button
+          background none
+          border 0
+          color #fff
+          font-size 13px
+          text-decoration underline
+          outline 0
+  &.list-footer
+    li
+      background url(../img/list-icon.png) no-repeat left center
+      padding-left 12px
+      margin-bottom 12px
+      a
+        font-size 13px
+        color #fff
+        text-decoration underline
+  &.list-info-footer
+    li
+      margin-bottom 15px
+      color #fff
+      a
+        font-size 13px
+        color #fff
+        text-decoration underline
+      span
+        margin-right 8px
+        font-size 20px
+        vertical-align middle
+      em
+        font-style normal
+        font-size 13px
+        color #fff
+        display inline-block
+        vertical-align top
+        margin-top 3px
+
+.margin-r
+  margin-top 0!important
+
+.margin-b
+  margin-bottom 40px
+
+#bg
+  position fixed
+  top -50%
+  left -50%
+  width 200%
+  height 200%
+  img
+    position absolute
+    top 0
+    left 0
+    right 0
+    bottom 0
+    margin auto
+    min-width 50%
+    min-height 50%
+
+.login-beneficios
+  width 640px
+
+.header-login
+  height 52px
+  background #636264
+  border-bottom 5px solid #e7e7e7
+  position relative
+  span
+    display block
+    width 320px
+    height 100px
+    background url(../img/login.png) no-repeat
+    position absolute
+    left 50%
+    margin-left -160px
+    top -45px
+
+.contenido-login
+  background #fff
+  padding 18px 72px
+  border-radius 0 0 5px 5px
+  h4
+    font-family "centurygothicbold",arial
+    font-size 30px
+    color #0a0d12
+    margin-top 0
+    line-height 120%
+  p
+    font-size 20px
+    color #333333
+    line-height 130%
+    margin-bottom 25px
+  h5
+    font-size 14px
+    color #666666
+    line-height 120%
+    margin-top 22px
+    margin-bottom 0
+    a
+      font-family "centurygothicbold",arial
+      color #400090
+
+.form-group
+  margin-bottom 20px
+  position relative
+
+.has-feedback-left
+  .form-control
+    padding-right 12px
+    padding-left 70px
+    height 58px
+    border 2px solid #b8b7b7
+    -webkit-border-radius 8px
+    -moz-border-radius 8px
+    border-radius 8px
+    outline 0
+    -webkit-box-shadow 0 0 0
+    -moz-box-shadow 0 0 0
+    box-shadow 0 0 0
+    font-size 20px
+    &.error
+      border 2px solid #ed5a5a
+      &::-webkit-input-placeholder
+        color #ed5a5a
+      &:-moz-placeholder
+        color #ed5a5a
+      &::-moz-placeholder
+        color #ed5a5a
+      &:-ms-input-placeholder
+        color #ed5a5a
+  .form-control-feedback
+    right auto
+    left 18px
+    top 12px
+
+.form-login
+  padding 0 70px
+  label
+    &.error
+      color #ed5a5a
+      font-size 16px
+      font-family "centurygothicbold",arial
+      display block
+      margin-top 10px
+      margin-bottom 10px
+      text-align center
+  .form-group
+    margin-bottom 12px
+  select
+    outline 0
+    border 2px solid #b8b7b7
+    height 55px
+    font-size 20px
+    color #0a0d12
+    padding 0 20px
+    &.error
+      border 2px solid #ed5a5a
+      color #ed5a5a
+
+.form-control-feedback
+  width 38px
+  color #333
+
+.text-muted
+  color #636264
+  font-size 30px
+
+.btn-block
+  background #400090
+  border 0
+  border-bottom 3px solid #1f0046
+  -webkit-border-radius 8px
+  -moz-border-radius 8px
+  border-radius 8px
+  height 65px
+  outline 0
+  &:hover
+    background #400090
+    border 0
+    border-bottom 3px solid #1f0046
+  span
+    font-size 28px
+    color #ffffff
+    font-family "centurygothicbold",arial
+    display block
+    line-height 53px
+    -webkit-text-shadow 0px 4px 0px rgba(31, 0, 70, 1)
+    -moz-text-shadow 0px 4px 0px rgba(31, 0, 70, 1)
+    text-shadow 0px 4px 0px rgba(31, 0, 70, 1)
+
+.btn-block.btn-primary:focus,.btn-block.btn-primary:active
+  box-shadow 0 0 0
+  background-color #400090
+  border-color #000
+
+.form-login select:focus, .form-login select:active
+  box-shadow 0 0 0
+  border 2px solid #b8b7b7
+
+.top-bar
+  background #0a0d12
+  height 30px
+
+.box-center
+  background #fff
+  height 150px
+
+a
+  &.company
+    margin-top 22px
+  &.beneficios
+    margin-left 55px
+    margin-top 58px
+  &.a-descb
+    color #400090
+    font-size 14px
+    font-family "centurygothicbold",arial
+    margin-bottom 12px
+    display block
+    text-align right
+  &.btn-cupon-d
+    padding 0 28px
+    background #400090
+    font-family "centurygothicbold",arial
+    color #fff
+    -webkit-text-shadow 0px 2px 0px rgba(31, 0, 70, 1)
+    -moz-text-shadow 0px 2px 0px rgba(31, 0, 70, 1)
+    text-shadow 0px 2px 0px rgba(31, 0, 70, 1)
+    height 40px
+    border-bottom 3px solid #1f0046
+    line-height 40px
+  &.ver-b
+    font-size 20px
+  &.ver-c
+    font-size 24px
+
+.search
+  width 545px
+  margin-top 55px
+  .frm-search
+    width 100%
+    position relative
+    input
+      width 98%
+      height 40px
+      padding-right 45px
+      outline 0
+      padding-left 10px
+      font-size 18px
+      color #999999
+      border 1px solid #c1c1c1
+      -webkit-border-radius 3px 0 0 3px
+      -moz-border-radius 3px 0 0 3px
+      border-radius 3px 0 0 3px
+    button
+      position absolute
+      right 0
+      top 0
+      width 40px
+      height 40px
+      background #400090
+      border 0
+      outline 0
+      -webkit-border-radius 0 3px 3px 0
+      -moz-border-radius 0 3px 3px 0
+      border-radius 0 3px 3px 0
+      span
+        color #fff
+        font-size 20px
+
+nav
+  height 100px
+  background #2b3036
+  background url(data:image/svg+xml
+  background -moz-linear-gradient(top, #2b3036 8%, #0a0d12 100%)
+  background -webkit-gradient(linear, left top, left bottom, color-stop(8%,#2b3036), color-stop(100%,#0a0d12))
+  background -webkit-linear-gradient(top, #2b3036 8%,#0a0d12 100%)
+  background -o-linear-gradient(top, #2b3036 8%,#0a0d12 100%)
+  background -ms-linear-gradient(top, #2b3036 8%,#0a0d12 100%)
+  background linear-gradient(to bottom, #2b3036 8%,#0a0d12 100%)
+  filter progid:DXImageTransform.Microsoft.gradient( startColorstr='#2b3036', endColorstr='#0a0d12',GradientType=0 )
+  ul
+    height 100px
+    border-left 1px solid #0a0d12
+    border-right 1px solid #2b3036
+    li
+      float left
+      border-left 1px solid #0a0d12
+      width 12.5%
+      a
+        display block
+        text-align center
+        border-left 1px solid #0a0d12
+        height 100px
+        &:hover
+          background #400090
+          background url(data:image/svg+xml
+          background -moz-linear-gradient(top, #400090 31%, #400090 31%, #1f0046 100%)
+          background -webkit-gradient(linear, left top, left bottom, color-stop(31%,#400090), color-stop(31%,#400090), color-stop(100%,#1f0046))
+          background -webkit-linear-gradient(top, #400090 31%,#400090 31%,#1f0046 100%)
+          background -o-linear-gradient(top, #400090 31%,#400090 31%,#1f0046 100%)
+          background -ms-linear-gradient(top, #400090 31%,#400090 31%,#1f0046 100%)
+          background linear-gradient(to bottom, #400090 31%,#400090 31%,#1f0046 100%)
+          filter progid:DXImageTransform.Microsoft.gradient( startColorstr='#400090', endColorstr='#1f0046',GradientType=0 )
+        &.active
+          background #400090
+          background url(data:image/svg+xml
+          background -moz-linear-gradient(top, #400090 31%, #400090 31%, #1f0046 100%)
+          background -webkit-gradient(linear, left top, left bottom, color-stop(31%,#400090), color-stop(31%,#400090), color-stop(100%,#1f0046))
+          background -webkit-linear-gradient(top, #400090 31%,#400090 31%,#1f0046 100%)
+          background -o-linear-gradient(top, #400090 31%,#400090 31%,#1f0046 100%)
+          background -ms-linear-gradient(top, #400090 31%,#400090 31%,#1f0046 100%)
+          background linear-gradient(to bottom, #400090 31%,#400090 31%,#1f0046 100%)
+          filter progid:DXImageTransform.Microsoft.gradient( startColorstr='#400090', endColorstr='#1f0046',GradientType=0 )
+        span
+          display inline-block
+          vertical-align top
+          &.name-title
+            width 100%
+            color #ddd
+            font-size 16px
+            font-family "centurygothicbold",arial
+            margin-top 10px
+      &:first-child
+        border-left 0
+        a
+          border-left 0
+
+span
+  &.icon-nav
+    width 40px
+    height 40px
+    margin-top 12px
+  &.destacados
+    background url(../img/destacados.png) no-repeat
+  &.belleza-salud
+    background url(../img/belleza-salud.png) no-repeat
+  &.viajes
+    background url(../img/viajes.png) no-repeat
+  &.restaurantes
+    background url(../img/restaurantes.png) no-repeat
+  &.entretenimiento
+    background url(../img/entretenimiento.png) no-repeat
+  &.productos
+    background url(../img/productos.png) no-repeat
+  &.tiendas
+    background url(../img/tiendas.png) no-repeat
+  &.otros
+    background url(../img/otros.png) no-repeat
+
+.menu-city
+  .dropdown-menu
+    border 1px solid #cecbc3
+    -webkit-border-radius 0 0 0 0
+    -moz-border-radius 0 0 0 0
+    border-radius 0 0 0 0
+    top 38px
+    left -122px
+    width 315px
+    margin 0
+    padding 15px
+    span
+      display block
+      position absolute
+      width 26px
+      height 11px
+      background url(../img/caret.png) no-repeat
+      top -11px
+      left 90px
+    li
+      float left
+      background url(../img/list-caret.png) no-repeat left center
+      margin-right 35px
+    & > li
+      & > a
+        background none
+        color #400090
+        font-family "centurygothicbold",arial
+        font-size 14px
+
+.slide-anuncio
+  margin-top 42px
+
+.slider-home
+  background #fff
+  overflow hidden
+  border-radius 5px 5px 0 0
+
+.box-sombra
+  -webkit-box-shadow 0px 8px 1px 0px rgba(0, 0, 0, 0.25)
+  -moz-box-shadow 0px 8px 1px 0px rgba(0, 0, 0, 0.25)
+  box-shadow 0px 8px 1px 0px rgba(0, 0, 0, 0.25)
+
+}
+  .anuncio-home
+    a
+      display block
+      position relative
+
+.anuncio-home
+  a
+    img
+      width 100%
+
+.precio-f
+  width 80%
+  background rgba(0,0,0,0.70)
+  position absolute
+  bottom 15px
+  left 15px
+  padding 12px
+  span
+    font-size 30px
+    color #ddd
+    display inline-block
+    width 100%
+    vertical-align top
+    line-height 100%
+    &.descuento
+      font-size 60px
+
+.slider-promocion
+  .slick-arrow
+    width 21px
+    height 42px
+    background none
+    border none
+    text-indent -99999px
+    position absolute
+    z-index 9
+    top 50%
+    margin-top -21px
+    outline 0
+  .slick-prev
+    background url(../img/left.png) no-repeat
+    left -15px
+  .slick-next
+    background url(../img/right.png) no-repeat
+    right -16px
+  a
+    display block
+    outline 0
+    img
+      width 100%
+      vertical-align top
+
+.box-sombra-caja
+  -webkit-box-shadow 0px 0px 4px 0px rgba(0, 0, 0, 0.25)
+  -moz-box-shadow 0px 0px 4px 0px rgba(0, 0, 0, 0.25)
+  box-shadow 0px 0px 4px 0px rgba(0, 0, 0, 0.25)
+
+.sombra-interna
+  padding 15px
+  -webkit-box-shadow inset 0px 0px 10px 0px rgba(0, 0, 0, 0.1)
+  -moz-box-shadow inset 0px 0px 10px 0px rgba(0, 0, 0, 0.1)
+  box-shadow inset 0px 0px 10px 0px rgba(0, 0, 0, 0.1)
+
+.destacados-cnt
+  margin-top 55px
+
+.title-bloques
+  h3
+    color #0a0d12
+    font-size 40px
+    margin-top 0
+    margin-bottom 20px
+
+.two-primary
+  background #fffdf6
+
+.cupon-two
+  position relative
+  a
+    display block
+
+.cupon-two a figure, .cupon-two a figure img
+  width 100%
+
+.info-cupon-l
+  position absolute
+  bottom 0
+  left 0
+  right 0
+  background rgba(0,0,0,0.6)
+  padding 10px
+  figure
+    width 26.5%
+    img
+      width 100%
+  .info-interna
+    padding-left 15px
+    width 73.5%
+
+.info-interna
+  h2
+    margin-top 0
+    margin-bottom 5px
+    line-height 120%
+    a
+      display block
+      font-size 16px
+      color #fff
+      line-height 120%
+      span
+        font-size 24px
+  & > a
+    font-size 12px
+    color #fff
+    text-decoration underline
+
+.cupon-info
+  padding 20px 20px 15px 0
+
+.top-info
+  margin-bottom 55px
+  figure
+    width 30%
+    -webkit-box-shadow 0px 1px 1px 0px rgba(0, 0, 0, 0.25)
+    -moz-box-shadow 0px 1px 1px 0px rgba(0, 0, 0, 0.25)
+    box-shadow 0px 1px 1px 0px rgba(0, 0, 0, 0.25)
+    img
+      width 100%
+  .info-dest-c
+    width 70%
+    padding-left 25px
+    h2
+      line-height 120%
+      margin-top 0
+      margin-bottom 10px
+      a
+        display block
+        font-size 18px
+        color #484848
+        line-height 145%
+        span
+          color #0a0d12
+          font-size 36px
+
+.buttom-info
+  hr
+    background #666
+    margin-bottom 20px
+  span
+    color #484848
+    font-size 13px
+    span
+      color #0a0d12
+      font-family "centurygothicbold",arial
+  & > span
+    display inline-block
+    vertical-align middle
+    margin-top 12px
+
+.flujo-cupones
+  margin-top 50px
+  .info-interna
+    h2
+      a
+        font-size 12px
+        span
+          font-size 18px
+
+.anuncio-banner
+  margin-top 32px
+  a
+    display block
+    img
+      width 100%
+
+.slick-slider
+  position relative
+  display block
+  -moz-box-sizing border-box
+  box-sizing border-box
+  -webkit-user-select none
+  -moz-user-select none
+  -ms-user-select none
+  user-select none
+  -webkit-touch-callout none
+  -khtml-user-select none
+  -ms-touch-action pan-y
+  touch-action pan-y
+  -webkit-tap-highlight-color transparent
+
+.slick-list
+  position relative
+  display block
+  overflow hidden
+  margin 0
+  padding 0
+  &:focus
+    outline none
+  &.dragging
+    cursor pointer
+    cursor hand
+
+.slick-slider .slick-track,.slick-slider .slick-list
+  -webkit-transform translate3d(0, 0, 0)
+  -moz-transform translate3d(0, 0, 0)
+  -ms-transform translate3d(0, 0, 0)
+  -o-transform translate3d(0, 0, 0)
+  transform translate3d(0, 0, 0)
+
+.slick-track
+  position relative
+  top 0
+  left 0
+  display block
+  &:after
+    clear both
+
+.slick-track:before,.slick-track:after
+  display table
+  content ''
+
+.slick-loading
+  .slick-track
+    visibility hidden
+  .slick-slide
+    visibility hidden
+
+.slick-slide
+  display none
+  float left
+  height 100%
+  min-height 1px
+  img
+    display block
+  &.slick-loading
+    img
+      display none
+  &.dragging
+    img
+      pointer-events none
+
+[dir='rtl']
+  .slick-slide
+    float right
+
+.slick-initialized
+  .slick-slide
+    display block
+
+.slick-vertical
+  .slick-slide
+    display block
+    height auto
+    border 1px solid transparent
+
+.slick-arrow
+  &.slick-hidden
+    display none
+
+.slider-marcas
+  margin-bottom 80px
+  margin-top 30px
+  h4
+    font-size 30px
+    color #0a0d12
+    margin-top 0
+    margin-bottom 18px
+    padding-bottom 10px
+    border-bottom 2px solid #2b3036
+
+footer
+  background #0a0d12
+
+.sub-footer
+  border-bottom 1px solid #2b3036
+
+.cnt-footer
+  margin-top 90px
+  margin-bottom 60px
+  h4
+    font-size 28px
+    color #fff
+    margin-top 0
+    margin-bottom 35px
+
+.sub-footer-logo
+  & > span
+    display inline-block
+    vertical-align middle
+    width 100%
+    font-size 14px
+    color #fff
+    margin-top 35px
+    margin-bottom 80px
+  & > a
+    margin-top 75px
+  a
+    display inline-block
+    vertical-align middle
+    font-size 14px
+    color #fff
+  span
+    a
+      text-decoration underline
+      margin-right 15px
+    span
+      margin-right 55px
+
+.browserupgrade
+  margin 0.2em 0
+  background #ccc
+  color #000
+  padding 0.2em 0
+
+.hidden
+  display none !important
+
+.visuallyhidden
+  border 0
+  clip rect(0 0 0 0)
+  height 1px
+  margin -1px
+  overflow hidden
+  padding 0
+  position absolute
+  width 1px
+
+.visuallyhidden.focusable:active,.visuallyhidden.focusable:focus
+  clip auto
+  height auto
+  margin 0
+  overflow visible
+  position static
+  width auto
+
+.invisible
+  visibility hidden
+
+.clearfix:before,.clearfix:after
+  content " "
+  display table
+
+.clearfix
+  &:after
+    clear both
+
+@media
+  only
+    screen
+      and
+        (min-width
+          &:
+            35em)
+  print
+    *,    * before,    *:after {        background: transparent !important
+    color #000 !important
+    box-shadow none !important
+    text-shadow none !important
+
+@media print,       (-webkit-min-device-pixel-ratio: 1.25),       (min-resolution: 1.25dppx),       (min-resolution: 120dpi)
+
+a,    a:visited
+  text-decoration underline
+
+a[href]:after
+  content " (" attr(href) ")"
+
+abbr[title]:after
+  content " (" attr(title) ")"
+
+a[href^="#"]:after,    a[href^="javascript:"]:after
+  content ""
+
+pre,    blockquote
+  border 1px solid #999
+  page-break-inside avoid
+
+thead
+  display table-header-group
+
+tr,    img
+  page-break-inside avoid
+
+img
+  max-width 100% !important
+
+p,    h2,    h3
+  orphans 3
+  widows 3
+
+h2,    h3
+  page-break-after avoid
+

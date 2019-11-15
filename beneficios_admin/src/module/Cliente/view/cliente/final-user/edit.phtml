@@ -1,0 +1,177 @@
+<section class="content-header ">
+    <br><br><br>
+    <h1>Editar Usuarios Finales</h1>
+    <br><br>
+    <?php if (isset($param1)) {
+        echo '<div class="callout alert alert-' . $alert . '"><button class="close" data-dismiss="alert" type="button">×</button>';
+        foreach ($param1 as $message) {
+            echo '<li>' . $message . '</li>';
+        }
+        echo '</div>';
+    } ?>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <?php
+                        $form->setAttribute('action', $this->url('cliente', array('action' => 'edit', 'id' => $this->id)));
+                        $form->setAttribute('id', 'editform');
+                        $form->setAttribute('class', 'form-horizontal');
+                        $form->prepare();
+                        echo $this->form()->openTag($form);
+                        echo $this->formElement($form->get('csrf'));
+
+                        ?>
+                        <h4>Datos Generales:</h4>
+
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <div class="col-md-4"><label>Tipo Documento:</label></div>
+                                <div class="col-md-8">
+                                    <div class="row-fluid campo">
+                                        <div class="col-md-11 null-padding input-col-7">
+                                            <?= $this->formElement($form->get('BNF_TipoDocumento_id')); ?>
+                                        </div>
+                                        <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class=" <?= (isset($errors['ndocc'])) ? $errors['ndocc'] : ''; ?> <?= $this->formElementErrors($form->get('NumeroDocumento')) ? 'has-error' : '' ?>">
+                                <div class="col-md-2 text-right"><label>Número de Documento:</label></div>
+                                <div class="col-md-4">
+                                    <div class="row-fluid campo">
+                                        <div class="col-md-11 null-padding input-2">
+                                            <?php echo $this->formRow($form->get('NumeroDocumento')); ?>
+                                            <?= (isset($errors['ndocm'])) ? '<ul><li>' . $errors['ndocm'] . '</li></ul>' : ''; ?>
+                                        </div>
+                                        <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div
+                                class="col-md-12 <?= $this->formElementErrors($form->get('Nombre')) ? 'has-error' : '' ?>">
+                                <?= $this->formHidden($form->get('id')); ?>
+                                <div class="col-md-2"><label>Nombre:</label></div>
+                                <div class="col-md-10">
+                                    <?= $this->formElement($form->get('Nombre')); ?>
+                                </div>
+                                <div class="col-md-12">
+                                    <span
+                                        class="control-label"><?= @reset($this->form->getMessages()['Nombre']) ?></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div
+                                class="col-md-12 <?= $this->formElementErrors($form->get('Apellido')) ? 'has-error' : '' ?>">
+                                <div class="col-md-2"><label>Apellidos:</label></div>
+                                <div class="col-md-10">
+                                    <?= $this->formElement($form->get('Apellido')); ?>
+                                </div>
+                                <div class="col-md-12">
+                                    <span
+                                        class="control-label"><?= @reset($this->form->getMessages()['Apellido']) ?></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group span12">
+                            <div
+                                class="col-md-6 <?= $this->formElementErrors($form->get('Genero')) ? 'has-error' : '' ?>">
+                                <div class="col-md-4"><label>Género: </label></div>
+                                <div class="col-md-8">
+                                    <?= $this->formElement($form->get('Genero')); ?>
+                                </div>
+                            </div>
+                            <div
+                                class="col-md-6 <?= $this->formElementErrors($form->get('FechaNacimiento')) ? 'has-error' : '' ?>">
+                                <div class="col-md-4"><label>Fecha de Nacimiento:</label></div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <?= $this->formElement($form->get('FechaNacimiento')); ?>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <span
+                                        class="control-label"><?= @reset($this->form->getMessages()['FechaNacimiento']) ?></span>
+                                </div>
+                            </div>
+                        </div>
+                        <h4>Seleccione Empresa Cliente: </h4>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <?= (isset($errors['mempre'])) ? '<ul><li style="color: red">' . $errors['mempre'] . '</li></ul>' : ''; ?>
+                                <?= (isset($errors['mclie'])) ? '<ul><li style="color: red">' . $errors['mclie'] . '</li></ul>' : ''; ?>
+                                <table class="table" id="addtable">
+                                    <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Tipo</th>
+                                        <th>Segmento</th>
+                                        <th>Subgrupo</th>
+                                        <th>Activo</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td style="width: 30%" class="input-col-7">
+                                            <select name="idEmpresa[]" id="empresa_1"
+                                                    class="empresa form-control select2"></select>
+                                            <span style="color: red;">*</span>
+                                        </td>
+                                        <td>
+                                            <input id="tipo_1" class="form-control" type="text" disabled="disabled">
+                                        </td>
+                                        <td class="input-col-7">
+                                            <select name="idSegmento[]" id="segmento_1" class="form-control"></select>
+                                            <p>*</p>
+                                        </td>
+                                        <td class="input-col-7">
+                                            <select name="idSubgrupo[]" id="subgrupo_1"
+                                                    class="form-control subgrupo"></select>
+                                        </td>
+                                        <td>
+                                            <input id="estado_1" type="checkbox" name="Estado[]" checked="checked"
+                                                   value="1"/>
+                                        </td>
+                                        <?php if ($this->identity()->BNF_TipoUsuario_id != 7) { ?>
+                                            <td>
+                                                <input type="button" class="add btn btn-default" value="+"/>
+                                            </td>
+                                        <?php } ?>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-10 col-md-2">
+                                <p>(*) Campos Obligatorios</p>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <div class="col-md-10">
+                                <?= $this->formSubmit($form->get('submit')); ?>
+                                <a href="/cliente" class="btn btn-default">Cancelar</a>
+                                <!--<a href="<? /*= $this->url('cliente', array('action' => 'delete', 'id' => $id)); */ ?>"
+                                   onclick="javascript:return confirm('Desea eliminar el Usuario Final?')"
+                                   class="btn btn-danger">Eliminar</a>-->
+                            </div>
+                        </div>
+                        <?= $this->form()->closeTag(); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<?php include("_scriptemp.phtml"); ?>

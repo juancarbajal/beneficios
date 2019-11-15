@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <style type="text/css">
+        @import url(http://fonts.googleapis.com/css?family=Didact+Gothic:300,400);
+        body{font-family: 'Didact Gothic', sans-serif;font-size: 12px;color: #666666;}
+        h2{font-family: 'Didact Gothic', sans-serif;}
+        p{font-size: 12px;color: #666666;font-family: 'Didact Gothic', sans-serif;margin: 5px;}
+        hr.hr-head{background-color: #ADA2A2;height: 3px;border: 0;}
+        hr.hr-dotted{border-style: dotted;}
+        hr.hr-footer{background-color: #000;height: 3px;border: 0;}
+        h4{font-size: 12px;font-family: 'Didact Gothic', sans-serif;}
+        span.ncircle{background: grey;border-radius: 0.8em;-moz-border-radius: 0.8em;-webkit-border-radius: 0.8em;color: #ffffff;display: inline-block;font-weight: bold;line-height: 1.5em;text-align: center;width: 1.5em;font-size: 16px;margin: 0;padding: 0;}
+        .cnt-tarjetas{display: inline-block;width: 11.465em;text-align: center;}
+    </style>
+</head>
+<body>
+<table width="100%" cellpadding="0" cellspacing="0">
+    <tr>
+        <td style="padding-bottom: 10px;">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <td width="50%">
+					<?php
+					$imgCli = explode(".", $this->logoCliente);
+					$ext = end($imgCli);
+					$imgCli = str_replace('.' . $ext, '', $this->logoCliente) . '-fixed.' . $ext;
+					?>
+                        <img src="<?= $this->config['images']["logos"] . $imgCli ?>" alt="">
+                    </td>
+                    <td width="50%">
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                            <tr>
+                                <td align="right">
+                                    <span style="font-family: 'Didact Gothic', sans-serif;font-size:16px;font-weight: 700;color:#363636">
+                                        C&oacute;digo: <?= $this->codigoCupon ?>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" style="padding-bottom: 10px;">
+                                    <span style="font-family: 'Didact Gothic', sans-serif;color: #9b9b9b;font-size:12px;">
+                                        Presenta este c&oacute;digo en el local
+                                    </span>            
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">
+                                    <span style="font-family: 'Didact Gothic', sans-serif;font-size:16px;font-weight: 600;color:#363636">
+                                        Documento de identidad: <?= str_replace('Número de Documento: ', '', $this->dni) ?>
+                                    </span>    
+                                </td>
+                            </tr>    
+                        </table>
+                    </td>
+                </tr>   
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding-bottom: 10px;">
+            <table border="1" cellpadding="0" cellspacing="0" bordercolor="#c7c3c3" width="100%">
+                <tr>
+                    <td style="border:0;padding: 10px 10px 10px 30px;">
+                        <table cellpadding="0" cellspacing="0" width="100%">
+                            <tr>
+                                <td width="64" align="left">
+                                    <img src="<?= $this->config['images']['logos'] . $this->cupon->LogoEmpresa ?>" alt="">
+                                </td>
+                                <td align="left">
+                                    <span style="font-family: 'Didact Gothic', sans-serif;font-size:14px;font-weight: 600;color:#363636;padding-left: 20px;">
+					                <?=$cupon->nombreEmpresa;?>
+                                    </span>   
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="border:0;padding: 0 10px 10px 30px;">
+                        <span style="font-family: 'Didact Gothic', sans-serif;font-size:16px;font-weight: 400;color:#363636;">
+					<?php $datoBeneficio = (is_object($this->atributo))
+					? $this->atributo->DatoBeneficio : $this->cupon->datoBeneficio;
+					$dato = '';
+					if (isset($datoBeneficio)) {
+						if ($this->cupon->idTipoBeneficio == 1) :
+							$dato =  $item->DatoBeneficio . " % Descuento ";
+						elseif ($this->cupon->idTipoBeneficio == 2) :
+						    $dato = "S/." . $item->DatoBeneficio . " Descuento ";
+					  	else :
+							$dato = str_replace(' por', '', $item->DatoBeneficio) . " ";
+						endif;
+					}
+?>
+				
+                           <?=$cupon->datoBeneficio?> <?=$cupon->TituloOferta?>
+                        </span>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table border="1" cellpadding="0" cellspacing="0" bordercolor="#c7c3c3" width="100%">
+                <tr>
+                    <td style="border:0;padding: 10px 10px 10px 30px;">
+                        <p>
+                            <span style="font-family: 'Didact Gothic', sans-serif;font-size:14px;font-weight: 700;color:#363636;">
+                                Datos del proveedor
+                            </span>
+                        </p>
+                        <p>
+                            <span style="font-family: 'Didact Gothic', sans-serif;font-size:14px;font-weight: 400;color:#a1a1a1;">
+                                Direcci&oacute;n: <?= $this->cupon->DireccionOferta ?>
+                            </span>
+                        </p>
+                        <p>
+                            <span style="font-family: 'Didact Gothic', sans-serif;font-size:14px;font-weight: 400;color:#a1a1a1;">
+                                Tel&eacute;fono: <?= $this->cupon->TelefonoOferta ?>
+                            </span>
+                        </p>
+                        <p>
+                            <span style="font-family: 'Didact Gothic', sans-serif;font-size:14px;font-weight: 400;color:#a1a1a1;">
+                                Email: <?= $this->cupon->emailEmpresa ?>
+                            </span>
+                        </p>
+					<?php if ($this->cupon->DiasAtencionContacto != null) { ?>
+					    <p>
+                            <span style="font-family: 'Didact Gothic', sans-serif;font-size:14px;font-weight: 400;color:#a1a1a1;">
+                                Horario: De <?= $this->cupon->DiasAtencionContacto ?> de <?= $this->cupon->HoraInicioContacto ?>
+                    a <?= $this->cupon->HoraFinContacto ?>
+                            </span>
+                        </p>
+					<?php } ?>
+					 <?php if ($this->cupon->webEmpresa != null) { ?>
+                        <p>
+                            <span style="font-family: 'Didact Gothic', sans-serif;font-size:14px;font-weight: 400;color:#a1a1a1;">
+                                Sitio Web: <?= $this->cupon->webEmpresa ?>
+                            </span>
+                        </p>
+					<?php } ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="border:0;padding: 0px 10px 10px 30px;">
+                        <p>
+                            <span style="font-family: 'Didact Gothic', sans-serif;font-size:16px;font-weight: 700;color:#363636;">
+                                Condiciones de uso
+                            </span>
+                        </p>
+                        <p style="font-size: 12px;color: #a1a1a1;font-family: 'Didact Gothic', sans-serif;font-weight: 400;">
+					<?= trim($this->cupon->condicionesUso) ?> 
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="border:0;padding: 0px 10px 10px 30px;">
+                        <p>
+                            <span style="font-family: 'Didact Gothic', sans-serif;font-size:16px;font-weight: 700;color:#363636;">
+                                T&eacute;rminos legales
+                            </span>
+                        </p>
+                        <p style="font-size: 12px;color: #a1a1a1;font-family: 'Didact Gothic', sans-serif;font-weight: 400;">
+					    <?= trim($this->conf['termcondiciones']) ?>
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding-bottom: 0px;width: 100%;padding-top: 0px;">
+            <span style="font-family: 'Didact Gothic', sans-serif;font-size:14px;font-weight: 400;color:#000;text-align: center;display: block;">
+                Disfruta de este beneficio presentando este c&oacute;digo en el establecimiento
+            </span><br/>
+			<span style="font-family: 'Didact Gothic', sans-serif;font-size:16px;font-weight: 700;color:#363636">
+            <center>C&oacute;digo: <?= $this->codigoCupon ?></center>
+            </span><br/>
+            <center><img src="<?= $this->config['images']["imgBeneficios"] ?>" alt="" width="96px"></center>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

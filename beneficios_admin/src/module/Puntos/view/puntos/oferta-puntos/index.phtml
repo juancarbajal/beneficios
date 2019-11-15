@@ -1,0 +1,191 @@
+<section class="content-header ">
+    <br><br><br>
+
+    <h1 class="box-title">Lista de Ofertas Puntos</h1>
+    <br><br>
+    <?php if ($this->flashMessenger()->hasMessages()) {
+        echo '<div class="callout alert alert-success">' .
+            '<button class="close" data-dismiss="alert" type="button">×</button>';
+        $messages = $this->flashMessenger()->getMessages();
+        foreach ($messages as $message) {
+            echo $message;
+        }
+        echo '</div>';
+    } ?>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                </div>
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <?php
+                        $form = $this->form;
+                        $q1 = $this->q1;
+                        $q2 = $this->q2;
+                        $p = $this->p;
+                        $order = $this->order;
+                        $order_by = $this->order_by;
+
+                        $form->setAttribute('action', $this->url('ofertas-puntos', array('action' => 'index')));
+                        $form->prepare();
+                        echo $this->form()->openTag($form);
+                        echo $this->formElement($form->get('csrf'));
+
+                        ?>
+                        <div class="row">
+                            <fieldset>
+                                <legend>Buscar por:</legend>
+                                <div class="form-group">
+                                    <div class="col-md-2"><label>Empresa Cliente:</label></div>
+                                    <div class="col-md-4">
+                                        <?= $this->formRow($form->get('Empresas')); ?>
+                                    </div>
+                                    <div class="col-md-2"><label>Título:</label></div>
+                                    <div class="col-md-3">
+                                        <?= $this->formRow($form->get('Ofertas')); ?>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <?= $this->formSubmit($form->get('submit')); ?>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </fieldset>
+                        </div>
+                        <hr>
+                        <?= $this->form()->closeTag(); ?>
+                    </div>
+
+                    <div class="dataTables_wrapper form-inline dt-bootstrap" id="example1_wrapper">
+                        <div class="row-fluid">
+                            <div class="col-md-12 text-right">
+                                <div id="example1_length" class="dataTables_length"><br>
+                                    <a href="<?php echo $this->url(
+                                        'ofertas-puntos',
+                                        array(
+                                            'action' => 'export',
+                                            'id' => (int)$q1,
+                                            'val' => $q2
+                                        )
+                                    ); ?>"
+                                       class="btn btn-primary">Exportar</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="clear:both;"></div>
+                        <br>
+
+                        <div class="row-fluid">
+                            <div class="col-sm-12">
+                                <table aria-describedby="example1_info" role="grid" id="example1"
+                                       class="table table-bordered table-striped dataTable">
+                                    <thead>
+                                    <tr role="row">
+                                        <th>
+                                            <?php if ($order_by == 'Titulo') { ?>
+                                                <a href="<?= $this->url('ofertas-puntos', array('order_by' => 'Titulo', 'order' => $order, 'page' => $p, 'q1' => $q1, 'q2' => $q2)); ?>">Título</a>
+                                            <?php } else { ?>
+                                                <a href="<?= $this->url('ofertas-puntos', array('order_by' => 'Titulo', 'order' => 'asc', 'page' => $p, 'q1' => $q1, 'q2' => $q2)); ?>">Título</a>
+                                            <?php } ?>
+                                        </th>
+                                        <th>
+                                            <?php if ($order_by == 'Empresa') { ?>
+                                                <a href="<?= $this->url('ofertas-puntos', array('order_by' => 'Empresa', 'order' => $order, 'page' => $p, 'q1' => $q1, 'q2' => $q2)); ?>">Empresa
+                                                    Cliente</a>
+                                            <?php } else { ?>
+                                                <a href="<?= $this->url('ofertas-puntos', array('order_by' => 'Empresa', 'order' => 'asc', 'page' => $p, 'q1' => $q1, 'q2' => $q2)); ?>">Empresa
+                                                    Cliente</a>
+                                            <?php } ?>
+                                        </th>
+                                        <th>
+                                            <?php if ($order_by == 'TipoPrecio') { ?>
+                                                <a href="<?= $this->url('ofertas-puntos', array('order_by' => 'TipoPrecio', 'order' => $order, 'page' => $p, 'q1' => $q1, 'q2' => $q2)); ?>">Tipo
+                                                    Precio</a>
+                                            <?php } else { ?>
+                                                <a href="<?= $this->url('ofertas-puntos', array('order_by' => 'TipoPrecio', 'order' => 'asc', 'page' => $p, 'q1' => $q1, 'q2' => $q2)); ?>">Tipo
+                                                    Precio</a>
+                                            <?php } ?>
+                                        </th>
+                                        <th>
+                                            <?php if ($order_by == 'Segmentos') { ?>
+                                                <a href="<?= $this->url('ofertas-puntos', array('order_by' => 'Segmentos', 'order' => $order, 'page' => $p, 'q1' => $q1, 'q2' => $q2)); ?>">
+                                                    Segmentos</a>
+                                            <?php } else { ?>
+                                                <a href="<?= $this->url('ofertas-puntos', array('order_by' => 'Segmentos', 'order' => 'asc', 'page' => $p, 'q1' => $q1, 'q2' => $q2)); ?>">
+                                                    Segmentos</a>
+                                            <?php } ?>
+                                        </th>
+                                        <th>
+                                            <?php if ($order_by == 'Estado') { ?>
+                                                <a href="<?= $this->url('ofertas-puntos', array('order_by' => 'Estado', 'order' => $order, 'page' => $p, 'q1' => $q1, 'q2' => $q2)); ?>">Estado</a>
+                                            <?php } else { ?>
+                                                <a href="<?= $this->url('ofertas-puntos', array('order_by' => 'Estado', 'order' => 'asc', 'page' => $p, 'q1' => $q1, 'q2' => $q2)); ?>">Estado</a>
+                                            <?php } ?>
+                                        </th>
+                                        <th><a>Editar</a></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php $ofertas = $this->ofertas;
+                                    if (count($this->ofertas) > 0) {
+                                        foreach ($ofertas as $dato) : ?>
+                                            <tr data-id="<?php echo $dato->id ?>">
+                                                <td><?= $this->escapeHtml($dato->Titulo); ?></td>
+                                                <td><?= $this->escapeHtml($dato->BNF_Empresa_id); ?></td>
+                                                <td><?= $this->escapeHtml($dato->TipoPrecio); ?></td>
+                                                <td><?= $this->escapeHtml($dato->Segmentos); ?></td>
+                                                <td><?= $this->escapeHtml($dato->Estado); ?></td>
+                                                <td>
+                                                    <a href="<?= $this->url('ofertas-puntos', array('action' => 'edit', 'id' => $dato->id)); ?>">
+                                                        <i class="btn btn-warning fa fa-pencil-square-o"></i></a>
+                                                </td>
+                                            </tr>
+                                            <?php
+                                        endforeach;
+                                    } else {
+                                        echo '<tr><td colspan="10">No hay Ofertas Puntos Registradas</td></tr>';
+                                    } ?>
+                                    </tbody>
+                                </table>
+                                <div class="col-md-4"><br>
+                                    <p>
+                                        <?php if (count($ofertas) > 0) { ?>
+                                            <?= (($ofertas->getCurrentPageNumber() * $ofertas->getItemCountPerPage()) -
+                                                ($ofertas->getItemCountPerPage() - 1)); ?>
+                                            -
+                                            <?= ($ofertas->getCurrentPageNumber() * $ofertas->getItemCountPerPage() <
+                                                $ofertas->getTotalItemCount())
+                                                ? $ofertas->getCurrentPageNumber() * $ofertas->getItemCountPerPage()
+                                                : $ofertas->getTotalItemCount() ?> de
+                                            <?= $ofertas->getTotalItemCount(); ?> Registros
+                                            <?php
+                                        }
+                                        ?>
+                                    </p>
+                                </div>
+                                <?php
+                                if (isset($ofertas)) {
+                                    echo $this->paginationControl(
+                                        $ofertas,
+                                        'Sliding',
+                                        'paginator-ofertas-puntos',
+                                        array(
+                                            'order_by' => $order_by,
+                                            'order' => ($order == "desc") ? 'asc' : 'desc',
+                                            'q1' => $q1,
+                                            'q2' => $q2,
+                                        )
+                                    );
+                                } ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<?php
+$this->inlineScript()->appendFile($this->basePath('js/puntos/campanias.js'));

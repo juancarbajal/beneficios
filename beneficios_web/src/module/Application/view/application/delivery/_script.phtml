@@ -1,0 +1,31 @@
+<?php
+$slug = $this->cupon->Slug;
+$ruta = '/puntos/coupon-puntos/';
+
+$this->inlineScript()->captureStart();
+echo <<<JS
+$(document).ready(function () {
+    var requeridos = $this->requeridos;
+
+    $.each(requeridos, function (index, value) {
+        $("#" + value).rules("add", {
+            required: true,
+            messages: {
+                required: "El campo es obligatorio."
+            }
+        });
+    });
+
+    var ruta = '$ruta' + '$slug';
+
+    $('#cerrar_preguntas').click(function () {
+        window.location.href = ruta;
+    });
+
+    $('#modalGracias').on('hidden.bs.modal', function () {
+        window.location.href = ruta;
+    });
+});
+JS;
+$this->inlineScript()->captureEnd();
+echo $this->inlineScript();

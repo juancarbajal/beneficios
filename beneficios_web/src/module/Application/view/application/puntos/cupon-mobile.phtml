@@ -1,0 +1,180 @@
+<style>
+    .left-info-c ul li {
+        text-align: center;
+    }
+</style>
+<div class="fluid-list cupon-interna">
+    <div class="fluid-list cupon-cnt">
+        <?php
+        $imgCupon = $this->imgCupon;
+        if (count($this->imgCupon) > 1) { ?>
+            <div class="fluid-list slider-home box-sombra">
+                <div class="fluid-list sombra-interna">
+                    <div class="slider slider-promocion box-sombra-caja">
+                        <?php foreach ($imgCupon as $img) { ?>
+                            <div class="info-cupon">
+                                <img src="<?php
+                                $trozos = explode(".", $img->ImagenOferta);
+                                $ext = end($trozos);
+                                $img->ImagenOferta = str_replace('.' . $ext, '', $img->ImagenOferta) . '-large.' . $ext;
+                                echo $this->rofertas . $img->ImagenOferta; ?>"/>
+                                <div class="puntos-ico"></div>
+                            </div>
+                        <?php } ?>
+                    </div>
+                </div>
+            </div>
+        <?php } else { ?>
+            <?php foreach ($imgCupon as $img) { ?>
+                <div class="fluid-list slider-home box-sombra">
+                    <div class="fluid-list sombra-interna">
+                        <div class="slider slider-promocion box-sombra-caja">
+                            <figure>
+                                <img src="<?php
+                                $trozos = explode(".", $img->ImagenOferta);
+                                $ext = end($trozos);
+                                $img->ImagenOferta = str_replace('.' . $ext, '', $img->ImagenOferta) . '-large.' . $ext;
+                                echo $this->rofertas . $img->ImagenOferta
+                                ?>">
+                                <div class="puntos-ico"></div>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            <?php } ?>
+        <?php } ?>
+
+        <h1 class="justificar">
+            <?php if ($this->cupon->PrecioVentaPublico) {
+                if ($this->identity()['flagcheckboxMoney']) { ?>
+                    <b><?= $cupon->PrecioVentaPublico ?>  puntos por </b>
+                <?php } else {
+                    ?>
+                    <b>S/. <?= $cupon->PrecioVentaPublico ?> por </b>
+                <?php }
+            } ?>
+            <?= $this->cupon->TituloOferta ?>
+        </h1>
+        <?php
+        if ($this->cupon->TipoPrecio != 'Split') {
+            $date = new DateTime($this->cupon->FechaVigencia);
+            $mes = $date->format('m');
+            ?>
+            <em class="fluid-list">Cupón válido hasta
+                el <?php echo ' ' . $date->format('d') . ' de ' . $this->meses[$mes - 1] ?></em>
+        <?php } ?>
+
+        <?php if (!empty($banners[6])) { ?>
+            <div class="fluid-list banner-puntos-cupon">
+                <a href="#"><img src="<?= $this->rbanners . $banners[6]['image'] ?>" alt=""/></a>
+            </div>
+        <?php } ?>
+        <div class="cupon-fixed-btn">
+            <?php if ($this->cupon->Estado == 'Publicado' and $this->cupon->CaducadoTiempo >= 0) : ?>
+                <?php if ($this->cupon->TipoPrecio == 'Split') : ?>
+                    <a href="#" class="btn btn-primary btn-cupon" data-toggle="modal"
+                       data-target="#elegirOpcion">
+                        <span>Elegir Cupón</span>
+                    </a>
+                <?php else : ?>
+                    <a href="<?= $this->url('delivery', array('action' => 'index', 'slug' => $this->cupon->Slug)); ?>"
+                       target="_self" class="btn btn-primary btn-cupon">
+                        <span>Descargar Cupón</span>
+                    </a>
+                <?php endif; ?>
+            <?php else : ?>
+                <a class="btn btn-primary btn-cupon btn-full">
+                    <span>Beneficio Caducado</span></a>
+            <?php endif; ?>
+        </div>
+
+        <div class="fluid-list cnt-condiciones-info">
+            <h3 class="title-interna">Condiciones de Uso</h3>
+            <?= $this->cupon->CondicionesUso ?>
+        </div>
+
+        <div class="fluid-list cnt-empresa-terminos">
+            <div class="panel-group" id="preguntasF" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingOne">
+                        <h4 class="panel-title">
+                            <a class="collapsed" role="button" data-toggle="collapse"
+                               data-parent="#preguntasF"
+                               href="#collapseOne" aria-expanded="false" aria-controls="collapseTwo">Sobre
+                                la
+                                empresa <span class="glyphicon glyphicon-triangle-bottom"
+                                              aria-hidden="true"></span><span
+                                        class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel"
+                         aria-labelledby="headingOne">
+                        <div class="panel-body">
+                            <?php if ($this->identity()['flagcheckboxLogo']) { ?>
+                            <figure>
+                                <img src="<?= $this->rlogos . $this->cupon->LogoEmpresa ?>"/>
+                            </figure>
+                            <?php }?>
+                            <p>
+                                <?= $this->cupon->DescripcionEmpresa ?>
+                            </p>
+                            <div class="fluid-list left-info-c">
+                                <ul>
+                                    <?php if ($this->cupon->Direccion != null) : ?>
+                                        <li>
+                                            <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                                            <div class="cnt-info-list">
+                                                <h4>Dirección: </h4>
+                                                <em><?= $this->cupon->Direccion ?></em>
+                                            </div>
+                                        </li>
+                                    <?php endif; ?>
+                                    <?php if ($this->cupon->Telefono != null) : ?>
+                                        <li>
+                                            <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
+                                            <div class="cnt-info-list">
+                                                <h4>Teléfonos: </h4>
+                                                <em><?= $this->cupon->Telefono ?></em>
+                                            </div>
+                                        </li>
+                                    <?php endif; ?>
+                                    <?php if ($this->cupon->WebEmpresa != null) : ?>
+                                        <li>
+                                            <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
+                                            <div class="cnt-info-list">
+                                                <h4>Sitio Web: </h4>
+                                                <em><?= $this->cupon->WebEmpresa ?></em>
+                                            </div>
+                                        </li>
+                                    <?php endif; ?>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingTwo">
+                        <h4 class="panel-title">
+                            <a class="collapsed" role="button" data-toggle="collapse"
+                               data-parent="#preguntasF"
+                               href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Términos
+                                Legales <span class="glyphicon glyphicon-triangle-bottom"
+                                              aria-hidden="true"></span><span
+                                        class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel"
+                         aria-labelledby="headingTwo">
+                        <div class="panel-body">
+                            <p class="justificar"><?= $this->conf['termcondiciones'] ?></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php
+echo $this->partial('application/puntos/mobile/_ofertasrelacionadas');

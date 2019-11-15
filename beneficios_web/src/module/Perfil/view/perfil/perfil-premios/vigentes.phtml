@@ -1,0 +1,53 @@
+<section>
+    <div class="container">
+        <div class="fluid-list cnt-content-user">
+            <h3>Bienvenid@ <span><?= $this->identity()["Nombre"] . ' ' . $this->identity()["Apellido"] ?></span></h3>
+            <div class="row">
+                <?php echo $this->partial('perfil/perfil/_sidebar') ?>
+                <div class="col-md-9">
+                    <div class="fluid-list cnt-mis-datos">
+                        <h3>Premios Vigentes</h3>
+                        <div class="fluid-list cnt-puntos-o">
+                            <p><a href="<?= $this->url('perfil-premios', array('action' => 'pdfVigentes')); ?>"><span></span> Descargar Listado de Premios Vigentes (PDF)</a></p>
+                        </div>
+                        <div class="fluid-list cnt-table-user cnt-user-descargado">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Descripción</th>
+                                    <th>Fecha de Descarga</th>
+                                    <th>Fecha de Expiración</th>
+                                    <th>Premios Usados</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php foreach ($this->vigentes as $value) { ?>
+                                    <tr>
+                                        <td class="p-vig">
+                                            <a href="<?= $this->basePath('elements/' . $value->CodigoCupon . '.pdf') ?>"
+                                            download="<?= 'beneficios_' . $value->Empresa . '_' . $value->id . '.pdf'?>">
+                                                <?= $value->TituloCorto ?>
+                                            </a>
+                                        </td>
+                                        <td><?= date('d/m/Y', strtotime($value->FechaGenerado)) ?></td>
+                                        <td><?= date('d/m/Y', strtotime($value->FechaVigencia)) ?></td>
+                                        <td class="p-saldo"><?= $value->PremiosUtilizados ?></td>
+                                    </tr>
+                                <?php } ?>
+                                </tbody>
+                            </table>
+                            <?php
+                            if (isset($this->vigentes)) {
+                                echo $this->paginationControl(
+                                    $this->vigentes,
+                                    'Sliding',
+                                    'paginator-vigentes-premios'
+                                );
+                            } ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

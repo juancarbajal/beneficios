@@ -1,0 +1,294 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: marlo
+ * Date: 24/09/15
+ * Time: 05:27 PM
+ */
+?>
+<section class="content-header ">
+    <br><br><br>
+
+    <h1 class="box-title">Lista de Paquetes</h1>
+    <br>
+
+    <div style="clear:both;"></div>
+    <?php if ($this->flashMessenger()->hasMessages()) {
+        echo '<div class="callout alert alert-success"><button class="close" data-dismiss="alert" type="button">×</button>';
+        $messages = $this->flashMessenger()->getMessages();
+        foreach ($messages as $message) {
+            echo $message;
+        }
+        echo '</div>';
+    } ?>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                </div>
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <?php
+                        $form->setAttribute('action', $this->url('paquete', array('action' => 'list')));
+                        $form->prepare();
+                        echo $this->form()->openTag($form);
+                        echo $this->formElement($form->get('csrf'));
+
+                        ?>
+                            <fieldset>
+                                <legend>Buscar por:</legend>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="<?= $this->formElementErrors($form->get('NombrePais')) ? 'has-error' : '' ?>">
+                                                <div class="col-md-4"><label>Pais:</label></div>
+                                                <div class="col-md-8">
+                                                    <div class="row-fluid campo">
+                                                        <div class="col-md-11 null-padding">
+                                                            <?= $this->formRow($form->get('NombrePais')); ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="<?= $this->formElementErrors($form->get('TipoPaquete')) ? 'has-error' : '' ?>">
+                                                <div class="col-md-4"><label>Tipo de Paquete:</label></div>
+                                                <div class="col-md-8">
+                                                    <div class="row-fluid campo">
+                                                        <div class="col-md-11 null-padding pad-left">
+                                                            <?= $this->formRow($form->get('TipoPaquete')); ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br><br>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="<?= $this->formElementErrors($form->get('FechaInicio')) ? 'has-error' : '' ?>">
+                                                <div class="col-md-4"><label>Fecha de Creación Desde:</label></div>
+                                                <div class="col-md-8">
+                                                    <div class="row-fluid">
+                                                        <div class="row-fluid campo">
+                                                            <div class="col-md-1 null-padding"><i class="fa fa-calendar"></i></div>
+                                                            <div class="col-md-10 null-padding pad-left">
+                                                                <?php echo $this->formRow($form->get('FechaInicio')); ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="<?= $this->formElementErrors($form->get('FechaFin')) ? 'has-error' : '' ?>">
+                                                <div class="col-md-4"><label>Hasta:</label></div>
+                                                <div class="col-md-8">
+                                                    <div class="row-fluid">
+                                                        <div class="row-fluid campo">
+                                                            <div class="col-md-1 null-padding"><i class="fa fa-calendar"></i></div>
+                                                            <div class="col-md-10 null-padding">
+                                                                <?php echo $this->formRow($form->get('FechaFin')); ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <br><br>
+
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-md-offset-6 col-md-6 text-right">
+                                            <?= $this->formSubmit($form->get('submit')); ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        <hr>
+                        <?php
+                        echo $this->form()->closeTag();
+                        ?>
+                    </div>
+
+                    <div class="dataTables_wrapper form-inline dt-bootstrap" id="example1_wrapper">
+                        <div class="row-fluid">
+                            <div class="col-md-12 text-right">
+                                <div id="example1_length" class="dataTables_length"><br>
+                                    <a href="<?php echo $this->url('paquete', array('action' => 'exportPaquete')); ?>"
+                                       class="btn btn-primary">Exportar</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="clear:both;"></div>
+                        <br>
+
+                        <div class="row-fluid">
+                            <div class="col-sm-12">
+                                <table aria-describedby="example1_info" role="grid" id="example1"
+                                       class="table table-bordered table-striped dataTable">
+                                    <thead>
+                                    <tr role="row">
+                                        <th>
+                                            <?php if ($order_by == 'Paquete'): ?>
+                                                <a href="<?= $this->url('paquete', array('action' => 'list',
+                                                    'order_by' => 'Paquete', 'order' => $order, 'page' => $p, 'q1' => $q1,
+                                                    'q2' => $q2, 'q3' => $q3, 'q4' => $q4)); ?>">Nombre de Paquete</a>
+                                            <?php else: ?>
+                                                <a href="<?= $this->url('paquete', array('action' => 'list',
+                                                    'order_by' => 'Paquete', 'order' => 'asc', 'page' => $p, 'q1' => $q1,
+                                                    'q2' => $q2, 'q3' => $q3, 'q4' => $q4)); ?>">Nombre de Paquete</a>
+                                            <?php endif; ?>
+                                        </th>
+                                        <th>
+                                            <?php if ($order_by == 'TipoPaquete'): ?>
+                                                <a href="<?= $this->url('paquete', array('action' => 'list',
+                                                    'order_by' => 'TipoPaquete', 'order' => $order, 'page' => $p,
+                                                    'q1' => $q1, 'q2' => $q2, 'q3' => $q3, 'q4' => $q4)); ?>">Tipo de
+                                                    Paquete</a>
+                                            <?php else: ?>
+                                                <a href="<?= $this->url('paquete', array('action' => 'list',
+                                                    'order_by' => 'TipoPaquete', 'order' => 'asc', 'page' => $p,
+                                                    'q1' => $q1, 'q2' => $q2, 'q3' => $q3, 'q4' => $q4)); ?>">Tipo de
+                                                    Paquete</a>
+                                            <?php endif; ?>
+                                        </th>
+                                        <th>
+                                            <?php if ($order_by == 'Precio'): ?>
+                                                <a href="<?= $this->url('paquete', array('action' => 'list', 'order_by' => 'Precio',
+                                                    'order' => $order, 'page' => $p, 'q1' => $q1, 'q2' => $q2, 'q3' => $q3,
+                                                    'q4' => $q4)); ?>">Precio</a>
+                                            <?php else: ?>
+                                                <a href="<?= $this->url('paquete', array('action' => 'list', 'order_by' => 'Precio',
+                                                    'order' => 'asc', 'page' => $p, 'q1' => $q1, 'q2' => $q2, 'q3' => $q3,
+                                                    'q4' => $q4)); ?>">Precio</a>
+                                            <?php endif; ?>
+                                        </th>
+                                        <th>
+                                            <?php if ($order_by == 'Cantidad'): ?>
+                                                <a href="<?= $this->url('paquete', array('action' => 'list', 'order_by' => 'Cantidad',
+                                                    'order' => $order, 'page' => $p, 'q1' => $q1, 'q2' => $q2, 'q3' => $q3,
+                                                    'q4' => $q4)); ?>">Cantidad</a>
+                                            <?php else: ?>
+                                                <a href="<?= $this->url('paquete', array('action' => 'list', 'order_by' => 'Cantidad',
+                                                    'order' => 'asc', 'page' => $p, 'q1' => $q1, 'q2' => $q2, 'q3' => $q3,
+                                                    'q4' => $q4)); ?>">Cantidad</a>
+                                            <?php endif; ?>
+                                        </th>
+                                        <th>
+                                            <?php if ($order_by == 'Bolsa'): ?>
+                                                <a href="<?= $this->url('paquete', array('action' => 'list',
+                                                    'order_by' => 'Bolsa', 'order' => $order, 'page' => $p,
+                                                    'q1' => $q1, 'q2' => $q2, 'q3' => $q3, 'q4' => $q4)); ?>">Bolsa</a>
+                                            <?php else: ?>
+                                                <a href="<?= $this->url('paquete', array('action' => 'list',
+                                                    'order_by' => 'Bolsa', 'order' => 'asc', 'page' => $p,
+                                                    'q1' => $q1, 'q2' => $q2, 'q3' => $q3, 'q4' => $q4)); ?>">Bolsa</a>
+                                            <?php endif; ?>
+                                        </th>
+                                        <th><a>Editar</a></th>
+                                        <th>
+                                            <?php if ($order_by == 'Activo'): ?>
+                                                <a href="<?= $this->url('paquete', array('action' => 'list',
+                                                    'order_by' => 'Activo', 'order' => $order, 'page' => $p,
+                                                    'q1' => $q1, 'q2' => $q2, 'q3' => $q3, 'q4' => $q4)); ?>">Activo</a>
+                                            <?php else: ?>
+                                                <a href="<?= $this->url('paquete', array('action' => 'list',
+                                                    'order_by' => 'Activo', 'order' => 'asc', 'page' => $p,
+                                                    'q1' => $q1, 'q2' => $q2, 'q3' => $q3, 'q4' => $q4)); ?>">Activo</a>
+                                            <?php endif; ?>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                    if (isset($paquetes) && count($paquetes)):
+                                        foreach ($paquetes as $dato) : ?>
+                                            <tr data-id="<?php echo $dato->id ?>">
+                                                <td width="50"><?php echo $this->escapeHtml($dato->Nombre); ?></td>
+                                                <td width="50"><?php echo $this->escapeHtml($dato->NombreTipoPaquete); ?></td>
+                                                <td width="50"><?php echo $this->escapeHtml($dato->Precio); ?></td>
+                                                <?php if ($dato->NombreTipoPaquete == 'Descarga'): ?>
+                                                    <td width="50"><?php echo $this->escapeHtml($dato->Cantidad) != 1
+                                                            ? $this->escapeHtml((int)$dato->Cantidad) . ' Descargas' : '1 Descarga'; ?></td>
+                                                <?php elseif ($dato->NombreTipoPaquete == 'Presencia'): ?>
+                                                    <td width="50"><?php echo $this->escapeHtml($dato->Cantidad) != 1
+                                                            ? $this->escapeHtml((int)$dato->Cantidad) . ' Días' : '1 Día'; ?></td>
+                                                <?php else: ?>
+                                                    <td width="50"></td>
+                                                <?php endif; ?>
+                                                <td width="50"><?= ($dato->NombreTipoPaquete != 'Lead')
+                                                        ?$this->escapeHtml((int)$dato->Bolsa) :''; ?></td>
+                                                <td width="50">
+                                                    <a href="<?php echo $this->url('paquete', array('action' => 'edit',
+                                                        'id' => $dato->id)); ?>">
+                                                        <i class="btn btn-warning fa fa-pencil-square-o"></i></a>
+                                                </td>
+                                                <td width="20">
+                                                    <?php if ($dato->Eliminado == 1): ?>
+                                                        <input id="elim<?php echo $dato->id ?>"
+                                                               name="<?php echo $dato->Eliminado ?>"
+                                                               class="elim" type="checkbox">
+                                                    <?php else: ?>
+                                                        <input id="elim<?php echo $dato->id ?>"
+                                                               name="<?php echo $dato->Eliminado ?>"
+                                                               class="elim" type="checkbox" checked>
+                                                    <?php endif; ?>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach;
+                                    else: ?>
+                                        <tr>
+                                            <td colspan="7">No hay Paquetes</td>
+                                        </tr>
+                                    <?php endif; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+                <div class="col-md-4"><br>
+
+                    <p>
+                        <?= (($paquetes->getCurrentPageNumber() * $paquetes->getItemCountPerPage()) -
+                            ($paquetes->getItemCountPerPage() - 1)); ?>
+                        -
+                        <?= ($paquetes->getCurrentPageNumber() * $paquetes->getItemCountPerPage() <
+                            $paquetes->getTotalItemCount())
+                            ? $paquetes->getCurrentPageNumber() * $paquetes->getItemCountPerPage()
+                            : $paquetes->getTotalItemCount() ?> de
+                        <?= $paquetes->getTotalItemCount(); ?> Registros
+                    </p>
+                </div>
+                <?php
+                if (isset($paquetes)):
+                    echo $this->paginationControl($paquetes, 'Sliding', 'paginator-paquete', array('order_by' => $order_by,
+                        'order' => ($order == 'asc') ? $order = 'desc' : 'asc', 'q1' => $q1, 'q2' => $q2, 'q3' => $q3, 'q4' => $q4));
+                endif;
+                ?>
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+
+<script type="text/javascript" src="<?= $this->basePath('js/paquete/Paquete.js?'.$this->configItem('version_script')); ?>"></script>

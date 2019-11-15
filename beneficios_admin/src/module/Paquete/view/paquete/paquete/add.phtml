@@ -1,0 +1,186 @@
+<section class="content-header ">
+    <br><br><br>
+
+    <h1 class="box-title">Registrar Paquete</h1>
+    <br><br>
+    <?php if (isset($msg)) {
+        echo '<div class="callout alert alert-' . $alert . '"><button class="close" data-dismiss="alert" type="button">×</button>';
+        foreach ($msg as $message) {
+            echo '<li>' . $message . '</li>';
+        }
+        echo '</div>';
+    } ?>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                </div>
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <?php
+                        $form->setAttribute('action', $this->url('paquete', array('action' => 'add')));
+                        $form->setAttribute('id', 'form');
+                        $form->setAttribute('class', 'form-horizontal');
+                        $form->prepare();
+                        echo $this->form()->openTag($form);
+                        echo $this->formElement($form->get('csrf'));
+
+                        ?>
+                        <div class="form-group">
+                            <div class=" <?= $this->formElementErrors($form->get('NombrePais')) ? 'has-error' : '' ?>">
+                                <div class="col-md-2"><label>País: </label></div>
+                                <div class="col-md-4">
+                                    <div class="row-fluid campo">
+                                        <div class="col-md-11 null-padding input-2">
+                                            <?php
+                                            echo $this->formHidden($form->get('id'));
+                                            echo $this->formRow($form->get('NombrePais'));
+                                            ?>
+                                        </div>
+                                        <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class=" <?= $this->formElementErrors($form->get('Nombre')) ? 'has-error' : '' ?>">
+                                <div class="col-md-2"><label>Nombre: </label></div>
+                                <div class="col-md-10">
+                                    <div class="row-fluid campo">
+                                        <div class="col-md-11 null-padding input">
+                                            <?php echo $this->formRow($form->get('Nombre')); ?>
+                                        </div>
+                                        <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div
+                                class=" <?= $this->formElementErrors($form->get('BNF_TipoPaquete_id')) ? 'has-error' : '' ?>">
+                                <div class="col-md-2"><label>Tipo de Paquete:</label></div>
+                                <div class="col-md-4">
+                                    <div class="row-fluid campo">
+                                        <div class="col-md-11 null-padding input-2">
+                                            <?php echo $this->formRow($form->get('BNF_TipoPaquete_id')); ?>
+                                        </div>
+                                        <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="lead  <?= $this->formElementErrors($form->get('Precio')) ? 'has-error' : '' ?>">
+                                <div class="col-md-2 text-right"><label>Precio:</label></div>
+                                <div class="col-md-4">
+                                    <div class="row-fluid campo">
+                                        <div class="col-md-11 null-padding input-2">
+                                            <?php echo $this->formRow($form->get('Precio')); ?>
+                                        </div>
+                                        <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group des">
+                            <div
+                                class=" <?= $this->formElementErrors($form->get('CantidadDescargas')) ? 'has-error' : '' ?>">
+                                <div class="col-md-2"><label>Cantidad de Descargas:</label></div>
+                                <div class="col-md-4">
+                                    <div class="row-fluid campo">
+                                        <div class="col-md-11 null-padding input-2">
+                                            <?php echo $this->formRow($form->get('CantidadDescargas')); ?>
+                                        </div>
+                                        <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class=" <?= $this->formElementErrors($form->get('PrecioUnitarioDescarga')) ? 'has-error' : '' ?>">
+                                <div class="col-md-2 text-right"><label>Precio por Descargas:</label></div>
+                                <div class="col-md-4">
+                                    <div class="row-fluid campo">
+                                        <div class="col-md-11 null-padding input-2">
+                                            <?php echo $this->formRow($form->get('PrecioUnitarioDescarga')); ?>
+                                        </div>
+                                        <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group des ">
+                            <div class="<?= $this->formElementErrors($form->get('Bonificacion')) ? 'has-error' : '' ?>">
+                                <div class="col-md-2"><label>Bonificación:</label></div>
+                                <div class="col-md-4">
+                                    <div class="row-fluid campo">
+                                        <div class="col-md-11 null-padding input-2">
+                                            <?php echo $this->formRow($form->get('Bonificacion')); ?>
+                                        </div>
+                                        <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class=" <?= $this->formElementErrors($form->get('PrecioUnitarioBonificacion')) ? 'has-error' : '' ?>">
+                                <div class="col-md-2 text-right"><label>Precio por Bonificación:</label></div>
+                                <div class="col-md-4">
+                                    <div class="row-fluid campo">
+                                        <div class="col-md-11 null-padding input-2">
+                                            <?php echo $this->formRow($form->get('PrecioUnitarioBonificacion')); ?>
+                                        </div>
+                                        <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group pre hidden">
+                            <div class="<?= $this->formElementErrors($form->get('NumeroDias')) ? 'has-error' : '' ?>">
+                                <div class="col-md-2"><label>Numero de Días:</label></div>
+                                <div class="col-md-4">
+                                    <div class="row-fluid campo">
+                                        <div class="col-md-11 null-padding input-2">
+                                            <?php echo $this->formRow($form->get('NumeroDias')); ?>
+                                        </div>
+                                        <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="<?= $this->formElementErrors($form->get('CostoDia')) ? 'has-error' : '' ?>">
+                                <div class="col-md-2 text-right"><label>Costo por Día:</label></div>
+                                <div class="col-md-4">
+                                    <div class="row-fluid campo">
+                                        <div class="col-md-11 null-padding input-2">
+                                            <?php echo $this->formRow($form->get('CostoDia')); ?>
+                                        </div>
+                                        <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-10"></div>
+                            <div class="col-md-2">
+                                <?php echo $this->formElement($form->get('Eliminado')); ?>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-10 col-md-2">
+                                <p>(*) Campos Obligatorios</p>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <div class="col-md-10">
+                                <?php echo $this->formSubmit($form->get('submit')); ?>
+                                <a href="/paquete/list" class="btn btn-default">Cancelar</a>
+                            </div>
+                        </div>
+                        <hr>
+                        <?php echo $this->form()->closeTag(); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<?php include_once("_scriptpaquete.php"); ?>
+<script type="text/javascript" src="<?= $this->basePath('js/paquete/Paquete_add.js?'.$this->configItem('version_script')); ?>"></script>

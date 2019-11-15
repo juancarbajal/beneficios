@@ -1,0 +1,47 @@
+<!doctype html>
+<html class="no-js" lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Beneficios</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+    <body>
+        <div id="bg">
+          <img src="img/bg.jpg" alt="">
+        </div>
+        <div class="login-beneficios">
+            <div class="fluid-list header-login">
+                <span></span>
+            </div>
+            <div class="fluid-list contenido-login">
+                <h4 class="text-center">BIENVENIDO</h4>
+                <p class="text-center">Estás a punto de descubrir un mundo de beneficios increíbles para disfrutar de lo que más te gusta con descuentos insuperables.</p>
+                <form action="" class="form-login" id="loginForm">
+                    <div class="form-group has-feedback has-feedback-left">
+                        <div class="form-control-feedback">
+                            <i class="glyphicon glyphicon-user text-muted"></i>
+                        </div>
+                        <input type="text" name="dni" class="form-control" maxlength="8" placeholder="Ingresa tu número de DNI">                        
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block text-center"><span>Ingresa aquí</span></button>
+                    </div>
+                </form>
+                <h5 class="text-center">Si trabajas en Recursos Humanos y estás interesado en este servicio, escríbenos a <a href="#">contactos@beneficios.pe</a></h5>
+            </div>
+        </div>
+
+        <script src="../js/vendor/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="../js/jquery.validate.min.js"></script>
+        <script src="js/main.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                obj.validateLogin();
+            });
+        </script>
+    </body>
+</html>

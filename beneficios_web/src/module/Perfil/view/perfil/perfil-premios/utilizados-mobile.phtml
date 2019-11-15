@@ -1,0 +1,53 @@
+<section class="wrapper-main">
+    <style>
+        .left-info-c ul li{text-align: center;}
+        .tarjetas-img{width: 100px;}
+    </style>
+    <div class="fluid-list cnt-content-user">
+        <h3>Bienvenid@ <span><?= $this->identity()["Nombre"] . ' ' . $this->identity()["Apellido"] ?></span></h3>
+        <div class="fluid-list cnt-mis-datos">
+            <h3>Premios Utilizados</h3>
+            <div class="fluid-list cnt-puntos-o">
+                <p><a href="<?= $this->url('perfil-premios', array('action' => 'pdfUtilizados')); ?>">
+                        <span></span> Descargar Listado de Premios Utilizados (PDF)</a></p>
+            </div>
+            <div class="fluid-list list-table-user">
+                <div class="fluid-list list-items">
+                    <?php foreach ($this->utilizados as $value) { ?>
+                        <h4>
+                            <?= $value->TituloCorto ?>
+                        </h4>
+                        <ul class="item-name-i">
+                            <li>
+                                <ul>
+                                    <li>
+                                        <span class="left">
+                                            Utilizado el: <?= date('d/m/Y', strtotime($value->FechaRedimido)) ?>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <ul>
+                                    <li>
+                                        <span class="left">Premios utilizados:</span>
+                                        <em class="right"><?= $value->PremiosUtilizados ?></em>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    <?php } ?>
+                </div>
+                <?php
+                if (isset($this->utilizados)) {
+                    echo $this->paginationControl(
+                        $this->utilizados,
+                        'Sliding',
+                        'paginator-utilizados-premios',
+                        array('mobile' => $this->mobile)
+                    );
+                } ?>
+            </div>
+        </div>
+    </div>
+</section>

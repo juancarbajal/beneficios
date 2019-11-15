@@ -1,0 +1,64 @@
+<fieldset class="segment-content-classic">
+    <legend>Segmentos</legend>
+    <?php if (!empty($this->dataOfertaSegmentoMessage)) {
+        echo '<div class="callout alert alert-' . $this->type . '">' .
+            '<button class="close" data-dismiss="alert" type="button">×</button>';
+        foreach ($this->dataOfertaSegmentoMessage as $message) {
+            echo '<li>' . $message . '</li>';
+        }
+        echo '</div>';
+    }
+    ?>
+    <?php if (!empty($this->dataAsignacionClassicMessage)) {
+        echo '<div class="callout alert alert-' . $this->type . '">' .
+            '<button class="close" data-dismiss="alert" type="button">×</button>';
+        foreach ($this->dataAsignacionClassicMessage as $message) {
+            echo '<li>' . $message . '</li>';
+        }
+        echo '</div>';
+    }
+    ?>
+    <div>
+        <div class="form-group data-headers">
+            <div class="col-md-2"><label>Nombre</label></div>
+            <div class="col-md-2"><label>Puntos x Usuarios</label></div>
+            <div class="col-md-2"><label>Cantidad de Usuarios</label></div>
+            <div class="col-md-2"><label>Subtotal</label></div>
+            <div class="col-md-2"><label>Comentarios</label></div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="form-group data-list">
+            <div>
+                <div class="col-md-2">
+                    <input title="nombre del segmento" class="form-control classicSeg" name="classicSeg[]" type="text">
+                    <div class="classicSeg error"></div>
+                </div>
+                <div class="col-md-2">
+                    <input title="puntos por usuario" class="form-control classicPtos" name="classicPtos[]" type="text">
+                    <div class="classicPtos error"></div>
+                </div>
+                <div class="col-md-2">
+                    <input title="cantidad de usuario" class="form-control classicPers" name="classicPers[]"
+                           type="text">
+                    <div class="classicPers error"></div>
+                </div>
+                <div class="col-md-2">
+                    <input title="presupuesto" class="form-control classicSub" type="text" disabled>
+                </div>
+                <div class="col-md-2">
+                    <textarea title="comentario" class="form-control classicComment" name="classicComment[]"></textarea>
+                    <div class="classicComment error"></div>
+                </div>
+                <div class="col-md-2">
+                    <button class="addfields btn btn-default" type="button">&#43;</button>
+                </div>
+            </div>
+            <div>
+                <div class="col-md-10">
+                    <div class="classicAsig error"></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group data-footer"></div>
+    </div>
+</fieldset>

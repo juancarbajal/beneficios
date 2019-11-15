@@ -1,0 +1,12 @@
+<?php
+$child = $this->viewModel()->getCurrent()->getChildren();
+$chil = $child[0];
+if (!isset($chil->afiliadas)) {?>
+    <div class="fluid-list">
+        <div class="container">
+            <div class="fluid-list slider-marcas" id="afiliadas">
+            
+            </div>
+        </div>
+    </div>
+<?php } ?>

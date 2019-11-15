@@ -1,0 +1,226 @@
+<?php
+$this->layout()->setTemplate('layout-pre-vista/layout');
+$cupon = $this->cupon;
+?>
+<style>
+    .cnt-tarjetas {
+        text-align: center;
+        display: inline-block;
+        width: 230px;
+        vertical-align: middle;
+    }
+
+    .cnt-tarjetas img {
+        width: 100px;
+    }
+
+    .left-info-c span {
+        width: auto;
+        margin-right: 10px;
+    }
+
+    h4 {
+        display: inline-block;
+    }
+</style>
+<?php $cupon = $this->cupon; ?>
+<div class="fluid-list cnt-cupon">
+    <div class="row primary-info">
+        <div class="col-md-8">
+            <?php
+            $imgCupon = $this->imgCupon;
+            $count = count($imgCupon);
+            if ($count == 1) :
+                foreach ($imgCupon as $img) :
+                    ?>
+                    <div class="fluid-list img-cupon">
+                        <figure>
+                            <img src="<?php
+                            $trozos = explode(".", $img->imagenOferta);
+                            $ext = end($trozos);
+                            $img->imagenOferta = str_replace('.' . $ext, '', $img->imagenOferta) . '-large.' . $ext;
+                            echo $this->rofertas . $img->imagenOferta
+                            ?>"/>
+                        </figure>
+                    </div>
+                <?php endforeach;
+            else :
+                ?>
+                <div class="fluid-list slider-home box-sombra">
+                    <div class="fluid-list sombra-interna">
+                        <div class="slider slider-promocion box-sombra-caja">
+                            <?php foreach ($imgCupon as $img): ?>
+                                <div class="info-cupon">
+                                    <a href="#">
+                                        <img src="<?php
+                                        $partes = explode(".", $img->imagenOferta);
+                                        $ext = end($partes);
+                                        $img->imagenOferta = str_replace('.' . $ext, '', $img->imagenOferta) . '-large.' . $ext;
+                                        echo $this->rofertas . $img->imagenOferta
+                                        ?>"/>
+                                    </a>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
+        </div>
+        <div class="col-md-4">
+            <div class="fluid-list info-cupon">
+                <?php if ($this->identity()['flagcheckboxLogo']) { ?>
+                <figure>
+                    <img src="<?= $this->rlogos . $cupon->LogoEmpresa ?>"/>
+                </figure>
+                <?php }?>
+                <h1>
+                    <?php if ($cupon->datoBeneficio != null) : ?>
+
+                        <?php if ($cupon->idTipoBeneficio == 1) : ?>
+                            <strong>-<?= $cupon->datoBeneficio ?>% Descuento</strong>
+                        <?php elseif ($cupon->idTipoBeneficio == 2) : ?>
+                            <strong>-S/.<?= $cupon->datoBeneficio ?> Descuento</strong>
+                        <?php elseif ($cupon->idTipoBeneficio == 3) : ?>
+                            <strong><?= $cupon->datoBeneficio ?> en</strong>
+                        <?php else : ?>
+                            <strong><?= $cupon->datoBeneficio ?></strong>
+                        <?php endif; ?>
+
+                    <?php endif; ?>
+                    <?= $cupon->TituloOferta ?>
+                </h1>
+                <?php if ($cupon->EstadoOferta == 'Publicado' and $cupon->caducadoTiempo >= 1 and $cupon->Stock >= 1) : ?>
+                    <a href="#" class="btn btn-cupon btn-full" data-toggle="modal"
+                       data-target="#enviarMail">
+                        <span>
+                        <?php if ($cupon->TipoAtributo == 'Split') { ?>
+                            Elegir Cupón
+                        <?php } else { ?>
+                            Descargar Cupón
+                        <?php } ?>
+                        </span>
+                    </a>
+                <?php else : ?>
+                    <a class="btn btn-cupon btn-full" style="cursor: default;background: #609EE8"
+                       data-target="#enviarMail"><span>Beneficio Caducado</span></a>
+                <?php endif;
+                if ($cupon->vigencia != null) :
+                    $date = new DateTime($cupon->vigencia);
+                    $mes = $date->format('m');
+                    ?>
+                    <em>Cupón válido hasta
+                        el <?php echo ' ' . $date->format('d') . ' de ' . $this->meses[$mes - 1] ?></em>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="fluid-list cnt-condiciones-info title-info-c">
+                <h2>Condiciones de Uso</h2>
+                <?php echo $cupon->condicionesUso; ?>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="fluid-list cnt-empresa-info title-info-c">
+                <h2>Sobre la empresa</h2>
+                <p><?php echo $cupon->DescripcionEmpresa; ?></p>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="fluid-list left-info-c">
+                            <ul>
+                                <li>
+                                    <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+
+                                    <div class="cnt-info-list">
+                                        <h4>Dirección: </h4>
+                                        <em><?= $cupon->DireccionOferta ?></em>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
+
+                                    <div class="cnt-info-list">
+                                        <h4>Teléfonos: </h4>
+                                        <em><?= $cupon->TelefonoOferta ?></em>
+                                    </div>
+                                </li>
+                                <?php if ($cupon->webEmpresa != null) : ?>
+                                    <li>
+                                        <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
+
+                                        <div class="cnt-info-list">
+                                            <h4>Sitio Web: </h4>
+                                            <em><?= $cupon->webEmpresa ?></em>
+                                        </div>
+                                    </li>
+                                <?php endif; ?>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <?php if (!empty($tarjetas) and count($tarjetas) > 0) : ?>
+        <div class="row">
+            <div class="fluid-list cnt-condiciones-info title-info-c">
+                <h2>Tarjetas TEBCA</h2>
+                <div class="row">
+                    <div class="col-md-12">
+                        <?php foreach ($tarjetas as $data) : ?>
+                            <div class="cnt-tarjetas">
+                                <h4>
+                                    <img src="/img/<?= $data->Imagen ?>" alt="<?= $data->Descripcion ?>">
+                                </h4>
+                                <p><?= $data->Descripcion ?></p>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr/>
+    <?php endif; ?>
+    <?php if (strlen(trim($cupon->CondicionesTebca)) > 0) : ?>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="fluid-list cnt-terminos">
+                    <h3>Legal</h3>
+                    <p><?= $cupon->CondicionesTebca ?></p>
+                </div>
+            </div>
+        </div>
+        <hr/>
+    <?php endif; ?>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="fluid-list cnt-terminos">
+                <h3>Legal</h3>
+                <p><?= $this->conf['termcondiciones'] ?></p>
+            </div>
+        </div>
+    </div>
+    <div class="fluid-list btn-cnt">
+        <?php if ($cupon->EstadoOferta == 'Publicado' and $cupon->caducadoTiempo >= 1 and $cupon->Stock) : ?>
+            <a href="#" class="btn btn-cupon" data-toggle="modal" data-target="#enviarMail">
+                <span>
+                    <?php if ($cupon->TipoAtributo == 'Split') { ?>
+                        Elegir Cupón
+                    <?php } else { ?>
+                        Descargar Cupón
+                    <?php } ?>
+                </span>
+            </a>
+        <?php else : ?>
+            <a class="btn btn-cupon btn-full" style="cursor: default;background: #609EE8"
+               data-target="#enviarMail"><span>Beneficio Caducado</span></a>
+        <?php endif; ?>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("a.destacados").addClass('active');
+    });
+</script>

@@ -1,0 +1,214 @@
+<nav class="fluid-list" style="display: none;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="list-reset">
+                    <?php
+                    $i = 0;
+                    $categoria = array();
+                    $iconCat = array(
+                        'destacados',
+                        'belleza-salud',
+                        'viajes',
+                        'restaurantes',
+                        'entretenimiento',
+                        'productos',
+                        'tiendas',
+                        'otros'
+                    );
+                    $child = $this->viewModel()->getCurrent()->getChildren();
+                    $chil = $child[0];
+                    $chil->categorias;
+                    $url_slug = $chil->url_slug;
+                    $router = $chil->router;
+                    if (count($chil->categorias) < 6) {
+                        foreach ($chil->categorias as $key => $dato):
+                            if ($dato->Slug != "otros") {
+                                if ($i == 0 && $this->identity()["exist_ofertas"]
+                                    && $this->identity()["exist_ofertas_premios"]
+                                ) {
+                                } else {
+                                    ?>
+                                    <li>
+                                        <?php if ($key == 0){ ?>
+                                        <a href="/home" class="category <?php if ($url_slug == "home") {
+                                            echo 'active';
+                                        } ?>">
+                                            <?php }else{ ?>
+                                            <a href="/category/<?= $dato->Slug ?>"
+                                               class="category <?php if ($dato->Slug == $url_slug) {
+                                                   echo 'active';
+                                               } ?>">
+                                                <?php } ?>
+                                                <span class="icon-nav <?= $iconCat[$i] ?>"></span>
+                                                <span class="name-title"><?= $dato->Nombre ?></span>
+                                            </a>
+                                    </li>
+                                    <?php
+                                }
+                            }
+                            $i++;
+                        endforeach;
+
+                        if ($this->identity()["exist_ofertas"]
+                            && !$this->identity()["exist_ofertas_premios"]
+                        ) : ?>
+                            <li>
+                                <a href="/puntos" class="menu-puntos"
+                                   style="<?php if ('puntos' == $url_slug) {
+                                       echo 'background-color: #3db123;';
+                                   } ?>">
+                                    <span class="icon-nav puntos"></span>
+                                    <span class="name-title">Puntos</span>
+                                </a>
+                            </li>
+                        <?php elseif (!$this->identity()["exist_ofertas"] && $this->identity()["exist_ofertas_premios"]) : ?>
+                            <li>
+                                <a href="/premios" class="premios-nav
+                                <?php if ('premios' == $url_slug || 'coupon-premios' == $router) {
+                                    echo 'active';
+                                } ?>">
+                                    <span class="icon-nav premios"></span>
+                                    <span class="name-title">Premios</span>
+                                </a>
+                            </li>
+                        <?php elseif ($this->identity()["exist_ofertas"] && $this->identity()["exist_ofertas_premios"]) : ?>
+                            <li>
+                                <a href="/puntos" class="menu-puntos"
+                                   style="<?php if ('puntos' == $url_slug) {
+                                       echo 'background-color: #3db123;';
+                                   } ?>">
+                                    <span class="icon-nav puntos"></span>
+                                    <span class="name-title">Puntos</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/premios" class="premios-nav
+                                <?php if ('premios' == $url_slug || 'coupon-premios' == $router) {
+                                    echo 'active';
+                                } ?>">
+                                    <span class="icon-nav premios"></span>
+                                    <span class="name-title">Premios</span>
+                                </a>
+                            </li>
+                        <?php elseif (!$this->identity()["exist_ofertas"] && !$this->identity()["exist_ofertas_premios"]) : ?>
+                            <li>
+                                <a href="/tiendas"
+                                   class="<?php if ('tiendas' == $chil->tiendas) {
+                                       echo 'active';
+                                   } ?>">
+                                    <span class="icon-nav tiendas"></span>
+                                    <span class="name-title">Tienda</span>
+                                </a>
+                            </li>
+                        <?php endif; ?>
+                        <?php if ($chil->catotros == 1) { ?>
+                            <li>
+                                <a href="/category/otros"
+                                   class="category <?php if ('otros' == $url_slug) {
+                                       echo 'active';
+                                   } ?>">
+                                    <span class="icon-nav otros"></span>
+                                    <span class="name-title">Otros</span>
+                                </a>
+                            </li>
+                            <?php
+                        }
+                    } else {
+                        foreach ($chil->categorias as $dato):
+                            $categoria[] = $dato;
+                        endforeach;
+                        for ($j = 0; $j < 6; $j++) {
+                            if ($j == 0 && $this->identity()["exist_ofertas"]
+                                && $this->identity()["exist_ofertas_premios"]
+                            ) {
+                            } else {
+                                ?>
+                                <li>
+                                    <?php if ($j == 0){ ?>
+                                    <a href="/home" class="category <?php if ($url_slug == "home") {
+                                        echo 'active';
+                                    } ?>">
+                                        <?php }else{ ?>
+                                        <a href="/category/<?= $categoria[$j]->Slug ?>"
+                                           class="category <?php if ($categoria[$j]->Slug == $url_slug) {
+                                               echo 'active';
+                                           } ?>">
+                                            <?php } ?>
+                                            <span class="icon-nav <?= $iconCat[$j] ?>"></span>
+                                            <span class="name-title"><?= $categoria[$j]->Nombre ?></span>
+                                        </a>
+                                </li>
+                                <?php
+                            }
+                        }
+                        if ($this->identity()["exist_ofertas"] && !$this->identity()["exist_ofertas_premios"]) : ?>
+                            <li>
+                                <a href="/puntos" class="menu-puntos"
+                                   style="<?php if ('puntos' == $url_slug) {
+                                       echo 'background-color: #3db123;';
+                                   } ?>">
+                                    <span class="icon-nav puntos"></span>
+                                    <span class="name-title">Puntos</span>
+                                </a>
+                            </li>
+                        <?php elseif (!$this->identity()["exist_ofertas"] && $this->identity()["exist_ofertas_premios"]) : ?>
+                            <li>
+                                <a href="/premios" class="premios-nav
+                                <?php if ('premios' == $url_slug || 'coupon-premios' == $router) {
+                                    echo 'active';
+                                } ?>">
+                                    <span class="icon-nav premios"></span>
+                                    <span class="name-title">Premios</span>
+                                </a>
+                            </li>
+                        <?php elseif ($this->identity()["exist_ofertas"] && $this->identity()["exist_ofertas_premios"]) : ?>
+                            <li>
+                                <a href="/puntos" class="menu-puntos"
+                                   style="<?php if ('puntos' == $url_slug) {
+                                       echo 'background-color: #3db123;';
+                                   } ?>">
+                                    <span class="icon-nav puntos"></span>
+                                    <span class="name-title">Puntos</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/premios" class="premios-nav
+                                <?php if ('premios' == $url_slug || 'coupon-premios' == $router) {
+                                    echo 'active';
+                                } ?>">
+                                    <span class="icon-nav premios"></span>
+                                    <span class="name-title">Premios</span>
+                                </a>
+                            </li>
+                        <?php elseif (!$this->identity()["exist_ofertas"] && !$this->identity()["exist_ofertas_premios"]) : ?>
+                            <li>
+                                <a href="/tiendas"
+                                   class="<?php if ('tiendas' == $chil->tiendas) {
+                                       echo 'active';
+                                   } ?>">
+                                    <span class="icon-nav tiendas"></span>
+                                    <span class="name-title">Tienda</span>
+                                </a>
+                            </li>
+                        <?php endif;
+                        if ($chil->catotros == 1) { ?>
+                            <li>
+                                <a href="/category/otros"
+                                   class="category <?php if ('otros' == $url_slug) {
+                                       echo 'active';
+                                   } ?>">
+                                    <span class="icon-nav otros"></span>
+                                    <span class="name-title">Otros</span>
+                                </a>
+                            </li>
+                            <?php
+                        }
+                    }
+                    ?>
+                </ul>
+                <a href="#" class="search-fixed"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
+            </div>
+        </div>
+    </div>
+</nav>

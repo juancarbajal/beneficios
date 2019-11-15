@@ -1,0 +1,168 @@
+<div class="fluid-list flujo-cupones title-bloques">
+    <?php foreach ($this->ofertas_descubre as $oferta) { ?>
+        <div class="fluid-list margin-b">
+            <div class="fluid-list cupon-two">
+                <a href="/<?= $category ?>/coupon/<?= $oferta->SlugOferta ?>">
+                    <figure>
+                        <img src="<?php echo $this->rofertas . $oferta->imagenOferta ?>" title=""/>
+                    </figure>
+                </a>
+                <div class="info-cupon-l">
+                    <figure class="left">
+                        <?php if ($this->identity()['flagcheckboxLogo']) { ?>
+                        <a href="/company/<?= $oferta->SlugEmpresa ?>">
+                            <img src="<?php
+                            $trozos = explode(".", $oferta->LogoEmpresa);
+                            $ext = end($trozos);
+                            $oferta->LogoEmpresa = str_replace('.' . $ext, '', $oferta->LogoEmpresa) . '-small.' . $ext;
+                            echo $this->rlogos . $oferta->LogoEmpresa;
+                            ?>"/>
+                        </a>
+                        <?php };?>
+                    </figure>
+                    <div class="info-interna left">
+                        <h2><a href="/<?= $category ?>/coupon/<?= $oferta->SlugOferta ?>" class="title-short">
+                                <?php $tamaño = 38;
+                                if ($oferta->datoBeneficio != null) { ?>
+
+                                    <?php if ($oferta->idTipoBeneficio == 1) { ?>
+                                        <strong>-<?= $oferta->datoBeneficio ?>% Dscto. </strong>
+                                    <?php } elseif ($oferta->idTipoBeneficio == 2) { ?>
+                                        <strong>-S/.<?= $oferta->datoBeneficio ?> Dscto. </strong>
+                                    <?php } elseif ($oferta->idTipoBeneficio == 3) { ?>
+                                        <strong><?= $oferta->datoBeneficio ?> en</strong>
+                                    <?php } else { ?>
+                                        <strong><?= $oferta->datoBeneficio ?></strong>
+                                    <?php } ?>
+
+                                    <?php
+                                } else {
+                                    $tamaño = 58;
+                                }
+
+                                if (strlen($oferta->TituloCortoOferta) >= $tamaño) {
+                                    echo substr($oferta->TituloCortoOferta, 0, $tamaño) . "...";
+                                } else {
+                                    echo $oferta->TituloCortoOferta;
+                                }
+                                ?>
+                            </a></h2>
+                    </div>
+                </div>
+            </div>
+            <?php if ($total[$oferta->SlugEmpresa] > 1) { ?>
+                <div class="fluid-list desc-list">
+                    <a href="/company/<?= $oferta->SlugEmpresa ?>">Descubre más ofertas de la tienda &raquo;</a>
+                </div>
+            <?php } ?>
+        </div>
+    <?php } ?>
+</div>
+
+<!-- Banner -->
+<?php if (!empty($banners[4])) { ?>
+    <div class="fluid-list anuncio-banner margin-r">
+        <?php
+        $link = "";
+        if (isset($banners[4]['link'])) {
+            $banners[4]['link'] = str_replace("[NumeroDocumento]", $this->identity()["NumeroDocumento"], $banners[4]['link']);
+            $banners[4]['link'] = str_replace("[Nombre]", $this->identity()["Nombre"], $banners[4]['link']);
+            $banners[4]['link'] = str_replace("[Apellido]", $this->identity()["Apellido"], $banners[4]['link']);
+            $banners[4]['link'] = str_replace("[email]", $this->identity()["email"], $banners[4]['link']);
+            $banners[4]['link'] = str_replace("[flagsupervisor]", $this->identity()["flagsupervisor"], $banners[4]['link']);
+            $link = 'href="' . $banners[4]['link'] . '" target="_blank"';
+        } else {
+            $link = '';
+        }
+        ?>
+        <a <?= $link ?>>
+            <img src="<?= $rbanners . $banners[4]['image']; ?>" title=""/>
+        </a>
+    </div>
+<?php } ?>
+<!-- End Banner -->
+<div class="fluid-list flujo-cupones title-bloques ofertas-restantes">
+    <?php foreach ($this->ofertas_restantes as $oferta) { ?>
+        <div class="fluid-list margin-b">
+            <div class="fluid-list cupon-two">
+                <a href="/<?= $category ?>/coupon/<?= $oferta->SlugOferta ?>">
+                    <figure>
+                        <img src="<?php echo $this->rofertas . $oferta->imagenOferta ?>" title=""/>
+                    </figure>
+                </a>
+                <div class="info-cupon-l">
+                    <figure class="left">
+                        <?php if ($this->identity()['flagcheckboxLogo']) { ?>
+                        <a href="/company/<?= $oferta->SlugEmpresa ?>">
+                            <img src="<?php
+                            $trozos = explode(".", $oferta->LogoEmpresa);
+                            $ext = end($trozos);
+                            $oferta->LogoEmpresa = str_replace('.' . $ext, '', $oferta->LogoEmpresa) . '-small.' . $ext;
+                            echo $this->rlogos . $oferta->LogoEmpresa;
+                            ?>"/>
+                        </a>
+                        <?php };?>
+                    </figure>
+                    <div class="info-interna left">
+                        <h2>
+                            <a href="/<?= $category ?>/coupon/<?= $oferta->SlugOferta ?>" class="title-short">
+                                <?php $tamaño = 38;
+                                if ($oferta->datoBeneficio != null) { ?>
+
+                                    <?php if ($oferta->idTipoBeneficio == 1) { ?>
+                                        <strong>-<?= $oferta->datoBeneficio ?>% Dscto. </strong>
+                                    <?php } elseif ($oferta->idTipoBeneficio == 2) { ?>
+                                        <strong>-S/.<?= $oferta->datoBeneficio ?> Dscto. </strong>
+                                    <?php } elseif ($oferta->idTipoBeneficio == 3) { ?>
+                                        <strong><?= $oferta->datoBeneficio ?> en</strong>
+                                    <?php } else { ?>
+                                        <strong><?= $oferta->datoBeneficio ?></strong>
+                                    <?php } ?>
+
+                                    <?php
+                                } else {
+                                    $tamaño = 58;
+                                }
+
+                                if (strlen($oferta->TituloCortoOferta) >= $tamaño) {
+                                    echo substr($oferta->TituloCortoOferta, 0, $tamaño) . "...";
+                                } else {
+                                    echo $oferta->TituloCortoOferta;
+                                }
+                                ?>
+                            </a>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <?php if ($total[$oferta->SlugEmpresa] > 1) { ?>
+                <div class="fluid-list desc-list">
+                    <a href="/company/<?= $oferta->SlugEmpresa ?>">Descubre más ofertas de la tienda &raquo;</a>
+                </div>
+            <?php } ?>
+        </div>
+    <?php } ?>
+</div>
+
+<div class="text-center" id="loading">
+    <p>
+        <img style="display: inline" src="/img/loading.gif" width="50px"/>
+    </p>
+</div>
+<div class="offset" style="display:none" data-offset="<?php echo ($this->offset != null) ? $this->offset : 0; ?>"></div>
+<div class="notin" style="display:none" data-notin="<?= implode(',', $this->notin) ?>"></div>
+<div class="ubigeo" style="display:none"
+     data-ubigeo="<?php echo ($this->ubigeo_id != null) ? $this->ubigeo_id : null; ?>"></div>
+<div class="categoria" style="display:none"
+     data-categoria="<?php echo ($this->categoria_id != null) ? $this->categoria_id : null; ?>"></div>
+<div class="campaign" style="display:none"
+     data-campaign="<?php echo ($this->campania_id != null) ? $this->campania_id : null; ?>"></div>
+<div class="companya" style="display:none"
+     data-companya="<?php echo ($this->company_id != null) ? $this->company_id : null; ?>"></div>
+<div class="rofertas" style="display:none" data-rofertas="<?php echo $this->rofertas ?>"></div>
+<div class="rlogos" style="display:none" data-rlogos="<?php echo $this->rlogos ?>"></div>
+<div class="categories" style="display:none" data-categories="<?= $category ?>"></div>
+
+<?php $this->headScript()->captureStart() ?>
+var totalJS = <?php echo json_encode($total); ?>;
+<?php $this->headScript()->captureEnd() ?>

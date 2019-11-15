@@ -1,0 +1,19 @@
+{
+    "name": "admin_beneficios",
+    "description": "Administrador del Portal Beneficios.pe",
+    "license": "Privativa",
+    "keywords": [
+        "framework",
+        "zf2"
+    ],
+    "homepage": "http://beneficios.pe/",
+    "require": {
+        "php": ">=5.4",
+        "zendframework/zendframework": "2.5.2",
+        "vgarvardt/zf-simple-migrations": "0.1.0",
+        "phpoffice/phpexcel": "1.8.1",
+        "intervention/image":"2.3.6",
+        "google/apiclient": "1.1.7",
+        "zendframework/zftool": "dev-master"
+    }
+}

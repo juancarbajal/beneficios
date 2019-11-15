@@ -1,0 +1,93 @@
+<div class="modal fade modal-vcenter custon-modal modal-active" id="elegirOpcion" tabindex="-1" role="dialog"
+     aria-labelledby="elegirOpcion">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <button type="button" class="close col-xs-1" data-dismiss="modal" aria-label="Close">
+                <span class="glyphicon glyphicon-remove star-ico" aria-hidden="true"></span>
+            </button>
+            <div class="modal-body">
+                <?php $count = 0; ?>
+                <?php foreach ($this->atributosData as $item): ?>
+                    <?php if ($item->Stock > 0): ?>
+                        <div class="fluid-list list-opciones">
+                            <a href="<?= $this->url('delivery', array('action' => 'index', 'slug' => $this->cupon->Slug, 'id' => $item->id)); ?>"
+                               target="_self">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="fluid-list header-modal-c">
+                                            <?php if ($this->identity()['flagcheckboxLogo']) { ?>
+                                                <figure>
+                                                    <img src="<?= $this->rlogos . $this->cupon->LogoEmpresa ?>"/>
+                                                </figure>
+                                            <?php } ?>
+                                            <h2>
+                                                <em>Opción <?= ++$count ?></em>
+                                                <?php if ($this->identity()['flagcheckboxMoney']) { ?>
+                                                    <span><?= $item->PrecioVentaPublico . ' puntos por ' . $item->NombreAtributo ?></span>
+                                                <?php } else { ?>
+                                                <span>S/. <?= $item->PrecioVentaPublico . ' por ' . $item->NombreAtributo ?></span>
+                                                <?php }?>
+                                                <?php if ($item->FechaVigencia != null) :
+                                                    $date = new DateTime($item->FechaVigencia);
+                                                    $mes = $date->format('m'); ?>
+                                                    Cupón válido hasta el <?= '' . $date->format('d') . ' de ' . $this->meses[$mes - 1] ?>
+                                                <?php endif; ?>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span class="btn btn-cupon-e">Siguiente</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    <?php else: ?>
+                        <div class="fluid-list list-opciones">
+                            <a href="#" class="a-locked" role="button">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="fluid-list header-modal-c">
+                                            <?php if ($this->identity()['flagcheckboxLogo']) { ?>
+                                                <figure>
+                                                    <img src="<?= $this->rlogos . $this->cupon->LogoEmpresa ?>"/>
+                                                </figure>
+                                            <?php } ?>
+                                            <h2>
+                                                <em>Opción <?= ++$count ?></em>
+                                                <?php if ($this->identity()['flagcheckboxMoney']) { ?>
+                                                    <span><?= $item->PrecioVentaPublico . ' puntos por ' . $item->NombreAtributo ?></span>
+                                                <?php } else { ?>
+                                                    <span>S/. <?= $item->PrecioVentaPublico . ' por ' . $item->NombreAtributo ?></span>
+                                                <?php } ?>
+                                             <?php   if ($item->FechaVigencia != null) {
+                                                    $date = new DateTime($item->FechaVigencia);
+                                                    $mes = $date->format('m'); ?>
+                                                    Cupón válido hasta el <?= '' . $date->format('d') . ' de ' . $this->meses[$mes - 1] ?>
+                                                <?php } ?>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span class="btn btn-cupon-e">Siguiente</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+                <div class="footer-m-e">
+
+                    <?php if ($this->identity()['flagcheckboxMoney']) { ?>
+                        <p>Al dar clic en siguiente podrás descargar el cupón con tus puntos</p>
+
+                    <?php } else { ?>
+                        <p>Al dar clic en siguiente podrás elegir la forma de pago: soles, puntos o soles más puntos.</p>
+
+                    <?php } ?>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

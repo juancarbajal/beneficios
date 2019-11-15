@@ -1,0 +1,77 @@
+<?php $child = $this->viewModel()->getCurrent()->getChildren();
+$chil = $child[0]; ?>
+<!-- Modal Enviar Email-->
+<div class="modal fade modal-vcenter custon-modal modal-active" id="enviarMail" tabindex="-1" role="dialog" aria-labelledby="enviarMail">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <button type="button" class="close col-xs-1" data-dismiss="modal" aria-label="Close">
+                <span class="glyphicon glyphicon-remove star-ico" aria-hidden="true"></span>
+            </button>
+            <div class="modal-body">
+                <div class="fluid-list header-modal-c">
+                    <?php if ($this->identity()['flagcheckboxLogo']) { ?>
+                    <div class="fluid-list logo-cupon">
+                        <span><img src="<?= $chil->rlogos . $chil->cupon->LogoEmpresa ?>"></span> <?=$chil->cupon->nombreEmpresa?>
+                    </div>
+                    <?php }?>
+                    <div class="fluid-list cnt-body-m custon-on">
+                    <p id='meTitle'>                        <?php if(isset($chil->cupon->datoBeneficio)){?>
+                            <?php if ($chil->cupon->idTipoBeneficio == 1) { ?>
+                                <span>-<?= $chil->cupon->datoBeneficio ?>% Descuento</span>
+                            <?php } elseif ($chil->cupon->idTipoBeneficio == 2) { ?>
+                                <span>-S/.<?= $chil->cupon->datoBeneficio ?> Descuento</span>
+                            <?php } elseif ($chil->cupon->idTipoBeneficio == 3) { ?>
+                                <span><?= $chil->cupon->datoBeneficio ?> en</span>
+                            <?php } else { ?>
+                                <span><?= $chil->cupon->datoBeneficio ?></span>
+                            <?php } ?>
+                        <?php }?>
+                        <?=$chil->cupon->TituloOferta?>
+			        </p>
+                    </div>
+                    <div class="fluid-list desc-ut">
+                        <!--<span class="left">S/ 60</span>-->
+                    </div>
+                </div>
+                <div class="line-v"></div>
+                <div class="fluid-list body-cnt-c">
+                    <div class="fluid-list cnt-logo-m">
+                        <img src="<?= (isset($chil->imgemp)) ? $chil->rlogos . $chil->imgemp : '/img/company.png' ?>">
+                    </div>
+                    <p class="desc">Recuerda que cada descarga es una opción utilizada de tus premios asiganos.</p>
+                    <h4>Ingrese el email en donde desea recibir este cupón</h4>
+                    <form action="" class="form-login form-modal-c" id="emailCupon" novalidate="novalidate">
+                        <div class="form-group has-feedback has-feedback-left cnt-form-error">
+                            <input type="email" name="email" class="form-control" placeholder="Ingresa tu email" id="email" value="<?= $chil->email_user?>">
+                            <input type="hidden" value="<?=$chil->cupon->idOferta?>" id="idOferta" name="idoferta">
+                            <input type="hidden" value="<?=$chil->empresaID?>" id="idEmpresa" name="idEmpresa">
+                            <input type="hidden" value="<?=$chil->clienteID?>" id="idCliente" name="idCliente">
+                            <input type="hidden" value="<?=$chil->category?>" id="slug_cat" name="slug_cat">
+                            <input type="hidden" value="" id="atributo" name="atributo">
+                            <div class="error-check"></div>
+                        </div>
+                        <div class="checkbox cnt-form-error">
+                            <label>
+                                <input type="checkbox" name="terminos" id="activeChek"> Acepto las Condiciones, Términos y Políticas de uso
+                            </label>
+                            <div class="error-check"></div>
+                            <div class="fluid-list cnt-terminos-info">
+                                <ul>
+                                    <li><p>Estoy de acuerdo y entiendo que los Proveedores son los únicos responsables por cualquier inconveniente y/o reclamo con los bienes y servicios ofrecidos.</p></li>
+                                    <li><p>Los datos que he ingresado con correctos y legítimos.</p></li>
+                                    <li><p>Comprendo y conozco el uso que se le dará a mis datos proporcionados a WeeAre.</p></li>
+                                    <li><p>Sé y comprendo cuál es la información y datos personales requeridos para poder acceder a los bienes y servicios ofrecidos.</p></li>
+                                    <li><p>Autorizo de manera voluntaria a brindar o he brindado de manera voluntaria directamente a WeeAre mis datos personales.</p></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-block text-center" id="send_coupon"><span>Enviar</span></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Find el modal-->

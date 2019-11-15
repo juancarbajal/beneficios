@@ -1,0 +1,28 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: luisvar
+ * Date: 19/11/15
+ * Time: 03:24 PM
+ */
+
+if ($this->pageCount): ?>
+    <div class="box-footer clearfix">
+        <ul class="pagination pagination-sm no-margin pull-right">
+            <li class="<?=!isset($this->previous) ? 'disabled' : ''; ?>">
+                <a href="<?=$this->url('paquete-oferta', array('page' => $this->first,
+                    'q1' => $q1, 'q2' => $q2, 'q3' => $q3, 'q4' => $q4)); ?>">«</a>
+            </li>
+            <?php foreach ($this->pagesInRange as $page): ?>
+                <li class="<?=$page == $this->current ? 'active' : ''; ?>">
+                    <a href="<?=$this->url('paquete-oferta', array('page' => $page,
+                        'q1' => $q1, 'q2' => $q2, 'q3' => $q3, 'q4' => $q4)); ?>"><?=$page; ?></a>
+                </li>
+            <?php endforeach; ?>
+            <li class="<?=!isset($this->next) ? 'disabled' : ''; ?>">
+                <a href="<?=$this->url('paquete-oferta', array('page' => $this->last,
+                    'q1' => $q1, 'q2' => $q2, 'q3' => $q3, 'q4' => $q4)); ?>">»</a>
+            </li>
+        </ul>
+    </div>
+<?php endif; ?>

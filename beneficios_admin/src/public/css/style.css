@@ -1,0 +1,305 @@
+.login-box .form-group li {
+    color: red;
+}
+
+.left {
+    float: left;
+}
+
+.loader {
+    margin-left: 10px;
+}
+
+.select2-selection__rendered li input {
+    display: none;
+}
+
+.table td {
+    max-width: 150px;
+    word-wrap: break-word;
+}
+
+.nomcemp {
+    max-width: 120px;
+    word-wrap: break-word;
+}
+
+.razemp {
+    max-width: 120px;
+    word-wrap: break-word;
+}
+
+.peremp {
+    max-width: 100px;
+    word-wrap: break-word;
+}
+
+.campo ul {
+    margin-top: 10px;
+    color: red;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    padding-left: 20px
+}
+
+.campo i {
+    padding: 9px;
+    border: solid 1px #D2D6DE;
+    position: absolute;
+    background-color: #fff;
+    z-index: 9;
+    border-right: 0px;
+}
+
+.pad-left {
+    padding-left: 8px;
+}
+
+.input-telefono ul {
+    margin-top: 45px;
+}
+
+.less-pad {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.zf-green {
+    color: #68b604;
+}
+
+.btn-success {
+    background-color: #57a900;
+    background-image: -moz-linear-gradient(top, #70d900, #57a900);
+    background-image: -ms-linear-gradient(top, #70d900, #57a900);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#70d900), to(#57a900));
+    background-image: -webkit-linear-gradient(top, #70d900, #57a900);
+    background-image: -o-linear-gradient(top, #70d900, #57a900);
+    background-image: linear-gradient(top, #70d900, #57a900);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#70d900', endColorstr='#57a900', GradientType=0);
+}
+
+.btn-success:hover,
+.btn-success:active,
+.btn-success.active,
+.btn-success.disabled,
+.btn-success[disabled] {
+    background-color: #57a900;
+}
+
+.btn-success:active, .btn-success.active {
+    background-color: #57a900;
+}
+
+div.container a.brand {
+    background: url("../img/zf2-logo.png") no-repeat scroll 0 10px transparent;
+    margin-left: 0;
+    padding: 8px 20px 12px 40px;
+}
+
+.line {
+    border-bottom: solid 1px #f4f4f4;
+}
+
+input[type=checkbox] {
+    width: 20px !important;
+    height: 20px !important;
+}
+
+input.check:after {
+    content: 'Activo';
+    position: absolute;
+    top: 6px;
+    left: 45px;
+}
+
+.form-control {
+    border-radius: 0 !important;
+}
+
+.form-group label {
+    font-weight: 600;
+    font-size: 13px;
+}
+
+input[type=radio] {
+    margin-top: 0 !important;
+}
+
+.form-group select._mg {
+    margin-bottom: 0px;
+}
+
+.btn-upload {
+    width: 100%;
+    height: 100%;
+    font-weight: 300;
+    /*background-color: #222d32 !important;
+    color: #FFF !important;*/
+}
+
+@media all and (max-width: 992px) {
+    .form-group select {
+        margin-bottom: 20px;
+    }
+
+    .hid {
+        display: none;
+    }
+
+}
+
+@media all and (max-width: 480px) {
+    .mg-b {
+        margin-bottom: 10px;
+    }
+}
+
+/*Dual list style*/
+.dual-list .list-group {
+    margin-top: 8px;
+    height: 300px;
+    overflow-y: scroll;
+}
+
+.list-left li, .list-right li {
+    cursor: pointer;
+}
+
+.list-arrows {
+    padding-top: 100px;
+}
+
+.list-arrows button {
+    margin-bottom: 20px;
+}
+
+/* Listas */
+.checkbox-lista label {
+    display: block;
+}
+
+.radio-lista label {
+    display: block;
+    margin-bottom: 65px;
+    vertical-align: middle;
+}
+
+.radio-lista label:last-child {
+    display: block;
+    margin-bottom: 0;
+    vertical-align: middle;
+}
+
+/*Disabled Items*/
+.not-active {
+    pointer-events: none;
+    cursor: default;
+}
+
+/* a*/
+.asterisco {
+    text-align: left;
+    padding-left: 3px;
+    color: red;
+}
+
+.p {
+    width: 2% !important;
+    padding: 2px;
+    color: red;
+}
+
+.select2 span .select2-container {
+    width: 98%;
+}
+
+.input {
+    width: 96% !important;
+}
+
+.input-2 {
+    width: 90% !important;
+}
+
+.null-padding {
+    padding: 0;
+}
+
+.input-col-12 input {
+    width: 98%;
+    float: left;
+}
+
+.input-col-12 p {
+    width: 2%;
+    float: left;
+    padding: 2px;
+    color: red;
+}
+
+.input-col-6 input {
+    width: 98%;
+    float: left;
+}
+
+.input-col-6 p {
+    width: 2%;
+    float: left;
+    padding: 2px;
+    color: red;
+}
+
+.input-col-7 select {
+    width: 95%;
+    float: left;
+}
+
+.input-col-7 input {
+    width: 95%;
+    float: left;
+}
+
+.input-col-7 select {
+    width: 95%;
+    float: left;
+}
+
+.input-col-7 p {
+    width: 2%;
+    float: left;
+    padding: 2px;
+    color: red;
+}
+
+.form-group.campo input[type="radio"] {
+    text-align: center;
+    vertical-align: middle;
+    margin: 4px;
+}
+
+.error {
+    color: red;
+}
+
+.classicComment {
+    min-width: 100px;
+    max-width: 150px;
+    min-height: 35px;
+    max-height: 100px;
+}
+
+.resaltar {
+    background-color: beige;
+    padding: 5px;
+}
+
+.resaltar .coupon-code {
+    font-size: 20px;
+}
+
+.center-cell {
+    text-align: center;
+    vertical-align: middle !important;
+}

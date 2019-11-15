@@ -1,0 +1,109 @@
+<section class="content-header">
+    <br><br><br>
+
+    <h1>Asignar Puntos</h1>
+    <br><br>
+    <?php if (isset($fileMessage) && $fileMessage != '') { ?>
+        <div class="alert alert-danger alert-dismissible">
+            <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+            <h4>
+                <i class="icon fa fa-ban"></i>
+                Error.
+            </h4>
+            <?php echo $fileMessage; ?>
+        </div>
+    <?php } ?>
+
+    <?php if (isset($errorMessageCsv) && !empty($errorMessageCsv)) { ?>
+        <div class="alert alert-danger alert-dismissible">
+            <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+            <h4>
+                <i class="icon fa fa-ban"></i>
+                Error.
+            </h4>
+            <ul>
+                <?php if (count($errorMessageCsv) > 0) {
+                    foreach ($errorMessageCsv as $data) {
+                        echo "<li>$data</li>";
+                    }
+                } ?>
+            </ul>
+        </div>
+    <?php } ?>
+    <?php if (isset($successMessage) && $successMessage != '') { ?>
+        <div class="alert alert-success alert-dismissible">
+            <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+            <h4>
+                <i class="icon fa fa-check"></i>
+                Completado.
+            </h4>
+            <?php echo $successMessage; ?>
+        </div>
+    <?php } ?>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-body">
+                    <?php
+                    $form->setAttribute('class', 'form-horizontal');
+                    $form->setAttribute('action', $this->url('referido-load', array('action' => 'load')));
+                    echo $this->form()->openTag($form);
+                    echo $this->formElement($form->get('csrf'));
+                    ?>
+                    <div class="form-group">
+                        <div class="col-md-2"><label>Plantilla de Asignar Puntos</label></div>
+                        <div class="col-md-8">
+                            <div class="row-fluid campo">
+                                <div class="col-md-11 null-padding input-2">
+                                    <a href="/files/CargaAsignarPuntos.xlsx" class="btn btn-primary">Descargar
+                                        Plantilla</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class=" <?= $this->formElementErrors($form->get('campania')) ? 'has-error' : '' ?>">
+                            <div class="col-md-2"><label>Campañas tipo Personalizadas: *</label></div>
+                            <div class="col-md-8">
+                                <div class="row-fluid campo">
+                                    <div class="col-md-11 null-padding input-2">
+                                        <?php
+                                        echo $this->formRow($form->get('campania'));
+                                        ?>
+                                        <p><?=$nombre_empresa;?></p>
+                                    </div>
+                                    <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-2"><label>Archivo: *</label></div>
+                        <div class="col-md-8">
+                            <div class="row-fluid campo">
+                                <div class="col-md-11 null-padding input-2">
+                                    <?= $this->formRow($form->get('file_csv')); ?>
+                                    <p class="help-block">Archivo de 2MB máx. formato xls o xlsx</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer line">
+                        <?= $this->formSubmit($form->get('submit')); ?>
+                        <a href="<?= $this->url('cliente'); ?>" class="btn btn-default">Cancelar</a>
+                    </div>
+                    <?= $this->form()->closeTag(); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+    $(function () {
+        $(".select2").select2();
+    });
+</script>

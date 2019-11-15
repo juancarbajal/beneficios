@@ -1,0 +1,309 @@
+<style type="text/css">
+    .left-info-c span {
+        width: auto;
+        margin-right: 10px;
+    }
+
+    .not-active {
+        pointer-events: none;
+        cursor: default;
+    }
+
+    h4 {
+        display: inline-block;
+    }
+
+    .inline {
+        display: inline-block;
+        width: 95%;
+    }
+
+    .requerido-label {
+        text-align: center;
+        color: #FF0000;
+        width: 3%;
+    }
+</style>
+<div id="flagcheckboxMoney"  style="display: none"
+     data-value="<?= $this->identity()['flagcheckboxMoney'] ?>">
+</div>
+<div id="flagcheckboxTotalPuntos"  style="display: none"
+     data-value="<?= $this->identity()['flagcheckboxTotalPuntos'] ?>">
+</div>
+<div class="fluid-list cnt-cupon">
+    <div class="row primary-info">
+        <div class="col-md-offset-1 col-md-10">
+            <div class="row">
+                <div class="col-md-offset-2 col-md-8">
+                    <div class="fluid-list info-cupon header-delivery">
+                        <div class="row">
+                            <?php if ($this->identity()['flagcheckboxLogo']) { ?>
+                            <div class="col-md-4">
+                                    <figure>
+                                        <img src="<?= $this->rlogos . $this->cupon->LogoEmpresa ?>"
+                                             alt="Logo Empresa"/>
+                                    </figure>
+                            </div>
+                            <?php } ?>
+                            <div class="col-md-8">
+                                <h1><strong>
+                                        <?php
+                                        if ($this->identity()['flagcheckboxMoney']) {?>
+                                           <?= isset($this->atributo->PrecioVentaPublico)
+                                                ? $this->atributo->PrecioVentaPublico : $this->cupon->PrecioVentaPublico ?>
+                                           puntos  por
+                                       <?php } else {?>
+                                            S/. <?= isset($this->atributo->PrecioVentaPublico)
+                                                ? $this->atributo->PrecioVentaPublico : $this->cupon->PrecioVentaPublico ?>
+                                            por
+                                       <?php } ?>
+                                    </strong>
+                                    <?= isset($this->atributo->NombreAtributo) ? $this->atributo->NombreAtributo : $this->cupon->Titulo ?>
+                                </h1>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <form class="form-horizontal" id="emailCuponPuntos" novalidate="novalidate">
+                        <div class="fluid-list cnt-puntos-u">
+                            <ul>
+                                <li>
+                                    <a class="not-active" role="button">
+                                        <div class="fluid-list head-items">
+                                            <span>1 <i></i></span> Puntos a utilizar
+                                        </div>
+                                    </a>
+                                    <div class="cnt-f-p collapse in">
+                                        <div class="fluid-list custom-m-p">
+                                            <div class="fluid-list cnt-num-puntos">
+                                                <!--  <h4>Cada punto equivale a S/.1</h4>-->
+                                                <ul>
+                                                    <li>
+                                                        <div class="left label-p">Precio del Cupón:</div>
+
+
+                                                        <div class="right num-p">
+                                                           <?php $total = isset($this->atributo->PrecioVentaPublico)
+                                                                ? $this->atributo->PrecioVentaPublico : $this->cupon->PrecioVentaPublico;
+                                                            if ($this->identity()['flagcheckboxMoney']) {
+                                                                echo $total . ' puntos ';
+                                                            } else {
+                                                                echo 'S/ ' . $total;
+                                                            } ?>
+
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="left label-p">Puntos ganados:</div>
+                                                        <div class="right num-p"><?= $this->clienteData->TotalAsignados ?></div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="cnt-form-error">
+                                                            <div class="left label-p">Quiero utilizar:</div>
+                                                            <div class="right num-p">
+                                                                <input type="text" class="form-control"
+                                                                       id="puntos" name="puntos" title="puntos">
+                                                            </div>
+                                                            <br>
+                                                            <br>
+                                                            <div class="error-check"></div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="fluid-list cnt-num-puntos total-puntos-u">
+                                                <ul>
+                                                    <li>
+                                                        <div class="left label-p">Precio final del Cupón:</div>
+                                                        <div class="right num-p" id="precio-final"
+                                                             data-value="<?= isset($this->atributo->PrecioVentaPublico)
+                                                                 ? $this->atributo->PrecioVentaPublico : $this->cupon->PrecioVentaPublico ?>">
+
+                                                        <?php $total = isset($this->atributo->PrecioVentaPublico)
+                                                                ? $this->atributo->PrecioVentaPublico : $this->cupon->PrecioVentaPublico;
+                                                            if ($this->identity()['flagcheckboxMoney']) {
+                                                                echo $total . ' puntos ';
+                                                            } else {
+                                                                echo 'S/ ' . $total;
+                                                            } ?>
+</div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="left label-p">Puntos disponibles:</div>
+                                                        <div id="puntos-final" class="right num-p"
+                                                             data-value="<?= $this->clienteData->TotalAsignados ?>">
+                                                            <?= $this->clienteData->TotalAsignados ?></div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <?php if ($this->delivery->count() > 0) : ?>
+                                    <li>
+                                        <!--collapsed-->
+                                        <a class="not-active" role="button">
+                                            <div class="fluid-list head-items">
+                                                <span>2 <i></i></span> Datos del delivery
+                                            </div>
+                                        </a>
+                                        <div class="cnt-f-p collapse in">
+                                            <div class="fluid-list cnt-form-d-p">
+                                                <?php if ($this->condicionesDelivery['estado'] == 1) :
+                                                    echo "<h3>" . $this->condicionesDelivery['texto'] . "</h3>";
+                                                    echo "<h4>" . $this->condicionesDelivery['descripcion'] . "</h4>";
+                                                endif;
+
+                                                foreach ($this->delivery as $item) :
+                                                    $etiqueta_campo = !empty($item->Etiqueta_Campo) ? $item->Etiqueta_Campo : trim($item->Nombre_Campo);
+                                                    $nombre_campo = trim($item->Nombre_Campo);
+                                                    $placeholder_campo = str_replace(':', '', $etiqueta_campo);
+                                                    if ($item->Tipo_Campo == 0 and $item->Activo == 1) : ?>
+                                                        <div class="form-group">
+                                                            <label for="<?= $nombre_campo ?>"
+                                                                   class="col-sm-4 control-label"><?= $etiqueta_campo ?></label>
+
+                                                            <div class="col-sm-7 cnt-form-error">
+                                                                <select name="<?= $nombre_campo; ?>"
+                                                                        id="<?= $nombre_campo ?>"
+                                                                        class="form-control deliveryPuntos inline <?= isset($message['msg_e' . $nombre_campo])
+                                                                            ? $message['msg_e' . $nombre_campo] : '' ?>">
+                                                                    <option value="" disabled selected>Seleccione
+                                                                    </option>
+                                                                    <?php
+                                                                    $contenido = $item->Detalle;
+                                                                    $porciones = explode(";", $contenido);
+                                                                    foreach ($porciones as $valor) :
+                                                                        if (isset($data_recovered[$nombre_campo]) and $data_recovered[$nombre_campo] == $valor) :
+                                                                            echo '<option value="' . $valor . '" selected>' .
+                                                                                $valor . '</option>';
+                                                                        else :
+                                                                            echo '<option value="' . $valor . '">' . $valor . '</option>';
+                                                                        endif;
+                                                                    endforeach; ?>
+                                                                </select>
+                                                                <?php if ($item->Requerido == 1) : ?>
+                                                                    <label class="requerido-label">&#42;</label>
+                                                                <?php endif; ?>
+
+                                                                <?= isset($message['msg_' . $nombre_campo])
+                                                                    ? '<label class="error" for="' . $nombre_campo . '">' . $message['msg_' . $nombre_campo] . '</label>' : '' ?>
+                                                                <div class="error error-check"></div>
+                                                            </div>
+
+                                                        </div>
+                                                    <?php elseif ($item->Tipo_Campo == 1 and $item->Activo == 1) : ?>
+                                                        <div class="form-group">
+                                                            <label for="<?= $nombre_campo ?>"
+                                                                   class="col-sm-4 control-label"><?= $etiqueta_campo ?></label>
+
+                                                            <div class="col-sm-7 cnt-form-error">
+                                                                <input type="text"
+                                                                       name="<?= $nombre_campo ?>"
+                                                                       id="<?= $nombre_campo ?>"
+                                                                       class="form-control deliveryPuntos inline <?= isset($message['msg_e' . $nombre_campo])
+                                                                           ? $message['msg_e' . $nombre_campo] : '' ?>"
+                                                                       value="<?= (isset($data_recovered[$nombre_campo])) ? $data_recovered[$nombre_campo] : "" ?>"
+                                                                       placeholder="<?= $placeholder_campo ?>">
+
+                                                                <?php if ($item->Requerido == 1) : ?>
+                                                                    <label class="requerido-label">&#42;</label>
+                                                                <?php endif; ?>
+
+                                                                <?= isset($message['msg_' . $nombre_campo])
+                                                                    ? '<label class="error" for="' . $nombre_campo . '">' . $message['msg_' . $nombre_campo] . '</label>' : '' ?>
+                                                                <div class="error error-check"></div>
+                                                            </div>
+                                                        </div>
+                                                        <?php
+                                                    endif;
+                                                endforeach; ?>
+                                                <div>
+                                                    <p>(&#42;) Campos Obligatorios</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                <?php else : ?>
+                                    <li>
+                                        <a class="not-active collapsed" role="button">
+                                            <div class="fluid-list head-items">
+                                                <span>2 <i></i></span> Datos del delivery
+                                            </div>
+                                        </a>
+                                    </li>
+                                <?php endif; ?>
+                                <li>
+                                    <h3>Legal</h3>
+                                    <div class="fluid-list cnt-terminos-c">
+                                        <p>Los datos ingresados son legítimos y correctos.</p>
+                                        <p>Conozco el uso que se le dará a los datos que he
+                                            proporcionado a Belia.</p>
+                                        <p>Entiendo que los Proveedores son los únicos responsables por
+                                            cualquier inconveniente con los bienes y servicios ofrecidos
+                                            a través de la Página Web.</p>
+                                        <p>Sé cual es la información y datos personales requeridos para
+                                            poder acceder a los bienes y servicios</p>
+                                        <p>Los datos ingresados son legítimos y correctos.</p>
+                                        <p>Conozco el uso que se le dará a los datos que he
+                                            proporcionado a Belia.</p>
+                                        <p>Entiendo que los Proveedores son los únicos responsables por
+                                            cualquier inconveniente con los bienes y servicios ofrecidos
+                                            a través de la Página Web.</p>
+                                        <p>Sé cual es la información y datos personales requeridos para
+                                            poder acceder a los bienes y servicios</p>
+                                    </div>
+                                    <hr>
+                                    <div class="fluid-list body-cnt-c cnt-form-b-p">
+                                        <h4>Ingrese el email en donde desea recibir este cupón</h4>
+                                        <div class="fluid-list cnt-f-a-t">
+                                            <div class="form-group has-feedback has-feedback-left cnt-form-error">
+                                                <input type="email" name="email" class="form-control"
+                                                       placeholder="Ingresa tu email"
+                                                       id="email_envio_puntos" value="<?= $this->email_user ?>">
+                                                <input type="hidden" value="<?= $this->cupon->idOferta ?>"
+                                                       id="idOferta" name="idoferta">
+                                                <input type="hidden" value="<?= $this->empresaID ?>"
+                                                       id="idEmpresa" name="idEmpresa">
+                                                <input type="hidden" value="<?= $this->clienteID ?>"
+                                                       id="idCliente" name="idCliente">
+                                                <input type="hidden" value="<?= $this->category ?>"
+                                                       id="slug_cat" name="slug_cat">
+                                                <input type="hidden"
+                                                       value="<?= isset($this->atributo->id) ? $this->atributo->id : '' ?>"
+                                                       id="atributo"
+                                                       name="atributo">
+                                                <div class="error-check"></div>
+                                            </div>
+                                            <div class="checkbox cnt-form-error">
+                                                <label>
+                                                    <input type="checkbox" name="terminos" id="activeChek">
+                                                    Acepto las Condiciones, Términos y Políticas de uso
+                                                </label>
+                                                <div class="error-check"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit"
+                                                        class="btn btn-block text-center"
+                                                        id="send_coupon"><span>Recibir Cupón</span></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php
+echo $this->partial('application/puntos/renders/_modal_error_proceso');
+echo $this->partial('application/puntos/renders/_modal_proceso');
+echo $this->partial('application/puntos/renders/_modal_felicitaciones');
+echo $this->partial('_script.phtml');

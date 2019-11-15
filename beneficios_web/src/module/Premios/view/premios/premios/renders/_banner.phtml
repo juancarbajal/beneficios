@@ -1,0 +1,45 @@
+<div class="fluid-list bread">
+    <ul>
+        <li><a href="<?= $this->url('application', array('action' => 'index')); ?>">Inicio</a></li>
+        <li><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></li>
+        <li><?= ucwords(strtolower($this->descripcion)); ?></li>
+    </ul>
+</div>
+<?php if (!empty($banners[5])) : ?>
+    <div class="fluid-list banner-categoria">
+        <?php
+        $link = "";
+        if (isset($banners[5]['link'])) {
+            $banners[5]['link'] = str_replace("[NumeroDocumento]", $this->identity()["NumeroDocumento"], $banners[5]['link']);
+            $banners[5]['link'] = str_replace("[Nombre]", $this->identity()["Nombre"], $banners[5]['link']);
+            $banners[5]['link'] = str_replace("[Apellido]", $this->identity()["Apellido"], $banners[5]['link']);
+            $banners[5]['link'] = str_replace("[email]", $this->identity()["email"], $banners[5]['link']);
+            $link = 'href="' . $banners[5]['link'] . '" target="_blank"';
+        } else {
+            $link = '';
+        }
+        ?>
+        <a <?= $link ?>>
+            <img class="img-responsive" src="<?= $this->rbanners . $banners[5]['image']; ?>">
+        </a>
+    </div>
+<?php endif;
+if (!empty($banners[2])) : ?>
+    <div class="fluid-list anuncio-banner">
+        <?php
+        $link = "";
+        if (isset($banners[2]['link'])) {
+            $banners[2]['link'] = str_replace("[NumeroDocumento]", $this->identity()["NumeroDocumento"], $banners[2]['link']);
+            $banners[2]['link'] = str_replace("[Nombre]", $this->identity()["Nombre"], $banners[2]['link']);
+            $banners[2]['link'] = str_replace("[Apellido]", $this->identity()["Apellido"], $banners[2]['link']);
+            $banners[2]['link'] = str_replace("[email]", $this->identity()["email"], $banners[2]['link']);
+            $link = 'href="' . $banners[2]['link'] . '" target="_blank"';
+        } else {
+            $link = '';
+        }
+        ?>
+        <a <?= $link ?>>
+            <img class="img-responsive" src="<?= $this->rbanners . $banners[2]['image'] ?>" title=""/>
+        </a>
+    </div>
+<?php endif;

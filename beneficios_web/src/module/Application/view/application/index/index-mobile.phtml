@@ -1,0 +1,23 @@
+<?php
+echo $this->partial('application/index/mobile/_banner');
+
+echo $this->partial('application/index/mobile/_destacados');
+
+echo $this->partial('application/index/mobile/_descubre');
+
+echo $this->inlineScript()->prependFile(
+    $this->basePath('js/jq-infinite/jq-infinite-mobile.js?' . $this->configItem('version_script'))
+);
+echo $this->headScript()->prependFile(
+    $this->basePath('js/login/tebca.js?' . $this->configItem('version_script'))
+);
+?>
+<script>
+    $(document).ready(function () {
+        <?php
+        foreach ($this->configItem('empresas_especiales') as $data) { ?>
+        empresas_e.push('<?= $data?>');
+        <?php } ?>
+        getModal('<?= $this->configItem('domain') ?>', '<?= $this->modal ?>');
+    });
+</script>

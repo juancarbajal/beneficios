@@ -1,0 +1,155 @@
+<section class="content-header ">
+    <br><br><br>
+    <h1 class="box-title">Editar Usuario del Sistema</h1>
+    <br><br>
+    <?php if (isset($msg)) {
+        echo '<div class="callout alert alert-danger"><button class="close" data-dismiss="alert" type="button">×</button>';
+        foreach ($msg as $message) {
+            echo '<li>' . $message . '</li>';
+        }
+        echo '</div>';
+    } ?>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                </div>
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <?php
+                        $form->setAttribute('action', $this->url('usuario', array('action' => 'edit', 'id' => $id)));
+                        $form->setAttribute('id', 'editform');
+                        $form->setAttribute('class', 'form-horizontal');
+                        $form->prepare();
+                        echo $this->form()->openTag($form);
+                        echo $this->formElement($form->get('csrf'));
+
+                        ?>
+                        <div class="form-group">
+                            <div
+                                class="<?= $this->formElementErrors($form->get('BNF_TipoUsuario_id')) ? 'has-error' : '' ?>">
+                                <div class="col-md-2"><label>Tipo de Usuario:</label></div>
+                                <div class="col-md-3">
+                                    <div class="row-fluid campo">
+                                        <div class="col-md-12 null-padding input">
+                                            <?php
+                                            echo $this->formHidden($form->get('id'));
+                                            echo $this->formRow($form->get('BNF_TipoUsuario_id'));
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-1"><label>Empresa:</label></div>
+                                <div class="col-md-6">
+                                    <div class="row-fluid campo">
+                                        <div class="col-md-11 null-padding" style="width: 93% !important;">
+                                            <?php
+                                            echo $this->formRow($form->get('BNF_Empresa_id'));
+                                            ?>
+                                        </div>
+                                        <input type="hidden" id="emp_val" value="<?=$form->get('BNF_Empresa_id')->getValue()?>">
+                                        <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="<?= $this->formElementErrors($form->get('Nombres')) ? 'has-error' : '' ?>">
+                                <div class="col-md-2"><label>Nombres:</label></div>
+                                <div class="col-md-10">
+                                    <div class="row-fluid campo">
+                                        <div class="col-md-11 null-padding input">
+                                            <?php echo $this->formRow($form->get('Nombres')); ?>
+                                        </div>
+                                        <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="<?= $this->formElementErrors($form->get('Apellidos')) ? 'has-error' : '' ?>">
+                                <div class="col-md-2"><label>Apellidos:</label></div>
+                                <div class="col-md-10">
+                                    <div class="row-fluid campo">
+                                        <div class="col-md-11 null-padding input">
+                                            <?php echo $this->formRow($form->get('Apellidos')); ?>
+                                        </div>
+                                        <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div
+                                class="<?= (isset($errors['correoc'])) ? $errors['correoc'] : ''; ?> <?= $this->formElementErrors($form->get('Correo')) ? 'has-error' : '' ?>">
+                                <div class="col-md-2"><label>Correo:</label></div>
+                                <div class="col-md-10">
+                                    <div class="row-fluid campo">
+                                        <div class="col-md-11 null-padding input">
+                                            <?php echo $this->formRow($form->get('Correo')); ?>
+                                            <?= (isset($errors['correom'])) ? '<ul><li>' . $errors['correom'] . '</li></ul>' : ''; ?>
+                                        </div>
+                                        <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div
+                                class="<?= $this->formElementErrors($form->get('BNF_TipoDocumento_id')) ? 'has-error' : '' ?>">
+                                <div class="col-md-2">
+                                    <label>Tipo de Documento:</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row-fluid campo">
+                                        <div class="col-md-12 null-padding input">
+                                            <?php echo $this->formRow($form->get('BNF_TipoDocumento_id')); ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class=" <?= (isset($errors['ndocc'])) ? $errors['ndocc'] : ''; ?> <?= $this->formElementErrors($form->get('NumeroDocumento')) ? 'has-error' : '' ?>">
+                                <div class="col-md-2 text-right"><label>Número de Documento:</label></div>
+                                <div class="col-md-4">
+                                    <div class="row-fluid campo">
+                                        <div class="col-md-11 null-padding input-2">
+                                            <?php echo $this->formRow($form->get('NumeroDocumento')); ?>
+                                            <?= (isset($errors['ndocm'])) ? '<ul><li>' . $errors['ndocm'] . '</li></ul>' : ''; ?>
+                                        </div>
+                                        <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div
+                                class="<?= $this->formElementErrors($form->get('Contrasenia')) ? 'has-error' : '' ?>">
+                                <div class="col-md-2"><label>Contraseña:</label></div>
+                                <div class="col-md-3">
+                                    <?php echo $this->formRow($form->get('Contrasenia')); ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-10 col-md-2">
+                                <p>(*) Campos Obligatorios</p>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <div class="col-md-10">
+                                <?php echo $this->formSubmit($form->get('submit')); ?>
+                                <a href="/usuario" class="btn btn-default">Cancelar</a>
+                            </div>
+                        </div>
+                        <hr>
+                        <?php echo $this->form()->closeTag(); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<?php echo $this->inlineScript()->prependFile($this->basePath('js/usuario/UsuarioAdd.js?' . $this->configItem('version_script'))); ?>

@@ -1,0 +1,104 @@
+<?php echo $this->doctype(); ?>
+<html lang="en">
+<head>
+    <?php
+    echo $this->partial('layout/renders/_head');
+    echo $this->partial('layout/renders/analytics');
+    echo $this->partial('layout/renders/_style');
+    echo $this->partial('layout/renders/_scroll');
+    echo $this->headStyle();
+    ?>
+    <?php
+    if ($this->identity()["domain_sullana"]) {?>
+    <style>
+        .fix-nav .company_fixed{bottom: -55px;}
+        a.company{top: 82px;}
+    </style>
+    <?php }?>
+</head>
+<?php
+$children = $this->viewModel()->getCurrent()->getChildren();
+$child = $children[0];
+
+if ($child->router == "coupon-puntos") :
+    echo '<body class="main-puntos">';
+elseif ($child->router == "coupon-premios") :
+    echo '<body class="main-premios">';
+else:
+    echo '<body>';
+endif; ?>
+<div id="main-container" class="wrapper">
+    <?php echo $this->partial('layout/renders/_header'); ?>
+    <!-- =============================================== -->
+    <section>
+        <div class="fluid-list cnt-item-cat" style="display: none;">
+            <div class="container">
+                <div class="fluid-list item-category">
+                    <span>Restaurantes</span>
+                    <div class="cnt-content-list-cat">
+                        <div class="list-cat-cnt">
+                            <ul class="reset-ul">
+                                <li><a href="#">Salud y Belleza</a></li>
+                                <li><a href="#">Viajes</a></li>
+                                <li><a href="#">Productos</a></li>
+                                <li><a href="#">Puntos</a></li>
+                                <li><a href="#">Premios</a></li>
+                                <li><a href="#">Otros</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php echo $this->content; ?>
+        <!-- =============================================== -->
+        <?php if (!strpos($_SERVER['REQUEST_URI'], 'puntos') && !strpos($_SERVER['REQUEST_URI'], 'premios')) {
+            if (!strpos($_SERVER['REQUEST_URI'], 'coupon-puntos')  && !strpos($_SERVER['REQUEST_URI'], 'coupon-premios')  && !strpos($_SERVER['REQUEST_URI'], 'delivery')) {
+                echo $this->partial('layout/renders/_afiliados');
+            } else {
+                echo '<div class="fluid-list"><div class="container"><div class="fluid-list slider-marcas" id="afiliadas"></div></div></div>';
+            }
+        } else {
+            echo '<div class="fluid-list"><div class="container"><div class="fluid-list slider-marcas" id="afiliadas"></div></div></div>';
+        } ?>
+    </section>
+    <!-- =============================================== -->
+    <?php echo $this->partial('layout/renders/_footer'); ?>
+</div>
+<?php
+if ($this->identity()["puntos"] > 0 && $this->identity()["modal_puntos"] && $this->identity()["exist_ofertas"]
+    && ($this->identity()["premios"] == 0
+        || (!$this->identity()["modal_premios"] && !$this->identity()["flyout_premios"])
+    || !$this->identity()["exist_ofertas_premios"])
+    && $child->url_slug != 'perfil' && $child->url_slug != 'puntos'
+) {
+    echo $this->partial('application/index/renders/_modal_puntos');
+} elseif ($this->identity()["premios"] > 0 && $this->identity()["exist_ofertas_premios"]
+    && ($this->identity()["modal_premios"] || $this->identity()["flyout_premios"])
+    && ($this->identity()["puntos"] == 0 || !$this->identity()["modal_puntos"] || !$this->identity()["exist_ofertas"])
+    && $child->url_slug != 'perfil' && $child->url_slug != 'premios' && $child->router != 'coupon-premios'
+) {
+    if(!$this->identity()["flyout_premios"])
+        echo $this->partial('premios/premios/renders/_modal_premios');
+    echo $this->partial('premios/premios/renders/_flyout_premios');
+} elseif ($this->identity()["puntos"] > 0 && $this->identity()["modal_puntos"] && $this->identity()["exist_ofertas"]
+    && $this->identity()["premios"] > 0 && ($this->identity()["modal_premios"] || $this->identity()["flyout_premios"])
+    && $this->identity()["exist_ofertas_premios"]
+    && $child->url_slug != 'perfil' && $child->url_slug != 'premios' && $child->router != 'puntos'
+    && $child->url_slug != 'coupon-premios'
+) {
+    if(!$this->identity()["flyout_premios"])
+        echo $this->partial('premios/premios/renders/_modal_premios_puntos');
+    echo $this->partial('premios/premios/renders/_flyout_premios_puntos');
+}
+
+if ($child->router == "coupon") {
+    echo $this->partial('application/index/renders/_modal_envio');
+    echo $this->partial('application/index/renders/_modal_felicitaciones');
+    echo $this->partial('application/index/renders/_modal_proceso');
+    echo $this->partial('application/index/renders/_modal_error');
+} elseif ($child->router == "lead") {
+    echo $this->partial('application/index/renders/_modal_error');
+} ?>
+</body>
+</html>

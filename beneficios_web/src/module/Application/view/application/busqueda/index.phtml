@@ -1,0 +1,227 @@
+<div class="fluid-list">
+    <div class="container">
+<?php
+use Application\Service\MobileDetect;
+
+$nfilades = 0;
+$cantodes = 0;
+$tamaño = $this->tamaño;
+
+if ($typebusqueda == 1) { ?>
+    <div class="fluid-list bread">
+        <ul>
+            <li><a href="/home">Inicio</a></li>
+            <li><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></li>
+            <li><?= $nombre ?></li>
+        </ul>
+    </div>
+<?php } else { ?>
+    <br class="hidden-xs">
+    <div class="fluid-list search-info">
+        <div class="left">
+            <h3>Resultados de la Búsqueda <span><?= ($nombre != '') ? '“' . $nombre . '”' : '' ?></span></h3>
+        </div>
+        <div class="right">
+            <form action="" id="select-search">
+                <span class="hidden-xs">Ordenar por:</span>
+                <select name="ordenar" class="form-control" id="filtro-select">
+                    <option <?= ($select == -1) ? "selected" : "" ?> value="-1" disabled>Seleccione</option>
+                    <option <?= ($select == 1) ? "selected" : "" ?> value="1">Premium</option>
+                    <option <?= ($select == 2) ? "selected" : "" ?> value="2">Destacados</option>
+                    <option <?= ($select == 3) ? "selected" : "" ?> value="3">Novedades</option>
+                </select>
+            </form>
+        </div>
+    </div>
+<?php } ?>
+<div class="fluid-list flujo-cupones title-bloques content-load">
+    <?php
+    $cont = 0;
+    if (isset($ofertas)) {
+        foreach ($ofertas as $dato) {
+            $dato = (object)$dato;
+            if ($dato->TipoOferta == 1) {
+                if ($cont == 0) { ?>
+                    <div class="row margin-b">
+                    <?php
+                }
+                if ($cont < 3) {
+                    $cont++;
+                    ?>
+                    <div class="col-md-4 margin-bottom-movil">
+                        <article class="item-product">
+                            <?php if ($dato->Premium == 1) { ?>
+                                <span style="display: none;" class="destacado-icon"></span>
+                            <?php } ?>
+                            <h2><a href="/busqueda/coupon/<?= $dato->SlugOferta ?>" title="<?=$dato->nombreEmpresa ?>"><?=$dato->nombreEmpresa ?></a></h2>
+                            <p><?php
+                                $ismovil = new MobileDetect();
+                                if ($ismovil->isMobile() == 2) {
+                                    $tamaño = 43;
+                                } elseif ($ismovil->isMobile() == 0) {
+                                    $tamaño = 55;
+                                }
+                                if ($dato->datoBeneficio != null) { ?>
+
+                                    <?php if ($dato->idTipoBeneficio == 1) { ?>
+                                        <span>-<?= $dato->datoBeneficio ?>% Dscto. </span>
+                                    <?php } elseif ($dato->idTipoBeneficio == 2) { ?>
+                                        <span>-S/.<?= $dato->datoBeneficio ?> Dscto. </span>
+                                    <?php } elseif ($dato->idTipoBeneficio == 3) { ?>
+                                        <span><?= $dato->datoBeneficio ?> en</span>
+                                    <?php } else { ?>
+                                        <span><?= $dato->datoBeneficio ?></span>
+                                    <?php } ?>
+
+                                    <?php
+                                } else {
+                                    if ($ismovil->isMobile() == 2) {
+                                        $tamaño = 62;
+                                    } elseif ($ismovil->isMobile() == 0) {
+                                        $tamaño = 75;
+                                    }
+                                }
+
+                                if (strlen($dato->TituloCortoOferta) >= $tamaño) {
+                                    echo substr($dato->TituloCortoOferta, 0, $tamaño) . "...";
+                                } else {
+                                    echo $dato->TituloCortoOferta;
+                                }
+                                ?>
+                            </p>
+                            <div class="fluid-list b-prec">
+                                <!--<em>De <span class="p-bef">S/299</span> a <span>S/59</span></em><!--Mostrar los dos precios-->
+                                <a href="/busqueda/coupon/<?= $dato->SlugOferta ?>" class="btn-belcorp right">Detalle</a>
+                            </div>
+                            <figure>
+                                <a href="/busqueda/coupon/<?= $dato->SlugOferta ?>" title="">
+                                    <img src="<?php echo $rofertas . $dato->imagenOferta ?>" alt="">
+                                </a>
+                            </figure>
+                        </article>
+                    </div>
+                    <?php
+                }
+                if ($cont == 3) {
+                    $cont = 0;
+                    ?>
+                    </div>
+                    <?php
+                }
+            } else if ($dato->TipoOferta == 2) {
+                if ($cont == 0) { ?>
+                    <div class="row margin-b">
+                    <?php
+                }
+                if ($cont < 3) {
+                    $cont++;
+                    ?>
+                    <div class="col-md-4 margin-bottom-movil">
+                        <article class="item-product">
+                            <h2><a href="/busqueda/coupon-puntos/<?= $dato->SlugOferta ?>" title="<?=$dato->nombreEmpresa ?>"><?=$dato->nombreEmpresa ?></a></h2>
+                            <p><?php
+                                            $ismovil = new MobileDetect();
+                                            if ($ismovil->isMobile() == 2) {
+                                                $tamaño = 43;
+                                            } elseif ($ismovil->isMobile() == 0) {
+                                                $tamaño = 55;
+                                            }
+
+                                            if (strlen($dato->TituloCortoOferta) >= $tamaño) {
+                                                if ($dato->datoBeneficio)
+                                                    echo '<b>S/. ' . $dato->datoBeneficio . ' por </b>';
+                                                echo substr($dato->TituloCortoOferta, 0, $tamaño) . "...";
+                                            } else {
+                                                if ($dato->datoBeneficio)
+                                                    echo '<b>S/. ' . $dato->datoBeneficio . ' por </b>';
+                                                echo $dato->TituloCortoOferta;
+                                            }
+                                            ?>
+                            </p>
+                            <div class="fluid-list b-prec">
+                                <!--<em>De <span class="p-bef">S/299</span> a <span>S/59</span></em><!--Mostrar los dos precios-->
+                                <a href="/busqueda/coupon-puntos/<?= $dato->SlugOferta ?>" class="btn-belcorp right">Detalle</a>
+                            </div>
+                            <figure>
+                                <a href="/busqueda/coupon-puntos/<?= $dato->SlugOferta ?>" title="">
+                                    <img src="<?php echo $this->rofertasP . $dato->imagenOferta ?>" alt="">
+                                </a>
+                            </figure>
+                        </article>
+                    </div>
+                    <?php
+                }
+                if ($cont == 3) {
+                    $cont = 0;
+                    ?>
+                    </div>
+                    <?php
+                }
+            } else if ($dato->TipoOferta == 3) {
+                if ($cont == 0) { ?>
+                    <div class="row margin-b">
+                    <?php
+                }
+                if ($cont < 3) {
+                    $cont++;
+                    ?>
+                    <div class="col-md-4 margin-bottom-movil">
+                        <article class="item-product">
+                            <h2><a href="/busqueda/coupon-premios/<?= $dato->SlugOferta ?>" title="<?=$dato->nombreEmpresa ?>"><?=$dato->nombreEmpresa ?></a></h2>
+                            <p><?php
+                                            $ismovil = new MobileDetect();
+                                            if ($ismovil->isMobile() == 2) {
+                                                $tamaño = 43;
+                                            } elseif ($ismovil->isMobile() == 0) {
+                                                $tamaño = 55;
+                                            }
+
+                                            if (strlen($dato->TituloCortoOferta) >= $tamaño) {
+                                                echo substr($dato->TituloCortoOferta, 0, $tamaño) . "...";
+                                            } else {
+                                                echo $dato->TituloCortoOferta;
+                                            }
+                                            ?>
+                            </p>
+                            <div class="fluid-list b-prec">
+                                <!--<em>De <span class="p-bef">S/299</span> a <span>S/59</span></em><!--Mostrar los dos precios-->
+                                <a href="/busqueda/coupon-premios/<?= $dato->SlugOferta ?>" class="btn-belcorp right">Detalle</a>
+                            </div>
+                            <figure>
+                                <a href="/busqueda/coupon-premios/<?= $dato->SlugOferta ?>" title="">
+                                    <img src="<?php echo $this->rofertasPR . $dato->imagenOferta ?>" alt="">
+                                </a>
+                            </figure>
+                        </article>
+                    </div>
+                    <?php
+                }
+                if ($cont == 3) {
+                    $cont = 0;
+                    ?>
+                    </div>
+                    <?php
+                }
+            }
+        }
+    } ?>
+</div>
+<div style="display: none" id="loading">
+    <p style="text-align: center">
+        <img src="/img/loading.gif" width="50px"/>
+    </p>
+</div>
+</div>
+</div>
+<div class="offset" style="display:none" data-offset="9"></div>
+<div class="ubigeo" style="display:none" data-ubigeo="<?= $this->ubigeo_id ?>"></div>
+<div class="premium" style="display:none" data-premium="<?= $this->premium ?>"></div>
+<div class="destacados" style="display:none" data-destacados="<?= $this->destacados ?>"></div>
+<div class="nombre" style="display:none" data-nombre="<?= $this->nombre ?>"></div>
+<div class="novedades" style="display:none" data-novedades="<?= $this->novedades ?>"></div>
+<div class="rofertas" style="display:none" data-rofertas="<?= $this->rofertas ?>" data-rofertasp="<?= $this->rofertasP ?>"
+     data-rofertaspr="<?= $this->rofertasPR ?>"></div>
+<div class="rlogos" style="display:none" data-rlogos="<?= $this->rlogos ?>"></div>
+
+<script type="text/javascript"
+        src="<?= $this->basePath('js/oferta/oferta.js?' . $this->configItem('version_script')); ?>"></script>

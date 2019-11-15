@@ -1,0 +1,26 @@
+<?php echo $this->doctype(); ?>
+<html lang="en">
+<head>
+    <?php echo $this->partial('layout/renders/_head');
+    echo $this->partial('layout/renders/_all-skins');
+    echo $this->partial('layout/renders/_scroll-sidebar');
+    echo $this->headStyle();
+    ?>
+</head>
+<body class="hold-transition skin-general sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+    <?php echo $this->partial('layout/renders/_header') ?>
+    <!-- =============================================== -->
+    <?php echo $this->partial('layout/renders/_siderbar') ?>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <?php echo $this->content; ?>
+    </div><!-- /.content-wrapper -->
+    <?php echo $this->partial('layout/renders/_footer') ?>
+    <!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+</div><!-- ./wrapper -->
+</body>
+</html>

@@ -1,0 +1,65 @@
+<div class="modal fade modal-vcenter modal-active" id="elegirOpcion" tabindex="-1" role="dialog"
+     aria-labelledby="elegirOpcion">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel"><img src="http://beneficios.pe/img/login.png"/></h4>
+            </div>
+            <div class="modal-body">
+                <h4>Elige tu Oferta</h4>
+                <?php $count = 0; ?>
+                <?php $dato = null; ?>
+                <?php foreach ($this->atributosData as $item): ?>
+                    <?php if ($item->Stock > 0): ?>
+                        <div class="fluid-list list-opciones">
+                            <a href="#" class="enviarMail" data-value="<?= $item->id ?>">
+                                <span><?= ++$count ?></span>
+                                <h2><em>Opción <?= $count ?></em>
+                                    <?php if ($item->DatoBeneficio != null) : ?>
+                                        <?php if ($this->cupon->idTipoBeneficio == 1) :
+                                            $dato = "<span>" . $item->DatoBeneficio . " % Descuento </span>";
+                                        elseif ($this->cupon->idTipoBeneficio == 2) :
+                                            $dato = "<span>S/." . $item->DatoBeneficio . " Descuento </span>";
+                                        elseif ($this->cupon->idTipoBeneficio == 3) :
+                                            $dato = "<span>" . $item->DatoBeneficio . " en </span>";
+                                        else :
+                                            $dato = "<span>" . $item->DatoBeneficio . " </span>";
+                                        endif; ?>
+                                    <?php endif; ?>
+                                    <?php echo "<span>". $dato . $item->NombreAtributo ."</span>"?>
+                                    <input type="hidden" id="nombreAtributo"
+                                           value="<?= $dato . $item->NombreAtributo ?>">
+                                </h2>
+                            </a>
+                        </div>
+                    <?php else: ?>
+                        <div class="fluid-list list-opciones">
+                            <a href="#" class="enviarMail a-locked" role="button">
+                                <span><?= ++$count ?></span>
+                                <h2><em>Opción <?= $count ?></em>
+                                <?php if ($item->DatoBeneficio != null) : ?>
+                                        <?php if ($this->cupon->idTipoBeneficio == 1) :
+                                            $dato = "<span>" . $item->DatoBeneficio . " % Descuento </span>";
+                                        elseif ($child->cupon->idTipoBeneficio == 2) :
+                                            $dato = "<span>S/." . $item->DatoBeneficio . " Descuento </span>";
+                                        elseif ($child->cupon->idTipoBeneficio == 3) :
+                                            $dato = "<span>" . $item->DatoBeneficio . " en </span>";
+                                        else :
+                                            $dato = "<span>" . $item->DatoBeneficio . " </span>";
+                                        endif; ?>
+                                    <?php endif; ?>
+                                    <?php echo "<span>". $dato . $item->NombreAtributo ."</span>"?>
+                                    <input type="hidden" id="nombreAtributo"
+                                           value="<?= $dato . $item->NombreAtributo ?>">
+                                </h2>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+                <div class="footer-m-e">
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

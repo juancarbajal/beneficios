@@ -1,0 +1,502 @@
+<section class="content-header ">
+    <br><br><br>
+
+    <h1 class="box-title">Agregar Ofertas Premios</h1>
+    <br><br>
+    <?php if (isset($confirm) && $confirm != null) {
+        echo '<div class="callout alert alert-' . $this->type . '">' .
+            '<button class="close" data-dismiss="alert" type="button">×</button>';
+        foreach ($confirm as $message) {
+            echo '<li>' . $message . '</li>';
+        }
+        echo '</div>';
+    }
+    ?>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                </div>
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <?php
+                        $form->setAttribute('action', $this->url('ofertas-premios', array('action' => 'add')));
+                        $form->setAttribute('class', 'form-horizontal');
+                        $form->prepare();
+                        echo $this->form()->openTag($form);
+                        echo $this->formElement($form->get('csrf'));
+                        ?>
+                        <fieldset>
+                            <legend>Datos Generales</legend>
+                            <div class="form-group">
+                                <div
+                                    class="<?= $this->formElementErrors($form->get('EmpresaProv')) ? 'has-error' : '' ?>">
+                                    <div class="col-md-2"><label>Empresa Proveedora:</label></div>
+                                    <div class="col-md-10">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-11 null-padding input-2">
+                                                <?= $this->formRow($form->get('EmpresaProv')); ?>
+                                            </div>
+                                            <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div
+                                    class="<?= $this->formElementErrors($form->get('EmpresaCli')) ? 'has-error' : '' ?>">
+                                    <div class="col-md-2"><label>Empresa Cliente:</label></div>
+                                    <div class="col-md-10">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-11 null-padding input-2">
+                                                <?= $this->formRow($form->get('EmpresaCli')); ?>
+                                            </div>
+                                            <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div
+                                    class="<?= $this->formElementErrors($form->get('CampaniaPremios')) ? 'has-error' : '' ?>">
+                                    <div class="col-md-2"><label>Campañas:</label></div>
+                                    <div class="col-md-10">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-11 null-padding input-2">
+                                                <?= $this->formRow($form->get('CampaniaPremios')); ?>
+                                            </div>
+                                            <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="<?= $this->formElementErrors($form->get('SegmentoPremios')) || !empty($error['segmento']) ? 'has-error' : '' ?>">
+                                    <div class="col-md-2"><label>Segmentos:</label></div>
+                                    <div class="col-md-10">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-11 null-padding input-2">
+                                                <?= $this->formRow($form->get('SegmentoPremios')); ?>
+                                            </div>
+                                            <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-10">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-11 error">
+                                                <?= (isset($error['segmento'])) ? '<ul><li>' . $error['segmento'] . '</li></ul>' : ''; ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="<?= $this->formElementErrors($form->get('Nombre')) ? 'has-error' : '' ?>">
+                                    <div class="col-md-2"><label>Nombre:</label></div>
+                                    <div class="col-md-10">
+                                        <?= $this->formRow($form->get('Nombre')); ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="<?= $this->formElementErrors($form->get('Titulo')) ? 'has-error' : '' ?>">
+                                    <div class="col-md-2"><label>Título:</label></div>
+                                    <div class="col-md-10">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-11 null-padding input">
+                                                <?= $this->formRow($form->get('Titulo')); ?>
+                                            </div>
+                                            <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div
+                                    class="<?= $this->formElementErrors($form->get('TituloCorto')) ? 'has-error' : '' ?>">
+                                    <div class="col-md-2"><label>Título Corto:</label></div>
+                                    <div class="col-md-10">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-11 null-padding input">
+                                                <?= $this->formRow($form->get('TituloCorto')); ?>
+                                            </div>
+                                            <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="<?= (isset($messageImage['imagec'])) ? '<ul><li>'
+                                    . $messageImage['imagec'] . '</li></ul>' : ''; ?> ">
+                                    <div class="col-md-2"><label>Seleccione Imagen y Agregar:</label></div>
+                                    <div class="col-md-10">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-11 null-padding input">
+                                                <input id="input-file" type="file" class="file"
+                                                       data-show-preview="false">
+                                                <?= (isset($messageImage['image'])) ? '<ul><li>'
+                                                    . $messageImage['image'] . '</li></ul>' : ''; ?>
+                                                <ul id="error-image"></ul>
+                                            </div>
+                                            <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                        </div>
+                                        <div class="col-xs-2" style="padding-left:0;">
+                                            <input type="button" class="btn btn-primary left" id="btn-image"
+                                                   value="Agregar">
+                                            <div id="download" class="loader left" style="display: none;">
+                                                <img src="<?= $this->basepath('img/ajax_clock_small.gif') ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-10 col-xs-offset-2">
+                                <table aria-describedby="example1_info" role="grid" id="list-image"
+                                       class="table table-bordered table-striped dataTable">
+                                    <thead>
+                                    <tr role="row">
+                                        <th>Imagen</th>
+                                        <th>Nombre de la Imagen</th>
+                                        <th>Principal</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                    if (isset($imagenesXAsignar)) {
+                                        foreach ($imagenesXAsignar as $img) {
+                                            $rand = rand(300, 500);
+                                            ?>
+                                            <tr id="<?= $rand ?>">
+                                                <td>
+                                                    <a id="single_image" href="/elements/oferta_premios/<?= $img ?>">
+                                                        <img style="height: 50px;width: 50px;"
+                                                             src="/elements/oferta_premios/<?= $img ?>">
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <?= $img ?>
+                                                    <input type="hidden" name="Imagen[<?= $rand ?>]"
+                                                           value="<?= $img ?>">
+                                                </td>
+                                                <td>
+                                                    <label>
+                                                        <input onclick="principalImage('<?= $rand ?>');" type="radio"
+                                                               name="principal" checked>
+                                                    </label>
+                                                </td>
+                                                <td>
+                                                    <a onclick="deleteImage(<?= $rand ?>,'<?= $img ?>')"
+                                                       class="btn btn-danger">Eliminar</a>
+                                                </td>
+                                            </tr>
+                                            <?php
+                                        }
+                                    }
+                                    ?>
+                                    <tr></tr>
+                                    </tbody>
+                                </table>
+                                <input type="hidden" name="principalimage" id="principalimage"
+                                       value="<?= isset($rand) ? $rand : '' ?>">
+                            </div>
+                            <div class="form-group">
+                                <div
+                                    class="<?= $this->formElementErrors($form->get('CondicionesUso'))
+                                        ? 'has-error' : '' ?>">
+                                    <div class="col-md-2"><label>Condiciones de Uso:</label></div>
+                                    <div class="col-md-10">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-11 null-padding input">
+                                                <div class="box">
+                                                    <div class="box-body pad">
+                                                        <?= $this->formRow($form->get('CondicionesUso')); ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div
+                                    class="<?= $this->formElementErrors($form->get('Direccion')) ? 'has-error' : '' ?>">
+                                    <div class="col-md-2"><label>Dirección:</label></div>
+                                    <div class="col-md-10">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-11 null-padding input">
+                                                <?= $this->formRow($form->get('Direccion')); ?>
+                                            </div>
+                                            <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div
+                                    class="input-col-12 <?= $this->formElementErrors($form->get('Telefono'))
+                                        ? 'has-error' : '' ?>">
+                                    <div class="col-md-2"><label>Teléfono:</label></div>
+                                    <div class="col-md-4">
+                                        <div class="row-fluid campo input-telefono">
+                                            <div class="col-md-11 null-padding input">
+                                                <?= $this->formRow($form->get('Telefono')); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="<?= $this->formElementErrors($form->get('Premium')) ? 'has-error' : '' ?>">
+                                    <div class="col-md-4">
+                                        <?= $this->formRow($form->get('Premium')); ?>
+                                        <label>Premium</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="<?= $this->formElementErrors($form->get('Correo')) ? 'has-error' : '' ?>">
+                                    <div class="col-md-2"><label>Correo:</label></div>
+                                    <div class="col-md-6">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-11 null-padding input">
+                                                <?= $this->formRow($form->get('Correo')); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="<?= $this->formElementErrors($form->get('Rubro')) ? 'has-error' : '' ?>">
+                                    <div class="col-md-2"><label>Rubro:</label></div>
+                                    <div class="col-md-6">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-11 null-padding input">
+                                                <?= $this->formRow($form->get('Rubro')); ?>
+                                            </div>
+                                            <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <br>
+                        <fieldset>
+                            <legend>Precio</legend>
+                            <div class="form-group">
+                                <div
+                                    class="<?= $this->formElementErrors($form->get('TipoPrecio')) ? 'has-error' : '' ?>">
+                                    <div class="col-md-3"><label>Tipo Precio:</label></div>
+                                    <div class="col-md-4">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-11 null-padding input">
+                                                <?= $this->formRow($form->get('TipoPrecio')); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div
+                                    class="<?= $this->formElementErrors($form->get('PrecioVentaPublico')) ? 'has-error' : '' ?>">
+                                    <div class="col-md-3"><label>Precio venta Público (PVP):</label></div>
+                                    <div class="col-md-4">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-11 null-padding input">
+                                                <?= $this->formRow($form->get('PrecioVentaPublico')); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div
+                                    class="<?= $this->formElementErrors($form->get('PrecioBeneficio')) ? 'has-error' : '' ?>">
+                                    <div class="col-md-3"><label>Precio Beneficios (PB):</label></div>
+                                    <div class="col-md-4">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-11 null-padding input">
+                                                <?= $this->formRow($form->get('PrecioBeneficio')); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="precio-content">
+                                <div class="form-group data-headers">
+                                    <div class="col-md-2"><label>Atributos (*)</label></div>
+                                    <div class="col-md-2"><label>PVP (*)</label></div>
+                                    <div class="col-md-2"><label>PB (*)</label></div>
+                                    <div class="col-md-2"><label>Stock (*)</label></div>
+                                    <div class="col-md-2"><label>Vigencia cupón (*)</label></div>
+                                    <div class="col-md-2"></div>
+                                </div>
+                                <div class="form-group data-list">
+                                    <div class="col-md-2">
+                                        <textarea title="Atributo" class="form-control atributos" name="atributos[]"></textarea>
+                                        <label class="atributos"><label>
+                                                <div class="atributos error"></div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input class="form-control preciosVenta" name="preciosVenta[]" type="text"
+                                               title="Precio Venta">
+                                        <div class="preciosVenta error"></div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input class="form-control preciosBeneficio" name="preciosBeneficio[]"
+                                               type="text"
+                                               title="Precio Beneficio">
+                                        <div class="preciosBeneficio error"></div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input class="form-control stocks" name="stocks[]" type="text"
+                                               title="Stock">
+                                        <div class="stocks error"></div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input class="form-control vigencias datepicker" name="vigencias[]" type="text"
+                                               title="vigencias">
+                                        <div class="vigencias error"></div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button class="addfields btn btn-default" type="button">&#43;</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <br>
+                        <fieldset>
+                            <legend>Ubicación</legend>
+                            <div class="form-group">
+                                <div
+                                    class="input-col-12 <?= $this->formElementErrors($form->get('Pais'))
+                                        ? 'has-error' : '' ?>">
+                                    <div class="col-md-2"><label>País:</label></div>
+                                    <div class="col-md-4">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-11 null-padding input">
+                                                <?= $this->formRow($form->get('Pais')); ?>
+                                            </div>
+                                            <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="<?= $this->formElementErrors($form->get('Distrito')) ? 'has-error' : '' ?>">
+                                    <div class="col-md-2"><label>Distrito:</label></div>
+                                    <div class="col-md-4">
+                                        <?= $this->formRow($form->get('Distrito')); ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            <label>Departamento </label><label style="color:red"> * </label>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="row-fluid campo">
+                                                <div class="col-md-11 null-padding input">
+                                                    <div class="checkbox-lista listdep">
+                                                        <?= $this->formRow($form->get('Departamento')); ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </fieldset>
+                        <br>
+                        <fieldset>
+                            <legend>Datos de Publicación</legend>
+                            <div class="form-group">
+                                <div
+                                    class="<?= $this->formElementErrors($form->get('FechaVigencia')) ? 'has-error' : '' ?>">
+                                    <div class="col-md-2"><label>Vigencia Cupón:</label></div>
+                                    <div class="col-md-4">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-11 null-padding input">
+                                                <?= $this->formRow($form->get('FechaVigencia')); ?>
+                                            </div>
+                                            <div class="required col-md-1 null-padding text-center p"><p>*</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div
+                                    class="<?= $this->formElementErrors($form->get('DescargaMaxima'))
+                                        ? 'has-error' : '' ?>">
+                                    <div class="col-md-2"><label>Descarga Máxima:</label></div>
+                                    <div class="col-md-4">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-11 null-padding input">
+                                                <?= $this->formRow($form->get('DescargaMaxima')); ?>
+                                            </div>
+                                            <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div
+                                    class="<?= $this->formElementErrors($form->get('Estado')) ? 'has-error' : '' ?>">
+                                    <div class="col-md-2"><label>Estado:</label></div>
+                                    <div class="col-md-4">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-11 null-padding input">
+                                                <?= $this->formRow($form->get('Estado')); ?>
+                                            </div>
+                                            <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div
+                                    class="<?= $this->formElementErrors($form->get('Stock')) ? 'has-error' : '' ?>">
+                                    <div class="col-md-2"><label>Stock:</label></div>
+                                    <div class="col-md-4">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-11 null-padding input">
+                                                <?= $this->formRow($form->get('Stock')); ?>
+                                            </div>
+                                            <div class="required col-md-1 null-padding text-center p"><p>*</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="form-group">
+                            <div class="col-md-offset-10 col-md-2">
+                                <p>(*) Campos Obligatorios</p>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <div class="col-md-10">
+                                <?= $this->formSubmit($form->get('submit')); ?>
+                                <a href="<?= $this->url('ofertas-premios', array('action' => 'index')) ?>"
+                                   class="btn btn-default" role="button">Cancelar</a>
+                            </div>
+                        </div>
+                        <br>
+                        <?php echo $this->form()->closeTag(); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<?php echo $this->partial('_scripts.phtml');

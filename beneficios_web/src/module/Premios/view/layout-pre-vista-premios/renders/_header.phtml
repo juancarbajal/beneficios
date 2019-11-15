@@ -1,0 +1,139 @@
+<header>
+    <div class="top-bar fluid-list">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="navbar-toggle icon-menu-swipe" type="button">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="/home" class="left company">
+                        <img src="http://admin.beneficios.pe/elements/empresa/20549659315.png" style="max-width: 190px; max-height: 120px">
+                    </a>
+                    <a href="/" class="left beneficios"><img src="http://beneficios.pe/img/beneficios.png"></a>
+                    <a href="/home" class="left company_fixed">
+                        <img src="http://admin.beneficios.pe/elements/empresa/20549659315-fixed.png" style="max-width: 150px; max-height: 90px">
+                    </a>
+                    <a href="/" class="left beneficios_fixed"><img src="http://beneficios.pe/img/beneficios_fixed.png"></a>
+                    <ul class="list-reset right menu-city">
+                        <li>
+                                    <span>
+                                LIMA                                <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></span>
+                            <div class="dropdown">
+                                <button id="ubic" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Cambiar Ubicación
+                                </button>
+                                <ul id="listubic" class="dropdown-menu" aria-labelledby="dLabel">
+                                    <li>Lima</li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="javascript:;">Cerrar Sesión</a>
+                        </li>
+                    </ul>
+                    <a href="#" class="search-lupa">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="city_country fluid-list">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="#" class="city-m">
+                        <div class="city-movil">
+                            <span>Lima <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></span>
+                            <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="box-center fluid-list">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="search right">
+                        <form action="javascript:;" method="post" class="frm-search" id="form-search">
+                            <input type="text" name="search" id="search" value="" placeholder="Ingrese lo que estas buscando">
+                            <button  class="search-btn">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                <span class="btn-title">Buscar</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<form action="/" method="post" id="form-ubic">-->
+    <form action="/home" method="post" id="form-ubic">
+        <input name="ubigeo" type="hidden" id="hidden-ubic" value="14">
+        <input type="hidden" name="search" value="">
+        <input type="hidden" name="categoria_id" id="categoria_id" value="1">
+    </form>
+    <nav class="fluid-list">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="list-reset">
+                        <li>
+                            <a href="javascript:;" class="category">
+                                <span class="icon-nav destacados"></span>
+                                <span class="name-title">Destacados</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="category ">
+                                <span class="icon-nav belleza-salud"></span>
+                                <span class="name-title">Belleza & Salud</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="category ">
+                                <span class="icon-nav viajes"></span>
+                                <span class="name-title">Viajes</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="category ">
+                                <span class="icon-nav restaurantes"></span>
+                                <span class="name-title">Restaurantes</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="category ">
+                                <span class="icon-nav entretenimiento"></span>
+                                <span class="name-title">Entretenimiento</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="category ">
+                                <span class="icon-nav productos"></span>
+                                <span class="name-title">Productos</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="active premios-nav">
+                                <span class="icon-nav premios"></span>
+                                <span class="name-title">Premios</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="category ">
+                                <span class="icon-nav otros"></span>
+                                <span class="name-title">Otros</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <a href="#" class="search-fixed"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>

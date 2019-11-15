@@ -1,0 +1,47 @@
+<html>
+<head>
+</head>
+<body>
+<table>
+    <tr>
+        <th><h3 align="center">Asignación de Premios</h3></th>
+    </tr>
+    <tr>
+        <td>Se le informa que, el segmento <strong><?= $this->contenido["segmento"] ?></strong> ha sido desactivado</td>
+    </tr>
+    <hr>
+    <tr>
+        <th><h3 align="center">Datos del Segmento</h3></th>
+    </tr>
+    <tr>
+        <td><strong>Campaña: </strong><?= $this->contenido["campania"] ?></td>
+    </tr>
+    <tr>
+        <td><strong>Empresa: </strong><?= $this->contenido["empresa"] ?></td>
+    </tr>
+    <tr>
+        <td><strong>Cantidad de Premios: </strong><?= $this->contenido["premios"] ?></td>
+    </tr>
+    <tr>
+        <td><strong>Cantidad de Usuarios: </strong><?= $this->contenido["personas"] ?></td>
+    </tr>
+    <tr>
+        <td><strong>Presupuesto: </strong><?= $this->contenido["presupuesto"] ?></td>
+    </tr>
+    <hr>
+    <tr>
+        <td><strong>Total de Premios Asignados: </strong><?= $this->contenido["total_premios"] ?></td>
+    </tr>
+    <tr>
+        <td><strong>Total de Usuarios Asignados: </strong><?= $this->contenido["usuarios"] ?></td>
+    </tr>
+    <hr>
+    <tr>
+        <td><strong>Total de Premios Deshabilitados: </strong><?= $this->contenido["total_premios_deshabilitados"] ?></td>
+    </tr>
+    <tr>
+        <td><strong>Total de Usuarios Deshabilitados: </strong><?= $this->contenido["usuarios_deshabilitados"] ?></td>
+    </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!-- Modal Felicitaciones-->
+<style>
+    .btn-puntos, .btn-puntos:hover {
+        background: #3db123 !important;
+        border-bottom: 4px solid #12330a !important;
+    }
+</style>
+<div class="modal fade modal-vcenter custon-modal modal-felicitaciones" id="modalFelicitacionesPuntos" tabindex="-1" role="dialog"
+     aria-labelledby="modalFelicitacionesPuntos">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <button type="button" class="close col-xs-1" data-dismiss="modal" aria-label="Close">
+                <span class="glyphicon glyphicon-remove star-ico" aria-hidden="true"></span>
+            </button>
+            <div class="modal-body">
+                <div class="fluid-list header-modal-c header-feli">
+                    <h3>FELICITACIONES</h3>
+                    <p><?= $this->conf['mensajeproceso'] ?></p>
+                </div>
+                <div class="fluid-list body-cnt-c questions">
+                    <h4>¡Ayudanos a mejorar tu experiencia!</h4>
+                    <h5></h5>
+                    <form action="" class="form-login form-modal-c" id="formRespuesta" novalidate="novalidate">
+                        <input type="hidden" id="question_number" value="">
+                        <div class="form-group cnt-form-error preguntas"></div>
+                        <div class="form-group">
+                            <ul>
+                                <li class="first-btn">
+                                    <button type="submit" class="btn btn-puntos btn-block text-center">
+                                        <span>Enviar respuesta</span>
+                                    </button>
+                                </li>
+                                <li class="second-btn">
+                                    <a id="cerrar_preguntas" href="#"
+                                       class="btn btn-cupon btn-block text-center btn-no"
+                                       data-dismiss="modal" aria-label="Close"><span>No, Gracias</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Find el modal Felicitaciones-->

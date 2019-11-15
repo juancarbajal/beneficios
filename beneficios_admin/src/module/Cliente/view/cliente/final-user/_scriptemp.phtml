@@ -1,0 +1,288 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.onlyNumber').keypress(function (e) {
+            var charCode = (e.which) ? e.which : e.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+        });
+
+        populate_combo('empresa_1', 0);
+
+        var tipoUsuario = "<?=$this->identity()->BNF_TipoUsuario_id?>";
+        var empresaUsuario = "<?=$this->identity()->BNF_Empresa_id?>";
+        if (tipoUsuario == 7) {
+            $("#empresa_1").val(empresaUsuario).trigger('change');
+        }
+
+        <?php
+        if (isset($empresacl)) {
+            $total = count($empresacl);
+            for ($i = 0; $i < $total - 1; $i++) {
+                echo "createSelects();";
+            }
+        ?>
+
+        var table = $("#addtable");
+        var ids = [];
+        var estado_ids = [];
+
+        table.find("select").each(function () {
+            var id = this.id;
+            ids.push(id)
+        });
+
+        table.find("input:checkbox").each(function () {
+            estado_ids.push(this.id)
+        });
+
+        <?php $i = 0;
+            foreach ($empresacl as $valor) {
+                echo '$("#" + ids[3 * (' . $i . ')]).val(' . $valor[0] . ').change();';
+                echo '$("#" + ids[3 * (' . $i . ') + 1]).val(' . $valor[1] . ');';
+                echo '$("#" + ids[3 * (' . $i . ') + 2]).val(' . $valor[2] . ');';
+                if ($valor[3] == "Inactivo") {
+                    echo '$("#" + estado_ids[(' . $i . ')]).attr("checked", false);';
+                }
+                $i++;
+            }
+        }?>
+    });
+
+    $(document).on('change', '.empresa', function (e) {
+        var id = $(this).attr('id');
+        var value = $(this).val();
+
+        var tipo = id.replace('empresa', 'tipo');
+        var segmento = id.replace('empresa', 'segmento');
+        var subgrupo = id.replace('empresa', 'subgrupo');
+        var estado = id.replace('empresa', 'estado');
+
+        clean_combo(segmento);
+        clean_combo(subgrupo);
+        populate_combo(segmento, value);
+        populate_combo(subgrupo, value);
+
+        document.getElementById(tipo).value = tipoempresa(value);
+
+        if (tipoempresa(value) === 'Normal') {
+            document.getElementById(subgrupo).setAttribute('disabled', 'disabled');
+        } else {
+            document.getElementById(subgrupo).removeAttribute('disabled');
+            document.getElementById(subgrupo).setAttribute('name', 'idSubgrupo[' + value + ']');
+        }
+
+        document.getElementById(estado).setAttribute('name', 'Estado[' + value + ']');
+    });
+
+    $(function () {
+        $("#datemaskD").inputmask("yyyy-mm-dd", {"placeholder": "AAAA-mm-dd"});
+        $(".select2").select2();
+        $(".date-picker").datepicker({
+            language: 'es',
+            format: 'yyyy-mm-dd'
+        });
+
+        $(document).on('click', '.add', function (e) {
+            createSelects();
+        });
+
+        $(document).on('click', '.remove', function (e) {
+            $(this).closest('tr').remove()
+        });
+    });
+
+    function createSelects() {
+        var row = $('<tr>');
+        var rowCount = Math.round(Math.random() * 100000);
+
+        var cell1 = $('<td>');
+        cell1.attr('class', 'input-col-7');
+        cell1.css('width', '30%');
+
+        var element1 = $('<select>')
+            .attr('name', 'idEmpresa[]')
+            .attr('id', 'empresa_' + rowCount)
+            .attr('class', 'empresa form-control select2');
+
+        cell1.append(element1);
+        cell1.append('<span style="color: red;"> *</span>');
+        row.append(cell1);
+
+        var cell2 = $('<td>');
+
+        var element2 = $('<input type="text">')
+            .attr('id', 'tipo_' + rowCount)
+            .attr('class', 'form-control')
+            .attr('disabled', true);
+
+        cell2.append(element2);
+        row.append(cell2);
+
+        var cell3 = $('<td>');
+        cell3.attr('class', 'input-col-7');
+
+        var element3 = $('<select>')
+            .attr('id', 'segmento_' + rowCount)
+            .attr('name', 'idSegmento[]')
+            .attr('class', 'form-control');
+
+        var opt = document.createElement('option');
+        opt.value = "";
+        opt.innerHTML = "Seleccione...";
+        element3.append(opt);
+
+        cell3.append(element3);
+        cell3.append('<p>*</p>');
+        row.append(cell3);
+
+        var cell4 = $('<td>');
+        cell4.attr('class', 'input-col-7');
+
+        var element4 = $('<select>')
+            .attr('id', 'subgrupo_' + rowCount)
+            .attr('name', 'idSubgrupo[]')
+            .attr('class', 'form-control subgrupo');
+
+        var opt2 = document.createElement('option');
+        opt2.value = "";
+        opt2.innerHTML = "Seleccione...";
+        element4.append(opt2);
+
+        cell4.append(element4);
+        row.append(cell4);
+
+        var cell5 = $('<td>');
+        var element5 = $('<input>')
+            .attr('id', 'estado_' + rowCount)
+            .attr('name', 'Estado[]')
+            .attr('type', 'checkbox')
+            .attr('value', '1')
+            .attr('checked', 'checked');
+
+        cell5.append(element5);
+        row.append(cell5);
+
+        var cell6 = $('<td>');
+
+        <?php if ($this->identity()->BNF_TipoUsuario_id != 7) { ?>
+        var element6 = $('<input type="button" value="+">')
+            .attr('class', 'add btn btn-default');
+        var element7 = $('<input type="button" value="-">')
+            .attr('class', 'remove btn btn-default');
+
+        cell6.append(element6);
+        cell6.append(element7);
+        row.append(cell6);
+        <?php } ?>
+
+        $('#addtable tbody:last').append(row);
+
+        populate_combo(element1.prop('id'), 0);
+
+        $(".select2").select2();
+    }
+
+    function populate_combo(combo, value) {
+        var options;
+        var newOptions = {
+            '': 'Seleccione...'
+        };
+        if (combo.indexOf('empresa') >= 0) {
+            empresas(newOptions);
+        } else if (combo.indexOf('segmento') >= 0) {
+            segmentos(newOptions, value);
+        } else if (combo.indexOf('subgrupo') >= 0) {
+            subgrupos(newOptions, value);
+        } else if (combo.indexOf('estado') >= 0) {
+            estados(newOptions, value);
+        }
+
+        var selectedOption = '';
+        var select = $('#' + combo);
+        if (select.prop) {
+            options = select.prop('options');
+        } else {
+            options = select.attr('options');
+        }
+        $('option', select).remove();
+
+        if (combo.indexOf('segmento') >= 0) {
+            <?php foreach ($segmentos as $s) { ?>
+            options[options.length] = new Option("<?=$s->Nombre?>", <?=$s->id?>);
+            <?php } ?>
+            options[options.length] = new Option("Seleccione...", '');
+        } else {
+            $.each(newOptions, function (val, text) {
+                options[options.length] = new Option(text, val);
+            });
+        }
+
+        select.val(selectedOption);
+        select.val('').find("option[value='']").attr('disabled', true);
+    }
+
+    function empresas(options) {
+        <?php foreach($empresas as $empresa) {?>
+        options["<?= $empresa->id ?>"] = "<?= $empresa->NombreComercial .
+        " - " . $empresa->RazonSocial . " - " . $empresa->Ruc?>";
+        <?php } ?>
+    }
+
+    function segmentos(options, value) {
+        var mylist = [];
+
+        <?php foreach($empresasegmentos as $empresasegmento) { ?>
+        if ("<?= $empresasegmento->BNF_Empresa_id ?>" == value) {
+            mylist.push(<?=$empresasegmento->BNF_Segmento_id;?>);
+        }
+        <?php } ?>
+
+        for (var i = 0; i < mylist.length; i++) {
+            <?php foreach($segmentos as $segmento) { ?>
+            if ("<?= $segmento->id ?>" == mylist[i]) {
+                options["<?= $segmento->id ?>"] = "<?= $segmento->Nombre ?>";
+            }
+            <?php } ?>
+        }
+    }
+
+    function subgrupos(options, value) {
+        <?php foreach($empresasubgrupos as $subgrupo) { ?>
+        if ("<?= $subgrupo->BNF_Empresa_id ?>" == value) {
+            options["<?= $subgrupo->id ?>"] = "<?= $subgrupo->Nombre ?>";
+        }
+        <?php } ?>
+    }
+
+    function tipoempresa(value) {
+        <?php foreach($empresas as $empresa) { ?>
+        if ("<?= $empresa->id ?>" == value) {
+            result = "<?= $empresa->ClaseEmpresaCliente ?>";
+        }
+        <?php } ?>
+        return result;
+    }
+
+    function clean_combo(id) {
+        var newOptions = {'': 'Seleccione... ' + id};
+        var selectedOption = '';
+        var select = $('#' + id);
+        var options;
+
+        if (select.prop) {
+            options = select.prop('options');
+        }
+        else {
+            options = select.attr('options');
+        }
+
+        $('option', select).remove();
+
+        $.each(newOptions, function (val, text) {
+            options[options.length] = new Option(text, val);
+        });
+
+        select.val(selectedOption);
+    }
+</script>

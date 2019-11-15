@@ -1,0 +1,79 @@
+<?php
+$this->inlineScript()->appendFile($this->basePath('js/premios/asignacion_personalizado.js'));
+
+$dataNumeroDocumento = (!empty($this->numeroDocumento)) ? $this->numeroDocumento : "[]";
+$dataSumaPremios = (!empty($this->sumaPremios)) ? $this->sumaPremios : "[]";
+$dataRestaPremios = (!empty($this->restaPremios)) ? $this->restaPremios : "[]";
+$dataPremiosAsignados = (!empty($this->premiosAsignados)) ? $this->premiosAsignados : "[]";
+$dataEstadoAsignacion = (!empty($this->estadoAsignacion)) ? $this->estadoAsignacion : "[]";
+
+$dataNumeroDocumentoMessage = (!empty($this->numeroDocumentoMessage)) ? $this->numeroDocumentoMessage : "[]";
+$dataSumaPremiosMessage = (!empty($this->sumaPremiosMessage)) ? $this->sumaPremiosMessage : "[]";
+$dataRestaPremiosMessage = (!empty($this->restaPremiosMessage)) ? $this->restaPremiosMessage : "[]";
+
+$this->inlineScript()->captureStart();
+echo <<<JS
+$(document).ready(function () {
+    var total = '$this->totalDatos';
+    if (total !== '0') {
+        var documentos = $dataNumeroDocumento;
+        var asignados = $dataPremiosAsignados;
+        var estados = $dataEstadoAsignacion;
+        var sumas = $dataSumaPremios;
+        var restas = $dataRestaPremios;
+
+        var documentosMessage = $dataNumeroDocumentoMessage;
+        var sumasMessage = $dataSumaPremiosMessage;
+        var restasMessage = $dataRestaPremiosMessage;
+
+        for (var i = 0; i < total - 1; i++) {
+            agregarCampos();
+        }
+
+        $("#data-content").find(".form-group").each(function (index, value) {
+                $(value).find('input.estado_asignado').val(documentos[index]);
+
+                $(value).find('input.documento-control').val(documentos[index]);
+                $(value).find('div.numeroDocumento').html(documentosMessage[index]);
+                $(value).find('input.documento-control').prop("disabled", true);
+
+                $(value).find('input.sumaPremios').val(sumas[index]);
+                $(value).find('div.sumaPremios').html(sumasMessage[index]);
+
+                $(value).find('input.restaPremios').val(restas[index]);
+                $(value).find('div.restaPremios').html(restasMessage[index]);
+
+                $(value).find('label.asignados-control').html(asignados[index]);
+
+                if (typeof estados[index] == "undefined" || estados[index] == "") {
+                    $(value).find('input.documento-control').prop("disabled", false);
+                    
+                    $('<input>').attr({
+                        type: 'hidden',
+                        name: 'estado[]',
+                        value: ''
+                    }).appendTo(value);
+                } else if (estados[index] == "Desactivado") {
+                    $(value).find('input.sumaPremios').prop("disabled", true);
+                    $(value).find('input.restaPremios').prop("disabled", true);
+                } else {
+                    var nombre = $(value).find('input.documento-control').attr('name');
+                    $('<input>').attr({
+                        type: 'hidden',
+                        name: nombre,
+                        value: documentos[index]
+                    }).appendTo(value);
+
+                    $('<input>').attr({
+                        type: 'hidden',
+                        name: 'estado[]',
+                        value: estados[index]
+                    }).appendTo(value);
+                }
+            }
+        );
+    }
+});
+JS;
+$this->inlineScript()->captureEnd();
+$this->inlineScript();

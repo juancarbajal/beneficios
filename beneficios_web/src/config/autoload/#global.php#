@@ -1,0 +1,74 @@
+<?php
+/**
+ * Global Configuration Override
+ *
+ * You can use this file for overriding configuration values from modules, etc.
+ * You would place values in here that are agnostic to the environment and not
+ * sensitive to security.
+ *
+ * @NOTE: In practice, this file will typically be INCLUDED in your source
+ * control, so do not include passwords or other sensitive information in this
+ * file.
+ */
+
+return array(
+    'db' => array(
+        'driver' => 'pdo_mysql',
+        'hostname' => '127.0.0.1',
+        'database' => 'admin_beneficios',
+        'username' => 'root',
+        'password' => '123456',
+        'port' => '3306',
+        'options' => array('buffer_results' => true)
+        'driver_options' => array(
+            PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'utf8\''
+        )
+    ),
+
+    'service_manager' => array(
+        'factories' => array(
+            'Zend\Db\Adapter\Adapter'
+            => 'Zend\Db\Adapter\AdapterServiceFactory',
+        ),
+    ),
+    'images' => array(
+        'logos' => 'http://b-pre.jnq.io/elements/empresa/',
+        'ofertas' => 'http://b-pre.jnq.io/elements/oferta/',
+        'ofertas-puntos' => 'http://bw-pre.jnq.io/elements/oferta_puntos/',
+        'galeria' => 'http://b-pre.jnq.io/elements/galeria/',
+        'banners' => 'http://b-pre.jnq.io/elements/banners/',
+        'imgBeneficios' => 'http://b-web.jnq.io/img/beneficios.png',
+        'imgBase' => 'http://bw-dev5.jnq.io/img/',
+    ),
+    'dompdf_module' => array(
+        'enable_remote' => true
+    ),
+    'mail' => array(
+        'message' => array(
+            'from' => 'contacto@ofertaexpress.pe',
+            'from_name' => 'OfertaExpress'
+        ),
+        'transport' => array(
+            'options' => array(
+                'host' => 'smtp.gmail.com',
+                'connection_class' => 'login',
+                'connection_config' => array(
+                    'ssl' => 'ssl',
+                    'username' => 'weeareroialty@gmail.com',
+                    'password' => 'Roialty100%',
+                ),
+                'port' => 465,
+            ),
+        ),
+    ),
+    'time_session' => 900,
+    'time_cookie' => 86400,
+    'version_script' => 62,
+    'ID_Analytics' => 'UA-71506955-1',
+    'domain' => 'bw-dev5.jnq.io',
+    'empresas_especiales' => array(
+        'tebca'
+    ),
+    'debug_mode' => false,
+    'domain_sullana' => 'cajasullana'
+);

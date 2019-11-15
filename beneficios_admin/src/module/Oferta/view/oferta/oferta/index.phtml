@@ -1,0 +1,284 @@
+<section class="content-header ">
+    <br><br><br>
+
+    <h1 class="box-title">Lista de Ofertas</h1>
+    <br><br>
+    <?php if ($this->flashMessenger()->hasMessages()) {
+        echo '<div class="callout alert alert-success">' .
+            '<button class="close" data-dismiss="alert" type="button">×</button>';
+        $messages = $this->flashMessenger()->getMessages();
+        foreach ($messages as $message) {
+            echo $message;
+        }
+        echo '</div>';
+    } ?>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                </div>
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <?php
+                        $form->setAttribute('action', $this->url('oferta', array('action' => 'index')));
+                        $form->prepare();
+                        echo $this->form()->openTag($form);
+                        echo $this->formElement($form->get('csrf'));
+
+                        ?>
+                        <div class="row">
+                            <fieldset>
+                                <legend>Buscar por:</legend>
+                                <div class="form-group">
+                                    <div class="col-md-2"><label>Nombre Comercial o Razón Social o Ruc:</label></div>
+                                    <div class="col-md-3">
+                                        <?= $this->formRow($form->get('Empresa')); ?>
+                                    </div>
+                                    <div class="col-md-1"><label>Tipo:</label></div>
+                                    <div class="col-md-2">
+                                        <?= $this->formRow($form->get('Tipo')); ?>
+                                    </div>
+                                    <div class="col-md-1"><label>Rubro:</label></div>
+                                    <div class="col-md-3">
+                                        <?= $this->formRow($form->get('Rubro')); ?>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                                <br>
+
+                                <div class="form-group">
+                                    <div class="col-md-2"><label>Categoría:</label></div>
+                                    <div class="col-md-3">
+                                        <?= $this->formRow($form->get('Categoria')); ?>
+                                    </div>
+                                    <div class="col-md-1"><label>Campaña:</label></div>
+                                    <div class="col-md-3">
+                                        <?= $this->formRow($form->get('Campania')); ?>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                                <br>
+
+                                <div class="form-group">
+                                    <div class="col-md-2"><label>Nombre:</label></div>
+                                    <div class="col-md-4">
+                                        <?= $this->formRow($form->get('Nombre')); ?>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <?= $this->formSubmit($form->get('submit')); ?>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <hr>
+                        <?= $this->form()->closeTag(); ?>
+                    </div>
+
+                    <div class="dataTables_wrapper form-inline dt-bootstrap" id="example1_wrapper">
+                        <div class="row-fluid">
+                            <div class="col-md-12 text-right">
+                                <div id="example1_length" class="dataTables_length"><br>
+                                    <a href="<?php echo $this->url('oferta', array('action' => 'export')); ?>"
+                                       class="btn btn-primary">Exportar</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="clear:both;"></div>
+                        <br>
+
+                        <div class="row-fluid">
+                            <div class="col-sm-12">
+                                <table aria-describedby="example1_info" role="grid" id="example1"
+                                       class="table table-bordered table-striped dataTable">
+                                    <thead>
+                                    <tr role="row">
+                                        <th>
+                                            <?php if ($order_by == 'Tipo') { ?>
+                                                <a href="<?=
+                                                $this->url(
+                                                    'oferta',
+                                                    array('order_by' => 'Tipo', 'order' => $order, 'page' => $p,
+                                                        'q1' => $q1, 'q2' => $q2, 'q3' => $q3, 'q4' => $q4, 'q5' => $q5,
+                                                        'q6' => $q6)
+                                                );
+                                                ?>">Tipo de Oferta</a>
+                                                <?php
+                                            } else {
+                                                ?>
+                                                <a href="<?=
+                                                $this->url(
+                                                    'oferta',
+                                                    array('order_by' => 'Tipo', 'order' => 'asc',
+                                                        'page' => $p, 'q1' => $q1, 'q2' => $q2, 'q3' => $q3, 'q4' => $q4,
+                                                        'q5' => $q5, 'q6' => $q6)
+                                                ); ?>">Tipo de Oferta</a>
+                                                <?php
+                                            }
+                                            ?>
+                                        </th>
+                                        <th style="max-width: 150px">
+                                            <?php if ($order_by == 'Nombre'): ?>
+                                                <a href="<?= $this->url('oferta', array('order_by' => 'Nombre', 'order' => $order,
+                                                    'page' => $p, 'q1' => $q1, 'q2' => $q2, 'q3' => $q3, 'q4' => $q4,
+                                                    'q5' => $q5, 'q6' => $q6)); ?>">Empresa Prov.</a>
+                                            <?php else: ?>
+                                                <a href="<?= $this->url('oferta', array('order_by' => 'Nombre', 'order' => 'asc',
+                                                    'page' => $p, 'q1' => $q1, 'q2' => $q2, 'q3' => $q3, 'q4' => $q4,
+                                                    'q5' => $q5, 'q6' => $q6)); ?>">Empresa Prov.</a>
+                                            <?php endif; ?>
+                                        </th>
+                                        <th style="max-width: 150px">
+                                            <?php if ($order_by == 'Titulo'): ?>
+                                                <a href="<?= $this->url('oferta', array('order_by' => 'Titulo', 'order' => $order,
+                                                    'page' => $p, 'q1' => $q1, 'q2' => $q2, 'q3' => $q3, 'q4' => $q4,
+                                                    'q5' => $q5, 'q6' => $q6)); ?>">Titulo</a>
+                                            <?php else: ?>
+                                                <a href="<?= $this->url('oferta', array('order_by' => 'Titulo', 'order' => 'asc',
+                                                    'page' => $p, 'q1' => $q1, 'q2' => $q2, 'q3' => $q3, 'q4' => $q4,
+                                                    'q5' => $q5, 'q6' => $q6)); ?>">Titulo</a>
+                                            <?php endif; ?>
+                                        </th>
+                                        <th>
+                                            <?php if ($order_by == 'DatoBeneficio'): ?>
+                                                <a href="<?= $this->url('oferta', array('order_by' => 'DatoBeneficio', 'order' => $order,
+                                                    'page' => $p, 'q1' => $q1, 'q2' => $q2, 'q3' => $q3, 'q4' => $q4,
+                                                    'q5' => $q5, 'q6' => $q6)); ?>">Dato Beneficio</a>
+                                            <?php else: ?>
+                                                <a href="<?= $this->url('oferta', array('order_by' => 'DatoBeneficio', 'order' => 'asc',
+                                                    'page' => $p, 'q1' => $q1, 'q2' => $q2, 'q3' => $q3, 'q4' => $q4,
+                                                    'q5' => $q5, 'q6' => $q6)); ?>">Dato Beneficio</a>
+                                            <?php endif; ?>
+                                        </th>
+                                        <th>
+                                            <?php if ($order_by == 'Categoria'): ?>
+                                                <a href="<?= $this->url('oferta', array('order_by' => 'Categoria', 'order' => $order,
+                                                    'page' => $p, 'q1' => $q1, 'q2' => $q2, 'q3' => $q3, 'q4' => $q4,
+                                                    'q5' => $q5, 'q6' => $q6)); ?>">Categoria</a>
+                                            <?php else: ?>
+                                                <a href="<?= $this->url('oferta', array('order_by' => 'Categoria', 'order' => 'asc',
+                                                    'page' => $p, 'q1' => $q1, 'q2' => $q2, 'q3' => $q3, 'q4' => $q4,
+                                                    'q5' => $q5, 'q6' => $q6)); ?>">Categoria</a>
+                                            <?php endif; ?>
+                                        </th>
+                                        <th>
+                                            <?php if ($order_by == 'Campania'): ?>
+                                                <a href="<?= $this->url('oferta', array('order_by' => 'Campania', 'order' => $order,
+                                                    'page' => $p, 'q1' => $q1, 'q2' => $q2, 'q3' => $q3, 'q4' => $q4,
+                                                    'q5' => $q5, 'q6' => $q6)); ?>">Campaña</a>
+                                            <?php else: ?>
+                                                <a href="<?= $this->url('oferta', array('order_by' => 'Campania', 'order' => 'asc',
+                                                    'page' => $p, 'q1' => $q1, 'q2' => $q2, 'q3' => $q3, 'q4' => $q4,
+                                                    'q5' => $q5, 'q6' => $q6)); ?>">Campaña</a>
+                                            <?php endif; ?>
+                                        </th>
+                                        <th><?php if ($order_by == 'Asignaciones'): ?>
+                                                <a href="<?= $this->url('oferta', array('order_by' => 'Asignaciones', 'order' => $order,
+                                                    'page' => $p, 'q1' => $q1, 'q2' => $q2, 'q3' => $q3, 'q4' => $q4,
+                                                    'q5' => $q5, 'q6' => $q6)); ?>">Empresa Asig.</a>
+                                            <?php else: ?>
+                                                <a href="<?= $this->url('oferta', array('order_by' => 'Asignaciones', 'order' => 'asc',
+                                                    'page' => $p, 'q1' => $q1, 'q2' => $q2, 'q3' => $q3, 'q4' => $q4,
+                                                    'q5' => $q5, 'q6' => $q6)); ?>">Empresa Asig.</a>
+                                            <?php endif; ?>
+                                        </th>
+                                        <th><a>Editar</a></th>
+                                        <!--<th><a>Activo</a></th>-->
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php if (count($ofertal) > 0) {
+                                        foreach ($ofertal as $dato) : ?>
+                                            <tr data-id="<?php echo $dato['id'] ?>">
+                                                <td style="width: 150px"><?= $this->escapeHtml($dato['TipoPaquete']); ?></td>
+                                                <td style="max-width: 50px"><?= $this->escapeHtml($dato['Nombre']); ?></td>
+                                                <td style="width: 150px"><?= $this->escapeHtml($dato['Titulo']); ?></td>
+                                                <td style="width: 150px"><?= $this->escapeHtml($dato['DatoBeneficio']); ?></td>
+                                                <td style="width: 150px">
+                                                    <?php foreach ($dato['Categoria'] AS $cat): ?>
+                                                        <p><?= $this->escapeHtml($cat); ?></p>
+                                                    <?php endforeach ?>
+                                                </td>
+                                                <td style="width: 150px"><?php if (count($dato['Campania']) > 0):
+                                                        foreach ($dato['Campania'] AS $cam): ?>
+                                                            <p><?= $this->escapeHtml($cam); ?></p>
+                                                        <?php endforeach;
+                                                    endif; ?>
+                                                </td>
+                                                <td style="width: 150px"><?= $this->escapeHtml($dato['Asignaciones']); ?></td>
+                                                <td style="width: 150px">
+                                                    <a href="<?= $this->url('oferta', array('action' => 'edit', 'id' => $dato['id'])); ?>">
+                                                        <i class="btn btn-warning fa fa-pencil-square-o"></i></a>
+                                                </td>
+                                                <!--<td style="width: 150px">
+                                                    <?php
+/*                                                    if ($dato['Eliminado'] == 1) {
+                                                        */?>
+                                                        <input id="elim<?php /*echo $dato['id'] */?>"
+                                                               name="<?php /*echo $dato['Eliminado'] */?>"
+                                                               class="elim" type="checkbox">
+                                                        <?php
+/*                                                    } else {
+
+                                                        */?>
+                                                        <input id="elim<?php /*echo $dato['id'] */?>"
+                                                               name="<?php /*echo $dato['Eliminado'] */?>"
+                                                               class="elim" type="checkbox" checked>
+                                                        <?php
+/*                                                    }
+                                                    */?>
+                                                </td>-->
+                                            </tr>
+                                            <?php
+                                        endforeach;
+                                    } else {
+                                        echo '<tr><td colspan="10">No hay ofertas Registradas</td></tr>';
+                                    } ?>
+                                    </tbody>
+                                </table>
+                                <div class="col-md-4"><br>
+
+                                    <p>
+                                        <?php if (count($ofertas) > 0) { ?>
+                                            <?= (($ofertas->getCurrentPageNumber() * $ofertas->getItemCountPerPage()) -
+                                                ($ofertas->getItemCountPerPage() - 1)); ?>
+                                            -
+                                            <?= ($ofertas->getCurrentPageNumber() * $ofertas->getItemCountPerPage() <
+                                                $ofertas->getTotalItemCount())
+                                                ? $ofertas->getCurrentPageNumber() * $ofertas->getItemCountPerPage()
+                                                : $ofertas->getTotalItemCount() ?> de
+                                            <?= $ofertas->getTotalItemCount(); ?> Registros
+                                            <?php
+                                        }
+                                        ?>
+                                    </p>
+                                </div>
+                                <?php
+                                if (isset($ofertas)) {
+                                    echo $this->paginationControl(
+                                        $ofertas,
+                                        'Sliding',
+                                        'paginator-oferta',
+                                        array(
+                                            'order_by' => $order_by,
+                                            'order' => ($order == 'asc') ? $order = 'desc' : 'asc',
+                                            'q1' => $q1,
+                                            'q2' => $q2,
+                                            'q3' => $q3,
+                                            'q4' => $q4,
+                                            'q5' => $q5,
+                                            'q6' => $q6
+                                        )
+                                    );
+                                } ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<?php
+$this->inlineScript()->appendFile($this->basePath('js/oferta/oferta.js?'.$this->configItem('version_script')));

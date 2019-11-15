@@ -1,0 +1,71 @@
+<?php $this->headStyle()->captureStart() ?>
+
+<?php
+$color_menu = ($this->identity()['Color'] != null) ?$this->identity()['Color'] :"#0a0d12"; //($this->identity()->Color != null) ?$this->identity()->Color :"#0a0d12";
+$color_menu_deg ="#" . dechex(hexdec(substr($color_menu, 1)) + hexdec('9293D'));
+$color_hover = ($this->identity()['Color_hover'] != null) ?$this->identity()['Color_hover'] :"#400090"; //($this->identity()->Color != null) ?$this->identity()->Color :"#400090";
+$color_hover_deg = "#" . dechex(hexdec(substr($color_hover, 1)) + hexdec('9293D'));
+?>
+.city_country {
+    background: <?= $color_menu?>;
+}
+.navbar-toggle.icon-menu-swipe .icon-bar {
+    background: <?= $color_menu?>;
+}
+.menu, .slideout-menu {
+    background: <?= $color_menu?>;
+}
+a.search-lupa {
+    color: <?= $color_menu?>;
+}
+footer {
+    background: <?= $color_menu?>;
+}
+.bread ul li a {
+    color: <?= $color_hover?>;
+}
+.desc-list a {
+    color: <?= $color_hover?>;
+}
+a.btn-cupon, a.btn-cupon:active, a.btn-cupon:focus {
+    background: <?= $color_hover?>;
+    border-bottom: 3px solid <?= $color_hover_deg ?>;
+}
+.btn-enviar {
+    background: <?= $color_hover?>;
+    border-bottom: 3px solid <?= $color_hover_deg ?>;
+}
+a.btn-cupon-d {
+    background: <?= $color_hover?>;
+    text-shadow: 0 2px 0 rgba(0, 0, 0, 0.48) !important;
+    border-bottom: 3px solid <?= $color_hover_deg ?>;
+}
+.btn-enviar span, a.btn-cupon span, .btn-block span {
+    text-shadow: 0 4px 0 rgba(0, 0, 0, 0.48) !important;
+}
+.btn-block {
+    background: <?= $color_hover ?> !important;
+    border-bottom: 3px solid <?= $color_hover_deg ?> !important;
+}
+
+.btn-block:hover, btn-block:active, btn-block:focus {
+    background: <?= $color_hover ?> !important;
+    border-bottom: 3px solid <?= $color_hover_deg ?> !important;
+}
+
+.modal-vcenter .modal-header {
+    background: <?= $color_menu?>;
+}
+
+ul.tk-museo-sans li {
+    margin-bottom: 25px;
+    padding-left: 10px;
+    margin-left: 18px;
+    list-style-type: square;
+    list-style-position: outside;
+    background: none;
+    font-size: 22px;
+    color: <?= $color_hover?>;
+}
+
+<?php $this->headStyle()->captureEnd() ?>

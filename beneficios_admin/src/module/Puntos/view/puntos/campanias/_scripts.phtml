@@ -1,0 +1,54 @@
+<?php
+$this->inlineScript()->appendFile($this->basePath('js/puntos/campanias_add.js'));
+
+$dataClassicSeg = (!empty($this->dataClassicSeg)) ? $this->dataClassicSeg : "[]";
+$dataClassicPtos = (!empty($this->dataClassicPtos)) ? $this->dataClassicPtos : "[]";
+$dataClassicPers = (!empty($this->dataClassicPers)) ? $this->dataClassicPers : "[]";
+$dataClassicComment = (!empty($this->dataClassicComment)) ? $this->dataClassicComment : "[]";
+
+$dataClassicSegMessage = (!empty($this->dataClassicSegMessage)) ? $this->dataClassicSegMessage : "[]";
+$dataClassicPtosMessage = (!empty($this->dataClassicPtosMessage)) ? $this->dataClassicPtosMessage : "[]";
+$dataClassicPersMessage = (!empty($this->dataClassicPersMessage)) ? $this->dataClassicPersMessage : "[]";
+
+$this->inlineScript()->captureStart();
+echo <<<JS
+$(function () {
+    var tipo = '$this->typeSeg';
+    var total = '$this->totalSeg';
+
+    var csegment = $dataClassicSeg;
+    var cptos = $dataClassicPtos;
+    var cpers = $dataClassicPers;
+    var ccomment = $dataClassicComment;
+    
+    var csegmessage = $dataClassicSegMessage;
+    var cptomessage = $dataClassicPtosMessage;
+    var cpermessage = $dataClassicPersMessage;
+
+    if (tipo === "Clasico" && total > 0) {
+        for (var i = 0; i < total - 1; i++) {
+            classicFields();
+        }
+        if ($("input[name=id]")) {        
+            $("#addSegment").trigger('click');
+        }
+        
+        $(".segment-content-classic .data-list").each(function (index, value) {
+            $(value).find('input.classicSeg').val(csegment[index]);
+            $(value).find('div.classicSeg').html(csegmessage[index]);
+
+            $(value).find('input.classicPtos').val(cptos[index]);
+            $(value).find('div.classicPtos').html(cptomessage[index]);
+
+            $(value).find('input.classicPers').val(cpers[index]);
+            $(value).find('div.classicPers').html(cpermessage[index]);
+
+            $(value).find('input.classicSub').val(cptos[index] * cpers[index]).trigger('change'); 
+            
+            $(value).find('textarea.classicComment').html(ccomment[index]); 
+        });
+    }
+});
+JS;
+$this->inlineScript()->captureEnd();
+$this->inlineScript();

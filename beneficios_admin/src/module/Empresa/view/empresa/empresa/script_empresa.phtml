@@ -1,0 +1,282 @@
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("a#single_image").fancybox();
+
+        var paisLegal = $("#PaisLegal").change();
+        var paisEnvio = $("#PaisEnvio").change();
+        var paisEmpresa = $("#PaisEmpresa").change();
+        var depaLegal = $("#DepartamentoLegal").val('<?=$form->get('DepartamentoLegal')->getValue()?>').change();
+        var depaEnvio = $("#DepartamentoEnvio").val('<?=$form->get('DepartamentoEnvio')->getValue()?>').change();
+        var depaEmpresa = $("#DepartamentoEmpresa").val('<?=$form->get('DepartamentoEmpresa')->getValue()?>').change();
+        var provLegal = $("#ProvinciaLegal").val('<?=$form->get('BNF_Ubigeo_id_legal')->getValue()?>');
+        var provEnvio = $("#ProvinciaEnvio").val('<?=$form->get('BNF_Ubigeo_id_envio')->getValue()?>');
+        var provEmpresa = $("#ProvinciaEmpresa").val('<?=$form->get('BNF_Ubigeo_id_empresa')->getValue()?>');
+
+        //Set TipoDoct
+        var opcion = '<?=$form->get('BNF_TipoDocumento_id')->getValue()?>';
+        var seleccion = (opcion !== '') ? opcion : "1";
+        $("select[name=BNF_TipoDocumento_id]").val(seleccion);
+
+        //Recuperando datos de Edicion
+        $("#TipoEmpresa").change(function () {
+            var tipoEmp = [];
+            $(this).find("option:selected").each(function () {
+                tipoEmp.push($(this).text());
+            });
+
+        }).trigger("change");
+
+        var clase = '<?=$clase;?>';
+
+        $("#ClaseEmpresaCliente").val(clase).change();
+        if (clase == "Especial") {
+            datosSubgrupo();
+        }
+
+        <?php if (!empty($legal)) { ?>
+        paisLegal.val('<?=$legal->BNF_Pais_id;?>').change();
+        depaLegal.val('<?=$legal->id_padre;?>').change();
+        provLegal.val('<?=$legal->id;?>');
+        <?php } if (!empty($envio)) { ?>
+        paisEnvio.val('<?=$envio->BNF_Pais_id;?>').change();
+        depaEnvio.val('<?=$envio->id_padre;?>').change();
+        provEnvio.val('<?=$envio->id;?>');
+        <?php } if (!empty($empresas)) { ?>
+        paisEmpresa.val('<?=$empresas->BNF_Pais_id;?>').change();
+        depaEmpresa.val('<?=$empresas->id_padre;?>').change();
+        provEmpresa.val('<?=$empresas->id;?>');
+        <?php }?>
+
+        //Solo ingreso de letras
+        $('.onlyAlpha').keypress(function (e) {
+            var charCode = (e.which) ? e.which : e.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+        });
+    });
+
+    $(document).on('click', '.add', function () {
+        createSelects();
+    });
+
+    $(document).on('click', '.remove', function () {
+        $(this).closest('tr').remove();
+        if ($("#addtable").find("tr").length === 0) {
+            createSelects();
+        }
+    });
+
+    $(document).on('change', '.subg', function () {
+        var id = $(this).attr('id');
+        var hid = $("#" + id.replace('subgrupo', 'hiddensubgrupo'));
+        var ant = hid.val();
+        var nuevo = ant.substr(ant.indexOf(" - ") + 3);
+        hid.val(this.value + ' - ' + nuevo);
+    });
+
+    $('.pais').change(function () {
+        var id = $(this).attr('id');
+        var value = $(this).val();
+
+        var departamento = id.replace('Pais', 'Departamento');
+        clean_combo(departamento);
+        populate_combo(departamento, value);
+    });
+
+    $('.depa').change(function () {
+        var id = $(this).attr('id');
+        var value = $(this).val();
+        var provincia = id.replace('Departamento', 'Provincia');
+        clean_combo(provincia);
+        populate_combo(provincia, value);
+    });
+
+    // Operaciones con Combos
+    $("#TipoEmpresa").change(function () {
+        var valores = [], textos = [];
+        var select = $('#TipoEmpresa').find('option:selected');
+        var options;
+
+        select.each(function (i, selected) {
+            valores[i] = $(selected).val();
+            textos[i] = $(selected).text();
+        });
+
+        if ((valores.indexOf("2") === -1) && textos.indexOf("Cliente") == (-1)) {
+            deleterows();
+            $("#lsub").empty();
+            select = $("#ClaseEmpresaCliente");
+            select.attr('disabled', 'disabled');
+        }
+        else if ((valores.indexOf("2") !== -1) && (textos.indexOf("Cliente") !== -1)) {
+            deleterows();
+            $("#lsub").empty();
+
+            var newOptions = {
+                'Normal': 'Normal',
+                'Especial': 'Especial'
+            };
+
+            select = $("#ClaseEmpresaCliente");
+            select.removeAttr("disabled");
+
+            options = select.prop ? select.prop('options') : select.attr('options');
+
+            $('option', select).remove();
+            $.each(newOptions, function (val, text) {
+                options[options.length] = new Option(text, val);
+            });
+        }
+    });
+
+    $("#ClaseEmpresaCliente").change(function () {
+        var select = $('#ClaseEmpresaCliente').find('option:selected');
+        var valor = select.val();
+        var texto = select.text();
+        var label = $("#lsub");
+        if (valor == "Especial" && texto == "Especial") {
+            createSelects();
+            label.append("Subgrupo: ");
+        } else {
+            deleterows();
+            label.empty();
+        }
+    });
+
+    function createSelects() {
+        var table = document.getElementById('addtable');
+
+        var rowCount = table.rows.length;
+        var row = table.insertRow(rowCount);
+        var ids = Math.round(Math.random() * 100000);
+
+        var cell1 = row.insertCell(0);
+        var element1 = document.createElement("input");
+        element1.id = "subgrupo_" + ids;
+        element1.type = "text";
+        element1.name = "nameSubgrupo[]";
+        element1.setAttribute("placeholder", "Nombre Subgrupo");
+        element1.className = "subg form-control";
+
+        var element2 = document.createElement("input");
+        element2.id = "hiddensubgrupo_" + ids;
+        element2.type = "hidden";
+        element2.name = "idSubgrupo[]";
+        element2.className = "form-control";
+        cell1.appendChild(element1);
+        cell1.appendChild(element2);
+
+        var cell2 = row.insertCell(1);
+        var element5 = document.createElement("input");
+        element5.type = "button";
+        element5.value = "+";
+        element5.className = "add btn btn-default";
+        cell2.appendChild(element5);
+
+
+        var element6 = document.createElement("input");
+        element6.type = "button";
+        element6.value = "-";
+        element6.className = "remove btn btn-default";
+        cell2.appendChild(element6);
+
+        row.setAttribute("data-id", rowCount);
+    }
+
+    function clean_combo(id) {
+        var newOptions = {'': 'Seleccione...'};
+        var selectedOption = '';
+        var select = $('#' + id);
+        var options;
+
+        options = select.prop ? select.prop('options') : select.attr('options');
+
+        $('option', select).remove();
+        $.each(newOptions, function (val, text) {
+            options[options.length] = new Option(text, val);
+        });
+
+        select.val(selectedOption);
+    }
+
+    function populate_combo(combo, value) {
+        var options;
+        var newOptions = {
+            '': 'Seleccione...'
+        };
+
+        if (combo.indexOf('Departamento') >= 0) {
+            depas(newOptions, value);
+        } else if (combo.indexOf('Provincia') >= 0) {
+            provs(newOptions, value);
+        }
+
+        var select = $('#' + combo);
+        options = select.prop ? select.prop('options') : select.attr('options');
+        $('option', select).remove();
+
+        $.each(newOptions, function (val, text) {
+            options[options.length] = new Option(text, val);
+        });
+
+        select.val('').find("option[value='']").attr('disabled', true);
+    }
+
+    function deleterows() {
+        var table = document.getElementById('addtable');
+        var rowCount = table.rows.length;
+        for (var i = rowCount - 1; i >= 0; i--) {
+            table.deleteRow(i);
+        }
+    }
+
+    function datosSubgrupo() {
+        <?php if(!empty($subgrupos)){
+            for ($i = 0; $i < $total - 1; $i++) {
+                echo "createSelects();";
+            }?>
+
+            var ids = [];
+            $("#addtable").find('input[type=hidden]').each(function () {
+                var id = this.id;
+                ids.push(id)
+            });
+            ids = ids.filter(Boolean);
+
+            <?php $i = 0;
+                foreach($subgrupos as $valor) {
+            ?>
+                var hidsub = ids[(<?=$i;?>)];
+                var inpsub = hidsub.replace('hiddensubgrupo', 'subgrupo');
+                $("#" + hidsub).val('<?=$valor["Nombre"]?>' + ' - ' + '<?= ($valor["id"]) ? $valor["id"] : "" ?>');
+                $("#" + inpsub).val('<?=$valor["Nombre"]?>');
+            <?php
+                $i++;
+            }
+        }?>
+    }
+
+    function depas(options, value) {
+        <?php foreach($departamentos as $legal): ?>
+        if ('<?= $legal->BNF_Pais_id; ?>' == value
+            && '<?= $legal->id_padre; ?>' == '') {
+            options['<?= $legal->id;?>'] =
+                '<?= $legal->Nombre;?>';
+        }
+        <?php endforeach; ?>
+    }
+
+    function provs(options, value) {
+        <?php foreach ($provincias as $envio) : ?>
+        if ("<?= $envio->id_padre ?>" == value) {
+            options["<?= $envio->id ?>"] = "<?= $envio->Nombre ?>";
+        }
+        <?php endforeach; ?>
+    }
+
+    <?php if (isset($confir) && $confir != null) { ?>
+    error = false;
+    <?php } ?>
+</script>

@@ -1,0 +1,89 @@
+<header>
+    <nav class="navbar navbar-default custom-nav-bar">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#"><img src="/img/logo-weeare.png"></a>
+            </div>
+        </div>
+    </nav>
+</header>
+<!--<div id="bg">
+    <img src="/img/bg.jpg" alt="">
+</div>-->
+<section>
+    <div class="fluid-list main-login" style="background: url(/img/bg-login.jpg) no-repeat;background-size: cover;background-position: center center;">
+        <div class="container">
+            <div class="fluid-list inner-login">
+                <p>Bienvenido, para comenzar a disfrutar de tus beneficios ingresa tu documento de identidad</p>
+                <?php
+                $form = $this->form;
+                $form->setAttribute('action', $this->url('login'))->prepare();
+                echo $this->form()->openTag($form);
+                ?>
+
+                <?php echo $this->formElement($form->get('empresa_id')); ?>
+
+                <div class="form-group has-feedback has-feedback-left validate-dni">
+                    <?php echo $this->formElement($form->get('dni')); ?>
+                    <div class="cnt-error"></div>
+                </div>
+                <div style="display: none" class="form-group has-feedback has-feedback-left <?= $this->formElementErrors($form->get('email')) ? 'error' : '' ?>">
+                    <div class="form-control-feedback">
+                        <i class="glyphicon glyphicon-envelope text-muted"></i>
+                    </div>
+                    <?php echo $this->formRow($form->get('email')); ?>
+                    <div class="cnt-error"></div>
+                </div>
+                <div class="form-group has-empresa has-feedback-left" style="display: none">
+                    <select id="empresa" name="empresa" style="display: none">
+                        <option value="">Seleccione una empresa</option>
+                    </select>
+                    <div class="cnt-error"></div>
+                </div>
+                <?php echo $this->formElement($form->get('csrf')) ?>
+                <div class="form-group has-buttons">
+                    <button type="submit" class="btn btn-belcorp">Ingresar</button>
+                </div>
+                <?php echo $this->form()->closeTag() ?>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-md-4">
+                <div class="fluid-list bloque-f">
+                    <h4>EMPRESAS</h4>
+                    <ul class="reset-ul">
+                        <li><a href="#">Servicio</a></li>
+                        <li><a href="#">Políticas de privacidad</a></li>
+                        <li><a href="#">Blog </a></li>
+                    </ul>
+                </div>    
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <div class="fluid-list bloque-f">
+                    <h4>CONTACTO</h4>
+                    <ul class="reset-ul">
+                        <li><a href="#">mail@bewow.pe</a></li>
+                        <li>01 896745</li>
+                    </ul>
+                </div>    
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="<?= $this->basePath('js/login/login.js?' . $this->configItem('version_script')) ?>"></script>
+<script>
+    $(document).ready(function () {
+        <?php
+        foreach ($this->configItem('empresas_especiales') as $data) { ?>
+            empresas_e.push('<?= $data?>');
+        <?php } ?>
+        getSubDominio('<?= $this->configItem('domain') ?>');
+    });
+</script>

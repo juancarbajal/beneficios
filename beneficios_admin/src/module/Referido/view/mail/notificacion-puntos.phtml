@@ -1,0 +1,30 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<table>
+    <tr>
+        <td>
+            <p>Hola <?= $this->contenido["cliente"] ?>,</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p>Verisure te ha otorgado <?= $this->contenido["total"] ?> puntos con los que podrás canjear los premios
+                que más te gusten dentro de <a href="<?= $this->contenido["url_web"] ?>"><?= $this->contenido["url_web"] ?></a>.</p>
+            <p>Para poder canjearlos deberás identificarte con tu número de documento (DNI, CEX o RUC) según sea el caso.
+            </p>
+            <p>Gracias por recomendarnos con tus amigos y recuerdas que a más recomendaciones más posibilidades de ganar
+                más puntos.
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p>El equipo de beneficios Verisure. </p>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

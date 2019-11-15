@@ -1,0 +1,72 @@
+<script>
+    $(document).ready(function () {
+
+        $(document).on('change', '.depa', function () {
+            var id = $(this).attr('id');
+            var value = $(this).val();
+
+            var provincia = id.replace('Departamento', 'Provincia');
+
+            clean_combo(provincia);
+            populate_combo(provincia, value);
+        });
+
+        function clean_combo(id) {
+            var newOptions = {'': 'Seleccionar'};
+            var selectedOption = '';
+            var select = $('#' + id);
+            var options;
+
+            if (select.prop) {
+                options = select.prop('options');
+            }
+            else {
+                options = select.attr('options');
+            }
+
+            $('option', select).remove();
+
+            $.each(newOptions, function (val, text) {
+                options[options.length] = new Option(text, val);
+            });
+
+            select.val(selectedOption);
+        }
+
+        function populate_combo(combo, value) {
+            var options;
+            var newOptions = {
+                '': 'Seleccionar'
+            };
+
+            if (combo.indexOf('Provincia') >= 0) {
+                provs(newOptions, value);
+            }
+
+            var selectedOption = '';
+            var select = $('#' + combo);
+            if (select.prop) {
+                options = select.prop('options');
+            }
+            else {
+                options = select.attr('options');
+            }
+            $('option', select).remove();
+
+            $.each(newOptions, function (val, text) {
+                options[options.length] = new Option(text, val);
+            });
+
+            //select.val(selectedOption);
+            select.val('').find("option[value='']").attr('disabled', true);
+        }
+
+        function provs(options, value) {
+            <?php foreach ($provincias as $envio) { ?>
+            if ("<?= $envio->id_padre ?>" == value) {
+                options["<?= $envio->id ?>"] = "<?= $envio->Nombre ?>";
+            }
+            <?php } ?>
+        }
+    });
+</script>

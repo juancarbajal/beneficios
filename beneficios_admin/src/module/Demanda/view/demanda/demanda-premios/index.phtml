@@ -1,0 +1,180 @@
+<section class="content-header ">
+    <br><br><br>
+
+    <h1 class="box-title">Lista de Pedidos Demanda</h1>
+    <br><br>
+    <?php if ($this->flashMessenger()->hasMessages()) {
+        echo '<div class="callout alert alert-success">' .
+            '<button class="close" data-dismiss="alert" type="button">×</button>';
+        $messages = $this->flashMessenger()->getMessages();
+        foreach ($messages as $message) {
+            echo $message;
+        }
+        echo '</div>';
+    } ?>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                </div>
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <?php
+                        $form = $this->form;
+                        $p = $this->p;
+                        $q1 = $this->q1;
+                        $q2 = $this->q2;
+                        $q3 = $this->q3;
+                        $order = $this->order;
+                        $order_by = $this->order_by;
+
+                        $form->setAttribute('action', $this->url('demandas-ofertas-premios', array('action' => 'index')));
+                        $form->prepare();
+                        echo $this->form()->openTag($form);
+                        echo $this->formElement($form->get('csrf'));
+
+                        ?>
+                        <div class="row">
+                            <fieldset>
+                                <legend>Buscar por:</legend>
+                                <div class="form-group">
+                                    <div class="col-md-2"><label>Empresa Cliente:</label></div>
+                                    <div class="col-md-9">
+                                        <?= $this->formRow($form->get('EmpresaCliente')); ?>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                                <br>
+                                <div class="form-group">
+                                    <div class="col-md-2"><label>Fecha Creación:</label></div>
+                                    <div class="col-md-3">
+                                        <?= $this->formRow($form->get('FechaDemanda')); ?>
+                                    </div>
+                                    <div class="col-md-2"><label>Concepto/Título:</label></div>
+                                    <div class="col-md-4">
+                                        <?= $this->formRow($form->get('Campania')); ?>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <?= $this->formSubmit($form->get('buscar')); ?>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <hr>
+                        <?= $this->form()->closeTag(); ?>
+                    </div>
+
+                    <div class="dataTables_wrapper form-inline dt-bootstrap" id="example1_wrapper">
+                        <div class="row-fluid">
+                            <div class="col-md-12 text-right">
+                                <div id="example1_length" class="dataTables_length"><br>
+                                    <a href="<?php echo $this->url(
+                                        'demandas-ofertas-premios',
+                                        array(
+                                            'action' => 'export',
+                                            'id' => $q1,
+                                            'val' => $q2,
+                                            'val2' => $q3
+                                        )
+                                    ); ?>"
+                                       class="btn btn-primary">Exportar</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="clear:both;"></div>
+                        <br>
+
+                        <div class="row-fluid">
+                            <div class="col-sm-12">
+                                <table aria-describedby="example1_info" role="grid" id="example1"
+                                       class="table table-bordered table-striped dataTable">
+                                    <thead>
+                                    <tr role="row">
+                                        <th>
+                                            <?php if ($order_by == 'Empresa') { ?>
+                                                <a href="<?= $this->url('demandas-ofertas-premios', array('order_by' => 'Empresa', 'order' => $order, 'page' => $p, 'q1' => $q1, 'q2' => $q2, 'q3' => $q3)); ?>">Empresa</a>
+                                            <?php } else { ?>
+                                                <a href="<?= $this->url('demandas-ofertas-premios', array('order_by' => 'Empresa', 'order' => 'asc', 'page' => $p, 'q1' => $q1, 'q2' => $q2, 'q3' => $q3)); ?>">Empresa</a>
+                                            <?php } ?>
+                                        </th>
+                                        <th>
+                                            <?php if ($order_by == 'Concepto') { ?>
+                                                <a href="<?= $this->url('demandas-ofertas-premios', array('order_by' => 'Concepto', 'order' => $order, 'page' => $p, 'q1' => $q1, 'q2' => $q2, 'q3' => $q3)); ?>">Concepto/Título</a>
+                                            <?php } else { ?>
+                                                <a href="<?= $this->url('demandas-ofertas-premios', array('order_by' => 'Concepto', 'order' => 'asc', 'page' => $p, 'q1' => $q1, 'q2' => $q2, 'q3' => $q3)); ?>">Concepto/Título</a>
+                                            <?php } ?>
+                                        </th>
+                                        <th>
+                                            <?php if ($order_by == 'Fecha') { ?>
+                                                <a href="<?= $this->url('demandas-ofertas-premios', array('order_by' => 'Fecha', 'order' => $order, 'page' => $p, 'q1' => $q1, 'q2' => $q2, 'q3' => $q3)); ?>">Fecha
+                                                    Creación</a>
+                                            <?php } else { ?>
+                                                <a href="<?= $this->url('demandas-ofertas-premios', array('order_by' => 'Fecha', 'order' => 'asc', 'page' => $p, 'q1' => $q1, 'q2' => $q2, 'q3' => $q3)); ?>">Fecha
+                                                    Creación</a>
+                                            <?php } ?>
+                                        </th>
+                                        <th><a>Editar</a></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php $demandas = $this->demandas;
+                                    if (count($demandas) > 0) {
+                                        foreach ($demandas as $dato) : ?>
+                                            <tr data-id="<?php echo $dato->id ?>">
+                                                <td><?= $this->escapeHtml($dato->Empresa); ?></td>
+                                                <td><?= $this->escapeHtml($dato->Campania); ?></td>
+                                                <td><?= $this->escapeHtml($dato->FechaDemanda); ?></td>
+                                                <td style="width: 150px">
+                                                    <a href="<?= $this->url('demandas-ofertas-premios', array('action' => 'edit', 'id' => $dato->id)); ?>">
+                                                        <i class="btn btn-warning fa fa-pencil-square-o"></i></a>
+                                                </td>
+                                            </tr>
+                                            <?php
+                                        endforeach;
+                                    } else {
+                                        echo '<tr><td colspan="10">No hay Demandas Registradas</td></tr>';
+                                    } ?>
+                                    </tbody>
+                                </table>
+                                <div class="col-md-4"><br>
+                                    <p>
+                                        <?php if (count($demandas) > 0) { ?>
+                                            <?= (($demandas->getCurrentPageNumber() * $demandas->getItemCountPerPage()) -
+                                                ($demandas->getItemCountPerPage() - 1)); ?>
+                                            -
+                                            <?= ($demandas->getCurrentPageNumber() * $demandas->getItemCountPerPage() <
+                                                $demandas->getTotalItemCount())
+                                                ? $demandas->getCurrentPageNumber() * $demandas->getItemCountPerPage()
+                                                : $demandas->getTotalItemCount() ?> de
+                                            <?= $demandas->getTotalItemCount(); ?> Registros
+                                            <?php
+                                        }
+                                        ?>
+                                    </p>
+                                </div>
+                                <?php
+                                if (isset($demandas)) {
+                                    echo $this->paginationControl(
+                                        $demandas,
+                                        'Sliding',
+                                        'paginator-demandas-ofertas-premios',
+                                        array(
+                                            'order_by' => $order_by,
+                                            'order' => ($order == "desc") ? 'asc' : 'desc',
+                                            'q1' => $q1,
+                                            'q3' => $q2,
+                                            'q2' => $q3,
+                                        )
+                                    );
+                                } ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<?php $this->inlineScript()->appendFile($this->basePath('js/demanda/demandas.js'));

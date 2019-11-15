@@ -1,0 +1,200 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: marlo
+ * Date: 28/12/15
+ * Time: 02:59 PM
+ */
+
+$tamaño = $this->tamaño;
+?>
+<div class="fluid-list search-info">
+    <div class="left">
+        <h3>Resultados de la Búsqueda <span><?= ($nombre != '') ? '“' . $nombre . '”' : '' ?></span></h3>
+    </div>
+    <div class="right">
+        <form action="" id="select-search">
+            <span class="hidden-xs">Ordenar por:</span>
+            <select name="ordenar" class="form-control" id="filtro-select">
+                <option <?= ($select == -1) ? "selected" : "" ?> value="-1" disabled>Seleccione</option>
+                <option <?= ($select == 1) ? "selected" : "" ?> value="1">Premium</option>
+                <option <?= ($select == 2) ? "selected" : "" ?> value="2">Destacados</option>
+                <option <?= ($select == 3) ? "selected" : "" ?> value="3">Novedades</option>
+            </select>
+        </form>
+    </div>
+</div>
+<div class="fluid-list flujo-cupones title-bloques content-load">
+    <?php
+    if (isset($ofertas)) {
+        foreach ($ofertas as $dato) {
+            $dato = (object)$dato;
+            if($dato->TipoOferta == 1) {
+                ?>
+                <div class="fluid-list margin-b">
+                    <div class="fluid-list cupon-two">
+                        <?php if ($dato->Premium == 1) { ?>
+                            <span class="destacado-icon"></span>
+                        <?php } ?>
+                        <a href="/busqueda/coupon/<?= $dato->SlugOferta ?>">
+                            <figure>
+                                <img src="<?php
+                                echo $rofertas . $dato->imagenOferta
+                                ?>" title=""/>
+                            </figure>
+                        </a>
+                        <div class="info-cupon-l">
+                <?php if ($this->identity()['flagcheckboxLogo']) { ?>
+                            <figure class="left">
+                                <img src="<?php
+                                $partes = explode(".", $dato->LogoEmpresa);
+                                $ext = end($partes);
+                                $dato->LogoEmpresa = str_replace('.' . $ext, '', $dato->LogoEmpresa) . '-small.' . $ext;
+                                echo $this->rlogos . $dato->LogoEmpresa;
+                                ?>"/>
+                            </figure>
+                    <?php }?>
+                            <div class="info-interna left">
+                                <h2><a href="/busqueda/coupon/<?= $dato->SlugOferta ?>" class="title-short">
+                                        <?php
+                                        $tamaño = 38;
+                                        if ($dato->datoBeneficio != null) { ?>
+
+                                            <?php if ($dato->idTipoBeneficio == 1) { ?>
+                                                <span>-<?= $dato->datoBeneficio ?>% Dscto. </span>
+                                            <?php } elseif ($dato->idTipoBeneficio == 2) { ?>
+                                                <span>-S/.<?= $dato->datoBeneficio ?> Dscto. </span>
+                                            <?php } elseif ($dato->idTipoBeneficio == 3) { ?>
+                                                <span><?= $dato->datoBeneficio ?> en</span>
+                                            <?php } else { ?>
+                                                <span><?= $dato->datoBeneficio ?></span>
+                                            <?php } ?>
+
+                                            <?php
+                                        } else {
+                                            $tamaño = 58;
+                                        }
+
+                                        if (strlen($dato->TituloCortoOferta) >= $tamaño) {
+                                            echo substr($dato->TituloCortoOferta, 0, $tamaño) . "...";
+                                        } else {
+                                            echo $dato->TituloCortoOferta;
+                                        }
+                                        ?>
+                                    </a>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                    <?php if ($total[$dato->SlugEmpresa] > 1) { ?>
+                        <div class="fluid-list desc-list">
+                            <a href="/company/<?= $dato->SlugEmpresa ?>">Descubre más ofertas de
+                                la tienda &raquo;</a>
+                        </div>
+                    <?php } ?>
+                </div>
+                <?php
+            } elseif ($dato->TipoOferta == 2) {
+                ?>
+                <div class="fluid-list margin-b">
+                    <div class="fluid-list cupon-two">
+                        <a href="/busqueda/coupon-puntos/<?= $dato->SlugOferta ?>">
+                            <figure>
+                                <img src="<?php echo $this->rofertasP . $dato->imagenOferta ?>" title="<?=$dato->imagenOferta?>"/>
+                                <div class="puntos-ico"></div>
+                            </figure>
+                        </a>
+                        <div class="info-cupon-l">
+                <?php if ($this->identity()['flagcheckboxLogo']) { ?>
+                            <figure class="left">
+                                <a>
+                                    <img src="<?php
+                                    $trozos = explode(".", $dato->LogoEmpresa);
+                                    $ext = end($trozos);
+                                    $dato->LogoEmpresa = str_replace('.' . $ext, '', $dato->LogoEmpresa) . '-small.' . $ext;
+                                    echo $this->rlogos . $dato->LogoEmpresa;
+                                    ?>"/>
+                                </a>
+                            </figure>
+                    <?php }?>
+                            <div class="info-interna left">
+                                <h2>
+                                    <a href="/busqueda/coupon-puntos/<?= $dato->SlugOferta ?>" class="title-short">
+                                        <?php
+                                        $tamaño = 58;
+                                        if (strlen($dato->TituloCortoOferta) >= $tamaño) {
+                                            if ($dato->datoBeneficio)
+                                                echo '<b>S/. ' . $dato->datoBeneficio . ' por </b>';
+                                            echo substr($dato->TituloCortoOferta, 0, $tamaño) . "...";
+                                        } else {
+                                            if ($dato->datoBeneficio)
+                                                echo '<b>S/. ' . $dato->datoBeneficio . ' por </b>';
+                                            echo $dato->TituloCortoOferta;
+                                        }
+                                        ?>
+                                    </a>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php
+            } elseif ($dato->TipoOferta == 3) {
+                ?>
+                <div class="fluid-list margin-b">
+                    <div class="fluid-list cupon-two">
+                        <a href="/busqueda/coupon-premios/<?= $dato->SlugOferta ?>">
+                            <figure>
+                                <img src="<?php echo $this->rofertasPR . $dato->imagenOferta ?>" title="<?=$dato->imagenOferta?>"/>
+                                <div class="premios-ico"></div>
+                            </figure>
+                        </a>
+                        <div class="info-cupon-l">
+                <?php if ($this->identity()['flagcheckboxLogo']) { ?>
+                            <figure class="left">
+                                <a>
+                                    <img src="<?php
+                                    $trozos = explode(".", $dato->LogoEmpresa);
+                                    $ext = end($trozos);
+                                    $dato->LogoEmpresa = str_replace('.' . $ext, '', $dato->LogoEmpresa) . '-small.' . $ext;
+                                    echo $this->rlogos . $dato->LogoEmpresa;
+                                    ?>"/>
+                                </a>
+                            </figure>
+                    <?php }?>
+                            <div class="info-interna left">
+                                <h2>
+                                    <a href="/busqueda/coupon-premios/<?= $dato->SlugOferta ?>" class="title-short">
+                                        <?php
+                                        $tamaño = 58;
+                                        if (strlen($dato->TituloCortoOferta) >= $tamaño) {
+                                            echo substr($dato->TituloCortoOferta, 0, $tamaño) . "...";
+                                        } else {
+                                            echo $dato->TituloCortoOferta;
+                                        }
+                                        ?>
+                                    </a>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php
+            }
+        }
+    } ?>
+</div>
+<div style="display: none" id="loading">
+    <p style="text-align: center">
+        <img src="/img/loading.gif" width="50px"/>
+    </p>
+</div>
+<div class="offset" style="display:none" data-offset="9"></div>
+<div class="ubigeo" style="display:none" data-ubigeo="<?= $this->ubigeo_id ?>"></div>
+<div class="premium" style="display:none" data-premium="<?= $this->premium ?>"></div>
+<div class="destacados" style="display:none" data-destacados="<?= $this->destacados ?>"></div>
+<div class="nombre" style="display:none" data-nombre="<?= $this->nombre ?>"></div>
+<div class="novedades" style="display:none" data-novedades="<?= $this->novedades ?>"></div>
+<div class="rofertas" style="display:none" data-rofertas="<?= $this->rofertas ?>" data-rofertasp="<?= $this->rofertasP ?>" data-rofertaspr="<?= $this->rofertasPR ?>"></div>
+<div class="rlogos" style="display:none" data-rlogos="<?= $this->rlogos ?>"></div>
+<script type="text/javascript" src="<?= $this->basePath('js/oferta/oferta.js?' . $this->configItem('version_script')); ?>"></script>

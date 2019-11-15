@@ -1,0 +1,214 @@
+<div id="menu" class="menu">
+    <div class="fluid-list header-l-m">
+        Categorías
+    </div>
+    <ul class="tk-museo-sans">
+        <?php
+        $i = 0;
+        $categoria = array();
+        $child = $this->viewModel()->getCurrent()->getChildren();
+        $chil = $child[0];
+        $chil->categorias;
+        $url_slug = $chil->url_slug;
+        if (count($chil->categorias) < 6) {
+            foreach ($chil->categorias as $key => $dato):
+                if ($dato->Slug != "otros") {
+                    ?>
+                    <li>
+                        <?php if ($key == 0){ ?>
+                        <a href="/home" class="category-mobile">
+                            <?php }else{ ?>
+                            <a href="/category/<?= $dato->Slug ?>" class="category-mobile">
+                                <?php } ?><?= $dato->Nombre ?>
+                            </a>
+                    </li>
+                    <?php
+                }
+                $i++;
+            endforeach;
+            ?>
+            <li>
+                <a href="/tiendas">Tienda
+                </a>
+            </li>
+            <?php
+            if ($chil->catotros == 1) { ?>
+                <li>
+                    <a href="/category/otros" class="category-mobile">Otros
+                    </a>
+                </li>
+                <?php
+            }
+        } else {
+            foreach ($chil->categorias as $dato):
+                $categoria[] = $dato;
+            endforeach;
+            for ($j = 0; $j < 6; $j++) {
+                ?>
+                <li>
+                    <?php if ($j == 0){ ?>
+                    <a href="/home" class="category-mobile">
+                        <?php }else{ ?>
+                        <a href="/category/<?= $categoria[$j]->Slug ?>" class="category-mobile">
+                            <?php } ?><?= $categoria[$j]->Nombre ?>
+                        </a>
+                </li>
+                <?php
+            }
+            ?>
+            <?php if ($this->identity()["exist_ofertas"] && !$this->identity()["exist_ofertas_premios"]) : ?>
+                <li>
+                    <a href="/puntos">Puntos </a>
+                </li>
+            <?php elseif (!$this->identity()["exist_ofertas"] && $this->identity()["exist_ofertas_premios"]) : ?>
+                <li>
+                    <a href="/premios">Premios </a>
+                </li>
+            <?php elseif ($this->identity()["exist_ofertas"] && $this->identity()["exist_ofertas_premios"]) : ?>
+                <li>
+                    <a href="/puntos">Puntos </a>
+                </li>
+                <li>
+                    <a href="/premios">Premios </a>
+                </li>
+            <?php elseif (!$this->identity()["exist_ofertas"] && !$this->identity()["exist_ofertas_premios"]) : ?>
+                <li>
+                    <a href="/tiendas">Tienda </a>
+                </li>
+            <?php endif; ?>
+
+            <?php if ($chil->catotros == 1) { ?>
+                <li>
+                    <a href="/category/otros" class="category-mobile">Otros
+                    </a>
+                </li>
+                <?php
+            }
+        }
+        ?>
+    </ul>
+    <?php if (isset($this->identity()["SubDominio"])) {
+        if (!in_array($this->identity()["SubDominio"], $this->configItem('empresas_especiales'))) { ?>
+            <em class="fluid-list sesion-b">
+                <a href="/logout">Cerrar Sesión</a>
+            </em>
+        <?php }
+    } else { ?>
+        <em class="fluid-list sesion-b">
+            <a href="/logout">Cerrar Sesión</a>
+        </em>
+    <?php } ?>
+    <h1><a href="#"><img src="<?= $this->basePath('img/logo-footer.png'); ?>"/></a></h1>
+</div>
+<?php if ($this->identity()["exist_puntos"] or $this->identity()["have_asignacion"]
+    or $this->identity()["exist_premios"] or $this->identity()["have_asignacion_premios"]) { ?>
+    <div id="menu-user" class="menu-user">
+        <div class="fluid-list header-l-m">
+            <span>Bienvenido</span>
+            <h3 id="listU"><?= ($this->identity()["Nombre"] . ' ' . $this->identity()["Apellido"] != ' ')
+                    ? $this->identity()["Nombre"] . ' ' . $this->identity()["Apellido"]
+                    : 'Mi cuenta' ?></h3>
+            <?php if ($this->identity()["exist_puntos"]) { ?>
+                <p>Puntos: <strong id="cant-puntos"><?= $this->identity()["puntos"] ?> puntos</strong></p>
+            <?php } ?>
+            <?php if ($this->identity()["exist_premios"]) { ?>
+                <p>Premios: <strong id="cant-premios"><?= $this->identity()["premios"] ?> premios</strong></p>
+            <?php } ?>
+        </div>
+        <ul class="tk-museo-sans">
+            <li>
+                <a href="<?= $this->url('perfil') ?>" class="category-mobile">Mis Datos</a>
+            </li>
+            <?php if ($this->identity()["exist_puntos"]) { ?>
+                <li>
+                    <a href="<?= $this->url('perfil-puntos', array('action' => 'puntos')) ?>"
+                       class="category-mobile">Mis Puntos</a>
+                </li>
+                <!--<li>
+            <a href="<? /*= $this->url('perfil', array('action' => 'descargados')) */ ?>"
+               class="category-mobile">Cupones Descargados</a>
+        </li>-->
+                <li>
+                    <a href="<?= $this->url('perfil-puntos', array('action' => 'vigentes')) ?>"
+                       class="category-mobile">Mis Puntos Vigentes</a>
+                </li>
+                <li>
+                    <a href="<?= $this->url('perfil-puntos', array('action' => 'utilizados')) ?>"
+                       class="category-mobile">Mis Puntos Utilizados</a>
+                </li>
+            <?php } ?>
+            <?php if ($this->identity()["exist_premios"]) { ?>
+                <li>
+                    <a href="<?= $this->url('perfil-premios', array('action' => 'vigentes')) ?>"
+                       class="category-mobile">Mis Premios Vigentes</a>
+                </li>
+                <li>
+                    <a href="<?= $this->url('perfil-premios', array('action' => 'utilizados')) ?>"
+                       class="category-mobile">Mis Premios Utilizados</a>
+                </li>
+            <?php } ?>
+        </ul>
+        <em class="fluid-list sesion-b">
+            <a href="/logout">Cerrar Sesión</a>
+        </em>
+        <h1><a href="#"><img src="<?= $this->basePath('img/logo-footer.png'); ?>"/></a></h1>
+    </div>
+<?php } ?>
+<div class="search-movil">
+    <div class="sub-cnt-search">
+        <div class="title-search-m fluid-list">
+            <span class="back-search"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></span>
+            <p>Buscar</p>
+        </div>
+        <div class="fluid-list cnt-form-ms">
+            <form action="<?php
+            echo $this->url(
+                'resultado',
+                array('opt' => $chil->url_slug, 'action' => 'index')
+            );
+            ?>"
+                  method="post" class="frm-search" id="form-search">
+                <div class="form-group has-feedback has-feedback-left">
+                    <div class="form-control-feedback">
+                        <i class="glyphicon glyphicon-search text-muted"></i>
+                    </div>
+                    <input type="text" name="search" id="search" class="form-control" autocomplete="off"
+                           value="<?= isset($chil->nombre) ? $chil->nombre : '' ?>"
+                           placeholder="Ingrese lo que estas buscando">
+                    <input type="hidden" name="oferta_id" id="oferta_id">
+                    <input type="hidden" name="ubigeo_id" id="ubigeo_id" value="<?= $chil->ubigeo_id ?>">
+                    <input type="hidden" name="categoria_id" id="categoria_id"
+                           value="<?= $chil->categoria_id ?>">
+                    <input type="hidden" name="campania_id" id="campania_id" value="<?= $chil->campania_id ?>">
+                    <input type="hidden" name="premium" id="premium" value="0">
+                    <input type="hidden" name="destacados" id="destacados" value="0">
+                    <input type="hidden" name="novedades" id="novedades" value="0">
+                    <button type="submit" class="search-btn hidden-xs">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                        <span class="btn-title">Buscar</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="search-ciudad">
+    <div class="sub-cnt-search-ciudad">
+        <div class="title-search-m fluid-list">
+            <span class="back-search-ciudad"><span class="glyphicon glyphicon-menu-left"
+                                                   aria-hidden="true"></span></span>
+            <p>Ubicación</p>
+        </div>
+        <div class="fluid-list cnt-list-ciudad">
+            <ul id="listubic-mobile"></ul>
+        </div>
+    </div>
+</div>
+<!--<form action="/<? /*= isset($chil->url) ? $chil->url : '' */ ?>" method="post" id="form-ubic">-->
+<form action="/home" method="post" id="form-ubic">
+    <input name="ubigeo" type="hidden" id="hidden-ubic" value="<?= isset($chil->ubigeo_id) ? $chil->ubigeo_id : '' ?>">
+    <input type="hidden" name="search" value="<?= isset($chil->nombre) ? $chil->nombre : '' ?>">
+    <input type="hidden" name="categoria_id" id="categoria_id"
+           value="<?= $chil->categoria_id ?>">
+</form>
+

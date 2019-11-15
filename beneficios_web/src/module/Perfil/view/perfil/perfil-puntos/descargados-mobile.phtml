@@ -1,0 +1,62 @@
+<section class="wrapper-main">
+    <style>
+        .left-info-c ul li{text-align: center;}
+        .tarjetas-img{width: 100px;}
+    </style>
+    <div class="fluid-list cnt-content-user">
+        <h3>Bienvenid@ <span><?= $this->identity()["Nombre"] . ' ' . $this->identity()["Apellido"] ?></span></h3>
+        <div class="fluid-list cnt-mis-datos">
+            <h3>Cupones Descargados</h3>
+            <div class="fluid-list cnt-puntos-o">
+                <p><a href="<?= $this->url('perfil-puntos', array('action' => 'pdfDescargados')); ?>">
+                        <span></span> Descargar Listado de Cupones Descargados (PDF)</a></p>
+            </div>
+            <div class="fluid-list list-table-user">
+                <div class="fluid-list list-items">
+                    <?php foreach ($this->descargados as $value) { ?>
+                        <h4>
+                            <?php if ($value->PrecioBeneficio) { ?>
+                                <b>S/. <?= $value->PrecioBeneficio ?> por </b>
+                            <?php } ?>
+                            <?= $value->TituloCorto ?>
+                        </h4>
+                        <ul class="item-name-i">
+                            <li>
+                                <ul>
+                                    <li><span class="left">Descargado:
+                                            <?= date('d/m/Y', strtotime($value->FechaGenerado)) ?>
+                                            <?= date('H:i', strtotime($value->FechaGenerado)) ?> hrs</span></li>
+                                    <li>
+                                        <span class="left">
+                                            Expira: <?= date('d/m/Y', strtotime($value->FechaVigencia)) ?>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <ul>
+                                    <li><span class="left">Puntos asignados:</span>
+                                        <em class="right green-g"><?= $value->PuntosUsuario ?></em></li>
+                                    <li><span class="left">Puntos utilizados:</span>
+                                        <em class="right red-g">(-<?= $value->PuntosUtilizados ?>)</em></li>
+                                    <li><span class="left">Saldo:</span>
+                                        <em class="right"><?= $value->PuntosUsuario - $value->PuntosUtilizados?></em>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    <?php } ?>
+                </div>
+                <?php
+                if (isset($this->descargados)) {
+                    echo $this->paginationControl(
+                        $this->descargados,
+                        'Sliding',
+                        'paginator-descar',
+                        array('mobile' => $this->mobile)
+                    );
+                } ?>
+            </div>
+        </div>
+    </div>
+</section>

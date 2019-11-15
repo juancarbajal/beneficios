@@ -1,0 +1,197 @@
+<section class="content-header ">
+    <br><br><br>
+    <h1 class="box-title">Lista de Referidos</h1>
+    <br><br>
+    <?php if ($this->flashMessenger()->hasMessages()) {
+        echo '<div class="callout alert alert-success"><button class="close" data-dismiss="alert" type="button">×</button>';
+        $messages = $this->flashMessenger()->getMessages();
+        foreach ($messages as $message) {
+            echo $message;
+        }
+        echo '</div>';
+    } ?>
+</section>
+<?php
+$order_by = $this->order_by;
+$order = $this->order;
+$searchClient = $this->searchClient;
+$searchDateIni = $this->searchDateIni;
+$searchDateEnd = $this->searchDateEnd;
+$form = $this->form;
+$clientes = $this->clientes;
+?>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                </div>
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <?php
+                        $form->setAttribute('action', $this->url('referido', array('action' => 'index')))->prepare();
+                        $form->setAttribute('id', 'searchform');
+                        $form->prepare();
+                        echo $this->form()->openTag($form);
+                        echo $this->formElement($form->get('csrf'));
+                        ?>
+                        <div class="row">
+                            <fieldset>
+                                <legend>Buscar por:</legend>
+                                <div class="form-group">
+                                    <label class="col-md-2">Nombre o Apellidos: </label>
+                                    <div class="col-md-2">
+                                        <?php echo $this->formRow($form->get('cliente')); ?>
+                                    </div>
+                                    <div class="col-md-2"><label>Fecha de Registro desde: </label></div>
+                                    <div class="col-md-2">
+                                        <?php echo $this->formRow($form->get('fecha_ini')); ?>
+                                    </div>
+                                    <div class="col-md-2"><label>hasta: </label></div>
+                                    <div class="col-md-2">
+                                        <?php echo $this->formRow($form->get('fecha_fin')); ?>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                                <br>
+                                <div class="col-md-12 text-right">
+                                    <?php echo $this->formSubmit($form->get('submit')); ?>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <hr>
+                        <?php echo $this->form()->closeTag(); ?>
+                    </div>
+
+
+                    <div class="dataTables_wrapper form-inline dt-bootstrap" id="example1_wrapper">
+                        <div class="row-fluid">
+                            <div class="col-md-12 text-right">
+                                <div id="example1_length" class="dataTables_length"><br>
+                                    <a href="<?php echo $this->url(
+                                        'referido',
+                                        array('action' => 'export',
+                                            'cliente' => $searchClient,
+                                            'fecha_ini' => $searchDateIni,
+                                            'fecha_fin' => $searchDateEnd)
+                                    ); ?>"
+                                       class="btn btn-primary">Exportar</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="clear:both;"></div>
+                        <br>
+
+                        <div class="row-fluid">
+                            <div class="col-sm-12">
+                                <table aria-describedby="example1_info" role="grid" id="example1"
+                                       class="table table-bordered table-striped table-condensed dataTable">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            <a href="<?= $this->url(
+                                                'referido',
+                                                array(
+                                                    'order_by' => 'Fecha',
+                                                    'order' => ($order_by == 'Fecha') ? $order : 'asc',
+                                                    'cliente' => $searchClient,
+                                                    'fecha_ini' => $searchDateIni,
+                                                    'fecha_fin' => $searchDateEnd,
+                                                )
+                                            ); ?>">Fecha de Registro</a>
+                                        </th>
+                                        <th>
+                                            <a href="<?= $this->url(
+                                                'referido',
+                                                array(
+                                                    'order_by' => 'Nombre',
+                                                    'order' => ($order_by == 'Nombre') ? $order : 'asc',
+                                                    'cliente' => $searchClient,
+                                                    'fecha_ini' => $searchDateIni,
+                                                    'fecha_fin' => $searchDateEnd,
+                                                )
+                                            ); ?>">Nombres y Apellidos</a>
+                                        </th>
+                                        <th>
+                                            <a href="<?= $this->url(
+                                                'referido',
+                                                array(
+                                                    'order_by' => 'Telefonos',
+                                                    'order' => ($order_by == 'Telefonos') ? $order : 'asc',
+                                                    'cliente' => $searchClient,
+                                                    'fecha_ini' => $searchDateIni,
+                                                    'fecha_fin' => $searchDateEnd,
+                                                )
+                                            ); ?>">Telefonos</a>
+                                        </th>
+                                        <th>
+                                            <a>Referido de</a>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php if (count($this->lista_clientes) > 0) { ?>
+                                        <?php foreach ($this->lista_clientes as $cliente) { ?>
+                                            <tr data-id="<?php echo $cliente["id"] ?>" role="row">
+                                                <td><?= $this->escapeHtml($cliente["Fecha"]); ?></td>
+                                                <td><?= $this->escapeHtml($cliente["Nombre"]); ?></td>
+                                                <td><?= $this->escapeHtml($cliente["Telefonos"]); ?></td>
+                                                <td>
+                                                    <button type="button" class="btn btn-info modal-referido" data-toggle="modal"
+                                                            data-target="#modalReferido">
+                                                        <i class="glyphicon glyphicon-eye-open"></i> Ver detalle
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        <?php } ?>
+                                    <?php } else { ?>
+                                        <tr>
+                                            <td colspan="10">No hay Referidos que mostrar</td>
+                                        </tr>
+                                    <?php } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.box-body -->
+                <div class="col-md-4"><br>
+                    <?php if (!is_array($clientes)) { ?>
+                        <?php if ($clientes->getTotalItemCount() == 0) { ?>
+                            0 - 0 de 0 Registros
+                        <?php } else { ?>
+                            <p>
+                                <?= (($clientes->getCurrentPageNumber() * $clientes->getItemCountPerPage()) -
+                                    ($clientes->getItemCountPerPage() - 1)); ?>
+                                -
+                                <?= ($clientes->getCurrentPageNumber() * $clientes->getItemCountPerPage() <
+                                    $clientes->getTotalItemCount())
+                                    ? $clientes->getCurrentPageNumber() * $clientes->getItemCountPerPage()
+                                    : $clientes->getTotalItemCount() ?> de
+                                <?= $clientes->getTotalItemCount(); ?> Registros
+                            </p>
+                        <?php }
+                    } ?>
+                </div>
+                <?php if (!is_array($clientes)) {
+                    echo $this->paginationControl(
+                        $clientes,
+                        'Sliding',
+                        'paginator-slide-referido',
+                        array(
+                            'order_by' => $order_by,
+                            'order' => ($order == "desc") ? 'asc' : 'desc',
+                            'c' => $searchClient,
+                            'fi' => $searchDateIni,
+                            'fe' => $searchDateEnd
+                        )
+                    );
+                } ?>
+            </div>
+        </div>
+    </div>
+</section>
+<?php
+echo $this->render('_modal_referido.phtml');
+
+$this->inlineScript()->appendFile($this->basePath('js/referido/referido.js'));

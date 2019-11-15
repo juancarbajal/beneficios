@@ -1,0 +1,14 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        var text = '<?= $form->get('NombrePais')->getValue();?>';
+        if(text == ''){
+            text = 'Perú';
+        }
+        $("#pais option").filter(function() {
+            //may want to use $.trim in here
+            return $(this).text() == text;
+        }).attr('selected', true).change();
+
+    });
+</script>

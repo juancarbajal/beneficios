@@ -1,0 +1,242 @@
+<div class="fluid-list destacados-cnt title-bloques">
+    <?php foreach ($this->ofertas_premiun as $fila) { ?>
+        <?php if ($fila['tipo'] == 1) { ?>
+            <?php if (!empty($fila['ofertas'])) : ?>
+
+                <?php foreach ($fila['ofertas'] as $oferta) { ?>
+                    <div class="fluid-list margin-b">
+                        <div class="fluid-list cupon-two">
+                            <a href="/<?= $category ?>/coupon/<?= $oferta->SlugOferta ?>">
+                                <figure>
+                                    <img src="<?php
+                                    $trozos = explode(".", $oferta->imagenOferta);
+                                    $ext = end($trozos);
+                                    $imgOferta = str_replace('.' . $ext, '', $oferta->imagenOferta) . '-medium.' . $ext;
+                                    echo $this->rofertas . $imgOferta
+                                    ?>" title=""/>
+                                </figure>
+                            </a>
+                        </div>
+                        <div class="fluid-list cupon-info">
+                            <div class="fluid-list top-info">
+                                <figure class="left">
+                                    <?php if ($this->identity()['flagcheckboxLogo']) { ?>
+                                        <img src="<?php
+                                        $trozos = explode(".", $oferta->LogoEmpresa);
+                                        $ext = end($trozos);
+                                        $logoempresa = str_replace('.' . $ext, '', $oferta->LogoEmpresa) . '-large.' . $ext;
+                                        echo $this->rlogos . $logoempresa;
+                                        ?>"/>
+                                    <?php }; ?>
+                                </figure>
+                                <div class="left info-dest-c">
+                                    <h2>
+                                        <a href="/<?= $category ?>/coupon/<?= $oferta->SlugOferta ?>">
+                                            <?php if ($oferta->datoBeneficio != null) { ?>
+
+                                                <?php if ($oferta->idTipoBeneficio == 1) { ?>
+                                                    <strong>-<?= $oferta->datoBeneficio ?>% Descuento</strong>
+                                                <?php } elseif ($oferta->idTipoBeneficio == 2) { ?>
+                                                    <strong>-S/.<?= $oferta->datoBeneficio ?> Descuento</strong>
+                                                <?php } elseif ($oferta->idTipoBeneficio == 3) { ?>
+                                                    <strong><?= $oferta->datoBeneficio ?> en</strong>
+                                                <?php } else { ?>
+                                                    <strong><?= $oferta->datoBeneficio ?></strong>
+                                                <?php } ?>
+
+                                            <?php } ?>
+                                            <?php echo $oferta->TituloCortoOferta ?>
+                                        </a>
+                                    </h2>
+                                </div>
+                            </div>
+                            <div class="fluid-list buttom-info">
+                                <hr>
+                                <?php
+                                if ($oferta->vigencia != null) {
+                                    $date = new DateTime($oferta->vigencia);
+                                    $mes = $date->format('m');
+                                    ?>
+                                    <span>Descarga este beneficio hasta el
+                                            <span><?php echo ' ' . $date->format('d') . ' de ' . $this->meses[$mes - 1] ?></span>
+                                        </span>
+                                <?php } ?>
+                                <a href="/<?= $category ?>/coupon/<?= $oferta->SlugOferta ?>"
+                                   class="right btn-cupon-d ver-c">VER CUPÓN</a>
+                            </div>
+                        </div>
+
+                        <?php if (false/*$total[$oferta->SlugEmpresa] > 1*/) { ?>
+                            <div class="fluid-list desc-list">
+                                <a href="/company/<?= $oferta->SlugEmpresa ?>" class="a-descb">Descubre más
+                                    beneficios
+                                    de <?php echo $oferta->nombreEmpresa ?> &raquo;</a>
+                            </div>
+                        <?php } ?>
+                        <!--<a href="/company/<? /*= $oferta->SlugEmpresa */ ?>" class="a-descb">Descubre más
+                                ofertas de la tienda &raquo;</a>-->
+
+                    </div>
+                <?php } ?>
+            <?php endif; ?>
+        <?php } ?>
+        <?php if ($fila['tipo'] == 2) { ?>
+            <?php if (!empty($fila['ofertas'])) : ?>
+                <?php foreach ($fila['ofertas'] as $oferta) { ?>
+                    <div class="fluid-list margin-b">
+                        <div class="fluid-list cupon-two">
+                            <a href="/<?= $category ?>/coupon/<?= $oferta->SlugOferta ?>">
+                                <figure>
+                                    <img src="<?php
+                                    $trozos = explode(".", $oferta->imagenOferta);
+                                    $ext = end($trozos);
+                                    $imgOferta = str_replace('.' . $ext, '', $oferta->imagenOferta) . '-medium.' . $ext;
+                                    echo $this->rofertas . $imgOferta
+                                    ?>" title=""/>
+                                </figure>
+                            </a>
+                            <div class="info-cupon-l">
+                                <figure class="left">
+                                    <?php if ($this->identity()['flagcheckboxLogo']) { ?>
+                                        <a href="/company/<?= $oferta->SlugEmpresa ?>">
+                                            <img src="<?php
+                                            $trozos = explode(".", $oferta->LogoEmpresa);
+                                            $ext = end($trozos);
+                                            $logoempresa = str_replace('.' . $ext, '', $oferta->LogoEmpresa) . '-medium.' . $ext;
+                                            echo $this->rlogos . $logoempresa;
+                                            ?>"/>
+                                        </a>
+                                    <?php }; ?>
+                                </figure>
+                                <div class="info-interna left">
+                                    <h2>
+                                        <a href="/<?= $category ?>/coupon/<?= $oferta->SlugOferta ?>"
+                                           class="title-short-destacados">
+                                            <?php
+                                            $tamaño = 25;
+                                            if ($oferta->datoBeneficio != null) { ?>
+
+                                                <?php if ($oferta->idTipoBeneficio == 1) { ?>
+                                                    <strong>-<?= $oferta->datoBeneficio ?>% Dscto. </strong>
+                                                <?php } elseif ($oferta->idTipoBeneficio == 2) { ?>
+                                                    <strong>-S/.<?= $oferta->datoBeneficio ?> Dscto. </strong>
+                                                <?php } elseif ($oferta->idTipoBeneficio == 3) { ?>
+                                                    <strong><?= $oferta->datoBeneficio ?> en</strong>
+                                                <?php } else { ?>
+                                                    <strong><?= $oferta->datoBeneficio ?></strong>
+                                                <?php } ?>
+
+                                                <?php
+                                            } else {
+                                                $tamaño = 40;
+                                            }
+
+                                            if (strlen($oferta->TituloCortoOferta) >= $tamaño) {
+                                                echo substr($oferta->TituloCortoOferta, 0, $tamaño) . "...";
+                                            } else {
+                                                echo $oferta->TituloCortoOferta;
+                                            }
+                                            ?>
+                                        </a>
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                        <?php if ($total[$oferta->SlugEmpresa] > 1) { ?>
+                            <div class="fluid-list desc-list">
+                                <a href="/company/<?= $oferta->SlugEmpresa ?>">Descubre más ofertas de la
+                                    tienda &raquo;</a>
+                            </div>
+                        <?php } ?>
+                    </div>
+                <?php } ?>
+            <?php endif; ?>
+        <?php } ?>
+        <?php if ($fila['tipo'] == 3) { ?>
+            <?php if (!empty($fila['ofertas'])) : ?>
+                <?php foreach ($fila['ofertas'] as $oferta) { ?>
+                    <div class="fluid-list margin-b">
+                        <div class="fluid-list cupon-two">
+                            <a href="/<?= $category ?>/coupon/<?= $oferta->SlugOferta ?>">
+                                <figure>
+                                    <img src="<?php echo $this->rofertas . $oferta->imagenOferta ?>" title=""/>
+                                </figure>
+                            </a>
+                            <div class="info-cupon-l">
+                                <figure class="left">
+                                    <?php if ($this->identity()['flagcheckboxLogo']) { ?>
+                                        <a href="/company/<?= $oferta->SlugEmpresa ?>">
+                                            <img src="<?php
+                                            $trozos = explode(".", $oferta->LogoEmpresa);
+                                            $ext = end($trozos);
+                                            $oferta->LogoEmpresa = str_replace('.' . $ext, '', $oferta->LogoEmpresa) . '-small.' . $ext;
+                                            echo $this->rlogos . $oferta->LogoEmpresa;
+                                            ?>"/>
+                                        </a>
+                                    <?php }; ?>
+                                </figure>
+                                <div class="info-interna left">
+                                    <h2>
+                                        <a href="/<?= $category ?>/coupon/<?= $oferta->SlugOferta ?>"
+                                           class="title-short-destacados">
+                                            <?php $tamaño = 25;
+                                            if ($oferta->datoBeneficio != null) { ?>
+
+                                                <?php if ($oferta->idTipoBeneficio == 1) { ?>
+                                                    <strong>-<?= $oferta->datoBeneficio ?>% Dscto. </strong>
+                                                <?php } elseif ($oferta->idTipoBeneficio == 2) { ?>
+                                                    <strong>-S/.<?= $oferta->datoBeneficio ?> Dscto. </strong>
+                                                <?php } elseif ($oferta->idTipoBeneficio == 3) { ?>
+                                                    <strong><?= $oferta->datoBeneficio ?> en</strong>
+                                                <?php } else { ?>
+                                                    <strong><?= $oferta->datoBeneficio ?></strong>
+                                                <?php } ?>
+
+                                                <?php
+                                            } else {
+                                                $tamaño = 40;
+                                            }
+
+                                            if (strlen($oferta->TituloCortoOferta) >= $tamaño) {
+                                                echo substr($oferta->TituloCortoOferta, 0, $tamaño) . "...";
+                                            } else {
+                                                echo $oferta->TituloCortoOferta;
+                                            }
+                                            ?>
+                                        </a>
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                        <?php if ($total[$oferta->SlugEmpresa] > 1) { ?>
+                            <div class="fluid-list desc-list">
+                                <a href="/company/<?= $oferta->SlugEmpresa ?>">Descubre más ofertas de la
+                                    tienda &raquo;</a>
+                            </div>
+                        <?php } ?>
+                    </div>
+                <?php } ?>
+            <?php endif; ?>
+        <?php } ?>
+    <?php } ?>
+</div>
+<?php if (!empty($banners[3])): ?>
+    <div class="fluid-list anuncio-banner margin-r ">
+        <?php
+        $link = "";
+        if (isset($banners[3]['link'])) {
+            $banners[3]['link'] = str_replace("[NumeroDocumento]", $this->identity()["NumeroDocumento"], $banners[3]['link']);
+            $banners[3]['link'] = str_replace("[Nombre]", $this->identity()["Nombre"], $banners[3]['link']);
+            $banners[3]['link'] = str_replace("[Apellido]", $this->identity()["Apellido"], $banners[3]['link']);
+            $banners[3]['link'] = str_replace("[email]", $this->identity()["email"], $banners[3]['link']);
+            $banners[3]['link'] = str_replace("[flagsupervisor]", $this->identity()["flagsupervisor"], $banners[3]['link']);
+            $link = 'href="' . $banners[3]['link'] . '" target="_blank"';
+        } else {
+            $link = '';
+        }
+        ?>
+        <a <?= $link ?>>
+            <img src="<?= $rbanners . $banners[3]['image'] ?>" title=""/>
+        </a>
+    </div>
+<?php endif; ?>

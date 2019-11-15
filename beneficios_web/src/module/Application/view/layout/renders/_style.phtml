@@ -1,0 +1,119 @@
+<?php $this->headStyle()->captureStart() ?>
+
+<?php
+$color_menu = ($this->identity()['Color'] != null) ?$this->identity()['Color'] :"#0a0d12"; //($this->identity()->Color != null) ?$this->identity()->Color :"#0a0d12";
+$color_menu_deg = $color_menu;//($this->identity()['Color'] != null) ?("#" . dechex(hexdec(substr($color_menu, 1)) + hexdec('1F9E7'))) :'#2b3036';
+$color_hover = ($this->identity()['Color_hover'] != null) ?$this->identity()['Color_hover'] :"#400090"; //($this->identity()->Color != null) ?$this->identity()->Color :"#400090";
+$color_hover_deg = $color_hover;//($this->identity()['Color_hover'] != null) ?("#" . dechex(hexdec(substr($color_hover, 1)) + hexdec('1F9E7'))) :'#1f0046';
+?>
+.top-bar {
+    background: <?= $color_menu ?>;
+}
+
+ul.menu-city {
+    background: <?= $color_menu ?>;
+}
+
+nav {
+    background: -moz-linear-gradient(top,<?= $color_menu_deg ?> 8%,<?= $color_menu ?> 100%);
+    background: -webkit-gradient(linear,left top,left bottom,color-stop(8%,<?= $color_menu_deg ?>),color-stop(100%, <?= $color_menu ?>));
+    background: -webkit-linear-gradient(top,<?= $color_menu_deg ?> 8%,<?= $color_menu ?> 100%);
+    background: -o-linear-gradient(top,<?= $color_menu_deg ?> 8%,<?= $color_menu ?> 100%);
+    background: -ms-linear-gradient(top,<?= $color_menu_deg ?> 8%,<?= $color_menu ?> 100%);
+    background: linear-gradient(to bottom,<?= $color_menu_deg ?> 8%,<?= $color_menu ?> 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=<?= $color_menu_deg ?>, endColorstr=<?= $color_menu ?>, GradientType=0 );
+    position: relative;
+    z-index: 4;
+}
+
+footer {
+    background: #000;
+    /*background: <?= $color_menu ?>;*/
+}
+.search .frm-search button {
+    background: <?= $color_hover ?> !important;
+}
+
+a.btn-cupon-d {
+    background: <?= $color_hover ?> !important;
+    text-shadow: 0 2px 0 rgba(0, 0, 0, 0.48) !important;
+    border-bottom: 3px solid <?= $color_hover_deg ?> !important;
+}
+
+span.btn-cupon {
+    background: <?= $color_hover ?> !important;
+    border-bottom: 3px solid <?= $color_hover_deg ?> !important;
+}
+.btn-belcorp{background: #fe4251;}
+.btn-belcorp:active, .btn-belcorp:focus, .btn-belcorp:hover{color: #fff;opacity: 0.9;background: #fe4251;}
+em.text-cupon {
+    color: <?= $color_hover ?> !important;
+}
+
+a.btn-cupon {
+    /*background: <?= $color_hover ?> !important;
+    border-bottom: 3px solid <?= $color_hover_deg ?> !important;*/
+}
+
+a.btn-cupon:hover, a.btn-cupon:active, a.btn-cupon:focus {
+    /*background: <?= $color_hover ?> !important;
+    border-bottom: 3px solid <?= $color_hover_deg ?> !important;*/
+}
+
+.btn-block {
+    background: #fe4251;
+    /*background: <?= $color_hover ?> !important;/*
+    /*border-bottom: 3px solid <?= $color_hover_deg ?> !important;*/
+}
+
+btn-block:active, btn-block:focus, .btn-block:hover {
+    background: #fe4251;
+    /*background: <?= $color_hover ?> !important;*/
+    /*border-bottom: 3px solid <?= $color_hover_deg ?> !important;*/
+}
+
+.btn-enviar {
+    
+}
+
+.btn-enviar span, a.btn-cupon span, .btn-block span {
+    
+}
+
+.btn-enviar:hover, .btn-enviar:active, .btn-enviar:focus {
+    
+}
+
+a.a-descb {
+    color: <?= $color_hover ?> !important;
+}
+
+.bread ul li a {
+    color: <?= $color_hover?>;
+}
+
+.menu-city .dropdown-menu {
+    padding-left: 30px;
+    padding-right: 15px;
+}
+
+.menu-city .dropdown-menu li {
+    float: left;
+    width: 50% !important;
+    list-style-type: square;
+    list-style-position: outside;
+    background: none;
+    color: <?= $color_hover?>;
+}
+
+.menu-city .dropdown-menu li a {
+    padding-top: 6px;
+    padding-left: 0px;
+    padding-bottom: 6px;
+    color: <?= $color_hover?>;
+}
+
+.modal-vcenter .modal-header {
+    background: <?= $color_menu?>;
+}
+<?php $this->headStyle()->captureEnd() ?>

@@ -1,0 +1,331 @@
+<section class="content-header ">
+    <br><br><br>
+
+    <h1 class="box-title">Reporte  Pagados</h1>
+    <br><br>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <?php
+                            $totalPagar = 0;
+                            $asignaciones = $this->asignaciones;
+                            $order_by = $this->order_by;
+                            $order = $this->order;
+                            $p = $this->p;
+                            $q1 = $this->q1;
+                            $q2 = $this->q2;
+                            $q3 = $this->q3;
+                            $q4 = $this->q4;
+                            $q5 = $this->q5;
+                            $q6 = $this->q6;
+                            $q7 = $this->q7;
+
+                            $formS = $this->formS;
+                            $formS->setAttribute('action', $this->url('reporte-pagados-proveedor', array('action' => 'index')));
+                            $formS->setAttribute('id', 'searchForm');
+                            $formS->prepare();
+                            echo $this->form()->openTag($formS);
+                            echo $this->formElement($formS->get('csrf'));
+                            ?>
+                            <fieldset>
+                                <legend>Buscar por:</legend>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-2 text-right"><label>Nombre Comercial o Razón
+                                                    Social:</label></div>
+                                            <div class="col-md-6">
+                                                <?= (!empty($this->nombreEmpresa)) ? "<label>$this->nombreEmpresa</label>" : "" ?>
+                                                <?= $this->formRow($formS->get('Empresa')); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-2 text-right"><label>Desde:</label></div>
+                                            <div class="col-md-4">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                    <?= $this->formRow($formS->get('FechaInicio')); ?>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 text-right"><label>Hasta:</label></div>
+                                            <div class="col-md-4">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                    <?= $this->formRow($formS->get('FechaFin')); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group <?= (isset($mensaje)) ? 'has-error' : '' ?>">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-4 text-left">
+                                                <?= $this->formSubmit($formS->get('submit')); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <?= $this->form()->closeTag(); ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <?php
+                            $formE = $this->formE;
+                            $formE->setAttribute('action', $this->url('reporte-pagados-proveedor', array('action' => 'index')));
+                            $formE->prepare();
+                            echo $this->form()->openTag($formE);
+                            echo $this->formElement($formE->get('csrf'));
+                            ?>
+                            <div class="dataTables_wrapper form-inline dt-bootstrap" id="example1_wrapper">
+                                <div class="row-fluid">
+                                    <div class="col-md-12 text-right">
+                                        <div id="example1_length" class="dataTables_length"><br>
+                                            <a href="<?php echo $this->url(
+                                                'reporte-pagados-proveedor',
+                                                array(
+                                                    'action' => 'exportreport',
+                                                    'empresa' => (!empty($q1)) ? $q1 : 0,
+                                                    'campania' => (!empty($q2)) ? $q2 : 0,
+                                                    'oferta' => (!empty($q3)) ? $q3 : 0,
+                                                    'estado' => $q4,
+                                                    'desde' => $q5,
+                                                    'hasta' => $q6,
+                                                    'codigo' => (!empty($q7)) ? $q7 : null,
+                                                )
+                                            ); ?>"
+                                               class="btn btn-primary">Exportar</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <table role="grid" id="asignados"
+                                               class="table table-bordered table-striped dataTable">
+                                            <thead>
+                                            <tr role="row">
+
+                                                <th>
+                                                    <a href="<?= $this->url(
+                                                        'reporte-pagados-proveedor',
+                                                        array(
+                                                            'order_by' => 'PB',
+                                                            'order' => ($order_by == 'PB') ? $order : 'asc',
+                                                            'page' => $p,
+                                                            'q1' => $q1,
+                                                            'q2' => $q2,
+                                                            'q3' => $q3,
+                                                            'q4' => $q4,
+                                                            'q5' => $q5,
+                                                            'q6' => $q6,
+                                                            'q7' => $q7
+                                                        )
+                                                    ); ?>">Fecha</a>
+                                                </th>
+                                                <th>
+                                                    <a href="<?= $this->url(
+                                                        'reporte-pagados-proveedor',
+                                                        array(
+                                                            'order_by' => 'PB',
+                                                            'order' => ($order_by == 'PB') ? $order : 'asc',
+                                                            'page' => $p,
+                                                            'q1' => $q1,
+                                                            'q2' => $q2,
+                                                            'q3' => $q3,
+                                                            'q4' => $q4,
+                                                            'q5' => $q5,
+                                                            'q6' => $q6,
+                                                            'q7' => $q7
+                                                        )
+                                                    ); ?>">Código Cupon</a>
+                                                </th>
+
+                                                <th>
+                                                    <a href="<?= $this->url(
+                                                        'reporte-pagados-proveedor',
+                                                        array(
+                                                            'order_by' => 'PB',
+                                                            'order' => ($order_by == 'PB') ? $order : 'asc',
+                                                            'page' => $p,
+                                                            'q1' => $q1,
+                                                            'q2' => $q2,
+                                                            'q3' => $q3,
+                                                            'q4' => $q4,
+                                                            'q5' => $q5,
+                                                            'q6' => $q6,
+                                                            'q7' => $q7
+                                                        )
+                                                    ); ?>">Campo1</a>
+                                                </th>
+                                                <th>
+                                                    <a href="<?= $this->url(
+                                                        'reporte-pagados-proveedor',
+                                                        array(
+                                                            'order_by' => 'PB',
+                                                            'order' => ($order_by == 'PB') ? $order : 'asc',
+                                                            'page' => $p,
+                                                            'q1' => $q1,
+                                                            'q2' => $q2,
+                                                            'q3' => $q3,
+                                                            'q4' => $q4,
+                                                            'q5' => $q5,
+                                                            'q6' => $q6,
+                                                            'q7' => $q7
+                                                        )
+                                                    ); ?>">Campo2</a>
+                                                </th>
+                                                <th>
+                                                    <a href="<?= $this->url(
+                                                        'reporte-pagados-proveedor',
+                                                        array(
+                                                            'order_by' => 'PB',
+                                                            'order' => ($order_by == 'PB') ? $order : 'asc',
+                                                            'page' => $p,
+                                                            'q1' => $q1,
+                                                            'q2' => $q2,
+                                                            'q3' => $q3,
+                                                            'q4' => $q4,
+                                                            'q5' => $q5,
+                                                            'q6' => $q6,
+                                                            'q7' => $q7
+                                                        )
+                                                    ); ?>">Oferta</a>
+                                                </th>
+                                                <th>
+                                                    <a href="<?= $this->url(
+                                                        'reporte-pagados-proveedor',
+                                                        array(
+                                                            'order_by' => 'PB',
+                                                            'order' => ($order_by == 'PB') ? $order : 'asc',
+                                                            'page' => $p,
+                                                            'q1' => $q1,
+                                                            'q2' => $q2,
+                                                            'q3' => $q3,
+                                                            'q4' => $q4,
+                                                            'q5' => $q5,
+                                                            'q6' => $q6,
+                                                            'q7' => $q7
+                                                        )
+                                                    ); ?>">Precio publicado</a>
+                                                </th>
+                                                <th>
+                                                    <a href="<?= $this->url(
+                                                        'reporte-pagados-proveedor',
+                                                        array(
+                                                            'order_by' => 'PB',
+                                                            'order' => ($order_by == 'PB') ? $order : 'asc',
+                                                            'page' => $p,
+                                                            'q1' => $q1,
+                                                            'q2' => $q2,
+                                                            'q3' => $q3,
+                                                            'q4' => $q4,
+                                                            'q5' => $q5,
+                                                            'q6' => $q6,
+                                                            'q7' => $q7
+                                                        )
+                                                    ); ?>">Monto a recibir</a>
+                                                </th>
+                                                <th>
+                                                    <a href="<?= $this->url(
+                                                        'reporte-pagados-proveedor',
+                                                        array(
+                                                            'order_by' => 'PB',
+                                                            'order' => ($order_by == 'PB') ? $order : 'asc',
+                                                            'page' => $p,
+                                                            'q1' => $q1,
+                                                            'q2' => $q2,
+                                                            'q3' => $q3,
+                                                            'q4' => $q4,
+                                                            'q5' => $q5,
+                                                            'q6' => $q6,
+                                                            'q7' => $q7
+                                                        )
+                                                    ); ?>">Estado</a>
+                                                </th>
+
+                                            </thead>
+                                            <tbody>
+                                            <?php if (count($asignaciones) > 0) :
+                                                foreach ($asignaciones as $dato) :
+                                                    $totalPagar = $totalPagar + $dato->PrecioBeneficio;
+
+                                                    ?>
+                                                    <tr data-id="<?php echo $dato->id ?>">
+                                                        <td><?= $this->escapeHtml($dato->UltimaActualizacion); ?></td>
+
+                                                        <td><?= $this->escapeHtml($dato->CodigoCupon); ?></td>
+
+
+                                                        <td><?= $this->escapeHtml($dato->ComentarioUno); ?></td>
+                                                        <td><?= $this->escapeHtml($dato->ComentarioDos); ?></td>
+                                                        <td><?= $this->escapeHtml("S/. " . $dato->PrecioVentaPublico . " por " . $dato->Oferta); ?></td>
+
+
+                                                        <td><?= $this->escapeHtml($dato->PrecioVentaPublico); ?></td>
+                                                        <td><?= $this->escapeHtml($dato->PrecioBeneficio); ?></td>
+                                                        <td>
+                                                            <?php if ($this->escapeHtml($dato->EstadoCupon) == "Generado"):
+                                                                echo "Descargado";
+                                                            elseif ($this->escapeHtml($dato->EstadoCupon) == "Stand By"):
+                                                                echo "Reclamado";
+                                                            else:
+                                                                echo $this->escapeHtml($dato->EstadoCupon);
+                                                            endif; ?>
+                                                        </td>
+                                                    </tr>
+                                                <?php endforeach;
+                                            else :
+                                                echo '<tr><td colspan="10">No hay Datos Seleccionados</td></tr>';
+                                            endif; ?>
+                                            </tbody>
+                                        </table>
+
+                                        <?php
+                                        if (isset($asignaciones)) {
+                                            echo $this->paginationControl(
+                                                $asignaciones,
+                                                'Sliding',
+                                                'paginator-reporte-pagados-proveedor',
+                                                array(
+                                                    'order_by' => $order_by,
+                                                    'order' => ($order == "desc") ? 'asc' : 'desc',
+                                                    'q1' => (!empty($q1)) ? $q1 : 0,
+                                                    'q2' => (!empty($q2)) ? $q2 : 0,
+                                                    'q3' => (!empty($q3)) ? $q3 : 0,
+                                                    'q4' => $q4,
+                                                    'q5' => $q5,
+                                                    'q6' => $q6,
+                                                    'q7' => (!empty($q7)) ? $q7 : null,
+                                                )
+                                            );
+                                        } ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <?= $this->form()->closeTag(); ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<?php
+echo $this->partial('_scripts.phtml');

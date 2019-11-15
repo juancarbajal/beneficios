@@ -1,0 +1,32 @@
+<div class="fluid-list">
+	<div class="container">
+		<?php echo $this->partial('application/index/renders/_banner'); ?>	
+	</div>
+</div>
+<div class="fluid-list">
+	<div class="container">
+		<?php echo $this->partial('application/index/renders/_destacados'); ?>	
+	</div>
+</div>
+<div class="fluid-list">
+	<div class="container">
+		<?php echo $this->partial('application/index/renders/_descubre'); ?>
+	</div>
+</div>
+
+<?php echo $this->inlineScript()->prependFile(
+    $this->basePath('js/jq-infinite/jq-infinite.js?' . $this->configItem('version_script'))
+);
+echo $this->headScript()->prependFile(
+    $this->basePath('js/login/tebca.js?' . $this->configItem('version_script'))
+);
+?>
+<script>
+    $(document).ready(function () {
+        <?php
+        foreach ($this->configItem('empresas_especiales') as $data) { ?>
+        empresas_e.push('<?= $data?>');
+        <?php } ?>
+        getModal('<?= $this->configItem('domain') ?>', '<?= $this->modal ?>');
+    });
+</script>

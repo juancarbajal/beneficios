@@ -1,0 +1,20 @@
+<?php echo $this->doctype(); ?>
+    <html lang="en">
+<head>
+    <?php echo $this->partial('layout/renders/_head') ?>
+</head>
+
+<body class="hold-transition login-page">
+    <?php echo $this->content; ?>
+
+    <script>
+        $(function () {
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%' // optional
+            });
+        });
+    </script>
+</body>
+</html>

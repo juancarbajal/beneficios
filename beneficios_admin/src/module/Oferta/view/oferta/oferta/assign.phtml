@@ -1,0 +1,300 @@
+<section class="content-header " xmlns="http://www.w3.org/1999/html">
+    <br><br><br>
+
+    <h1 class="box-title">Asignar Ofertas</h1>
+    <br><br>
+    <?php
+    echo $this->flashMessenger()->render();
+    ?>
+    <?php
+
+    if ($this->flashMessenger()->hasSuccessMessages()) {
+        echo '<div class="callout alert alert-success">' .
+            '<button class="close" data-dismiss="alert" type="button">×</button>';
+        $messages = $this->flashMessenger()->getSuccessMessages();
+        foreach ($messages as $message) {
+            echo $message;
+        }
+        echo '</div>';
+    } elseif ($this->flashMessenger()->hasErrorMessages()) {
+        echo '<div class="callout alert alert-danger">' .
+            '<button class="close" data-dismiss="alert" type="button">×</button>';
+        $messages = $this->flashMessenger()->getErrorMessages();
+        foreach ($messages as $message) {
+            echo $message;
+        }
+        echo '</div>';
+    }
+    ?>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                </div>
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <?php
+                        $form->setAttribute('action', $this->url('oferta', array('action' => 'assign')));
+                        $form->prepare();
+                        echo $this->form()->openTag($form);
+                        echo $this->formElement($form->get('csrf'));
+
+                        ?>
+                        <fieldset>
+                            <legend>Buscar por Titulo:</legend>
+                            <div class="form-group">
+                                <div class="<?= $this->formElementErrors($form->get('Oferta')) ? 'has-error' : '' ?>">
+                                    <div class="col-md-2"><label>Ofertas:</label></div>
+                                    <div class="col-md-6">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-11 null-padding">
+                                                <?= $this->formRow($form->get('Oferta')); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <hr>
+                        <fieldset>
+                            <legend>Buscar Empresas por Asignar:</legend>
+                            <div class="form-group">
+                                <div class="col-md-2"><label>Nombre Comercial o Razón Social:</label></div>
+                                <div class="<?= $this->formElementErrors($form->get('Empresa')) ? 'has-error' : '' ?>">
+                                    <div class="col-md-5">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-11 null-padding">
+                                                <?= $this->formRow($form->get('Empresa')); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-1"><label>RUC:</label></div>
+
+                                <div class="<?= $this->formElementErrors($form->get('Ruc')) ? 'has-error' : '' ?>">
+                                    <div class="col-md-4">
+                                        <div class="row-fluid campo">
+                                            <div class="null-padding">
+                                                <?= $this->formRow($form->get('Ruc')); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12 text-right">
+                                    <?= $this->formSubmit($form->get('submit')); ?>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <hr>
+                        <?= $this->form()->closeTag(); ?>
+                        <fieldset>
+                            <legend>Empresas Clientes:</legend>
+                            <div class="dataTables_wrapper form-inline dt-bootstrap" id="example1_wrapper">
+                                <div class="row-fluid">
+                                    <div class="col-md-12">
+                                        <h3 class="box-title">EMPRESAS NORMALES</h3>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <?php if (count($normal) > 0) : ?>
+                                                <div class="form-group select_normal"><br>
+                                                    <label for="asigN">
+                                                        <input id="asigN" type="radio" value="asigN" name="normal">
+                                                        ASIGNAR A TODAS
+                                                    </label>&nbsp;&nbsp;
+                                                    <label for="quitN">
+                                                        <input id="quitN" type="radio" value="quitN" name="normal">
+                                                        QUITAR A TODAS
+                                                    </label>
+                                                </div>
+                                                <?php
+                                            endif;
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                                <br>
+
+                                <div class="row-fluid">
+                                    <div class="col-sm-12">
+                                        <form id="formularioNormal"
+                                              action="<?= $this->url('oferta', array('action' => 'assignnormal')); ?>"
+                                              method="post">
+                                            <table aria-describedby="example1_info" role="grid" id="EmpNorm"
+                                                   class="table table-bordered table-striped dataTable">
+                                                <thead>
+                                                <tr role="row">
+                                                    <th>
+                                                        <a href="#">Tipo Empresa Cliente</a>
+                                                    </th>
+                                                    <th>
+                                                        <a href="#">Nombre Comercial</a>
+                                                    </th>
+                                                    <th>
+                                                        <a href="#">Razon Social</a>
+                                                    </th>
+                                                    <th>
+                                                        <a href="#">Ruc</a>
+                                                    </th>
+                                                    <th>
+                                                        <a href="#">Asignar Oferta</a>
+                                                    </th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <?php
+                                                if (count($normal) > 0) {
+                                                    foreach ($normal as $dato) : ?>
+                                                        <tr data-id="<?php echo $dato->id ?>">
+                                                            <td>
+                                                                <?= $this->escapeHtml($dato->ClaseEmpresaCliente); ?>
+                                                            </td>
+                                                            <td>
+                                                                <?= $this->escapeHtml($dato->NombreComercial); ?>
+                                                            </td>
+                                                            <td><?= $this->escapeHtml($dato->RazonSocial); ?></td>
+                                                            <td><?= $this->escapeHtml($dato->Ruc); ?></td>
+                                                            <td>
+                                                                <input name="normal[]" type="checkbox" class="assignNO"
+                                                                       value="<?= $dato->id; ?>">
+                                                            </td>
+                                                        </tr>
+                                                        <?php
+                                                    endforeach;
+                                                } else {
+                                                    echo '<tr><td colspan="5">No hay Empresas del tipo Normal</td></tr>';
+                                                }
+                                                ?>
+                                                </tbody>
+                                            </table>
+                                            <?php if (count($normal) > 0) { ?>
+                                                <div class="form-group col-md-1 col-md-offset-11 col-xs-1">
+                                                    <input type="hidden" name="oferta" id="hnormal">
+                                                    <button type="submit" class="form-control btn btn-primary">Asignar
+                                                    </button>
+                                                </div>
+                                            <?php } ?>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="clear:both;"></div>
+                            <br>
+
+                            <div class="dataTables_wrapper form-inline dt-bootstrap" id="example1_wrapper">
+                                <div class="row-fluid">
+                                    <div class="col-md-12">
+                                        <h3 class="box-title">EMPRESAS ESPECIALES</h3>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <?php if (count($especial) > 0) { ?>
+                                                <div class="form-group select_especial"><br>
+                                                    <label for="asigE">
+                                                        <input id="asigE" type="radio" value="asigE" name="especial">
+                                                        ASIGNAR A TODAS
+                                                    </label>&nbsp;&nbsp;
+                                                    <label for="quitE">
+                                                        <input id="quitE" type="radio" value="quitE" name="especial">
+                                                        QUITAR A TODAS
+                                                    </label>
+                                                </div>
+                                                <?php
+                                            }
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                                <br>
+
+                                <div class="row-fluid">
+                                    <div class="col-sm-12">
+                                        <form id="formularioEspecial"
+                                              action="<?= $this->url('oferta', array('action' => 'assignespecial')); ?>"
+                                              method="post">
+                                            <table aria-describedby="example1_info" role="grid" id="EmpEsp"
+                                                   class="table table-bordered table-striped dataTable">
+                                                <thead>
+                                                <tr role="row">
+                                                    <th>
+                                                        <a href="">Empresa Cliente</a>
+                                                    </th>
+                                                    <th>
+                                                        <a href="">Nombre Comercial</a>
+                                                    </th>
+                                                    <th>
+                                                        <a href="">Razon Social</a>
+                                                    </th>
+                                                    <th>
+                                                        <a href="">Ruc</a>
+                                                    </th>
+                                                    <th>
+                                                        <a href="">Subgrupo</a>
+                                                    </th>
+                                                    <th>
+                                                        <a href="">Asignar Oferta</a>
+                                                    </th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <?php if (count($especial) > 0) {
+                                                    foreach ($especial as $dato) : ?>
+                                                        <tr data-id="<?= $dato->id ?>">
+                                                            <td>
+                                                                <?= $this->escapeHtml($dato->ClaseEmpresaCliente); ?>
+                                                            </td>
+                                                            <td>
+                                                                <?= $this->escapeHtml($dato->NombreComercial); ?>
+                                                            </td>
+                                                            <td><?= $this->escapeHtml($dato->RazonSocial); ?></td>
+                                                            <td><?= $this->escapeHtml($dato->Ruc); ?></td>
+                                                            <td>
+                                                                <a class="assign_special">
+                                                                    <i class="btn btn-warning fa fa-pencil-square-o">
+                                                                    </i>
+                                                                </a>
+                                                            </td>
+                                                            <td>
+                                                                <input name="especial[]" type="checkbox"
+                                                                       class="assignEO" value="<?= $dato->id ?>">
+                                                            </td>
+                                                        </tr>
+                                                        <?php
+                                                    endforeach;
+                                                } else {
+                                                    echo '<tr><td colspan="6">No hay Empresas Especiales</td></tr>';
+                                                }
+                                                ?>
+                                                </tbody>
+                                            </table>
+                                            <?php if (count($especial) > 0) { ?>
+                                                <div class="form-group col-md-1 col-md-offset-11 col-xs-1">
+                                                    <input type="hidden" name="oferta" id="hespecial">
+                                                    <button type="submit" class="form-control btn btn-primary">Asignar
+                                                    </button>
+                                                </div>
+                                            <?php } ?>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="clear:both;"></div>
+                            <br>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<?php
+$this->inlineScript()->appendFile($this->basePath('js/oferta/oferta_assign.js?'.$this->configItem('version_script')));
+
+echo $this->render('render/modal.phtml');
+echo $this->render('render/_script_modal.phtml');

@@ -1,0 +1,107 @@
+<?php
+$precio = $this->form->get("TipoAtributo")->getValue();
+
+$dataAtributosId = (!empty($this->atributosId)) ? $this->atributosId : "''";
+$dataAtributos = (!empty($this->atributos)) ? $this->atributos : "''";
+$dataStocks = (!empty($this->stocks)) ? $this->stocks : "''";
+$dataStockAnterior = (!empty($this->stockAnterior)) ? $this->stockAnterior : "''";
+$dataStockIniciales = (!empty($this->stockIniciales)) ? $this->stockIniciales : "''";
+$dataVigencias = (!empty($this->vigencias)) ? $this->vigencias : "''";
+$dataBeneficios = (!empty($this->datoBeneficios)) ? $this->datoBeneficios : "''";
+$dataAtributosMessage = (!empty($this->atributosMessage)) ? $this->atributosMessage : "''";
+$dataStocksMessage = (!empty($this->stocksMessage)) ? $this->stocksMessage : "''";
+$dataVigenciasMessage = (!empty($this->vigenciasMessage)) ? $this->vigenciasMessage : "''";
+$dataBeneficiosMessage = (!empty($this->beneficiosMessage)) ? $this->beneficiosMessage : "''";
+$dataErrorStockSplit = (!empty($this->errorStockSplit)) ? $this->errorStockSplit : "";
+$TipoEspecial = (!empty($this->TipoEspecial)) ? $this->TipoEspecial : "";
+
+$this->inlineScript()->captureStart();
+echo <<<JS
+var tipoEspecial = '$TipoEspecial';
+$(document).ready(function () {
+    var precio = '$precio';
+
+    if (precio == 'Split') {
+        $("#tipoOferta").prop("checked", true).trigger("change");
+    } else {
+        $("#tipoOferta").prop("checked", false).trigger("change");
+    }
+
+    $("#pais").val('1').trigger("change");
+
+    var total = '$this->totalAtributos';
+    if (total !== '0') {
+        var atributosId = $dataAtributosId;
+        var atributos = $dataAtributos;
+        var stocks = $dataStocks;
+        var stocksAnt = $dataStockAnterior;
+        var stockInicial = $dataStockIniciales;
+        var vigencias = $dataVigencias;
+        var beneficios = $dataBeneficios;
+
+        var atributosmessage = $dataAtributosMessage;
+        var beneficiosmessage = $dataBeneficiosMessage;
+        var stocksmessage = $dataStocksMessage;
+        var vigenciasmessage = $dataVigenciasMessage;
+        var errorstockmessage = '<p class="error">$dataErrorStockSplit</p>';
+
+        for (var i = 0; i < total - 1; i++) {
+            createAtributosFields(false);
+        }
+
+        $(".precio-content .data-list").each(function (index, value) {
+            $(value).find('textarea.atributos').val(atributos[index]);
+            $(value).find('div.atributos').html(atributosmessage[index]);
+
+            $(value).find('input.stocks').val(stocks[index]);
+            $(value).find('div.stocks-error').html(stocksmessage[index]);
+
+            if ($('input:hidden[name="id"]').length > 0) {
+                var inicial = Number(stockInicial[index]);
+                var normal = Number(stocks[index]);
+                var nombre = $(value).find('textarea.atributos').attr('name');
+                
+                nombre = nombre.replace("atributos", "atributosId");
+
+                $('<input/>').attr({
+                    type: 'hidden',
+                    name: nombre,
+                    value: atributosId[index]
+                }).addClass("atributosId").appendTo(value);
+                
+                nombre = nombre.replace("atributosId", "stockIniciales");
+
+                $('<input/>').attr({
+                    type: 'hidden',
+                    name: nombre,
+                    value: stockInicial[index]
+                }).addClass("stockIni").appendTo(value);
+
+                nombre = nombre.replace("stockIniciales", "diasTranscurridos");
+                $('<input>').attr({
+                    type: 'hidden',
+                    name: nombre,
+                    value: stockInicial[index] - stocks[index]
+                }).addClass("diasTrans").appendTo(value);
+
+                nombre = nombre.replace("diasTranscurridos", "stocks_anterior");
+                $('<input>').attr({
+                    type: 'hidden',
+                    name: nombre,
+                    value: stocksAnt[index]
+                }).addClass("stocks_anterior").appendTo(value);
+            }
+
+            $(value).find('input.dato_beneficio').val(beneficios[index]);
+            $(value).find('div.beneficios-error').html(beneficiosmessage[index]);
+
+            $(value).find('input.vigencias').val(vigencias[index]);
+            $(value).find('div.vigencias').html(vigenciasmessage[index]);
+        });
+        
+        $('.precio-content').prepend(errorstockmessage);
+    }
+});
+JS;
+$this->inlineScript()->captureEnd();
+$this->inlineScript();

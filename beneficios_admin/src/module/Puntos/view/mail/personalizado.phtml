@@ -1,0 +1,118 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<table>
+    <tr>
+        <th colspan="2">
+            <h3 align="center">Asignación de Puntos</h3>
+        </th>
+    </tr>
+    <tr>
+        <td colspan="2">
+            Se le informa que, el segmento <strong><?= $this->contenido["segmento"] ?></strong> ha sido desactivado.
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <hr>
+        </td>
+    </tr>
+    <tr>
+        <th colspan="2">
+            <h3 align="center">Datos del Segmento</h3>
+        </th>
+    </tr>
+    <tr>
+        <td>
+            <strong>Campaña: </strong>
+        </td>
+        <td>
+            <?= $this->contenido["campania"] ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <strong>Empresa: </strong>
+        </td>
+        <td>
+            <?= $this->contenido["empresa"] ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <strong>Presupuesto: </strong>
+        </td>
+        <td>
+            <?= $this->contenido["presupuesto"] ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <strong>Total de Puntos Asignados: </strong>
+        </td>
+        <td>
+            <?= $this->contenido["total_puntos"] ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <strong>Total de Usuarios Asignados: </strong>
+        </td>
+        <td>
+            <?= $this->contenido["usuarios"] ?>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <hr>
+        </td>
+    </tr>
+    <tr>
+        <th colspan="2">
+            <h3 align="center">Lista de Usuarios Desactivados</h3>
+        </th>
+    </tr>
+    <tr>
+        <th>
+            <h3 align="center">Número de documento</h3>
+        </th>
+        <th>
+            <h3 align="center">Puntos Asignados</h3>
+        </th>
+    </tr>
+    <?php foreach ($this->contenido["lista_usuarios"] as $usuario): ?>
+        <tr>
+            <td>
+                <?= $usuario->NumeroDocumento ?>
+            </td>
+            <td>
+                <?= (int)$usuario->CantidadPuntos ?>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    <tr>
+        <td colspan="2">
+            <hr>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <strong>Total de Puntos Deshabilitados: </strong>
+        </td>
+        <td>
+            <?= $this->contenido["total_puntos_deshabilitados"] ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <strong>Total de Usuarios Deshabilitados: </strong>
+        </td>
+        <td>
+            <?= $this->contenido["usuarios_deshabilitados"] ?>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

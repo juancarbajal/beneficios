@@ -1,0 +1,58 @@
+<section>
+    <div class="container">
+        <div class="fluid-list cnt-content-user">
+            <h3>Bienvenid@ <span><?= $this->identity()["Nombre"] . ' ' . $this->identity()["Apellido"] ?></span></h3>
+            <div class="row">
+                <?php echo $this->partial('_sidebar') ?>
+                <div class="col-md-9">
+                    <div class="fluid-list cnt-mis-datos">
+                        <h3>Mis Datos</h3>
+                        <?php if ($this->message) {
+                            echo '<div class="alert alert-' . $this->type . '" role="alert">';
+                            echo $this->message;
+                            echo '</div>';
+                        }
+                        ?>
+                        <?php
+                        $this->form->setAttribute('action', $this->url('perfil', array('action' => 'index')));
+                        $this->form->setAttribute('class', 'form-horizontal');
+                        $this->form->prepare();
+                        echo $this->form()->openTag($this->form);
+                        echo $this->formElement($this->form->get('csrf'));
+                        ?>
+                            <div class="form-group">
+                                <label for="nombres" class="col-sm-4 control-label">Nombres</label>
+                                <div class="col-sm-8">
+                                    <?= $this->formRow($this->form->get('Nombre')); ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="apellidos" class="col-sm-4 control-label">Apellidos</label>
+                                <div class="col-sm-8">
+                                    <?= $this->formRow($this->form->get('Apellido')); ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="col-sm-4 control-label">Correo Electrónico</label>
+                                <div class="col-sm-8">
+                                    <?= $this->formRow($this->form->get('Correo')); ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="telefono" class="col-sm-4 control-label">Teléfono</label>
+                                <div class="col-sm-8">
+                                    <?= $this->formRow($this->form->get('Telefono')); ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-4 col-sm-8">
+                                    <?= $this->formSubmit($this->form->get('submit')); ?>
+                                </div>
+                            </div>
+                        <?= $this->form()->closeTag(); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

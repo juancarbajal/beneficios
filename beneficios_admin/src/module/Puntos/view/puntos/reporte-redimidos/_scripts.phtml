@@ -1,0 +1,21 @@
+<?php
+$this->inlineScript()->appendFile($this->basePath('js/cupon/lista-cupones.js'));
+
+$empresa = $this->formS->get("Empresa")->getValue();
+$campania = $this->formS->get("Campania")->getValue();
+$oferta = $this->formS->get("Oferta")->getValue();
+
+$this->inlineScript()->captureStart();
+echo <<<JS
+$(document).ready(function () {
+    var empresa = Number('$empresa') == 0 ? '' : Number('$empresa');
+    var campania = Number('$campania') == 0 ? '' : Number('$campania');
+    var oferta = Number('$oferta') == 0 ? '' : Number('$oferta');
+
+    $("#empresa-prov").val(empresa).trigger("change");
+    $("#campanias").val(campania).trigger("change");
+    $("#ofertas").val(oferta).trigger("change");
+});
+JS;
+$this->inlineScript()->captureEnd();
+$this->inlineScript();

@@ -1,0 +1,52 @@
+<meta charset="utf-8">
+<?php echo $this->headTitle('Beneficios.pe | ' . $this->translate('Bienvenidos'))->setSeparator(' - ')->setAutoEscape(false) ?>
+
+<?php echo $this->headMeta()
+    ->appendName('viewport', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no')
+    ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+?>
+
+<!-- Styles -->
+<?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.png'))
+    ->appendStylesheet($this->basePath('css/bootstrap.min.css'))
+    ->appendStylesheet($this->basePath('css/font-awesome.min.css'))
+    ->appendStylesheet($this->basePath('css/ionicons.min.css'))
+    ->appendStylesheet($this->basePath('js/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css'))
+    ->appendStylesheet($this->basePath('js/plugins/select2/select2.min.css'))
+    ->appendStylesheet($this->basePath('js/plugins/datepicker/datepicker3.css'))
+    ->appendStylesheet($this->basePath('js/plugins/iCheck/all.css'))
+    ->appendStylesheet($this->basePath('js/plugins/datatables/dataTables.bootstrap.css'))
+    ->appendStylesheet($this->basePath('js/plugins/fancyapps/source/jquery.fancybox.css'))
+    ->appendStylesheet($this->basePath('css/AdminLTE.min.css'))
+    ->appendStylesheet($this->basePath('css/skins/_all-skins.min.css'))
+    ->appendStylesheet($this->basePath('css/scroll-sidebar.css'))
+    ->appendStylesheet($this->basePath('css/style.css'))
+    ->appendStylesheet($this->basePath('css/multi-select.css'));
+?>
+
+<!-- Scripts -->
+<?php
+echo $this->headScript()
+    ->prependFile($this->basePath('js/demo.js'))
+    ->prependFile($this->basePath('js/app.min.js'))
+    ->prependFile($this->basePath('js/jquery.multi-select.js'))
+    ->prependFile($this->basePath('js/jquery.quicksearch.js'))
+    ->prependFile($this->basePath('js/jquery.numeric.js'))
+    ->prependFile($this->basePath('js/plugins/select2/i18n/es.js'))
+    ->prependFile($this->basePath('js/plugins/select2/select2.js'))
+    ->prependFile($this->basePath('js/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js'))
+    ->prependFile($this->basePath('js/plugins/fancyapps/source/jquery.fancybox.js'))
+    ->prependFile($this->basePath('js/plugins/slimScroll/jquery.slimscroll.min.js'))
+    ->prependFile($this->basePath('js/plugins/fastclick/fastclick.min.js'))
+    ->prependFile($this->basePath('js/plugins/datepicker/locales/bootstrap-datepicker.es.js'))
+    ->prependFile($this->basePath('js/plugins/datepicker/bootstrap-datepicker.js' ))
+    ->prependFile($this->basePath('js/plugins/input-mask/jquery.inputmask.extensions.js' ))
+    ->prependFile($this->basePath('js/plugins/input-mask/jquery.inputmask.date.extensions.js' ))
+    ->prependFile($this->basePath('js/plugins/input-mask/jquery.inputmask.js' ))
+    ->prependFile($this->basePath('js/plugins/iCheck/icheck.min.js' ))
+    ->prependFile($this->basePath('js/plugins/datatables/dataTables.bootstrap.min.js' ))
+    ->prependFile($this->basePath('js/plugins/datatables/jquery.dataTables.min.js' ))
+    ->prependFile($this->basePath('js/bootstrap.min.js'))
+    ->prependFile($this->basePath('js/plugins/jQuery/jQuery-2.1.4.min.js'));
+?>
+

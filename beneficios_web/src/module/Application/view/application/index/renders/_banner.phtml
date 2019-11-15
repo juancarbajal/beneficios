@@ -1,0 +1,81 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        <?php if (empty($banners[1])) { ?>
+        $('#mainbanner').css('width', "100%");
+        <?php } ?>
+    });
+</script>
+<div class="fluid-list slide-anuncio" style="margin-top: 20px;">
+    <div class="row">
+        <?php if ($galeria->count() > 0) { ?>
+            <div class="col-md-9" id="mainbanner">
+                <div class="fluid-list slider-home box-sombra">
+                    <div class="fluid-list sombra-interna">
+                        <div class="slider slider-promocion box-sombra-caja">
+                            <?php foreach ($galeria as $dato) {
+                                $link = "";
+                                if (isset($dato->Url)) {
+                                    $dato->Url = str_replace("[NumeroDocumento]", $this->identity()["NumeroDocumento"], $dato->Url);
+                                    $dato->Url = str_replace("[Nombre]", $this->identity()["Nombre"], $dato->Url);
+                                    $dato->Url = str_replace("[Apellido]", $this->identity()["Apellido"], $dato->Url);
+                                    $dato->Url = str_replace("[email]", $this->identity()["email"], $dato->Url);
+                                    $dato->Url = str_replace("[flagsupervisor]", $this->identity()["flagsupervisor"], $dato->Url);
+                                    $link = 'href="' . $dato->Url . '" target="_blank"';
+                                }
+                                ?>
+                                <div>
+                                    <a <?= $link ?>>
+                                        <img class="img-responsive" src="<?= $rgaleria . $dato->Imagen ?>"/>
+                                    </a>
+                                </div>
+                            <?php } ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php }
+        if (!empty($banners[1])) { ?>
+            <div class="col-md-3">
+                <div class="fluid-list anuncio-home box-sombra">
+                    <?php
+                    $link = "";
+                    if (isset($banners[1]['link'])) {
+                        $banners[1]['link'] = str_replace("[NumeroDocumento]", $this->identity()["NumeroDocumento"], $banners[1]['link']);
+                        $banners[1]['link'] = str_replace("[Nombre]", $this->identity()["Nombre"], $banners[1]['link']);
+                        $banners[1]['link'] = str_replace("[Apellido]", $this->identity()["Apellido"], $banners[1]['link']);
+                        $banners[1]['link'] = str_replace("[email]", $this->identity()["email"], $banners[1]['link']);
+                        $banners[1]['link'] = str_replace("[flagsupervisor]", $this->identity()["flagsupervisor"], $banners[1]['link']);
+
+                        $link = 'href="' . $banners[1]['link'] . '" target="_blank"';
+                    } else {
+                        $link = '';
+                    }
+                    ?>
+                    <a <?= $link ?>>
+                        <img class="img-responsive" src="<?= $rbanners . $banners[1]['image'] ?>"
+                             title=""/>
+                    </a>
+                </div>
+            </div>
+        <?php } ?>
+    </div>
+</div>
+<?php if (!empty($banners[2])) { ?>
+    <div class="fluid-list anuncio-banner">
+        <?php
+        $link = "";
+        if (isset($banners[2]['link'])) {
+            $banners[2]['link'] = str_replace("[NumeroDocumento]", $this->identity()["NumeroDocumento"], $banners[2]['link']);
+            $banners[2]['link'] = str_replace("[Nombre]", $this->identity()["Nombre"], $banners[2]['link']);
+            $banners[2]['link'] = str_replace("[Apellido]", $this->identity()["Apellido"], $banners[2]['link']);
+            $banners[2]['link'] = str_replace("[email]", $this->identity()["email"], $banners[2]['link']);
+            $link = 'href="' . $banners[2]['link'] . '" target="_blank"';
+        } else {
+            $link = '';
+        }
+        ?>
+        <a <?= $link ?>>
+            <img class="img-responsive" src="<?= $rbanners . $banners[2]['image'] ?>" title=""/>
+        </a>
+    </div>
+<?php } ?>

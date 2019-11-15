@@ -1,0 +1,10 @@
+<div class="main-premios">
+    <div id="flyoutPremios" class="<?= ($this->identity()["modal_premios"]) ? 'hidden' :'' ?>">
+        <span>x</span>
+        <h4>¡Felicitaciones!</h4>
+        <p>Tienes <strong><?= $this->identity()["puntos"] ?> puntos</strong><br> disponibles para<br>
+            Beneficios especiales y<br>
+            <strong><?= $this->identity()["premios"] ?> Premios</strong> esperando por tí</p>
+        <a href="<?= $this->url('premios') ?>">¡Descúbrelos aquí!</a>
+    </div>
+</div>

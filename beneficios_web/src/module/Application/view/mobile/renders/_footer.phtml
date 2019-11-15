@@ -1,0 +1,53 @@
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="fluid-list sub-footer hidden-xs">
+                    <div class="row">
+                        <div class="col-md-3 cnt-footer">
+                            <h4>Sobre Nosotros</h4>
+                            <ul class="list-reset list-footer">
+                                <li><a href="/about">Quienes Somos</a></li>
+                                <li><a href="#">¿Quieres recibir beneficios?</a></li>
+                                <li><a href="#">¿Quieres anunciar en Beneficios.pe?</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-3 cnt-footer">
+                            <h4>De Interés</h4>
+                            <ul class="list-reset list-footer">
+                                <li><a href="#">Preguntas frecuentes</a></li>
+                                <li><a href="#">Preguntas frecuentes</a></li>
+                                <li><a href="#">Ayuda para anunciantes</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-3 cnt-footer">
+                            <h4>Categorías</h4>
+                            <ul class="list-reset list-footer">
+                            <?php
+                            $child = $this->viewModel()->getCurrent()->getChildren();
+                            $chil = $child[0];
+                            $chil->categoriasfooter;
+                            foreach ($chil->categoriasfooter as $dato):
+                                #$categoria[] = $dato;
+                                echo '<li><a href="/category/'. $dato->Slug .'">'.$dato->Nombre.'</a></li>';
+                            endforeach; ?>
+                            </ul>
+                        </div>
+                        <div class="col-md-3 cnt-footer">
+                            <h4>Contáctanos</h4>
+                            <ul class="list-reset list-info-footer">
+                                <li><span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span><em>4253364</em></li>
+                                <li><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span><a href="mailto:contactos@beneficios.pe">contactos@beneficios.pe</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="fluid-list sub-footer-logo text-center">
+                    <a href="#"><img src="/img/logo-footer.png"></a>
+                    <span class="hidden-xs"><span>©2010-<?php echo date("Y"); ?> Beneficios.pe, Todos los derechos reservados</span><a href="#">Mapa del Sitio</a><a href="">Términos y Condiciones</a></span>
+                    <span class="visible-xs"><p>©2010-<?php echo date("Y"); ?> Beneficios.pe,</p> Todos los derechos reservados</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

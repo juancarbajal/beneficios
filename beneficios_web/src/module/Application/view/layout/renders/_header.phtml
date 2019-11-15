@@ -1,0 +1,236 @@
+<header>
+    <nav class="navbar navbar-default custom-nav-bar">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                    <?php $child = $this->viewModel()->getCurrent()->getChildren();
+                    $chil = $child[0]; ?>
+                    <a class="navbar-brand" href="/home"><img src="<?= (isset($chil->imgemp)) ? $chil->rlogos . $chil->imgemp : '/img/company.png' ?>"></a>
+                    
+                    <!--<a class="navbar-brand" href="/"><img src="/img/belcorp.png"></a>-->
+                <div class="cnt-city"><span></span> En <?=ucwords(strtolower($chil->ubigeo)) ?>, Perú</div>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right user-list">
+                        <?php if ($this->identity()["exist_puntos"] or $this->identity()["have_asignacion"]
+                                or $this->identity()["exist_premios"] or $this->identity()["have_asignacion_premios"]
+                            ) { ?>
+                                <?php if ($this->identity()["exist_puntos"]) { ?>
+                                    <li style="display: none;">
+                                        <span>Puntos disponibles: </span>
+                                        <span class="num-p" id="cant-puntos"><?= $this->identity()["puntos"] ?>
+                                            puntos</span>
+                                    </li>
+                                <?php } ?>
+                                <?php if ($this->identity()["exist_premios"]) { ?>
+                                    <li style="display: none;">
+                                        <span>Premios disponibles: </span>
+                                        <span class="num-p" id="cant-premios"><?= $this->identity()["premios"] ?>
+                                            premios</span>
+                                    </li>
+                                <?php } ?>
+
+                            <?php } ?>
+                        <li>
+                        <!--usuario-->
+                        <?php if (true /*$this->identity()["exist_puntos"] or $this->identity()["have_asignacion"]
+                                         or $this->identity()["exist_premios"] or $this->identity()["have_asignacion_premios"]*/
+                        ) { ?>
+                        <a href=# id="listU" class="dropdown-toggle" id="drop3" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="user"></span> <?= ($this->identity()["Nombre"] . ' ' . $this->identity()["Apellido"] != ' ')
+                                ? $this->identity()["Nombre"] . ' ' . $this->identity()["Apellido"]
+                                : '' ?> <span class=caret></span> </a> 
+                        <?php }?>
+
+                        <?php if ($this->identity()["exist_puntos"] or $this->identity()["have_asignacion"]
+                            or $this->identity()["exist_premios"] or $this->identity()["have_asignacion_premios"]
+                        ) { ?>
+
+                            <ul id="list-option" class="dropdown-menu" aria-labelledby="dLabel">
+                                <span></span>
+                                <li>
+                                    <a class="listU" href="<?= $this->url('perfil') ?>">
+                                        Mis Datos
+                                    </a>
+                                </li>
+                                <?php if ($this->identity()["exist_puntos"] or $this->identity()["have_asignacion"]) { ?>
+                                    <li>
+                                        <a class="listU"
+                                           href="<?= $this->url('perfil-puntos', array('action' => 'puntos')) ?>">
+                                            Mis Puntos
+                                        </a>
+                                    </li>
+                                <?php } ?>
+                                <?php if ($this->identity()["exist_premios"] or $this->identity()["have_asignacion_premios"]) { ?>
+                                    <li>
+                                        <a class="listU"
+                                           href="<?= $this->url('perfil-premios', array('action' => 'vigentes')) ?>">
+                                            Mis Premios
+                                        </a>
+                                    </li>
+                                <?php } ?>
+                                <li>
+                                    <a href="/logout">Cerrar Sesión</a>
+                                </li>
+                            </ul>
+<?php } else {?>
+                            <ul id="list-option" class="dropdown-menu" aria-labelledby="dLabel">
+                                <span></span>
+                                <li>
+                                    <a href="/logout">Cerrar Sesión</a>
+                                </li>
+                            </ul>
+                           
+<?php } ?>
+
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right nav-search-f">
+                    <li>
+                        <form id="form-search" class="search-custon" action="<?php
+                        echo $this->url(
+                            'resultado',
+                            array('opt' => $chil->url_slug, 'action' => 'index')
+                        );
+                        ?>" method="post">
+                            <input type="text" name="search" id="search" value="<?= isset($chil->nombre) ? $chil->nombre : '' ?>" class="form-control form-search" placeholder="Buscar">
+                            <input type="hidden" name="oferta_id" id="oferta_id" value="0">
+                            <input type="hidden" name="ubigeo_id" id="ubigeo_id" value="14"> <!--<?= $chil->ubigeo_id ?>-->
+                            <input type="hidden" name="categoria_id" id="categoria_id"
+                                   value="<?= $chil->categoria_id ?>">
+                            <input type="hidden" name="campania_id" id="campania_id" value="<?= $chil->campania_id ?>">
+                            <input type="hidden" name="premium" id="premium" value="0">
+                            <input type="hidden" name="destacados" id="destacados" value="0">
+                            <input type="hidden" name="novedades" id="novedades" value="0">
+                            <input type="hidden" name="category" id="category" value="<?= $chil->category ?>">
+                            <input type="hidden" name="tipoOferta" id="tipoOferta" value="">
+
+                            <button type="submit" class="btn-search"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                        </form>
+                    </li>
+                </ul>
+                <ul class="reset-ul list-menu-m">
+                    <li><a href="#">Cambiar Ubicación</a></li>
+                    <li><a href="#">Mi perfil</a></li>
+                    <li><a href="#">Cerrar sesión</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<!--Header a retirar cuando se realice lo de buscar y la ubicacion-->
+<header style="display: none;">
+    <div class="top-bar fluid-list">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="navbar-toggle icon-menu-swipe" type="button">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    
+<!--                    <ul class="list-reset --><?//= ($this->identity()["exist_puntos"] or $this->identity()["have_asignacion"]
+//                        or $this->identity()["exist_premios"] or $this->identity()["have_asignacion_premios"])
+//                        ? 'left' : 'right' ?><!-- menu-city">-->
+
+                        <ul class="list-reset left menu-city">
+                        <li>
+                            <span>
+                                <?php $child = $this->viewModel()->getCurrent()->getChildren();
+                                $chil = $child[0];
+                                echo $chil->ubigeo; ?>
+                                <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></span>
+                            <div class="dropdown">
+                                <button id="ubic" type="button" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                    Cambiar Ubicación
+                                </button>
+                                <ul id="listubic" class="dropdown-menu" aria-labelledby="dLabel"></ul>
+                            </div>
+                        </li>
+<!--                        --><?php //if (isset($this->identity()["SubDominio"]) && !$this->identity()["exist_puntos"]
+//                            && !$this->identity()["exist_premios"]
+//                        ) {
+//                            if (!in_array($this->identity()["SubDominio"], $this->configItem('empresas_especiales'))) { ?>
+<!--                                <li>-->
+<!--                                    <a href="/logout">Cerrar Sesión</a>-->
+<!--                                </li>-->
+<!--                            --><?php //}
+//                        } else if (!$this->identity()["exist_puntos"] and !$this->identity()["have_asignacion"]
+//                            and $this->identity()["exist_premios"] and !$this->identity()["have_asignacion_premios"]
+//                        ) { ?>
+<!--                            <li>-->
+<!--                                <a href="/logout">Cerrar Sesión</a>-->
+<!--                            </li>-->
+<!--                        --><?php //} else if (!$this->identity()["exist_puntos"] and !$this->identity()["have_asignacion"]
+//                            and !$this->identity()["exist_premios"] and !$this->identity()["have_asignacion_premios"]
+//                        ) { ?>
+<!--                            <li>-->
+<!--                                <a href="/logout">Cerrar Sesión</a>-->
+<!--                            </li>-->
+<!--                        --><?php //} ?>
+                    </ul>
+                    <ul class="list-reset right menu-city menu-user-d">
+                        <li>
+                            <span>Bienvenid@ <?php if ($this->identity()["exist_puntos"] or $this->identity()["have_asignacion"]
+                                    or $this->identity()["exist_premios"] or $this->identity()["have_asignacion_premios"]
+                                ) {  }else{?>
+                                    <?= ($this->identity()["Nombre"] . ' ' . $this->identity()["Apellido"] != ' ')
+                                        ? $this->identity()["Nombre"] . ' ' . $this->identity()["Apellido"]
+                                        : '' ?>
+                                <?php }?></span>
+
+
+                            <div class="dropdown">
+                                
+                            </div>
+                        </li>
+
+
+                        
+                        
+
+                    </ul>
+
+
+                    <a href="#" class="search-lupa">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="city_country fluid-list">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="#" class="city-m">
+                        <div class="city-movil">
+                            <span>Lima <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></span>
+                            <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <form action="/home" method="post" id="form-ubic" style="display: none;">
+        <input name="ubigeo" type="hidden" id="hidden-ubic" value="<?= isset($chil->ubigeo_id) ? $chil->ubigeo_id : '' ?>">
+        <input type="hidden" name="search" value="<?= isset($chil->nombre) ? $chil->nombre : '' ?>">
+        <input type="hidden" name="categoria_id" id="categoria_id" value="<?= $chil->categoria_id ?>">
+    </form>
+    <?php echo $this->partial('layout/renders/_menu') ?>
+</header>
+<link rel="stylesheet" href="<?= $this->basePath('js/jquery-ui/jquery-ui.css?' . $this->configItem('version_script')); ?>">
+<?php echo $this->partial('layout/renders/_autocomplete');
+echo $this->headStyle(); ?>
+<script type="text/javascript" src="<?= $this->basePath('js/jquery-ui/jquery-ui.js?' . $this->configItem('version_script')); ?>"></script>
+<script type="text/javascript" src="<?= $this->basePath('js/header/_header.js?' . $this->configItem('version_script')); ?>"></script>
+<?php echo $this->partial('layout/renders/message'); ?>
+<?php echo $this->partial('layout/renders/_modal_tebca'); ?>

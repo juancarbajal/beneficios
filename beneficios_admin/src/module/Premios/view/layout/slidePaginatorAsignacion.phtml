@@ -1,0 +1,20 @@
+<?php if ($this->pageCount): ?>
+    <div class="box-footer clearfix">
+        <ul class="pagination pagination-sm no-margin pull-right">
+            <li class="<?= !isset($this->previous) ? 'disabled' : ''; ?>">
+                <a href="<?= $this->url('asignaciones-premios', array('action' => 'index', 'page' => $this->first,
+                    'order_by' => $this->order_by, 'order' => $this->order, 'q1' => $this->q1, 'q2' => $this->q2)); ?>">&laquo;</a>
+            </li>
+            <?php foreach ($this->pagesInRange as $page): ?>
+                <li class="<?= $page == $this->current ? 'active' : ''; ?>">
+                    <a href="<?= $this->url('asignaciones-premios', array('action' => 'index', 'page' => $page,
+                        'order_by' => $this->order_by, 'order' => $this->order, 'q1' => $this->q1, 'q2' => $this->q2)); ?>"><?= $page; ?></a>
+                </li>
+            <?php endforeach; ?>
+            <li class="<?= !isset($this->next) ? 'disabled' : ''; ?>">
+                <a href="<?= $this->url('asignaciones-premios', array('action' => 'index', 'page' => $this->last,
+                    'order_by' => $this->order_by, 'order' => $this->order, 'q1' => $this->q1, 'q2' => $this->q2)); ?>">&raquo;</a>
+            </li>
+        </ul>
+    </div>
+<?php endif; ?>

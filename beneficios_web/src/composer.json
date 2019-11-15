@@ -1,0 +1,16 @@
+{
+  "name": "zendframework/skeleton-application",
+  "description": "Beneficios Web",
+  "license": "Private",
+  "keywords": [
+    "beneficios"
+  ],
+  "homepage": "http://beneficios.pe",
+  "require": {
+    "php": ">=5.4",
+    "zendframework/zendframework": "2.5.2",
+    "dino/dompdf-module": "dev-master",
+    "dompdf/dompdf": "v0.6.*",
+    "picqer/php-barcode-generator": "^0.2.1"
+  }
+}

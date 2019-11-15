@@ -1,0 +1,119 @@
+<?php echo $this->doctype(); ?>
+<html class="no-js" lang="es">
+<head>
+    <?php echo $this->partial('mobile/renders/_head');
+    echo $this->partial('layout/renders/analytics');
+    echo $this->partial('mobile/renders/_style');
+    echo $this->partial('layout/renders/_scroll');
+    echo $this->headStyle(); ?>
+</head>
+<?php
+$children = $this->viewModel()->getCurrent()->getChildren();
+$child = $children[0];
+
+if ($child->router == "coupon-puntos") :
+    echo '<body class="main-puntos">';
+elseif ($child->router == "coupon-premios") :
+    echo '<body class="main-premios">';
+else:
+    echo '<body>';
+endif;
+
+if ($child->router == "coupon") {
+    echo $this->partial('application/index/renders/_modal_envio');
+    echo $this->partial('application/index/renders/_modal_felicitaciones');
+    echo $this->partial('application/index/renders/_modal_proceso');
+    echo $this->partial('application/index/renders/_modal_error');
+    if ($child->cupon->TipoAtributo == 'Split') {
+        echo $this->partial('application/index/mobile/_modal_opcion');
+    }
+} elseif ($child->router == "lead") {
+    echo $this->partial('application/index/renders/_modal_error');
+} elseif ($child->router == "coupon-puntos") {
+    echo $this->partial('application/puntos/renders/_modal_error_proceso');
+    echo $this->partial('application/puntos/mobile/_modal_felicitaciones');
+    echo $this->partial('application/index/renders/_modal_proceso');
+
+    if (isset($child->cupon->TipoPrecio) && $child->cupon->TipoPrecio == 'Split') {
+        echo $this->partial('application/puntos/mobile/_modal_opcion_movil');
+    }
+}  elseif ($child->router == "coupon-premios") {
+    echo $this->partial('premios/premios/renders/_modal_error_proceso');
+    echo $this->partial('premios/premios/renders/_modal_felicitaciones');
+
+    if (isset($child->cupon->TipoPrecio) && $child->cupon->TipoPrecio == 'Split') {
+        echo $this->partial('premios/premios/mobile/_modal_opcion_movil');
+        echo $this->partial('premios/premios/mobile/_modal_enviar_movil');
+    } else {
+        echo $this->partial('premios/premios/mobile/_modal_enviar_movil');
+    }
+}
+echo $this->partial('mobile/renders/message');
+echo $this->partial('mobile/renders/_modal_tebca');
+?>
+<?php echo $this->partial('mobile/renders/_menu_mobile'); ?>
+<div id="panel" class="wrapper">
+    <div id="sub-container">
+        <?php echo $this->partial('mobile/renders/_header_mobile'); ?>
+        <!-- =============================================== -->
+        <section class="wrapper-main">
+            <?php echo $this->content; ?>
+            <!-- =============================================== -->
+            <?php if ($child->category != "puntos" && $child->category != "premios") {
+                echo $this->partial('mobile/renders/_afiliados');
+            } else {
+                echo '<div class="fluid-list slider-marcas" id="afiliadas"></div>';
+            }
+            ?>
+        </section>
+        <!-- =============================================== -->
+        <?php echo $this->partial('mobile/renders/_footer') ?>
+    </div>
+</div>
+<?php
+if ($this->identity()["puntos"] > 0 && $this->identity()["modal_puntos"] && $this->identity()["exist_ofertas"]
+    && ($this->identity()["premios"] == 0
+        || (!$this->identity()["modal_premios"] && !$this->identity()["flyout_premios"])
+    || !$this->identity()["exist_ofertas_premios"])
+    && $child->url_slug != 'perfil' && $child->url_slug != 'puntos'
+) {
+    echo $this->partial('application/index/mobile/_modal_puntos');
+} elseif ($this->identity()["premios"] > 0 && $this->identity()["exist_ofertas_premios"]
+    && ($this->identity()["modal_premios"] || $this->identity()["flyout_premios"])
+    && ($this->identity()["puntos"] == 0 || !$this->identity()["modal_puntos"] || !$this->identity()["exist_ofertas"])
+    && $child->url_slug != 'perfil' && $child->url_slug != 'premios' && $child->router != 'coupon-premios'
+) {
+    if(!$this->identity()["flyout_premios"]) {
+        echo $this->partial('premios/premios/mobile/_modal_premios');
+    } else {
+        ?>
+        <script>
+            $(document).ready(function () {
+                $('#flyoutMovilPremios').modal('show');
+            });
+        </script>
+        <?php
+    }
+    echo $this->partial('premios/premios/mobile/_flyout_premios');
+} elseif ($this->identity()["puntos"] > 0 && $this->identity()["modal_puntos"] && $this->identity()["exist_ofertas"]
+    && $this->identity()["premios"] > 0 && ($this->identity()["modal_premios"] || $this->identity()["flyout_premios"])
+    && $this->identity()["exist_ofertas_premios"]
+    && $child->url_slug != 'perfil' && $child->url_slug != 'premios' && $child->router != 'puntos'
+    && $child->url_slug != 'coupon-premios'
+) {
+    if(!$this->identity()["flyout_premios"]) {
+        echo $this->partial('premios/premios/mobile/_modal_premios_puntos');
+    } else {
+        ?>
+        <script>
+            $(document).ready(function () {
+                $('#flyoutMovilPremios').modal('show');
+            });
+        </script>
+    <?php
+    }
+    echo $this->partial('premios/premios/mobile/_flyout_premios_puntos');
+}
+?>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<header class="main-header">
+    <!-- Logo -->
+    <a href="#" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"><b>B</b>NF</span>
+        <!-- logo for regular state and mobile devices -->
+        <?php if ($this->identity()->Logo != null
+            && file_exists("./public/elements/empresa/" . $this->identity()->Logo)) { ?>
+        <img src="/elements/empresa/<?= $this->identity()->Logo ?>" alt="">
+        <?php } else { ?>
+        <span class="logo-lg"><b>Beneficios</b></span>
+        <?php } ?>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <?php echo $this->partial('layout/renders/_menubar') ?>
+</header>

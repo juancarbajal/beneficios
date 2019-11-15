@@ -1,0 +1,158 @@
+<div class="fluid-list flujo-cupones title-bloques">
+    <?php foreach ($this->ofertas_descubre as $oferta) { ?>
+        <div class="fluid-list margin-b">
+            <div class="fluid-list cupon-two">
+                <a href="/<?= $this->category ?>/coupon-puntos/<?= $oferta->Slug ?>">
+                    <figure>
+                        <img src="<?php echo $this->rofertas . $oferta->ImagenOferta ?>"
+                             title="<?= $oferta->ImagenOferta ?>"/>
+                        <div class="puntos-ico"></div>
+                    </figure>
+                </a>
+                <div class="info-cupon-l">
+                    <?php if ($this->identity()['flagcheckboxLogo']) { ?>
+                    <figure class="left">
+                        <a>
+                            <img src="<?php
+                            $trozos = explode(".", $oferta->LogoEmpresa);
+                            $ext = end($trozos);
+                            $oferta->LogoEmpresa = str_replace('.' . $ext, '', $oferta->LogoEmpresa) . '-small.' . $ext;
+                            echo $this->rlogos . $oferta->LogoEmpresa;
+                            ?>"/>
+                        </a>
+                    </figure>
+                    <?php }?>
+                    <div class="info-interna left">
+                        <h2><a href="/<?= $this->category ?>/coupon-puntos/<?= $oferta->Slug ?>" class="title-short">
+                                <?php
+                                $tamaño = 58;
+                                if (strlen($oferta->TituloCorto) >= $tamaño) {
+                                    if ($oferta->PrecioVentaPublico){
+                                        if ($this->identity()['flagcheckboxMoney']) {
+                                            echo '<b>' . $oferta->PrecioVentaPublico . ' puntos por </b>';
+                                        } else {
+                                            echo '<b>S/' . $oferta->PrecioVentaPublico . ' por </b>';
+                                        }
+                                    }
+                                    echo substr($oferta->TituloCorto, 0, $tamaño) . "...";
+                                } else {
+                                    if ($oferta->PrecioVentaPublico){
+                                        if ($this->identity()['flagcheckboxMoney']) {
+                                            echo '<b>' . $oferta->PrecioVentaPublico . ' puntos por </b>';
+                                        } else {
+                                            echo '<b>S/' . $oferta->PrecioVentaPublico . ' por </b>';
+                                        }
+                                    }
+                                    echo $oferta->TituloCorto;
+                                }
+                                ?>
+                            </a></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php } ?>
+</div>
+
+<!-- Banner -->
+<?php if (!empty($banners[4])) { ?>
+    <div class="fluid-list anuncio-banner margin-r">
+        <?php
+        $link = "";
+        if (isset($banners[4]['link'])) {
+            $banners[4]['link'] = str_replace("[NumeroDocumento]", $this->identity()["NumeroDocumento"], $banners[4]['link']);
+            $banners[4]['link'] = str_replace("[Nombre]", $this->identity()["Nombre"], $banners[4]['link']);
+            $banners[4]['link'] = str_replace("[Apellido]", $this->identity()["Apellido"], $banners[4]['link']);
+            $banners[4]['link'] = str_replace("[email]", $this->identity()["email"], $banners[4]['link']);
+            $banners[4]['link'] = str_replace("[flagsupervisor]", $this->identity()["flagsupervisor"], $banners[4]['link']);
+            $link = 'href="' . $banners[4]['link'] . '" target="_blank"';
+        } else {
+            $link = '';
+        }
+        ?>
+        <a <?= $link ?>>
+            <img src="<?= $this->rbanners . $banners[4]['image']; ?>" title=""/>
+        </a>
+    </div>
+<?php } ?>
+<!-- End Banner -->
+<div class="fluid-list flujo-cupones title-bloques ofertas-restantes">
+    <?php foreach ($this->ofertas_restantes as $oferta) { ?>
+        <div class="fluid-list margin-b">
+            <div class="fluid-list cupon-two">
+                <a href="/<?= $this->category ?>/coupon-puntos/<?= $oferta->Slug ?>">
+                    <figure>
+                        <img src="<?php echo $this->rofertas . $oferta->ImagenOferta ?>"
+                             title="<?= $oferta->ImagenOferta ?>"/>
+                        <div class="puntos-ico"></div>
+                    </figure>
+                </a>
+                <div class="info-cupon-l">
+                    <?php if ($this->identity()['flagcheckboxLogo']) { ?>
+                    <figure class="left">
+                        <a>
+                            <img src="<?php
+                            $trozos = explode(".", $oferta->LogoEmpresa);
+                            $ext = end($trozos);
+                            $oferta->LogoEmpresa = str_replace('.' . $ext, '', $oferta->LogoEmpresa) . '-small.' . $ext;
+                            echo $this->rlogos . $oferta->LogoEmpresa;
+                            ?>"/>
+                        </a>
+                    </figure>
+                    <?php }?>
+                    <div class="info-interna left">
+                        <h2>
+                            <a href="/<?= $this->category ?>/coupon-puntos/<?= $oferta->Slug ?>" class="title-short">
+                                <?php
+                                $tamaño = 58;
+                                if (strlen($oferta->TituloCorto) >= $tamaño) {
+                                    if ($oferta->PrecioVentaPublico){
+                                        if ($this->identity()['flagcheckboxMoney']) {
+                                            echo '<b>' . $oferta->PrecioVentaPublico . ' puntos por </b>';
+                                        } else {
+                                            echo '<b>S/' . $oferta->PrecioVentaPublico . ' por </b>';
+                                        }
+                                    }
+                                    echo substr($oferta->TituloCorto, 0, $tamaño) . "...";
+                                } else {
+                                    if ($oferta->PrecioVentaPublico){
+                                        if ($this->identity()['flagcheckboxMoney']) {
+                                            echo '<b>' . $oferta->PrecioVentaPublico . ' puntos por </b>';
+                                        } else {
+                                            echo '<b>S/' . $oferta->PrecioVentaPublico . ' por </b>';
+                                        }
+                                    }
+                                    echo $oferta->TituloCorto;
+                                }
+                                ?>
+                            </a>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php } ?>
+</div>
+
+<div class="text-center" id="loading">
+    <p>
+        <img style="display: inline" src="/img/loading.gif" width="50px"/>
+    </p>
+</div>
+<div class="offset" style="display:none" data-offset="<?php echo ($this->offset != null) ? $this->offset : 0; ?>"></div>
+<div class="notin" style="display:none" data-notin="<?= implode(',', $this->notin) ?>"></div>
+<div class="ubigeo" style="display:none"
+     data-ubigeo="<?php echo ($this->ubigeo_id != null) ? $this->ubigeo_id : null; ?>"></div>
+<div class="categoria" style="display:none"
+     data-categoria="<?php echo ($this->categoria_id != null) ? $this->categoria_id : null; ?>"></div>
+<div class="campaign" style="display:none"
+     data-campaign="<?php echo ($this->campania_id != null) ? $this->campania_id : null; ?>"></div>
+<div class="companya" style="display:none"
+     data-companya="<?php echo ($this->company_id != null) ? $this->company_id : null; ?>"></div>
+<div class="rofertas" style="display:none" data-rofertas="<?php echo $this->rofertas ?>"></div>
+<div class="rlogos" style="display:none" data-rlogos="<?php echo $this->rlogos ?>"></div>
+<div class="categories" style="display:none" data-categories="<?= $this->category ?>"></div>
+
+<?php $this->headScript()->captureStart() ?>
+var totalJS = <?php echo json_encode($this->total); ?>;
+<?php $this->headScript()->captureEnd() ?>

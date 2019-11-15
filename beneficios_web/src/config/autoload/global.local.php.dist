@@ -1,0 +1,68 @@
+<?php
+
+$environment = 'local';
+
+$db = array(
+    'local' => array(
+        'hostname' => '127.0.0.1',
+        'database' => 'db_beneficios_dev',
+        'username' => 'root',
+        'password' => '123456',
+        'port' => '3306',
+    )
+);
+
+return array(
+    'db' => array_merge(
+        array(
+            'driver' => 'pdo_mysql',
+            'options' => array('buffer_results' => true),
+            'profiler' => true,
+            'driver_options' => array(
+                PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'utf8\''
+            )
+        ),
+        $db[$environment]
+    ),
+    'images' => array(
+        'logos' => 'http://bw-dev.jnq.io/elements/empresa/',
+        'ofertas' => 'http://bw-dev.jnq.io/elements/oferta/',
+        'ofertas-puntos' => 'http://bw-dev.jnq.io/elements/oferta_puntos/',
+        'ofertas-premios' => 'http://bw-dev.jnq.io/elements/oferta_premios/',
+        'galeria' => 'http://bw-dev.jnq.io/elements/galeria/',
+        'banners' => 'http://bw-dev.jnq.io/elements/banners/',
+        'imgBeneficios' => 'http://bw-dev.jnq.io/img/beneficios.png',
+        'imgBase' => 'http://bw-dev.jnq.io/img/',
+    ),
+    'dompdf_module' => array(
+        'enable_remote' => true
+    ),
+    'mail' => array(
+        'message' => array(
+            'from' => 'contacto@beneficios.pe',
+            'from_name' => 'Beneficios.pe'
+        ),
+        'transport' => array(
+            'options' => array(
+                'host' => 'smtp.gmail.com',
+                'connection_class' => 'login',
+                'connection_config' => array(
+                    'ssl' => 'ssl',
+                    'username' => 'contacto@beneficios.pe',
+                    'password' => 'catalinacatalina',
+                ),
+                'port' => 465,
+            ),
+        ),
+    ),
+    'time_session' => 900,
+    'time_cookie' => 86400,
+    'version_script' => 43,
+    'ID_Analytics' => 'UA-71506955-1',
+    'domain' => 'bw-dev5.jnq.io',
+    'debug_mode' => false,
+    'API_NODE_HOST' => 'http://ip:puerto',
+    'empresas_especiales' => array(
+        'tebca'
+    ),
+);

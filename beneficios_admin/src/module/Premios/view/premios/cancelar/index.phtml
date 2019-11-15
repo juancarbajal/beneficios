@@ -1,0 +1,371 @@
+<section class="content-header ">
+    <br><br><br>
+
+    <h1 class="box-title">Cancelación de Premios</h1>
+    <br><br>
+    <?php if ($this->flashMessenger()->hasMessages()) {
+        echo '<div class="callout alert alert-success">' .
+            '<button class="close" data-dismiss="alert" type="button">×</button>';
+        $messages = $this->flashMessenger()->getMessages();
+        foreach ($messages as $message) {
+            echo $message;
+        }
+        echo '</div>';
+    } ?>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                </div>
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <?php
+                        $form = $this->form;
+                        $asignaciones = $this->asignaciones;
+                        $order_by = $this->order_by;
+                        $order = $this->order;
+                        $p = $this->p;
+                        $q1 = $this->q1;
+                        $q2 = $this->q2;
+                        $q3 = $this->q3;
+                        $q4 = $this->q4;
+                        $q5 = $this->q5;
+
+                        $form->setAttribute('action', $this->url('cancelar-premios', array('action' => 'index')));
+                        $form->prepare();
+                        echo $this->form()->openTag($form);
+                        echo $this->formElement($form->get('csrf'));
+                        ?>
+                        <div class="row">
+                            <fieldset>
+                                <legend>Buscar por:</legend>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-1"><label>Empresa Cliente:</label></div>
+                                            <div class="col-md-5">
+                                                <?= $this->formRow($form->get('Empresas')); ?>
+                                            </div>
+                                            <div class="col-md-1"><label>Campaña:</label></div>
+                                            <div class="col-md-5">
+                                                <?= $this->formRow($form->get('Campania')); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-1"><label>Segmentos:</label></div>
+                                            <div class="col-md-5">
+                                                <?= $this->formRow($form->get('Segmento')); ?>
+                                            </div>
+                                            <div class="col-md-1"><label>Nombre / Apellido / Nro Documento:</label></div>
+                                            <div class="col-md-5">
+                                                <?= $this->formRow($form->get('Cliente')); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-1"><label>Estado:</label></div>
+                                            <div class="col-md-5">
+                                                <?= $this->formRow($form->get('Estado')); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-1">
+                                        <?= $this->formSubmit($form->get('submit')); ?>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </fieldset>
+                        </div>
+                        <hr>
+                        <?= $this->form()->closeTag(); ?>
+                    </div>
+
+                    <?php
+                    $formAction = $this->formAction;
+                    $formAction->setAttribute('action', $this->url('cancelar-premios', array('action' => 'delete')));
+                    $formAction->prepare();
+                    echo $this->form()->openTag($formAction);
+                    echo $this->formElement($formAction->get('csrf'));
+                    echo $this->formHidden($formAction->get('action'));
+                    ?>
+
+                    <div class="dataTables_wrapper form-inline dt-bootstrap" id="example1_wrapper">
+                        <div class="row-fluid">
+                            <?php if (count($asignaciones) > 0 and $this->opcion) : ?>
+                                <div class="col-sm-offset-10 col-sm-2">
+                                    <label for="allCheck">
+                                        Seleccionar todos <input type="checkbox" name="allCheck" id="allCheck">
+                                    </label>
+                                </div>
+                            <?php endif; ?>
+                            <div class="col-sm-12">
+                                <table role="grid" id="asignados"
+                                       class="table table-bordered table-striped table-condensed dataTable">
+                                    <thead>
+                                    <tr role="row">
+                                        <th>
+                                            <a href="<?= $this->url(
+                                                'cancelar-premios',
+                                                array(
+                                                    'order_by' => 'Documento',
+                                                    'order' => ($order_by == 'Documento') ? $order : 'asc',
+                                                    'page' => $p,
+                                                    'q1' => $q1,
+                                                    'q2' => $q2,
+                                                    'q3' => $q3,
+                                                    'q4' => $q4,
+                                                    'q5' => $q5
+                                                )
+                                            ); ?>">Nro. de Documento</a>
+                                        </th>
+                                        <th>
+                                            <a href="<?= $this->url(
+                                                'cancelar-premios',
+                                                array(
+                                                    'order_by' => 'Nombre',
+                                                    'order' => ($order_by == 'Nombre') ? $order : 'asc',
+                                                    'page' => $p,
+                                                    'q1' => $q1,
+                                                    'q2' => $q2,
+                                                    'q3' => $q3,
+                                                    'q4' => $q4,
+                                                    'q5' => $q5
+                                                )
+                                            ); ?>">Nombres</a>
+                                        </th>
+                                        <th>
+                                            <a href="<?= $this->url(
+                                                'cancelar-premios',
+                                                array(
+                                                    'order_by' => 'Apellido',
+                                                    'order' => ($order_by == 'Apellido') ? $order : 'asc',
+                                                    'page' => $p,
+                                                    'q1' => $q1,
+                                                    'q2' => $q2,
+                                                    'q3' => $q3,
+                                                    'q4' => $q4,
+                                                    'q5' => $q5
+                                                )
+                                            ); ?>">Apellidos</a>
+                                        </th>
+                                        <th>
+                                            <a href="<?= $this->url(
+                                                'cancelar-premios',
+                                                array(
+                                                    'order_by' => 'Segmento',
+                                                    'order' => ($order_by == 'Segmento') ? $order : 'asc',
+                                                    'page' => $p,
+                                                    'q1' => $q1,
+                                                    'q2' => $q2,
+                                                    'q3' => $q3,
+                                                    'q4' => $q4,
+                                                    'q5' => $q5
+                                                )
+                                            ); ?>">Premios Asignados Activos</a>
+                                        </th>
+                                        <th>
+                                            <a href="<?= $this->url(
+                                                'cancelar-premios',
+                                                array(
+                                                    'order_by' => 'Segmento',
+                                                    'order' => ($order_by == 'Segmento') ? $order : 'asc',
+                                                    'page' => $p,
+                                                    'q1' => $q1,
+                                                    'q2' => $q2,
+                                                    'q3' => $q3,
+                                                    'q4' => $q4,
+                                                    'q5' => $q5
+                                                )
+                                            ); ?>">Premios Asignados No Activos</a>
+                                        </th>
+                                        <th>
+                                            <a href="<?= $this->url(
+                                                'cancelar-premios',
+                                                array(
+                                                    'order_by' => 'Segmento',
+                                                    'order' => ($order_by == 'Segmento') ? $order : 'asc',
+                                                    'page' => $p,
+                                                    'q1' => $q1,
+                                                    'q2' => $q2,
+                                                    'q3' => $q3,
+                                                    'q4' => $q4,
+                                                    'q5' => $q5
+                                                )
+                                            ); ?>">Premios Aplicados Activos</a>
+                                        </th>
+                                        <th>
+                                            <a href="<?= $this->url(
+                                                'cancelar-premios',
+                                                array(
+                                                    'order_by' => 'Segmento',
+                                                    'order' => ($order_by == 'Segmento') ? $order : 'asc',
+                                                    'page' => $p,
+                                                    'q1' => $q1,
+                                                    'q2' => $q2,
+                                                    'q3' => $q3,
+                                                    'q4' => $q4,
+                                                    'q5' => $q5
+                                                )
+                                            ); ?>">Premios Aplicados No Activos</a>
+                                        </th>
+                                        <th>
+                                            <a href="<?= $this->url(
+                                                'cancelar-premios',
+                                                array(
+                                                    'order_by' => 'Segmento',
+                                                    'order' => ($order_by == 'Segmento') ? $order : 'asc',
+                                                    'page' => $p,
+                                                    'q1' => $q1,
+                                                    'q2' => $q2,
+                                                    'q3' => $q3,
+                                                    'q4' => $q4,
+                                                    'q5' => $q5
+                                                )
+                                            ); ?>">Premios Redimidos Activos</a>
+                                        </th>
+                                        <th>
+                                            <a href="<?= $this->url(
+                                                'cancelar-premios',
+                                                array(
+                                                    'order_by' => 'Segmento',
+                                                    'order' => ($order_by == 'Segmento') ? $order : 'asc',
+                                                    'page' => $p,
+                                                    'q1' => $q1,
+                                                    'q2' => $q2,
+                                                    'q3' => $q3,
+                                                    'q4' => $q4,
+                                                    'q5' => $q5
+                                                )
+                                            ); ?>">Premios Redimidos No Activos</a>
+                                        </th>
+                                        <th>
+                                            <a href="<?= $this->url(
+                                                'cancelar-premios',
+                                                array(
+                                                    'order_by' => 'Segmento',
+                                                    'order' => ($order_by == 'Segmento') ? $order : 'asc',
+                                                    'page' => $p,
+                                                    'q1' => $q1,
+                                                    'q2' => $q2,
+                                                    'q3' => $q3,
+                                                    'q4' => $q4,
+                                                    'q5' => $q5
+                                                )
+                                            ); ?>">Premios Disp. por Aplicar</a>
+                                        </th>
+                                        <?php if (count($asignaciones) > 0 and $this->opcion) : ?>
+                                            <th style="max-width: 50px"></th>
+                                        <?php endif; ?>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php if (count($asignaciones) > 0) :
+                                        foreach ($asignaciones as $dato) : ?>
+                                            <tr data-id="<?php echo $dato->id ?>">
+                                                <td><?= $this->escapeHtml($dato->NumeroDocumento); ?></td>
+                                                <td><?= $this->escapeHtml($dato->Nombre); ?></td>
+                                                <td><?= $this->escapeHtml($dato->Apellido); ?></td>
+                                                <td><?= ($dato->Eliminado == 0) ? (int)$dato->CantidadPremios : '' ?></td>
+                                                <td><?= (int)$dato->CantidadPremiosEliminados ?></td>
+                                                <td><?= ($dato->Eliminado == 0) ? (int)$dato->CantidadPremiosUsados : 0 ?></td>
+                                                <td><?= ($dato->Eliminado == 1) ? (int)$dato->CantidadPremiosUsados : 0 ?></td>
+                                                <td><?= ($dato->Eliminado == 0) ? (int)$dato->Redimidos : 0 ?></td>
+                                                <td><?= ($dato->Eliminado == 1) ? (int)$dato->Redimidos : 0 ?></td>
+                                                <td><?= ($dato->Eliminado == 0) ? $dato->CantidadPremios - $dato->CantidadPremiosUsados : '' ?></td>
+                                                <?php if (count($asignaciones) > 0 and $this->opcion) : ?>
+                                                    <td>
+                                                        <input type="checkbox" title="eliminado" class="delete"
+                                                               name="delete[]" value="<?= $dato->id ?>">
+                                                    </td>
+                                                <?php endif; ?>
+                                            </tr>
+                                        <?php endforeach;
+                                    else :
+                                        echo '<tr><td colspan="10">No hay Datos Seleccionados</td></tr>';
+                                    endif; ?>
+                                    </tbody>
+                                </table>
+                                <div class="col-md-4"><br>
+                                    <p>
+                                        <?php if (count($asignaciones) > 0): ?>
+                                            <?= (($asignaciones->getCurrentPageNumber() * $asignaciones->getItemCountPerPage()) -
+                                                ($asignaciones->getItemCountPerPage() - 1)); ?>
+                                            -
+                                            <?= ($asignaciones->getCurrentPageNumber() * $asignaciones->getItemCountPerPage() <
+                                                $asignaciones->getTotalItemCount())
+                                                ? $asignaciones->getCurrentPageNumber() * $asignaciones->getItemCountPerPage()
+                                                : $asignaciones->getTotalItemCount() ?> de
+                                            <?= $asignaciones->getTotalItemCount(); ?> Registros
+                                        <?php endif; ?>
+                                    </p>
+                                </div>
+                                <?php
+                                if (isset($asignaciones)) {
+                                    echo $this->paginationControl(
+                                        $asignaciones,
+                                        'Sliding',
+                                        'paginator-cancelaciones-premios',
+                                        array(
+                                            'order_by' => $order_by,
+                                            'order' => ($order == "desc") ? 'asc' : 'desc',
+                                            'q1' => $q1,
+                                            'q2' => $q2,
+                                            'q3' => $q3,
+                                            'q4' => $q4,
+                                            'q5' => $q5,
+                                        )
+                                    );
+                                } ?>
+                            </div>
+                        </div>
+                    </div>
+                    <?php if (count($asignaciones) > 0) : ?>
+                        <div class="col-md-12">
+                            <?php if ($this->q5 == "Activado"):
+                                echo $this->formSubmit($formAction->get('desactivar'));
+                                echo $this->formReset($formAction->get('cancelar'));
+                            elseif ($this->q5 == "Desactivado"):
+                                echo $this->formSubmit($formAction->get('reactivar'));
+                                echo $this->formSubmit($formAction->get('eliminar'));
+                                echo $this->formReset($formAction->get('cancelar'));
+                            else :
+                                echo $this->formReset($formAction->get('cancelar'));
+                            endif; ?>
+                        </div>
+                    <?php endif; ?>
+                    <?= $this->form()->closeTag(); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<?php
+echo $this->render('modal_eliminacion.phtml');
+
+$this->inlineScript()->appendFile($this->basePath('js/premios/cancelacion.js'));
+
+$empresaCli = $this->form->get("Empresas")->getValue();
+$campania = $this->form->get("Campania")->getValue();
+$segmento = $this->form->get("Segmento")->getValue();
+
+$this->inlineScript()->captureStart();
+echo <<<JS
+$(document).ready(function () {
+    $('#empresa-cli').val('$empresaCli').trigger('change');
+    $('#campanias').val('$campania').trigger('change');
+    $('#segmentos').val('$segmento').trigger('change');
+});
+JS;
+$this->inlineScript()->captureEnd();
+$this->inlineScript();

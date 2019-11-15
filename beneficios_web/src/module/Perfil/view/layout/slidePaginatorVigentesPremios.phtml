@@ -1,0 +1,19 @@
+<?php if ($this->pageCount): ?>
+    <div class="fluid-list pagination-t">
+        <ul>
+            <li class="<?= !isset($this->previous) ? 'disabled' : ''; ?>">
+                <a href="<?= $this->url('perfil-premios', array('action' => 'vigentes', 'page' => $this->first)); ?>">
+                    <?= isset($mobile) ?'<' :'< Anterior' ?></a>
+            </li>
+            <?php foreach ($this->pagesInRange as $page): ?>
+                <li class="<?= $page == $this->current ? 'active' : ''; ?>">
+                    <a href="<?= $this->url('perfil-premios', array('action' => 'vigentes', 'page' => $page)); ?>"><?= $page; ?></a>
+                </li>
+            <?php endforeach; ?>
+            <li class="<?= !isset($this->next) ? 'disabled' : ''; ?>">
+                <a href="<?= $this->url('perfil-premios', array('action' => 'vigentes', 'page' => $this->last)); ?>">
+                    <?= isset($mobile) ?'>' :'Siguiente >' ?></a>
+            </li>
+        </ul>
+    </div>
+<?php endif; ?>

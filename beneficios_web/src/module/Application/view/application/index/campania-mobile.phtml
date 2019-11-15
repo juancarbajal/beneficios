@@ -1,0 +1,10 @@
+<?php
+echo $this->partial('application/index/mobile/_bannerfilter');
+
+echo $this->partial('application/index/mobile/_destacados');
+
+echo $this->partial('application/index/mobile/_descubre');
+
+echo $this->inlineScript()->prependFile(
+    $this->basePath('js/jq-infinite/jq-infinite-mobile.js?' . $this->configItem('version_script'))
+);

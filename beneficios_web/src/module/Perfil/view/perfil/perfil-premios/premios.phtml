@@ -1,0 +1,73 @@
+<?php $this->partial('_functions.phtml');?>
+<section>
+    <div class="container">
+        <div class="fluid-list cnt-content-user">
+            <h3>Bienvenid@ <span><?= $this->identity()["Nombre"] . ' ' . $this->identity()["Apellido"] ?></span></h3>
+            <div class="row">
+                <?php echo $this->partial('perfil/perfil/_sidebar') ?>
+                <div class="col-md-9">
+                    <div class="fluid-list cnt-mis-datos">
+                        <h3>Mis Premios</h3>
+                        <div class="fluid-list cnt-puntos-o">
+                            <div class="fluid-list puntos-u">
+                                <ul>
+                                    <li class="p-dispo"><span class="left">Premios Disponibles</span>
+                                        <em class="right">
+                                            <?= $this->dataAsignacion[0] ?>
+                                        </em>
+                                    </li>
+                                </ul>
+                            </div>
+                            <p><a href="<?= $this->url('perfil-premios', array('action' => 'pdfPremios')); ?>"><span></span>
+                                    Descargar Historial de premios (PDF)</a></p>
+                        </div>
+                        <h3>Historial de premios</h3>
+                        <div class="fluid-list cnt-table-user">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Concepto</th>
+                                    <th class="text-left-u">Premios</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                $dataHistoria = $this->dataHistoria;
+                                $total = count($dataHistoria);
+                                for ($i = 0; $i < $total; $i++) : ?>
+                                    <tr>
+                                        <td><?= date('d/m/Y', strtotime($dataHistoria[$i]['FechaGenerado'])) ?></td>
+                                        <td>
+                                            <?php if ($dataHistoria[$i]['PrecioVentaPublico']) { ?>
+                                                <b>S/. <?= $dataHistoria[$i]['PrecioVentaPublico'] ?> por </b>
+                                            <?php } ?>
+                                            <?= $dataHistoria[$i]['TituloCorto'] ?>
+                                        </td>
+                                        <?php if ($dataHistoria[$i]['Descarga'] == 0) : ?>
+                                            <?php if ($dataHistoria[$i]['TituloCorto'] == ASIGNADOS || $dataHistoria[$i]['TituloCorto'] == SUMADOS || $dataHistoria[$i]['TituloCorto'] == REACTIVADOS) : ?>
+                                                <td class="p-asig text-left-u">
+                                                    <?php echo (int)$dataHistoria[$i]['CantidadPremios']; ?>
+                                                </td>
+                                            <?php else : ?>
+                                                <td class="p-usados text-left-u">
+                                                    <?php echo '(-' . (int)$dataHistoria[$i]['CantidadPremios'] . ')'; ?>
+                                                </td>
+                                            <?php endif; ?>
+                                        <?php else: ?>
+                                            <td class="p-usados text-left-u">
+                                                <?php echo '(-' . (int)$dataHistoria[$i]['CantidadPremios'] . ')'; ?>
+                                            </td>
+                                        <?php endif; ?>
+                                    </tr>
+                                    <?php $i = VerificarSiguiente($dataHistoria, $i); ?>
+                                <?php endfor; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,172 @@
+<style type="text/css">
+    .title-puntos {
+        font-size: 24px;
+        font-weight: bold;
+        color: #0a0d12;;
+    }
+
+    .line-li {
+        border-bottom: 2px solid #666;
+    }
+
+    .text-puntos {
+        font-size: 20px;
+    }
+
+    .btn-puntos, .btn-puntos:hover {
+        background: #3db123!important;
+        border-bottom: 4px solid #12330a!important;
+    }
+</style>
+<div class="modal fade modal-vcenter custon-modal modal-active" id="enviarPuntos" tabindex="-1" role="dialog"
+     aria-labelledby="enviarPuntos">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <button type="button" class="close col-xs-1" data-dismiss="modal" aria-label="Close">
+                <span class="glyphicon glyphicon-remove star-ico" aria-hidden="true"></span>
+            </button>
+            <div class="modal-body">
+                <div class="fluid-list header-modal-c">
+                    <?php if ($this->identity()['flagcheckboxLogo']) { ?>
+                    <div class="fluid-list logo-cupon">
+                        <span><img src="<?= $this->rlogos . $this->cupon->LogoEmpresa ?>"></span> <?=$cupon->nombreEmpresa?>
+                    </div>
+                    <?php }?>
+                    <div class="fluid-list cnt-body-m custon-on">
+                        <p>Zermatt is famed as a mounering and ski destome banmdo liono</p>
+                    </div>
+                    <div class="fluid-list desc-ut">
+                        <span class="left">S/ 60</span>
+                    </div>
+                    <!--<h2 id="tituloCupon"><b>
+                            <?php if ($this->identity()['flagcheckboxMoney']) { ?>
+                                <?= $this->cupon->PrecioVentaPublico ?> puntos por
+                            <?php } else { ?>
+                                S/. <?= $this->cupon->PrecioVentaPublico ?> por
+                            <?php }?>
+                            </b>
+                        <?= $this->cupon->Titulo ?></h2>-->
+                </div>
+                <form action="" class="form-login form-modal-c" id="emailCuponPuntos" novalidate="novalidate">
+                    <div class="fluid-list cnt-num-puntos">
+                        <!--<p class="text-center title-puntos">Cada punto equivale a S/.1</p>-->
+                        <p class="text-center text-puntos">
+                            Puntos disponibles: <span
+                                id="precio-beneficio"><?= $this->clienteData->TotalAsignados ?></span>
+                        </p>
+                        <ul>
+                            <li>
+                                <div class="left label-p">Precio del cupón:</div>
+                                <div id="precio-venta" class="right num-p">
+
+                                    <?php if ($this->identity()['flagcheckboxMoney']) { ?>
+
+                                        <?= $child->cupon->PrecioVentaPublico ?> puntos
+                                    <?php } else { ?>
+                                        S/ <?= $this->cupon->PrecioVentaPublico ?>
+                                    <?php }?>
+
+
+
+
+
+
+                                    </div>
+                            </li>
+                            <li>
+                                <div class="cnt-form-error">
+                                    <div class="left label-p">Puntos a utilizar:</div>
+                                    <div class="right num-p">
+                                        <input type="text" class="form-control" name="puntos" title="puntos"
+                                               id="puntos"/>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <div class="error-check"></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="fluid-list cnt-num-puntos total-puntos-u">
+                        <ul>
+                            <li>
+                                <div class="left label-p">A pagar en el Local:</div>
+                                <div class="right num-p">
+                                    <div id="precio-final" data-value="<?= $this->cupon->PrecioVentaPublico ?>">
+
+                                        <?php if ($this->identity()['flagcheckboxMoney']) { ?>
+
+                                            <?= $child->cupon->PrecioVentaPublico ?> puntos
+                                        <?php } else { ?>
+                                            S/ <?= $this->cupon->PrecioVentaPublico ?>
+                                        <?php }?>
+
+
+
+
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="line-li"></li>
+                            <li>
+                                <div class="left label-p">Saldo de puntos disponibles:</div>
+                                <div class="right num-p">
+                                    <div id="puntos-final" data-value="<?= $this->clienteData->TotalAsignados ?>">
+                                        <?= $this->clienteData->TotalAsignados ?></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="fluid-list body-cnt-c">
+                        <h4>Ingrese el email en donde desea recibir este cupón</h4>
+                        <div class="form-group has-feedback has-feedback-left cnt-form-error">
+                            <input type="email" name="email" class="form-control" placeholder="Ingresa tu email"
+                                   id="email" value="<?= $this->email_user ?>">
+                            <input type="hidden" value="<?= $this->cupon->idOferta ?>" id="idOferta" name="idoferta">
+                            <input type="hidden" value="<?= $this->empresaID ?>" id="idEmpresa" name="idEmpresa">
+                            <input type="hidden" value="<?= $this->clienteID ?>" id="idCliente" name="idCliente">
+                            <input type="hidden" value="<?= $this->category ?>" id="slug_cat" name="slug_cat">
+                            <input type="hidden" value="" id="atributo" name="atributo">
+                            <div class="error-check"></div>
+                        </div>
+                        <div class="checkbox cnt-form-error">
+                            <label>
+                                <input type="checkbox" name="terminos" id="activeChek" checked> Acepto las Condiciones,
+                                Términos
+                                y Políticas de uso
+                            </label>
+                            <div class="error-check"></div>
+                            <div class="fluid-list cnt-terminos-info">
+                                <ul>
+                                    <li>
+                                        <p>Los datos ingresados son legítimos y correctos.</p>
+                                    </li>
+                                    <li>
+                                        <p>Conozco el uso que se le dará a los datos que he proporcionado a Belia.</p>
+                                    </li>
+                                    <li>
+                                        <p>Entiendo que los Proveedores son los únicos responsables por cualquier
+                                            inconveniente con los bienes y servicios ofrecidos a través de la Página
+                                            Web.</p>
+                                    </li>
+                                    <li>
+                                        <p>Sé cual es la información y datos personales requeridos para poder acceder a
+                                            los bienes y servicios ofrecidos a través de la Página Web.</p>
+                                    </li>
+                                    <li>
+                                        <p>He autorizado a mi Empleador a brindar o he brindado directamente a Belia mis
+                                            datos personales para poder ingresar a la Pagina Web.</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-puntos btn-block text-center" id="send_coupon"><span>Recibir Cupón</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,248 @@
+<section class="content-header ">
+    <br><br><br>
+    <h1 class="box-title">Asignaciones Puntos</h1>
+    <br><br>
+    <?php if (!empty($fileMessage)) : ?>
+        <div class="alert alert-danger alert-dismissible">
+            <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+            <h4>
+                <i class="icon fa fa-ban"></i>
+                Error.
+            </h4>
+            <?php echo $fileMessage; ?>
+        </div>
+    <?php endif ?>
+    <?php if (!empty($this->errorMessageCsv)) : ?>
+        <div class="alert alert-danger alert-dismissible">
+            <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+            <h4>
+                <i class="icon fa fa-ban"></i>
+                Error.
+            </h4>
+            <ul>
+                <?php
+                foreach ($this->errorMessageCsv as $data) :
+                    echo "<li>$data</li>";
+                endforeach;
+                ?>
+            </ul>
+        </div>
+    <?php endif ?>
+    <?php if (!empty($successMessage)) : ?>
+        <div class="alert alert-success alert-dismissible">
+            <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+            <h4>
+                <i class="icon fa fa-check"></i>
+                Completado.
+            </h4>
+            <?php echo $successMessage; ?>
+            <?php if (!empty($alertMessage)) : ?>
+                <ul>
+                    <?php
+                    foreach ($this->alertMessage as $dataAlert) :
+                        echo "<li>$dataAlert</li>";
+                    endforeach;
+                    ?>
+                </ul>
+            <?php endif ?>
+        </div>
+    <?php endif ?>
+    <?php if ($this->flashMessenger()->hasMessages()) {
+        echo '<div class="callout alert alert-success">' .
+            '<button class="close" data-dismiss="alert" type="button">×</button>';
+        $messages = $this->flashMessenger()->getMessages();
+        foreach ($messages as $message) {
+            echo $message;
+        }
+        echo '</div>';
+    } ?>
+    <?php if (isset($confirm) && $confirm != null) :
+        echo '<div class="callout alert alert-' . $this->type . '">' .
+            '<button class="close" data-dismiss="alert" type="button">×</button>';
+        foreach ($confirm as $message) {
+            echo '<li>' . $message . '</li>';
+        }
+        echo '</div>';
+    endif;
+    ?>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                </div>
+                <div class="box-body">
+                    <?php
+                    $form = $this->form;
+                    $form->setAttribute('class', 'form-horizontal');
+                    echo $this->form()->openTag($form);
+                    echo $this->formElement($form->get('csrf'));
+                    echo $this->formHidden($form->get('action'));
+                    ?>
+                    <div class="row">
+                        <div class="col-md-3"><label>Empresa Cliente:</label></div>
+                        <div class="col-md-4"><?= $this->empresa ?></div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <fieldset>
+                                <?php $segmento = $this->segmento; ?>
+                                <legend>Datos del Segmento</legend>
+                                <div class="form-group">
+                                    <div class="col-md-3"><label>Campaña:</label></div>
+                                    <div class="col-md-4"><?= $this->campania ?></div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-3"><label>Estado:</label></div>
+                                    <div
+                                        class="col-md-4"><?= ($segmento->Eliminado == 0) ? 'Activado' : 'Eliminado' ?></div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-3"><label>Tipo Campaña:</label></div>
+                                    <div class="col-md-4"><?= $this->tipoSegmento ?></div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-3"><label>Segmento:</label></div>
+                                    <div class="col-md-4"><?= $segmento->NombreSegmento ?></div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-3"><label>Presupuesto Negociado:</label></div>
+                                    <div class="col-md-4"><?= (int)$this->presupuestoNegociado ?></div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-3"><label>Presupuesto Asignado Acumulado:</label></div>
+                                    <div class="col-md-4"><?= (int)$this->presupuestoAsignado ?></div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <legend>Detalle del Segmento</legend>
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th rowspan="2" class="center-cell">Nombre del Segmento</th>
+                                        <th colspan="2" class="center-cell">Presupuesto Asignado Activo</th>
+                                        <th class="center-cell">Presupuesto Asignado Cancelado</th>
+                                        <th class="center-cell">Presupuesto No Asignado</th>
+                                        <th colspan="4" class="center-cell">Presupuesto Aplicado</th>
+                                        <th class="center-cell">Presupuesto por Aplicar</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="center-cell">Usuarios Asignados Activos</th>
+                                        <th class="center-cell">Ptos. Asignados Activos</th>
+                                        <th class="center-cell">Ptos. dispXAsignar (devuelto a la bolsa)</th>
+                                        <th class="center-cell">Ptos. dispXAsignar</th>
+                                        <th class="center-cell">Ptos. Aplicados Activos</th>
+                                        <th class="center-cell">Ptos. Aplicados No activos</th>
+                                        <th class="center-cell">Ptos. Redimidos Activos</th>
+                                        <th class="center-cell">Ptos. Redimidos No activos</th>
+                                        <th class="center-cell">Ptos. dispXAplicar</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td><?= $segmento->NombreSegmento ?></td>
+                                        <td class="center-cell"><?= ((int)$segmento->Eliminado == 0) ? (int)$segmento->UsuariosAsignados : ' - ' ?></td>
+                                        <td class="center-cell"><?= ((int)$segmento->Eliminado == 0) ? (int)$segmento->AsignadoActivo : ' - ' ?></td>
+                                        <td class="center-cell"><?= ((int)$segmento->Eliminado == 0) ? $segmento->AsignadoEliminado : ' - ' ?></td>
+                                        <td class="center-cell"><?= ((int)$segmento->Eliminado == 0) ? $segmento->Subtotal - $segmento->AsignadoActivo - $segmento->AsignadoEliminado - $segmento->AplicadoInactivo : ' - ' ?></td>
+                                        <td class="center-cell"><?= ((int)$segmento->Eliminado == 0) ? $segmento->AplicadoActivo : ' - ' ?></td>
+                                        <td class="center-cell"><?= (int)$segmento->AplicadoInactivo ?></td>
+                                        <td class="center-cell"><?= ((int)$segmento->Eliminado == 0) ? $segmento->RedimidoActivo : ' - ' ?></td>
+                                        <td class="center-cell"><?= (int)$segmento->RedimidoInactivo ?></td>
+                                        <td class="center-cell"><?= ((int)$segmento->Eliminado == 0) ? $segmento->AsignadoActivo - $segmento->AplicadoActivo : ' - ' ?></td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </fieldset>
+                            <?php if ($this->opcion): ?>
+                                <fieldset id="content-puntos">
+                                    <legend>Puntos Asignados</legend>
+                                    <div class="form-group" style="text-align: center">
+                                        <div class="col-md-2"><label>Nro. Documento</label></div>
+                                        <div class="col-md-2"><label>Asignados</label></div>
+                                        <div class="col-md-2"><label>SUMA</label></div>
+                                        <div class="col-md-2"><label>RESTA</label></div>
+                                        <div class="col-md-2"></div>
+                                    </div>
+                                    <div id="data-content" class="data-content">
+                                        <div class="form-group">
+                                            <div class="col-md-2">
+                                                <input type="text" name="numeroDocumento[]" class="documento-control"
+                                                       title="documento">
+                                                <div class="numeroDocumento error"></div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div style="text-align: center"><label
+                                                        class="asignados-control"></label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="text" name="sumaPuntos[]" class="sumaPuntos" title="suma">
+                                                <div class="sumaPuntos error"></div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="text" name="restaPuntos[]" class="restaPuntos"
+                                                       title="resta">
+                                                <div class="restaPuntos error"></div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <button class="btn btn-default add-content" type="button">&#43;</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <fieldset id="asignacion-seccion">
+                                    <legend>Asignación de puntos</legend>
+                                    <div class="form-group">
+                                        <div class="col-md-3"><label>Plantilla Asignación de puntos:</label></div>
+                                        <div class="col-md-9">
+                                            <a href="<?= $this->basePath() . "/files/AsignarPersonalizado.xlsx" ?>"
+                                               class="btn btn-primary">Descargar Plantilla</a>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-3"><label>Archivo (*):</label></div>
+                                        <div class="col-md-9">
+                                            <?= $this->formRow($form->get('file_csv')); ?>
+                                            <p class="help-block">Archivo de 2MB máx. formato xls o xlsx</p>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            <?php endif; ?>
+                            <div class="box-footer" style="text-align: center">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <?php if ($this->opcion): ?>
+                                            <button type="button" class="btn btn-info" id="asignar-button"
+                                                <?= ($this->presupuesto > 0) ? '' : 'disabled' ?>>
+                                                Asignar Usuarios
+                                            </button>
+                                            <?php echo $this->formSubmit($form->get('submit')); ?>
+                                            <button type="button" class="btn btn-primary" id="asignar-button-archivo"
+                                                <?= ($this->presupuesto > 0) ? '' : 'disabled' ?>>
+                                                Asignar Archivo
+                                            </button>
+                                        <?php endif; ?>
+                                        <a href="<?= $this->url('asignaciones-puntos', array('action' => 'index')) ?>"
+                                           class="btn btn-default" role="button">Cancelar</a>
+                                    </div>
+                                    <div class="form-group">
+                                        <label id="error-found" class=" error"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?= $this->form()->closeTag(); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<?php
+if ($this->opcion) {
+    echo $this->partial('_scripts.phtml');
+}

@@ -1,0 +1,34 @@
+<?php
+const INACTIVOS = "Puntos inactivos";
+const ELIMINADOS = "Puntos eliminados";
+const ASIGNADOS = "Puntos ganados";
+const REACTIVADOS = "Puntos reactivados";
+const SUMADOS = "Puntos sumados";
+
+function VerificarSiguiente($datos, $i)
+{
+    if ($datos[$i]['TituloCorto'] == ELIMINADOS) {
+        if (isset($datos[$i + 1]) and $datos[$i + 1]['TituloCorto'] == INACTIVOS) {
+            $i++;
+            return VerificarSiguiente($datos, $i);
+        } else {
+            return $i;
+        }
+    /*} elseif ($datos[$i]['TituloCorto'] == INACTIVOS) {
+        if (isset($datos[$i + 1]) and $datos[$i + 1]['TituloCorto'] == REACTIVADOS) {
+            $i++;
+            return VerificarSiguiente($datos, $i);
+        } else {
+            return $i;
+        }
+    } elseif ($datos[$i]['TituloCorto'] == REACTIVADOS) {
+        if (isset($datos[$i + 1]) and $datos[$i + 1]['TituloCorto'] == INACTIVOS) {
+            $i++;
+            return VerificarSiguiente($datos, $i);
+        } else {
+            return $i;
+        }*/
+    } else {
+        return $i;
+    }
+}

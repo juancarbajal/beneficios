@@ -1,0 +1,161 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: marlo
+ * Date: 28/12/15
+ * Time: 06:49 PM
+ */
+$child = $this->viewModel()->getCurrent()->getChildren();
+$chil = $child[0];
+
+function getMobile()
+{
+    $tablet_browser = 0;
+    $mobile_browser = 0;
+
+    if (preg_match('/(tablet|ipad|playbook)|(android(?!.*(mobi|opera mini)))/i', strtolower($_SERVER['HTTP_USER_AGENT']))) {
+        $tablet_browser++;
+    }
+
+    if (preg_match('/(up.browser|up.link|mmp|symbian|smartphone|midp|wap|phone|android|iemobile)/i', strtolower($_SERVER['HTTP_USER_AGENT']))) {
+        $mobile_browser++;
+    }
+
+    if ((strpos(strtolower($_SERVER['HTTP_ACCEPT']), 'application/vnd.wap.xhtml+xml') > 0) or ((isset($_SERVER['HTTP_X_WAP_PROFILE']) or isset($_SERVER['HTTP_PROFILE'])))) {
+        $mobile_browser++;
+    }
+
+    $mobile_ua = strtolower(substr($_SERVER['HTTP_USER_AGENT'], 0, 4));
+    $mobile_agents = array(
+        'w3c ', 'acs-', 'alav', 'alca', 'amoi', 'audi', 'avan', 'benq', 'bird', 'blac',
+        'blaz', 'brew', 'cell', 'cldc', 'cmd-', 'dang', 'doco', 'eric', 'hipt', 'inno',
+        'ipaq', 'java', 'jigs', 'kddi', 'keji', 'leno', 'lg-c', 'lg-d', 'lg-g', 'lge-',
+        'maui', 'maxo', 'midp', 'mits', 'mmef', 'mobi', 'mot-', 'moto', 'mwbp', 'nec-',
+        'newt', 'noki', 'palm', 'pana', 'pant', 'phil', 'play', 'port', 'prox',
+        'qwap', 'sage', 'sams', 'sany', 'sch-', 'sec-', 'send', 'seri', 'sgh-', 'shar',
+        'sie-', 'siem', 'smal', 'smar', 'sony', 'sph-', 'symb', 't-mo', 'teli', 'tim-',
+        'tosh', 'tsm-', 'upg1', 'upsi', 'vk-v', 'voda', 'wap-', 'wapa', 'wapi', 'wapp',
+        'wapr', 'webc', 'winw', 'winw', 'xda ', 'xda-');
+
+    if (in_array($mobile_ua, $mobile_agents)) {
+        $mobile_browser++;
+    }
+
+    if (strpos(strtolower($_SERVER['HTTP_USER_AGENT']), 'opera mini') > 0) {
+        $mobile_browser++;
+        //Check for tablets on opera mini alternative headers
+        $stock_ua = strtolower(isset($_SERVER['HTTP_X_OPERAMINI_PHONE_UA'])
+            ? $_SERVER['HTTP_X_OPERAMINI_PHONE_UA'] : (isset($_SERVER['HTTP_DEVICE_STOCK_UA'])
+                ? $_SERVER['HTTP_DEVICE_STOCK_UA'] : ''));
+        if (preg_match('/(tablet|ipad|playbook)|(android(?!.*mobile))/i', $stock_ua)) {
+            $tablet_browser++;
+        }
+    }
+    if ($tablet_browser > 0) {
+        return 'tablet';
+    } else if ($mobile_browser > 0) {
+        return 'mobile';
+    } else {
+        return 'desktop';
+    }
+}
+
+function detect()
+{
+    $browser = array("IE", "OPERA", "MOZILLA", "NETSCAPE", "FIREFOX", "SAFARI", "CHROME", 'MSIE', 'EDGE');
+    $os = array("WIN", "MAC", "LINUX", "IOS", "ANDROID");
+
+    # definimos unos valores por defecto para el navegador y el sistema operativo
+    $info['browser'] = "Other";
+    $info['os'] = "Other";
+
+    # buscamos el navegador con su sistema operativo
+    foreach ($browser as $parent) {
+        $s = strpos(strtoupper($_SERVER['HTTP_USER_AGENT']), $parent);
+        $f = $s + strlen($parent);
+        $version = substr($_SERVER['HTTP_USER_AGENT'], $f, 15);
+        $version = preg_replace('/[^0-9,.]/', '', $version);
+        if ($s) {
+            $info['browser'] = $parent;
+            $info['version'] = $version;
+        }
+    }
+
+    # obtenemos el sistema operativo
+    foreach ($os as $val) {
+        if (strpos(strtoupper($_SERVER['HTTP_USER_AGENT']), $val) !== false)
+            $info['os'] = $val;
+    }
+
+    # devolvemos el array de valores
+    return $info;
+}
+
+function sub_dominio($dominio)
+{
+    $url = $_SERVER['SERVER_NAME'];
+    $url_replace = str_replace("www.", "", $url);
+    $url_replace = str_replace("https://", "", $url_replace);
+    $url_replace = str_replace("http://", "", $url_replace);
+    $url_replace = str_replace($dominio, "", $url_replace);
+    $url_replace = substr($url_replace, 0, -1);
+    return $url_replace;
+}
+
+?>
+<script type="text/javascript">
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', '<?= $this->configItem('ID_Analytics') ?>', 'auto');
+    ga('send', 'pageview');
+
+    jQuery.support.cors = true;
+
+
+    function ja(param1, param2, param3) {
+        <?php
+        $info = detect();
+        ?>
+        var params = {
+            id_empresa: (param2) ? param2 : '<?= $this->identity()["Empresa"]?>',
+            slug: (param1) ? param1 : '<?= $chil->category ?>',
+            dni: (param3) ? param3 : '<?= isset($this->identity()['NumeroDocumento']) ? $this->identity()['NumeroDocumento'] : 'anonimo' ?>',
+            id_key: '<?= isset($_COOKIE["PHPSESSID"]) ? $_COOKIE["PHPSESSID"] : '' ?>',
+            dispositivo: '<?= getMobile() ?>',
+            ip: '<?=  $_SERVER['REMOTE_ADDR']?>',
+            os: '<?= ucfirst(strtolower($info['os']))?>',
+            navegador: '<?= ucfirst(strtolower($info['browser'])) ?>',
+            subdominio: '<?= sub_dominio($this->configItem('domain')) ?>'
+        };
+        $.ajax({
+            type: 'GET',
+            url: '<?php echo $this->configItem('API_NODE_HOST') . "api/v1/save_event" ?>',
+            data: params,
+            cache: false,
+            crossDomain: true,
+            success: function (data) {
+                if (data.error) {
+                    console.log("Error Analytics");
+                }
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        if ('<?php echo $chil->category ?>' !== '') {
+            if ('<?php echo $chil->category ?>' !== 'null') {
+                ja('','','');
+            }
+        }
+    });
+</script>

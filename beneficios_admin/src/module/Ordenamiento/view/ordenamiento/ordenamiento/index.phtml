@@ -1,0 +1,204 @@
+<section class="content-header ">
+    <br><br><br>
+
+    <h1 class="box-title">Lista de Ordenamientos</h1>
+
+    <div class="clearfix"></div>
+    <?php if ($this->flashMessenger()->hasMessages()) {
+        echo '<div class="callout alert alert-success"><button class="close" data-dismiss="alert" type="button">×</button>';
+        $messages = $this->flashMessenger()->getMessages();
+        foreach ($messages as $message) {
+            echo $message;
+        }
+        echo '</div>';
+    } ?>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                </div>
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <?php
+                        $form->setAttribute('action', $this->url('ordenamiento', array('action' => 'index')));
+                        $form->prepare();
+                        echo $this->form()->openTag($form);
+                        echo $this->formElement($form->get('csrf'));
+
+                        ?>
+                        <div class="row">
+                            <fieldset>
+                                <legend>Buscar por:</legend>
+                                <div class="form-group">
+                                    <label class="col-md-offset-1 col-md-1">Nombre: </label>
+
+                                    <div
+                                        class="<?= $this->formElementErrors($form->get('Nombre')) ? 'has-error' : '' ?>">
+                                        <div class="col-md-4">
+                                            <div class="row-fluid campo">
+                                                <div class="col-md-11 null-padding">
+                                                    <?= $this->formRow($form->get('Nombre')); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                                <br>
+
+                                <div class="col-md-12 text-right">
+                                    <?= $this->formSubmit($form->get('submit')); ?>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <hr>
+                        <?= $this->form()->closeTag(); ?>
+                    </div>
+
+                    <div class="dataTables_wrapper form-inline dt-bootstrap" id="example1_wrapper">
+                        <div class="row-fluid">
+                            <div class="col-md-12 text-right">
+                                <div id="example1_length" class="dataTables_length">
+                                    <a href="<?php echo $this->url('ordenamiento', array('action' => 'export')); ?>"
+                                       class="btn btn-primary">Exportar</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="clear:both;"></div>
+                        <br>
+
+                        <div class="row-fluid">
+                            <div class="col-sm-12">
+                                <table aria-describedby="example1_info" role="grid" id="example1"
+                                       class="table table-bordered table-striped dataTable">
+                                    <thead>
+                                    <tr role="row">
+                                        <th style="width: 300px">
+                                            <?php if ($order_by == 'NombreLayout'): ?>
+                                                <a href="<?= $this->url('ordenamiento', array('order_by' => 'NombreLayout', 'order' => $order, 'page' => $p, 'q1' => $q1)); ?>">Nombre
+                                                    del Ordenamiento</a>
+                                            <?php else: ?>
+                                                <a href="<?= $this->url('ordenamiento', array('order_by' => 'NombreLayout', 'order' => 'asc', 'page' => $p, 'q1' => $q1)); ?>">Nombre
+                                                    del Ordenamiento</a>
+                                            <?php endif; ?>
+                                        </th>
+                                        <th style="width: 300px">
+                                            <?php if ($order_by == 'Tipo'): ?>
+                                                <a href="<?= $this->url('ordenamiento', array('order_by' => 'Tipo', 'order' => $order, 'page' => $p, 'q1' => $q1)); ?>">Tipo</a>
+                                            <?php else: ?>
+                                                <a href="<?= $this->url('ordenamiento', array('order_by' => 'Tipo', 'order' => 'asc', 'page' => $p, 'q1' => $q1)); ?>">Tipo</a>
+                                            <?php endif; ?>
+                                        </th>
+                                        <th style="width: 300px">
+                                            <?php if ($order_by == 'NombreTipo'): ?>
+                                                <a href="<?= $this->url('ordenamiento', array('order_by' => 'NombreTipo', 'order' => $order, 'page' => $p, 'q1' => $q1)); ?>">Nombre
+                                                    del Tipo</a>
+                                            <?php else: ?>
+                                                <a href="<?= $this->url('ordenamiento', array('order_by' => 'NombreTipo', 'order' => 'asc', 'page' => $p, 'q1' => $q1)); ?>">Nombre
+                                                    del Tipo</a>
+                                            <?php endif; ?>
+                                        </th>
+                                        <th style="width: 300px">
+                                            <?php if ($order_by == 'Fila'): ?>
+                                                <a href="<?= $this->url('ordenamiento', array('order_by' => 'Fila', 'order' => $order, 'page' => $p, 'q1' => $q1)); ?>">Fila</a>
+                                            <?php else: ?>
+                                                <a href="<?= $this->url('ordenamiento', array('order_by' => 'Fila', 'order' => 'asc', 'page' => $p, 'q1' => $q1)); ?>">Fila</a>
+                                            <?php endif; ?>
+                                        </th>
+                                        <th style="width: 50px"><a>Editar</a></th>
+                                        <th style="width: 50px">
+                                            <?php if ($order_by == 'Activo'): ?>
+                                                <a href="<?= $this->url('ordenamiento', array('order_by' => 'Eliminado', 'order' => $order, 'page' => $p, 'q1' => $q1)); ?>">Activo</a>
+                                            <?php else: ?>
+                                                <a href="<?= $this->url('ordenamiento', array('order_by' => 'Eliminado', 'order' => 'asc', 'page' => $p, 'q1' => $q1)); ?>">Activo</a>
+                                            <?php endif; ?>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                    if (count($datos)):
+                                        foreach ($datos as $dato) : ?>
+                                            <tr data-id="<?php echo $dato['id'] . '-' . $dato['Tipo'] ?>">
+                                                <td style="width: 300px"><?php echo $this->escapeHtml($dato['NombreLayout']); ?></td>
+                                                <td style="width: 50px"><?php echo $this->escapeHtml($dato['Tipo']); ?></td>
+                                                <td style="width: 50px"><?php echo $this->escapeHtml($dato['NombreTipo']); ?></td>
+                                                <td style="width: 50px"><?php echo $this->escapeHtml($dato['Index']); ?></td>
+                                                <td style="width: 50px">
+                                                    <a href="<?php echo $this->url('ordenamiento', array('action' => 'edit',
+                                                        'id' => $dato['id'], 'val' => $dato['Tipo'])); ?>">
+                                                        <i class="btn btn-warning fa fa-pencil-square-o"></i></a></td>
+                                                </td>
+                                                <td style="width: 50px">
+                                                    <?php if ($dato['Eliminado'] == 1): ?>
+                                                        <input tiplay="<?php echo $dato['Tipo'] ?>"
+                                                               id="elim<?php echo $dato['id'] . '-' . $dato['Tipo'] ?>"
+                                                               name="<?php echo $dato['Eliminado'] ?>"
+                                                               class="elim" type="checkbox">
+                                                    <?php else: ?>
+                                                        <input tiplay="<?php echo $dato['Tipo'] ?>"
+                                                               id="elim<?php echo $dato['id'] . '-' . $dato['Tipo'] ?>"
+                                                               name="<?php echo $dato['Eliminado'] ?>"
+                                                               class="elim" type="checkbox" checked>
+                                                    <?php endif; ?>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach;
+                                    else: ?>
+                                        <tr>
+                                            <td colspan="8">No hay Ordenamientos Registrados</td>
+                                        </tr>
+                                    <?php endif; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+                <div class="col-md-4"><br>
+
+                    <p>
+                        <?php if (count($datos)): ?>
+                            <?= (($datos->getCurrentPageNumber() * $datos->getItemCountPerPage()) -
+                                ($datos->getItemCountPerPage() - 1)); ?>
+                            -
+                            <?= ($datos->getCurrentPageNumber() * $datos->getItemCountPerPage() <
+                                $datos->getTotalItemCount())
+                                ? $datos->getCurrentPageNumber() * $datos->getItemCountPerPage()
+                                : $datos->getTotalItemCount() ?> de
+                            <?= $datos->getTotalItemCount(); ?> Registros
+                        <?php endif; ?>
+                    </p>
+                </div>
+                <?php
+                if ($pageCount): ?>
+                    <div class="box-footer clearfix">
+                        <ul class="pagination pagination-sm no-margin pull-right">
+                            <li class="<?= ($datos->getCurrentPageNumber() == 1) ? 'disabled' : ''; ?>">
+                                <a href="<?= $this->url('ordenamiento', array('page' => $datos->getCurrentPageNumber() - 1, 'order_by' => $order_by, 'order' => $order, 'q1' => $q1)); ?>">«</a>
+                            </li>
+                            <?php foreach ($pagesInRange as $page): ?>
+                                <li class="<?= $page == $datos->getCurrentPageNumber() ? 'active' : ''; ?>">
+                                    <a href="<?= $this->url('ordenamiento', array('page' => $page, 'order_by' => $order_by, 'order' => $order, 'q1' => $q1)); ?>"><?= $page; ?></a>
+                                </li>
+                            <?php endforeach; ?>
+                            <li class="<?= ($datos->getCurrentPageNumber() == $pageCount) ? 'disabled' : ''; ?>">
+                                <a href="<?= $this->url('ordenamiento', array('page' => $datos->getCurrentPageNumber() + 1, 'order_by' => $order_by, 'order' => $order, 'q1' => $q1)); ?>">»</a>
+                            </li>
+                        </ul>
+                    </div>
+                <?php endif; ?>
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+<script type="text/javascript"
+        src="<?= $this->basePath('js/ordenamiento/ordenamiento_index.js?' . $this->configItem('version_script')); ?>"></script>
+<script type="text/javascript"
+        src="<?= $this->basePath('js/ordenamiento/ordenamiento_add.js?' . $this->configItem('version_script')); ?>"></script>

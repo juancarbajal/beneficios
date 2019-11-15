@@ -1,0 +1,138 @@
+<section class="content-header " xmlns="http://www.w3.org/1999/html">
+    <br><br><br>
+
+    <h1 class="box-title">Asignar Ofertas en Bloque</h1>
+    <br><br>
+    <?php if (isset($msg)) {
+        echo '<div class="callout alert alert-' . $alert . '"><button class="close" data-dismiss="alert" type="button">×</button>';
+        foreach ($msg as $message) {
+            echo '<li>' . $message . '</li>';
+        }
+        echo '</div>';
+    } ?>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                </div>
+                <div class="box-body">
+                    <div class="container">
+                        <br/>
+                        <?php
+                        $form->setAttribute('action', $this->url('oferta-bloque', array('action' => 'index')));
+                        $form->prepare();
+                        echo $this->form()->openTag($form);
+                        echo $this->formElement($form->get('csrf'));
+                        ?>
+                        <div class="row">
+                            <div class="dual-list list-left col-md-5">
+                                <div><label>Ofertas</label></div>
+                                <div class="well">
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <div class="input-group">
+                                                <span class="input-group-addon glyphicon glyphicon-search"></span>
+                                                <input type="text" name="SearchDualList" class="form-control"
+                                                       placeholder="buscar"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>
+                                                <input type="radio" class="selector">
+                                                Asignar Todas las Ofertas
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-md-10"><label>Buscar por Título:</label></div>
+                                        <div class="col-md-2"><label>Asignar</label></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <ul class="list-group">
+                                                <?php foreach ($ofertas as $valor) { ?>
+                                                    <div class="checkbox">
+                                                        <li class="list-group-item col-md-12">
+                                                            <div class="col-md-10">
+                                                                <?= trim($valor->Titulo); ?>
+                                                            </div>
+                                                            <div class="col-md-2 text-right">
+                                                                <input name="oferta[]" type="checkbox"
+                                                                       value="<?= $valor->id; ?>">
+                                                            </div>
+                                                        </li>
+                                                    </div>
+                                                <?php } ?>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="dual-list list-right col-md-5">
+                                <div><label>Empresas</label></div>
+                                <div class="well">
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <div class="input-group">
+                                                <span class="input-group-addon glyphicon glyphicon-search"></span>
+                                                <input type="text" name="SearchDualList" class="form-control"
+                                                       placeholder="buscar"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>
+                                                <input type="radio" class="selector">
+                                                Asignar Todas las Empresas
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-md-10"><label>Nombre de la Empresa</label></div>
+                                        <div class="col-md-2"><label>Asignar</label></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <ul class="list-group">
+                                                <?php foreach ($empresas as $valor) { ?>
+                                                    <div class="checkbox">
+                                                        <li class="list-group-item col-md-12">
+                                                            <div class="col-md-10">
+                                                                <?= trim($valor->NombreComercial) . ' - ' . $valor->Ruc; ?>
+                                                            </div>
+                                                            <div class="col-md-2 text-right">
+                                                                <input name="empresa[]" type="checkbox"
+                                                                       value="<?= $valor->id; ?>">
+                                                            </div>
+                                                        </li>
+                                                    </div>
+                                                <?php } ?>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-offset-8 col-md-4">
+                                <?= $this->formSubmit($form->get('submit')); ?>
+                            </div>
+                        </div>
+                        <?php echo $this->form()->closeTag($form); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript" src="<?= $this->basepath('js/oferta/oferta_list.js') ?>"></script>

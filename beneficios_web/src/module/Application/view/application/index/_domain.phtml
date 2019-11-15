@@ -1,0 +1,8 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        <?php foreach ($this->configItem('empresas_especiales') as $data) { ?>
+        empresas_e.push('<?= $data?>');
+        <?php } ?>
+        getSubDominio('<?= $this->configItem('domain')?>');
+    });
+</script>

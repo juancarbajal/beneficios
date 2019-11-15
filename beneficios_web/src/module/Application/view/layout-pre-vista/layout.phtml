@@ -1,0 +1,35 @@
+<?php echo $this->doctype(); ?>
+<html lang="en">
+<head>
+    <?php
+    echo $this->partial('layout/renders/_head');
+    echo $this->partial('layout/renders/_style');
+    echo $this->partial('layout/renders/_scroll');
+    echo $this->headStyle();
+    ?>
+</head>
+<?php
+$children = $this->viewModel()->getCurrent()->getChildren();
+$child = $children[0];
+
+if($child->router == "coupon-puntos"):
+    echo '<body class="main-puntos">';
+else:
+    echo '<body>';
+endif;
+?>
+<div id="main-container" class="wrapper">
+    <?php echo $this->partial('layout-pre-vista/renders/_header'); ?>
+    <!-- =============================================== -->
+    <section>
+        <div class="container">
+            <?php echo $this->content; ?>
+            <!-- =============================================== -->
+            <div class="fluid-list slider-marcas" id="afiliadas"></div>
+        </div>
+    </section>
+    <!-- =============================================== -->
+    <?php echo $this->partial('layout/renders/_footer'); ?>
+</div>
+</body>
+</html>

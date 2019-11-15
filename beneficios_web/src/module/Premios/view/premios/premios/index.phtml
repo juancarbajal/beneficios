@@ -1,0 +1,10 @@
+<?php
+echo $this->partial('premios/premios/renders/_banner');
+
+echo $this->partial('premios/premios/renders/_destacados');
+
+echo $this->partial('premios/premios/renders/_descubre');
+
+echo $this->inlineScript()->prependFile(
+    $this->basePath('js/jq-infinite/premios-infinite.js?' . $this->configItem('version_script'))
+);

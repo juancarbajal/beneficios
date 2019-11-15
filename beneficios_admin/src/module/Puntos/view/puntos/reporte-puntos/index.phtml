@@ -1,0 +1,139 @@
+<section class="content-header ">
+    <br><br><br>
+
+    <h1 class="box-title">Reporte Puntos</h1>
+    <br><br>
+    <?php if ($this->flashMessenger()->hasMessages()) {
+        echo '<div class="callout alert alert-success">' .
+            '<button class="close" data-dismiss="alert" type="button">×</button>';
+        $messages = $this->flashMessenger()->getMessages();
+        foreach ($messages as $message) {
+            echo $message;
+        }
+        echo '</div>';
+    } ?>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <?php
+                            $form = $this->form;
+                            $form->setAttribute('action', $this->url('reporte-puntos', array('action' => 'reporte')));
+                            $form->prepare();
+                            echo $this->form()->openTag($form);
+                            echo $this->formElement($form->get('csrf'));
+                            ?>
+                            <div class="col-md-12">
+                                <fieldset>
+                                    <legend>Bloque de Información</legend>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <?= $this->formCheckbox($form->get('checkboxDemo')); ?>
+                                                    <?= $this->formLabel($form->get('checkboxDemo')); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <?= $this->formCheckbox($form->get('checkboxComp')); ?>
+                                                    <?= $this->formLabel($form->get('checkboxComp')); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <?= $this->formCheckbox($form->get('checkboxPref')); ?>
+                                                    <?= $this->formLabel($form->get('checkboxPref')); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-12">
+                                <fieldset>
+                                    <legend>Nivel de Detalle</legend>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="col-md-4">
+                                                    <?= $this->formCheckbox($form->get('checkboxEmpresa')); ?>
+                                                    <?= $this->formLabel($form->get('checkboxEmpresa')); ?>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <?php if ($this->type == "cliente"):
+                                                        echo "<label>$this->nombre</label>";
+                                                    endif; ?>
+                                                    <?= $this->formRow($form->get('empresa')); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="col-md-4">
+                                                    <?= $this->formCheckbox($form->get('checkboxCampania')); ?>
+                                                    <?= $this->formLabel($form->get('checkboxCampania')); ?>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <?= $this->formRow($form->get('campania')); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="col-md-4">
+                                                    <?= $this->formCheckbox($form->get('checkboxSegmento')); ?>
+                                                    <?= $this->formLabel($form->get('checkboxSegmento')); ?>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <?= $this->formRow($form->get('segmento')); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="col-md-4">
+                                                    <?= $this->formCheckbox($form->get('checkboxUsuario')); ?>
+                                                    <?= $this->formLabel($form->get('checkboxUsuario')); ?>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <?= $this->formRow($form->get('usuario')); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <?= $this->formSubmit($form->get('submit')); ?>
+                                    <a href="<?= $this->url('reporte-puntos', array('action' => 'index')) ?>"
+                                       class="btn btn-default" role="button">Cancelar</a>
+                                </div>
+                            </div>
+                            <?php echo $this->form()->closeTag(); ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<?php
+$this->inlineScript()->appendFile($this->basePath('js/puntos/reportes.js'));

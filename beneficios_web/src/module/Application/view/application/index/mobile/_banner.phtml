@@ -1,0 +1,48 @@
+<?php if ($galeria->count() > 0) { ?>
+    <div class="fluid-list slide-anuncio">
+        <div class="fluid-list slider-home box-sombra">
+            <div class="fluid-list sombra-interna">
+                <div class="slider slider-promocion box-sombra-caja">
+                    <?php foreach ($galeria as $dato) {
+                        $link = "";
+                        if (isset($dato->Url)) {
+                            $dato->Url = str_replace("[NumeroDocumento]", $this->identity()["NumeroDocumento"], $dato->Url);
+                            $dato->Url = str_replace("[Nombre]", $this->identity()["Nombre"], $dato->Url);
+                            $dato->Url = str_replace("[Apellido]", $this->identity()["Apellido"], $dato->Url);
+                            $dato->Url = str_replace("[email]", $this->identity()["email"], $dato->Url);
+                            $dato->Url = str_replace("[flagsupervisor]", $this->identity()["flagsupervisor"], $dato->Url);
+                            $link = 'href="' . $dato->Url . '" target="_blank"';
+                        }
+                        ?>
+                        <div>
+                            <a <?= $link ?>>
+                                <img src="<?= $rgaleria . $dato->Imagen ?>"/>
+                            </a>
+                        </div>
+                    <?php } ?>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php } ?>
+
+<?php if (!empty($banners[2])) { ?>
+    <div class="fluid-list anuncio-banner">
+        <?php
+        $link = "";
+        if (isset($banners[2]['link'])) {
+            $banners[2]['link'] = str_replace("[NumeroDocumento]", $this->identity()["NumeroDocumento"], $banners[2]['link']);
+            $banners[2]['link'] = str_replace("[Nombre]", $this->identity()["Nombre"], $banners[2]['link']);
+            $banners[2]['link'] = str_replace("[Apellido]", $this->identity()["Apellido"], $banners[2]['link']);
+            $banners[2]['link'] = str_replace("[email]", $this->identity()["email"], $banners[2]['link']);
+            $banners[2]['link'] = str_replace("[flagsupervisor]", $this->identity()["flagsupervisor"], $banners[2]['link']);
+            $link = 'href="' . $banners[2]['link'] . '" target="_blank"';
+        } else {
+            $link = '';
+        }
+        ?>
+        <a <?= $link ?>>
+            <img src="<?= $rbanners . $banners[2]['image'] ?>" title=""/>
+        </a>
+    </div>
+<?php } ?>

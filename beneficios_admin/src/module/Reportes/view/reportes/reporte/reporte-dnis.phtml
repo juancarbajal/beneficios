@@ -1,0 +1,138 @@
+<section class="content-header ">
+    <br><br><br>
+    <h1 class="box-title">Reporte DNIs</h1>
+    <br>
+
+    <div style="clear:both;"></div>
+    <?php
+
+    if ($this->flashMessenger()->hasMessages()) {
+        echo '<div class="callout alert alert-success"><button class="close" data-dismiss="alert" type="button">×</button>';
+        $messages = $this->flashMessenger()->getMessages();
+        foreach ($messages as $message) {
+            echo $message;
+        }
+        echo '</div>';
+    } ?>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                </div>
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <?php
+                        $form->setAttribute('action', $this->url('reportes', array('action' => 'reporteDnis')));
+                        $form->setAttribute('id', 'form-reporte2');
+                        $form->prepare();
+                        echo $this->form()->openTag($form);
+                        echo $this->formElement($form->get('csrf'));
+
+                        ?>
+                        <div class="row">
+                            <fieldset>
+                                <div class="col-md-12">
+                                    <div class="col-md-2"><label>Empresa :</label></div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <?= $this->formRow($form->get('empresa')); ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br><br>
+                                <div class="form-group">
+                                    <div class="col-md-offset-6 col-md-6 text-right">
+                                        <?= $this->formSubmit($form->get('submit')); ?>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <?php echo $this->form()->closeTag(); ?>
+                        </div>
+                    </div>
+
+                    <div class="dataTables_wrapper form-inline dt-bootstrap" id="example1_wrapper">
+                        <div style="clear:both;"></div>
+                        <br>
+                        <div class="row-fluid">
+                            <div class="col-md-12 text-right">
+                                <div id="example1_length" class="dataTables_length">
+                                    <?php
+                                    $form->setAttribute('action', $this->url('reportes', array('action' => 'exportDni')));
+                                    $form->setAttribute('id', 'form-reporte');
+                                    $form->prepare();
+                                    echo $this->form()->openTag($form);
+                                    echo $this->formElement($form->get('csrf'));
+                                    ?>
+                                    <input type="hidden" name="id_empresa" value="<?= $id_empresa?>">
+                                    <?= $this->formSubmit($form->get('submit')->setAttribute('value', 'Exportar')); ?>
+                                    <?php echo $this->form()->closeTag(); ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="clear:both;"></div>
+                        <br>
+                        <div class="row-fluid">
+                            <div class="col-sm-12">
+                                <table aria-describedby="example1_info" role="grid" id="example1"
+                                       class="table table-bordered table-striped dataTable">
+                                    <thead>
+                                    <tr role="row">
+                                        <th>
+                                            <?php if ($order_by == 'Empresa'): ?>
+                                                <a href="<?= $this->url('reporte-dni', array('action' => 'reporteDnis', 'order_by' => 'Empresa', 'order' => $order, 'page' => $p, 'q1' => $q1)); ?>">Empresa</a>
+                                            <?php else: ?>
+                                                <a href="<?= $this->url('reporte-dni', array('action' => 'reporteDnis', 'order_by' => 'Empresa', 'order' => 'asc', 'page' => $p, 'q1' => $q1)); ?>">Empresa</a>
+                                            <?php endif; ?>
+                                        </th>
+                                        <th>
+                                            <?php if ($order_by == 'Cantidad'): ?>
+                                                <a href="<?= $this->url('reporte-dni', array('action' => 'reporteDnis', 'order_by' => 'Cantidad', 'order' => $order, 'page' => $p, 'q1' => $q1)); ?>">Cantidad</a>
+                                            <?php else: ?>
+                                                <a href="<?= $this->url('reporte-dni', array('action' => 'reporteDnis', 'order_by' => 'Cantidad', 'order' => 'asc', 'page' => $p, 'q1' => $q1)); ?>">Cantidad</a>
+                                            <?php endif; ?>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                    if(count($datos)):
+                                        foreach ($datos as $dato) : ?>
+                                            <tr data-id="<?php echo $dato->id ?>">
+                                                <td><?php echo $this->escapeHtml($dato->NombreComercial);?></td>
+                                                <td><?php echo $this->escapeHtml($dato->CantidadClientes);?></td>
+                                            </tr>
+                                        <?php endforeach;
+                                    else: ?>
+                                        <tr><td colspan="8">No hay Registros</td></tr>
+                                    <?php endif; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.box-body -->
+                <div class="col-md-4"><br>
+
+                    <p>
+                        <?= (($datos->getCurrentPageNumber() * $datos->getItemCountPerPage()) -
+                            ($datos->getItemCountPerPage() - 1)); ?>
+                        -
+                        <?= ($datos->getCurrentPageNumber() * $datos->getItemCountPerPage() <
+                            $datos->getTotalItemCount())
+                            ? $datos->getCurrentPageNumber() * $datos->getItemCountPerPage()
+                            : $datos->getTotalItemCount() ?> de
+                        <?= $datos->getTotalItemCount(); ?> Registros
+                    </p>
+                </div>
+                <?=$this->paginationControl($datos, 'Sliding', 'paginator-reporte-dni', array('order_by' => $order_by,'order' => ($order=='asc') ?$order='desc' : 'asc', 'q1' => $q1)); ?>
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section>
+
+<?php
+echo $this->headScript()->prependFile($this->basePath('js/reportes/reporte_2.js?' . $this->configItem('version_script')));
+?>

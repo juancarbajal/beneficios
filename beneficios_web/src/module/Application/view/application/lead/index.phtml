@@ -1,0 +1,353 @@
+<section>
+    <div class="fluid-list bread" style="display: none;"><!--No hay en el disenio-->
+        <ul>
+            <li><a href="/home">Inicio</a></li>
+            <li><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></li>
+            <li><?= $nombreempresa ?></li>
+        </ul>
+    </div>
+    <?php if (isset($confir) && $confir != null) {
+        echo '<div class="container"><div class="fluid-list cnt-ups"><div class="alert alert-' . $type . '" role="alert">';
+        foreach ($confir as $message) {
+            echo $message;
+        }
+        echo '</div></div></div>';
+    }
+    ?>
+    <?php
+    $cont = 2;
+    if ($active) {
+        foreach ($form_config as $dato) {
+			//$title = $dato->NombreComercial;
+			/*
+                                if ($dato->datoBeneficio != null) {
+                                    if ($dato->idTipoBeneficio == 1)
+										$title = $dato->datoBeneficio . '% Dscto.';
+                                    elseif ($dato->idTipoBeneficio == 2)
+										$title = '-S/.' . $dato->datoBeneficio . 'Dscto.';
+									elseif ($dato->idTipoBeneficio == 3)
+										$title = $dato->datoBeneficio . ' en';
+                                    else
+										$title = $dato->datoBeneficio; 
+                                } 
+                                if (strlen($dato->TituloCortoOferta) >= 75)
+                                    $title= substr($dato->TituloCortoOferta, 0, 75) . "...";
+                                else 
+                                    $title= $dato->TituloCortoOferta;
+			*/                    
+                                
+            if ($dato->Descripcion == 'banner') {
+                if ($dato->valor != null && $dato->Activo == 1) {
+                    ?>
+                    <div class="fluid-list header-cupon header-c-img" style="background: url(<?= $rbanners . $dato->valor ?>) no-repeat;background-size: cover;background-position: center center;">
+                        <img src="<?= $rbanners . $dato->valor ?>" />
+                    </div>
+                    <?php
+                }
+            } elseif ($dato->Descripcion != 'CorreoContacto') {
+                if ($cont == 2) {
+                    ?>
+                <div class="fluid-list content-cupon">
+                    <div class="container">
+                    <div class="fluid-list cnt-formulario">
+                    <div class="cnt-inter-formulario body-cupon">
+                        <h1><?= (!is_null($title)) ?$title : ''; ?></h1>
+                        <p><?= ($dato->Descripcion == 'textobanner') ? $dato->valor : ''; ?></p>
+                        <h3>Para finalizar el pedido ingresa los siguientes datos.</h3>
+                        <p>Los datos ingresados son legítimos y correctos.</p>
+                    <form action="<?php echo $this->url('lead', array('opt' => $slug, 'action' => 'index'));?>" class="cnt-form-tw" id="form-ofertas" method="post">
+                    <input type="hidden" name="id" value="<?= $id ?>">
+                    <input type="hidden" name="slugcat" value="<?= $category ?>">
+                    <input type="hidden" name="idEmpresa" value="<?= $this->cupon->BNF_Empresa_id ?>">
+                    <div id="enviarlead">
+                        <input type="hidden" value="<?= (!is_null($atributo) && $atributo!='') ?$atributo: ''; ?>" id="atributo" name="atributo">
+                        <input type="hidden" value="<?= (!is_null($title) && $title!='') ?$title: ''; ?>" id="title" name="title">
+                    </div>
+                    <?php
+                }
+                if ($cont < count($form_config)) {
+                    $cont++;
+                    if ($dato->id_form == 2 && $dato->Activo == 1) {
+                        ?>
+                        <div class="form-group">
+                            <label><?= $dato->Descripcion ?></label>
+                            <div class="fluid-list cnt-input">
+                                <input type="text" name="name_<?= $dato->id ?>" class="form-control <?= isset($message['msg_ename']) ? $message['msg_ename'] : '' ?>" id="nameAp" placeholder="<?= $dato->Descripcion ?>" value="<?= (isset($data_recovered['name_' . $dato->id])) ? $data_recovered['name_' . $dato->id] : "" ?>">
+                                <?= isset($message['msg_name']) ? '<label id="nameAp-error" class="error" for="nameAp">' . $message['msg_name'] . '</label>' : '' ?>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                    if ($dato->id_form == 3 && $dato->Activo == 1) {
+                        ?>
+                        <div class="form-group">
+                            <label><?= $dato->Descripcion ?></label>
+                            <div class="fluid-list cnt-input">
+                                <input type="text" name="dir_<?= $dato->id ?>"
+                                       class="form-control <?= isset($message['msg_edir'])
+                                           ? $message['msg_edir'] : '' ?>"
+                                       id="direccion" placeholder="<?= $dato->Descripcion ?>"
+                                       value="<?= (isset($data_recovered['dir_' . $dato->id])
+                                           ? $data_recovered['dir_' . $dato->id] : "") ?>">
+                                <?= isset($message['msg_dir'])
+                                    ? '<label id="direccion-error" class="error" for="direccion">' .
+                                    $message['msg_dir'] . '</label>' : '' ?>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                    if ($dato->id_form == 4 && $dato->Activo == 1) {
+                        ?>
+                        <div class="form-group">
+                            <label><?= $dato->Descripcion ?></label>
+                            <div class="fluid-list cnt-input">
+                                <input type="text" name="tel_<?= $dato->id ?>"
+                                       class="form-control <?= isset($message['msg_etel'])
+                                           ? $message['msg_etel'] : '' ?>"
+                                       id="telefono" placeholder="<?= $dato->Descripcion ?>"
+                                       value="<?= (isset($data_recovered['tel_' . $dato->id]))
+                                           ? $data_recovered['tel_' . $dato->id] : "" ?>">
+                                <?= isset($message['msg_tel'])
+                                    ? '<label id="telefono-error" class="error" for="telefono">' .
+                                    $message['msg_tel'] . '</label>' : '' ?>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                    if ($dato->id_form == 5 && $dato->Activo == 1) {
+                        ?>
+                        <div class="form-group">
+                            <label><?= $dato->Descripcion ?></label>
+                            <div class="fluid-list cnt-input">
+                                <input type="email" name="email_<?= $dato->id ?>"
+                                       class="form-control <?= isset($message['msg_eemail'])
+                                           ? $message['msg_eemail'] : '' ?>"
+                                       id="email" placeholder="<?= $dato->Descripcion ?>"
+                                       value="<?= (isset($data_recovered['email_' . $dato->id]))
+                                           ? $data_recovered['email_' . $dato->id] : "" ?>">
+                                <?= isset($message['msg_email'])
+                                    ? '<label id="email-error" class="error" for="email">' .
+                                    $message['msg_email'] . '</label>' : '' ?>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                    if ($dato->id_form == 6 && $dato->Activo == 1) {
+                        ?>
+                        <div class="form-group">
+                            <label><?= $dato->Descripcion ?></label>
+                            <div class="fluid-list cnt-input">
+                                <input type="text" name="gen_<?= $dato->id ?>"
+                                       class="form-control <?= isset($message['msg_egen'])
+                                           ? $message['msg_egen'] : '' ?>"
+                                       id="genero" placeholder="<?= $dato->Descripcion ?>"
+                                       value="<?= (isset($data_recovered['gen_' . $dato->id]))
+                                           ? $data_recovered['gen_' . $dato->id] : "" ?>">
+                                <?= isset($message['msg_gen'])
+                                    ? '<label id="genero-error" class="error" for="genero">' .
+                                    $message['msg_gen'] . '</label>' : '' ?>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                    if ($dato->id_form == 7 && $dato->Activo == 1) {
+                        ?>
+                        <div class="form-group">
+                            <label><?= $dato->Descripcion ?></label>
+                            <div class="fluid-list cnt-input">
+                                <select name="dep_<?= $dato->id ?>" class="form-control depa
+                                <?= isset($message['msg_edep'])
+                                    ? $message['msg_edep'] : '' ?>" id="Departamento">
+                                    <option value="">Departamento</option>
+                                    <?php foreach ($departamentos as $datodep) { ?>
+                                        <option value="<?= $datodep->id; ?>">
+                                            <?= $datodep->Nombre; ?>
+                                        </option>
+                                    <?php } ?>
+                                </select>
+                                <?= isset($message['msg_dep'])
+                                    ? '<label id="Departamento-error" class="error" for="Departamento">' .
+                                    $message['msg_dep'] . '</label>' : '' ?>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                    if ($dato->id_form == 8 && $dato->Activo == 1) {
+                        ?>
+                        <div class="form-group">
+                            <label><?= $dato->Descripcion ?></label>
+                            <div class="fluid-list cnt-input">
+                                <select name="prov_<?= $dato->id ?>"
+                                        class="form-control <?= isset($message['msg_edep'])
+                                            ? $message['msg_edep'] : '' ?>" id="Provincia">
+                                    <option value="">Provincia</option>
+                                </select>
+                                <?= isset($message['msg_prov'])
+                                    ? '<label id="Provincia-error" class="error" for="Provincia">' .
+                                    $message['msg_prov'] . '</label>' : '' ?>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                    if ($dato->id_form == 9 && $dato->Activo == 1) {
+                        ?>
+                        <div class="form-group">
+                            <label><?= $dato->Descripcion ?></label>
+                            <div class="fluid-list cnt-input">
+                                <input type="text" name="ciu_<?= $dato->id ?>"
+                                       class="form-control <?= isset($message['msg_eciu'])
+                                           ? $message['msg_eciu'] : '' ?>"
+                                       id="ciudad" placeholder="<?= $dato->Descripcion ?>"
+                                       value="<?= (isset($data_recovered['ciu_' . $dato->id]))
+                                           ? $data_recovered['ciu_' . $dato->id] : "" ?>">
+                                <?= isset($message['msg_ciu'])
+                                    ? '<label id="ciudad-error" class="error" for="ciudad">' .
+                                    $message['msg_ciu'] . '</label>' : '' ?>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                    if ($dato->id_form == 10 && $dato->Activo == 1) {
+                        ?>
+                        <div class="form-group">
+                            <label><?= $dato->Descripcion ?></label>
+                            <div class="fluid-list cnt-input">
+                                <input type="text" name="hor_<?= $dato->id ?>"
+                                       class="form-control <?= isset($message['msg_ehor'])
+                                           ? $message['msg_ehor'] : '' ?>"
+                                       id="horarioC" placeholder="<?= $dato->Descripcion ?>"
+                                       value="<?= (isset($data_recovered['hor_' . $dato->id])
+                                           ? $data_recovered['hor_' . $dato->id] : "") ?>">
+                                <?= isset($message['msg_hor'])
+                                    ? '<label id="horarioC-error" class="error" for="horarioC">' .
+                                    $message['msg_hor'] . '</label>' : '' ?>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                    if ($dato->id_form == 11 && $dato->Activo == 1) {
+                        ?>
+                        <div class="form-group">
+                            <label><?= $dato->Descripcion ?></label>
+                            <div class="fluid-list cnt-input">
+                                <input type="text" name="tipo_<?= $dato->id ?>"
+                                       class="form-control <?= isset($message['msg_etipo'])
+                                           ? $message['msg_etipo'] : '' ?>"
+                                       id="tipoC" placeholder="<?= $dato->Descripcion ?>"
+                                       value="<?= (isset($data_recovered['tipo_' . $dato->id]))
+                                           ? $data_recovered['tipo_' . $dato->id] : "" ?>">
+                                <?= isset($message['msg_tipo'])
+                                    ? '<label id="tipoC-error" class="error" for="tipoC">' .
+                                    $message['msg_tipo'] . '</label>' : '' ?>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                }
+                if ($cont == count($form_config)) {
+                    foreach ($form_lead as $item) {
+                        $nombre_camp = trim($item->Nombre_Campo);
+                        $nombre_camp = str_replace(" ", "_", $nombre_camp);
+                        if ($item->Tipo_Campo == 0 and $item->Activo == 1) { ?>
+                            <div class="form-group">
+                                <label><?= $item->Nombre_Campo; ?></label>
+                                <div class="fluid-list cnt-input">
+                                    <select name="<?= $nombre_camp; ?>"
+                                            id="<?= $item->Nombre_Campo; ?>"
+                                            class="form-control <?= isset($message['msg_e' . $nombre_camp])
+                                                ? $message['msg_e' . $nombre_camp] : '' ?>">
+                                        <option value=""><?= $item->Nombre_Campo; ?></option>
+                                        <?php
+                                        $contenido = $item->Detalle;
+                                        $porciones = explode(";", $contenido);
+                                        foreach ($porciones as $valor) {
+                                            if (isset($data_recovered[$nombre_camp]) and $data_recovered[$nombre_camp] == $valor) {
+                                                echo '<option value="' . $valor . '" selected>' .
+                                                    $valor . '</option>';
+                                            } else {
+                                                echo '<option value="' . $valor . '">' . $valor . '</option>';
+                                            }
+                                        } ?>
+                                    </select>
+                                    <?= isset($message['msg_' . $nombre_camp])
+                                        ? '<label id="Departamento-error" class="error" for="' .
+                                        $item->Nombre_Campo . '">' . $message['msg_' . $nombre_camp] . '</label>' : '' ?>
+                                </div>
+                            </div>
+                        <?php } elseif ($item->Tipo_Campo == 1 and $item->Activo == 1) { ?>
+                            <div class="form-group">
+                                <label><?= $item->Nombre_Campo; ?></label>
+                                <div class="fluid-list cnt-input">
+                                    <input type="text" name="<?= $nombre_camp; ?>"
+                                           id="<?= $item->Nombre_Campo; ?>"
+                                           class="form-control <?= isset($message['msg_e' . $nombre_camp])
+                                               ? $message['msg_e' . $nombre_camp] : '' ?>"
+                                           value="<?= (isset($data_recovered[$nombre_camp]))
+                                               ? $data_recovered[$nombre_camp] : "" ?>"
+                                           placeholder="<?= $item->Nombre_Campo ?>">
+                                    <?= isset($message['msg_' . $nombre_camp])
+                                        ? '<label id="nameAp-error" class="error" for="' . $nombre_camp . '">' .
+                                        $message['msg_' . $nombre_camp] . '</label>' : '' ?>
+                                </div>
+                            </div>
+                            <?php
+                        }
+                    }
+                    if ($condicionesEstado == 1) { ?>
+                        <div class="row" style="display: none;">
+                            <div class="col-md-12">
+                                <div class="fluid-list cnt-terminos" align="center">
+                                    <h4>
+                                        <a class="link-data" target="_blank"
+                                           href="<?= $this->url(
+                                               'condiciones',
+                                               array('action' => 'condiciones', 'val' => $id)
+                                           ); ?>"><?= $condicionesTexto ?></a>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>
+                    <?php if ($estado != 'Publicado') { ?>
+                        <div class="form-group" align="center">
+                            <div class="col-md-offset-2 col-md-8">
+                                <a class="btn btn-cupon btn-full"
+                                   style="cursor: default;background: #609EE8"
+                                   data-target="#enviarMail"><span>Beneficio Caducado</span></a>
+                            </div>
+                        </div>
+                    <?php } else { ?>
+                    <div class="fluid-list m-footer">
+                        <button type="submit" class="btn btn-belcorp btn-enviar">Enviar Pedido</button>
+                    </div>
+                    <?php } ?>
+                    </form>
+                    <h3>Legal</h3>
+                    <p><?= $terminos ?></p>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+                    <?php
+                }
+            }
+        }
+    }
+    ?>
+</section>
+<?php if ($oferta->TipoAtributo == 'Split' && !isset($confir) && !isset($atributo)) { ?>
+    <script>
+        $(document).ready(function () {
+            $("#elegirOpcion").modal({
+                backdrop: 'static',
+                keyboard: false,
+                show: true
+            });
+        });
+    </script>
+<?php
+    echo $this->partial('application/lead/renders/_modal_opcion');
+}
+//echo $this->partial('application/index/renders/_ofertasrelacionadas');
+echo $this->partial('application/lead/renders/script'); ?>
+

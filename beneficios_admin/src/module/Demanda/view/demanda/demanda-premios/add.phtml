@@ -1,0 +1,261 @@
+<section class="content-header ">
+    <br><br><br>
+
+    <h1 class="box-title">Agregar Pedidos Demandas</h1>
+    <br><br>
+    <?php if (isset($confirm) && $confirm != null) {
+        echo '<div class="callout alert alert-' . $this->type . '">' .
+            '<button class="close" data-dismiss="alert" type="button">×</button>';
+        foreach ($confirm as $messages) {
+            echo '<li>' . $messages . '</li>';
+        }
+        echo '</div>';
+    }
+    ?>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                </div>
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <?php
+                        $form->setAttribute('action', $this->url('demandas-ofertas-premios', array('action' => 'add')));
+                        $form->setAttribute('class', 'form-horizontal');
+                        $form->prepare();
+                        echo $this->form()->openTag($form);
+                        echo $this->formElement($form->get('csrf'));
+                        echo $this->formHidden($form->get('action'));
+                        ?>
+                        <fieldset>
+                            <legend>Datos Generales</legend>
+                            <div class="form-group">
+                                <div
+                                    class="<?= $this->formElementErrors($form->get('EmpresaCliente')) ? 'has-error' : '' ?>">
+                                    <div class="col-md-2"><label>Empresa Cliente:</label></div>
+                                    <div class="col-md-10">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-11 null-padding input-2">
+                                                <?= $this->formRow($form->get('EmpresaCliente')); ?>
+                                            </div>
+                                            <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-2"><label>RUC:</label></div>
+                                <div class="col-md-4" id="ruc"></div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-2"><label>Razón Social:</label></div>
+                                <div class="col-md-4" id="razon-social"></div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-2"><label>Persona de Contacto:</label></div>
+                                <div class="col-md-4" id="contacto"></div>
+                            </div>
+                            <hr>
+                            <div class="form-group">
+                                <div class="<?= $this->formElementErrors($form->get('Campania')) ? 'has-error' : '' ?>">
+                                    <div class="col-md-2"><label>Concepto/Campaña:</label></div>
+                                    <div class="col-md-10">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-11 null-padding input-2">
+                                                <?= $this->formRow($form->get('Campania')); ?>
+                                            </div>
+                                            <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div
+                                    class="<?= $this->formElementErrors($form->get('FechaDemanda'))
+                                        ? 'has-error' : '' ?>">
+                                    <div class="col-md-2"><label>Fecha de Creación:</label></div>
+                                    <div class="col-md-4">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-11 null-padding input">
+                                                <?= $this->formRow($form->get('FechaDemanda')); ?>
+                                            </div>
+                                            <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="<?= $this->formElementErrors($form->get('Segmento')) ? 'has-error' : '' ?>">
+                                    <div class="col-md-2"><label>Segmentos:</label></div>
+                                    <div class="col-md-10">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-11 null-padding input-2">
+                                                <?= $this->formRow($form->get('Segmento')); ?>
+                                                <?= (isset($message['segmento'])) ? '<ul><li>' . $message['segmento'] . '</li></ul>' : ''; ?>
+                                            </div>
+                                            <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div
+                                    class="<?= $this->formElementErrors($form->get('Rubros')) ? 'has-error' : '' ?>">
+                                    <div class="col-md-2"><label>Rubros:</label></div>
+                                    <div class="col-md-4">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-11 null-padding input-2">
+                                                <?= $this->formRow($form->get('Rubros')); ?>
+                                                <?= (isset($message['rubro'])) ? '<ul><li>' . $message['rubro'] . '</li></ul>' : ''; ?>
+                                            </div>
+                                            <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div
+                                    class="<?= $this->formElementErrors($form->get('EmpresaProveedor')) ? 'has-error' : '' ?>">
+                                    <div class="col-md-2"><label>Empresa Proveedoras:</label></div>
+                                    <div class="col-md-10">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-11 null-padding input-2">
+                                                <?= $this->formRow($form->get('EmpresaProveedor')); ?>
+                                                <?= (isset($message['empresa'])) ? '<ul><li>' . $message['empresa'] . '</li></ul>' : ''; ?>
+                                            </div>
+                                            <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div
+                                    class="<?= $this->formElementErrors($form->get('EmpresasAdicionales')) ? 'has-error' : '' ?>">
+                                    <div class="col-md-2"><label>Empresa Proveedoras Adicionales:</label></div>
+                                    <div class="col-md-10">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-11 null-padding input-2">
+                                                <?= $this->formRow($form->get('EmpresasAdicionales')); ?>
+                                                <span>Separar por ";" cada item.</span>
+                                                <?php if (isset($message['adicionales'])) {
+                                                    echo '<ul>';
+                                                    foreach ($message['adicionales'] as $value) {
+                                                        echo '<li>' . $value . '</li>';
+                                                    }
+                                                    echo '</ul>';
+                                                }
+                                                ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div
+                                    class="<?= $this->formElementErrors($form->get('Departamentos')) ? 'has-error' : '' ?>">
+                                    <div class="col-md-2"><label>Departamentos:</label></div>
+                                    <div class="col-md-10">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-11 null-padding input-2">
+                                                <?= $this->formRow($form->get('Departamentos')); ?>
+                                                <?= (isset($message['departamento'])) ? '<ul><li>' . $message['departamento'] . '</li></ul>' : ''; ?>
+                                            </div>
+                                            <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-2"><label>Precio óptimo:</label></div>
+                                <div
+                                    class="<?= $this->formElementErrors($form->get('PrecioMin')) ? 'has-error' : '' ?>">
+                                    <div class="col-md-1"><label>Mínimo:</label></div>
+                                    <div class="col-md-4">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-11 null-padding input-2">
+                                                <?= $this->formRow($form->get('PrecioMin')); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="<?= $this->formElementErrors($form->get('PrecioMax')) ? 'has-error' : '' ?>">
+                                    <div class="col-md-1"><label>Máximo:</label></div>
+                                    <div class="col-md-4">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-11 null-padding input-2">
+                                                <?= $this->formRow($form->get('PrecioMax')); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div
+                                    class="<?= $this->formElementErrors($form->get('Target')) ? 'has-error' : '' ?>">
+                                    <div class="col-md-2"><label>Target:</label></div>
+                                    <div class="col-md-10">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-11 null-padding input">
+                                                <?= $this->formRow($form->get('Target')); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div
+                                    class="<?= $this->formElementErrors($form->get('Comentarios')) ? 'has-error' : '' ?>">
+                                    <div class="col-md-2"><label>Comentarios:</label></div>
+                                    <div class="col-md-10">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-11 null-padding input">
+                                                <?= $this->formRow($form->get('Comentarios')); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div
+                                    class="<?= $this->formElementErrors($form->get('Actualizaciones'))
+                                        ? 'has-error' : '' ?>">
+                                    <div class="col-md-2"><label>Actualizaciones:</label></div>
+                                    <div class="col-md-10">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-11 null-padding input">
+                                                <div class="box">
+                                                    <div class="box-body pad">
+                                                        <?= $this->formRow($form->get('Actualizaciones')); ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="form-group">
+                            <div class="col-md-offset-10 col-md-2">
+                                <p>(*) Campos Obligatorios</p>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <div class="col-md-10">
+                                <?= $this->formSubmit($form->get('submit')); ?>
+                                <?= $this->formSubmit($form->get('send')); ?>
+                                <a href="<?= $this->url('demandas-ofertas-premios', array('action' => 'index')) ?>"
+                                   class="btn btn-default" role="button">Cancelar</a>
+                            </div>
+                        </div>
+                        <br>
+                        <?php echo $this->form()->closeTag(); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<?php $this->partial('_scripts.phtml');

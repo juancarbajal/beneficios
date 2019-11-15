@@ -1,0 +1,25 @@
+<?php
+$child = $this->viewModel()->getCurrent()->getChildren();
+$chil = $child[0];
+if (!isset($chil->afiliadas)) {
+    ?>
+    <div class="fluid-list slider-marcas" id="afiliadas">
+        <?php if ($this->identity()['flagcheckboxLogo']) { ?>
+            <h4 class="text-center"><a href="/tiendas" style="text-decoration: none; color: #0a0d12">Tiendas
+                    afiliadas</a>
+            </h4>
+            <div class="slider marcas-s">
+                <?php
+                $child = $this->viewModel()->getCurrent()->getChildren();
+                $chil = $child[0];
+                $chil->data;
+                foreach ($chil->data as $imagen):
+                    echo '<a href="/company/' . $imagen['slug'] . '">
+            <div style="overflow-y: hidden; height: 100px; padding: 3px;"><img
+            class="img-responsive" src="' . $chil->rlogos . $imagen['logo'] . '"/></div></a>';
+                endforeach;
+                ?>
+            </div>
+        <?php } ?>
+    </div>
+<?php } ?>

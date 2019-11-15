@@ -1,0 +1,216 @@
+<div class="fluid-list destacados-cnt title-bloques">
+    <?php foreach ($this->ofertas_premiun as $fila) { ?>
+        <?php if ($fila['tipo'] == 1) { ?>
+            <?php if (!empty($fila['ofertas'])) : ?>
+                <?php foreach ($fila['ofertas'] as $oferta) { ?>
+                    <div class="fluid-list margin-b">
+                        <div class="fluid-list cupon-two">
+                            <a href="/<?= $this->category ?>/coupon-puntos/<?= $oferta->Slug ?>">
+                                <figure>
+                                    <img src="<?php
+                                    $trozos = explode(".", $oferta->ImagenOferta);
+                                    $ext = end($trozos);
+                                    $imgOferta = str_replace('.' . $ext, '', $oferta->ImagenOferta) . '-medium.' . $ext;
+                                    echo $this->rofertas . $imgOferta
+                                    ?>" title="<?= $oferta->ImagenOferta ?>"/>
+                                    <div class="puntos-ico"></div>
+                                </figure>
+                            </a>
+                        </div>
+                        <div class="fluid-list cupon-info">
+                            <div class="fluid-list top-info">
+                    <?php if ($this->identity()['flagcheckboxLogo']) { ?>
+                                <figure class="left">
+                                    <img src="<?php
+                                    $trozos = explode(".", $oferta->LogoEmpresa);
+                                    $ext = end($trozos);
+                                    $logoempresa = str_replace('.' . $ext, '', $oferta->LogoEmpresa) . '-large.' . $ext;
+                                    echo $this->rlogos . $logoempresa;
+                                    ?>"/>
+                                </figure>
+                        <?php }?>
+                                <div class="left info-dest-c">
+                                    <h2>
+                                        <a href="/<?= $this->category ?>/coupon-puntos/<?= $oferta->Slug ?>">
+
+                                           <?php if ($oferta->PrecioVentaPublico){
+                                            if ($this->identity()['flagcheckboxMoney']) {
+                                            echo '<b>'.$oferta->PrecioVentaPublico.' puntos por </b>';
+                                            } else {
+                                            echo '<b> S/'.$oferta->PrecioVentaPublico.' por </b>';
+                                            }
+
+                                            }?>
+
+                                            <?php echo $oferta->TituloCorto ?>
+                                        </a>
+                                    </h2>
+                                </div>
+                            </div>
+                            <div class="fluid-list buttom-info">
+                                <hr>
+                                <?php
+                                if ($oferta->TipoPrecio != 'Split') {
+                                    $date = new DateTime($oferta->FechaVigencia);
+                                    $mes = $date->format('m');
+                                    ?>
+                                    <span>Descarga este beneficio hasta el
+                                            <span><?php echo ' ' . $date->format('d') . ' de ' . $this->meses[$mes - 1] ?></span>
+                                        </span>
+                                <?php } ?>
+                                <a href="/<?= $this->category ?>/coupon-puntos/<?= $oferta->Slug ?>"
+                                   class="right btn-cupon-d ver-c">VER CUPÓN</a>
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
+            <?php endif; ?>
+        <?php } ?>
+        <?php if ($fila['tipo'] == 2) { ?>
+            <?php if (!empty($fila['ofertas'])) : ?>
+                <?php foreach ($fila['ofertas'] as $oferta) { ?>
+                    <div class="fluid-list margin-b">
+                        <div class="fluid-list cupon-two">
+                            <a href="/<?= $this->category ?>/coupon-puntos/<?= $oferta->Slug ?>">
+                                <figure>
+                                    <img src="<?php
+                                    $trozos = explode(".", $oferta->ImagenOferta);
+                                    $ext = end($trozos);
+                                    $imgOferta = str_replace('.' . $ext, '', $oferta->ImagenOferta) . '-medium.' . $ext;
+                                    echo $this->rofertas . $imgOferta
+                                    ?>" title="<?= $oferta->ImagenOferta ?>"/>
+                                    <div class="puntos-ico"></div>
+                                </figure>
+                            </a>
+                            <div class="info-cupon-l">
+                    <?php if ($this->identity()['flagcheckboxLogo']) { ?>
+                                <figure class="left">
+                                    <a>
+                                        <img src="<?php
+                                        $trozos = explode(".", $oferta->LogoEmpresa);
+                                        $ext = end($trozos);
+                                        $logoempresa = str_replace('.' . $ext, '', $oferta->LogoEmpresa) . '-medium.' . $ext;
+                                        echo $this->rlogos . $logoempresa;
+                                        ?>"/>
+                                    </a>
+                                </figure>
+                        <?php  }?>
+                                <div class="info-interna left">
+                                    <h2>
+                                        <a href="/<?= $this->category ?>/coupon-puntos/<?= $oferta->Slug ?>"
+                                           class="title-short-destacados">
+                                            <?php
+                                            $tamaño = 40;
+                                            if (strlen($oferta->TituloCorto) >= $tamaño) {
+                                                if ($oferta->PrecioVentaPublico){
+                                                    if ($this->identity()['flagcheckboxMoney']) {
+                                                        echo '<b>'.$oferta->PrecioVentaPublico.' puntos por </b>';
+                                                    } else {
+                                                        echo '<b> S/'.$oferta->PrecioVentaPublico.' por </b>';
+                                                    }
+
+                                                }
+                                                echo substr($oferta->TituloCorto, 0, $tamaño) . "...";
+                                            } else {
+                                                if ($oferta->PrecioVentaPublico){
+                                                    if ($this->identity()['flagcheckboxMoney']) {
+                                                        echo '<b>'.$oferta->PrecioVentaPublico.' puntos por </b>';
+                                                    } else {
+                                                        echo '<b> S/'.$oferta->PrecioVentaPublico.' por </b>';
+                                                    }
+
+                                                }
+                                                echo $oferta->TituloCorto;
+                                            }
+                                            ?>
+                                        </a>
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
+            <?php endif; ?>
+        <?php } ?>
+        <?php if ($fila['tipo'] == 3) { ?>
+            <?php if (!empty($fila['ofertas'])) : ?>
+                <?php foreach ($fila['ofertas'] as $oferta) { ?>
+                    <div class="fluid-list margin-b">
+                        <div class="fluid-list cupon-two">
+                            <a href="/<?= $this->category ?>/coupon-puntos/<?= $oferta->Slug ?>">
+                                <figure>
+                                    <img src="<?php echo $this->rofertas . $oferta->ImagenOferta ?>"
+                                         title="<?= $oferta->ImagenOferta ?>"/>
+                                    <div class="puntos-ico"></div>
+                                </figure>
+                            </a>
+                            <div class="info-cupon-l">
+                    <?php if ($this->identity()['flagcheckboxLogo']) { ?>
+                                <figure class="left">
+                                    <a>
+                                        <img src="<?php
+                                        $trozos = explode(".", $oferta->LogoEmpresa);
+                                        $ext = end($trozos);
+                                        $oferta->LogoEmpresa = str_replace('.' . $ext, '', $oferta->LogoEmpresa) . '-small.' . $ext;
+                                        echo $this->rlogos . $oferta->LogoEmpresa;
+                                        ?>"/>
+                                    </a>
+                                </figure>
+                        <?php }?>
+                                <div class="info-interna left">
+                                    <h2>
+                                        <a href="/<?= $this->category ?>/coupon-puntos/<?= $oferta->Slug ?>"
+                                           class="title-short-destacados">
+                                            <?php
+                                            $tamaño = 40;
+                                            if (strlen($oferta->TituloCorto) >= $tamaño) {
+                                                if ($oferta->PrecioVentaPublico){
+                                                    if ($this->identity()['flagcheckboxMoney']) {
+                                                        echo '<b>' . $oferta->PrecioVentaPublico . ' puntos por </b>';
+                                                    } else {
+                                                        echo '<b> S/' . $oferta->PrecioVentaPublico . ' por </b>';
+                                                    }
+                                                }
+                                                echo substr($oferta->TituloCorto, 0, $tamaño) . "...";
+                                            } else {
+                                                if ($oferta->PrecioVentaPublico){
+                                                    if ($this->identity()['flagcheckboxMoney']) {
+                                                        echo '<b>' . $oferta->PrecioVentaPublico . ' puntos por </b>';
+                                                    } else {
+                                                        echo '<b> S/' . $oferta->PrecioVentaPublico . ' por </b>';
+                                                    }
+                                                }
+                                                echo $oferta->TituloCorto;
+                                            }
+                                            ?>
+                                        </a>
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
+            <?php endif; ?>
+        <?php } ?>
+    <?php } ?>
+</div>
+<?php if (!empty($banners[3])): ?>
+    <div class="fluid-list anuncio-banner margin-r ">
+        <?php
+        $link = "";
+        if (isset($banners[3]['link'])) {
+            $banners[3]['link'] = str_replace("[NumeroDocumento]", $this->identity()["NumeroDocumento"], $banners[3]['link']);
+            $banners[3]['link'] = str_replace("[Nombre]", $this->identity()["Nombre"], $banners[3]['link']);
+            $banners[3]['link'] = str_replace("[Apellido]", $this->identity()["Apellido"], $banners[3]['link']);
+            $banners[3]['link'] = str_replace("[email]", $this->identity()["email"], $banners[3]['link']);
+            $banners[3]['link'] = str_replace("[flagsupervisor]", $this->identity()["flagsupervisor"], $banners[3]['link']);
+            $link = 'href="' . $banners[3]['link'] . '" target="_blank"';
+        } else {
+            $link = '';
+        }
+        ?>
+        <a <?= $link ?>>
+            <img src="<?= $this->rbanners . $banners[3]['image'] ?>" title=""/>
+        </a>
+    </div>
+<?php endif; ?>

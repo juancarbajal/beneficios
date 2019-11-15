@@ -1,0 +1,25 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: marlo
+ * Date: 29/09/15
+ * Time: 03:49 PM
+ */
+
+if ($this->pageCount): ?>
+    <div class="box-footer clearfix">
+        <ul class="pagination pagination-sm no-margin pull-right">
+            <li class="<?=!isset($this->previous) ? 'disabled' : ''; ?>">
+                <a href="<?=$this->url('paquete', array('page' => $this->first, 'order_by' => $order_by,'order' => ($order == 'asc') ? $order = 'desc' : 'asc', 'q1' => $q1, 'q2' => $q2, 'q3' => $q3, 'q4' => $q4, 'q5' => $q5)); ?>">«</a>
+            </li>
+            <?php foreach ($this->pagesInRange as $page): ?>
+                <li class="<?=$page == $this->current ? 'active' : ''; ?>">
+                    <a href="<?=$this->url('paquete', array('page' => $page, 'order_by' => $order_by,'order' => ($order == 'asc') ? $order = 'desc' : 'asc', 'q1' => $q1, 'q2' => $q2, 'q3' => $q3, 'q4' => $q4, 'q5' => $q5)); ?>"><?=$page; ?></a>
+                </li>
+            <?php endforeach; ?>
+            <li class="<?=!isset($this->next) ? 'disabled' : ''; ?>">
+                <a href="<?=$this->url('paquete', array('page' => $this->last, 'order_by' => $order_by,'order' => ($order == 'asc') ? $order = 'desc' : 'asc', 'q1' => $q1, 'q2' => $q2, 'q3' => $q3, 'q4' => $q4, 'q5' => $q5)); ?>">»</a>
+            </li>
+        </ul>
+    </div>
+<?php endif; ?>

@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <style type="text/css">
+        @import url(http://fonts.googleapis.com/css?family=Didact+Gothic:300,400);
+
+        body {
+            font-family: 'Didact Gothic', sans-serif;
+            font-size: 12px;
+            color: #666666;
+        }
+
+        h2 {
+            font-family: 'Didact Gothic', sans-serif;
+        }
+
+        h3 {
+            font-family: 'Didact Gothic', sans-serif;
+            color: #0a0d12;
+        }
+
+        p {
+            font-size: 12px;
+            color: #666666;
+            font-family: 'Didact Gothic', sans-serif;
+            margin: 5px;
+        }
+
+        hr.hr-head {
+            background-color: #ADA2A2;
+            height: 3px;
+            border: 0;
+        }
+
+        hr.hr-dotted {
+            border-style: dotted;
+        }
+
+        hr.hr-footer {
+            background-color: #000;
+            height: 3px;
+            border: 0;
+        }
+
+        h4 {
+            font-size: 12px;
+            font-family: 'Didact Gothic', sans-serif;
+        }
+
+        span.ncircle {
+            background: grey;
+            border-radius: 0.8em;
+            -moz-border-radius: 0.8em;
+            -webkit-border-radius: 0.8em;
+            color: #ffffff;
+            display: inline-block;
+            font-weight: bold;
+            line-height: 1.5em;
+            text-align: center;
+            width: 1.5em;
+            font-size: 16px;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<table width="100%" cellpadding="0" cellspacing="0">
+    <tr>
+        <td colspan="4" style="padding: 0">
+            <hr class="hr-head">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" width="50%" align="left">
+            <?php
+            $imgCli = explode(".", $this->logoCliente);
+            $ext = end($imgCli);
+            $imgCli = str_replace('.' . $ext, '', $this->logoCliente) . '-fixed.' . $ext;
+            ?>
+            <img src="<?= $this->config['images']["logos"] . $imgCli ?>" alt="">
+            <br>
+            <span style="font-family: 'Didact Gothic', sans-serif;font-size:22px;font-weight: 400;color:#000">
+                <?= $this->dni ?>
+            </span>
+        </td>
+        <td colspan="2" width="50%" align="right">
+            <span style="font-family: 'Didact Gothic', sans-serif;font-size:22px;font-weight: 400;color:#000">
+                C&oacute;digo:
+            </span>
+            <span style="font-family: 'Didact Gothic', sans-serif;color: #666666;font-size:32px;">
+                <?= $this->codigoCupon ?>
+            </span>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4" style="padding: 0">
+            <hr class="hr-dotted">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img style="border: 1px solid black"
+                 src="<?= $this->config['images']['logos'] . $this->cupon->LogoEmpresa ?>" alt="">
+        </td>
+        <td colspan="2">
+            <?php if (is_object($this->atributo)): ?>
+                <p style="font-size: 19px;color: #000;font-weight: 500; font-family: 'Didact Gothic', sans-serif;margin: 0">
+                    <?= $this->atributo->NombreAtributo ?>
+                    <samp style="color: #666666; font-size: 12px; font-family: 'Didact Gothic', sans-serif">
+                        <?= $this->atributo->FechaVigencia ?>
+                    </samp>
+                </p>
+            <?php else: ?>
+                <p style="font-size: 19px;color: #000;font-weight: 500; font-family: 'Didact Gothic', sans-serif;margin: 0">
+                    <?= $this->cupon->Titulo ?>
+                    <samp style="color: #666666; font-size: 12px; font-family: 'Didact Gothic', sans-serif">
+                        <?= $this->cupon->FechaVigencia ?>
+                    </samp>
+                </p>
+            <?php endif; ?>
+            <br>
+            <h3 style="color: #666666;font-family: 'Didact Gothic', sans-serif;text-align: left;font-size:17px;">
+                <span>Total a pagar en el local: S/.0</span>
+            </h3>
+        </td>
+        <td>
+            <img src="<?= $this->config['images']["imgBase"] ?>premio.png" alt="">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4" style="padding: 0">
+            <hr class="hr-dotted">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" width="70%" valign="top" style="padding: 0">
+            <p style="font-size: 12px;color: #000;font-weight: 500; font-family: 'Didact Gothic', sans-serif;margin: 0">
+                Condiciones de Uso
+            </p>
+
+            <p style="font-size: 12px;color: #666666;font-family: 'Didact Gothic', sans-serif;">
+                <?= trim($this->cupon->CondicionesUso) ?>
+            </p>
+        </td>
+        <td colspan="2" width="30%" valign="top" style="padding: 0">
+            <p style="font-size: 12px;color: #000;font-weight: 400;font-family: 'Didact Gothic', sans-serif;margin: 0">
+                Datos del Proveedor
+            </p>
+            <?php if ($this->cupon->Direccion != null) : ?>
+                <p style="font-size: 12px;color:#666666;">
+                    <span>Direcci&oacute;n:</span>
+                    <span><?= $this->cupon->Direccion ?></span>
+                </p>
+            <?php endif; ?>
+            <?php if ($this->cupon->Telefono != null) : ?>
+                <p style="font-size: 12px;color:#666666;">
+                    <span>Tel&eacute;fono:</span>
+                    <span><?= $this->cupon->Telefono ?></span>
+                </p>
+            <?php endif; ?>
+            <?php if ($this->cupon->EmailEmpresa != null) : ?>
+                <p style="font-size: 12px;color:#666666;">
+                    <span>Email:</span>
+                    <span><?= $this->cupon->EmailEmpresa ?></span>
+                </p>
+            <?php endif; ?>
+            <?php if ($this->cupon->DiasAtencionContacto != null) : ?>
+                <p style="font-size: 12px;color:#666666;">
+                    <span>Horario:</span>
+                    <span>
+                    De <?= $this->cupon->DiasAtencionContacto ?> de <?= $this->cupon->HoraInicioContacto ?>
+                        a <?= $this->cupon->HoraFinContacto ?>
+                </span>
+                </p>
+            <?php endif; ?>
+            <?php if ($this->cupon->WebEmpresa != null) : ?>
+                <p style="font-size: 12px;color:#666666;">
+                    <span>Sitio Web:</span>
+                    <span><?= $this->cupon->WebEmpresa ?></span>
+                </p>
+            <?php endif; ?>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4" style="padding: 0">
+            <hr class="hr-dotted">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" style="padding-top: 0" <?php if ($this->cupon->NombreContacto == null) {
+            echo 'colspan="2" ';
+        } ?> >
+            <p style="font-size: 12px;color: #000;font-family: 'Didact Gothic', sans-serif;font-weight: 400;margin: 0">
+                Términos Legales
+            </p>
+
+            <p style="margin-top: 0;padding-top: 10px;text-align: left;font-size:12px;color:#666666;">
+                <?= trim($this->conf['termcondiciones']) ?>
+            </p>
+        </td>
+        <?php if ($this->cupon->NombreContacto != null) { ?>
+            <td colspan="2" style="padding-top: 0;padding-right: 10px" valign="center">
+                <p style="margin-top: 0;padding-top: 10px;font-size: 12px;font-family: 'Didact Gothic', sans-serif;color:#666666;">
+                    <?= $this->conf['parf_contact_pdf'] ?>
+                </p>
+
+                <p style="font-family: 'Didact Gothic', sans-serif;">
+                <span style="font-size: 12px;font-weight: 400;color:#000">
+                    <?= $this->cupon->NombreContacto ?>
+                </span><br>
+                    <span style="font-size: 12px;color:#666666;"><?= $this->cupon->CorreoContacto ?></span><br>
+                    <span style="font-size: 12px;color:#666666;"><?= $this->cupon->TelefonoContacto ?></span>
+                </p>
+            </td>
+        <?php } ?>
+    </tr>
+    <tr>
+        <td colspan="4" style="padding: 0">
+            <hr class="hr-dotted">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4" style="padding: 10px">
+            <table width="100%" style="background: #cccccc; font-family: 'Didact Gothic', sans-serif;">
+                <tr>
+                    <td colspan="3" style="padding-bottom: 10px;padding-top: 10px" align="center">
+                        <p style="font-family: 'Didact Gothic', sans-serif;font-weight: 400;font-size: 12px;color:#000">
+                            ¿C&oacute;mo usar este cup&oacute;n?
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="33.33%" style="padding-left: 50px;padding-right: 50px" valign="center">
+                        <span class="ncircle">1</span>
+                        <p style="display: inline-block;text-align: center;margin: 0;padding: 0;font-size: 12px">
+                            <span>Imprime </span><br>
+                            <span>este cup&oacute;n o</span><br>
+                            <span>desc&aacute;rgalo en tu celular </span>
+                        </p>
+                    </td>
+                    <td width="33.33%" style="padding-left: 30px;padding-right: 20px" valign="center">
+                        <span class="ncircle">2</span>
+                        <p style="display: inline-block;text-align: center;margin: 0;padding: 0;font-size: 12px">
+                            <span>Presentalo en el</span><br>
+                            <span>establecimiento indicado</span>
+                        </p>
+                    </td>
+                    <td width="33.33%" style="padding-left: 70px;padding-right: 70px" valign="center">
+                        <span class="ncircle">3</span>
+                        <p style="display: inline-block;text-align: center;margin: 0;padding: 0;font-size: 12px">
+                            <span>Disfruta del beneficio</span>
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" width="50%" valign="top" align="left">
+            <!--<img src="<? /*= $config['images']["logos"] . $logoCliente */ ?>" alt="" width="100px">-->
+        </td>
+        <td colspan="2" width="50%" valign="top" align="right">
+            <img src="<?= $this->config['images']["imgBeneficios"] ?>" alt="" width="100px">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4" style="padding: 0">
+            <hr class="hr-footer">
+        </td>
+    </tr>
+</table>
+</body>
+</html>

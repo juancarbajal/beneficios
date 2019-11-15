@@ -1,0 +1,272 @@
+<section class="content-header ">
+    <br><br><br>
+
+    <h1 class="box-title">Lista de Asignaciones Premios</h1>
+    <br><br>
+    <?php if ($this->flashMessenger()->hasMessages()) {
+        echo '<div class="callout alert alert-success">' .
+            '<button class="close" data-dismiss="alert" type="button">×</button>';
+        $messages = $this->flashMessenger()->getMessages();
+        foreach ($messages as $message) {
+            echo $message;
+        }
+        echo '</div>';
+    } ?>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                </div>
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <?php
+                        $form = $this->form;
+                        $asignaciones = $this->asignaciones;
+                        $order_by = $this->order_by;
+                        $order = $this->order;
+                        $p = $this->p;
+                        $q1 = $this->q1;
+                        $q2 = $this->q2;
+
+                        $form->setAttribute('action', $this->url('asignaciones-premios', array('action' => 'index')));
+                        $form->prepare();
+                        echo $this->form()->openTag($form);
+                        echo $this->formElement($form->get('csrf'));
+                        ?>
+                        <div class="row">
+                            <fieldset>
+                                <legend>Buscar por:</legend>
+                                <div class="form-group">
+                                    <div class="col-md-1"><label>Empresa Cliente:</label></div>
+                                    <div class="col-md-5">
+                                        <?= $this->formRow($form->get('Empresas')); ?>
+                                        <p><?= $this->nombre_empresa; ?></p>
+                                    </div>
+                                    <div class="col-md-1"><label>Campaña:</label></div>
+                                    <div class="col-md-4">
+                                        <?= $this->formRow($form->get('Campania')); ?>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <?= $this->formSubmit($form->get('submit')); ?>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </fieldset>
+                        </div>
+                        <hr>
+                        <?= $this->form()->closeTag(); ?>
+                    </div>
+
+                    <div class="dataTables_wrapper form-inline dt-bootstrap" id="example1_wrapper">
+                        <div class="row-fluid">
+                            <div class="col-md-12 text-right">
+                                <div id="example1_length" class="dataTables_length"><br>
+                                    <a href="<?php echo $this->url(
+                                        'asignaciones-premios',
+                                        array(
+                                            'action' => 'export',
+                                            'id' => $q1,
+                                            'val' => $q2
+                                        )
+                                    ); ?>"
+                                       class="btn btn-primary">Exportar</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="clear:both;"></div>
+                        <br>
+
+                        <div class="row-fluid">
+                            <div class="col-sm-12">
+                                <table aria-describedby="example1_info" role="grid" id="example1"
+                                       class="table table-bordered table-striped table-condensed dataTable">
+                                    <thead>
+                                    <tr role="row">
+                                        <th>
+                                            <a href="<?= $this->url(
+                                                'asignaciones-premios',
+                                                array(
+                                                    'order_by' => 'Empresa',
+                                                    'order' => ($order_by == 'Empresa') ? $order : 'asc',
+                                                    'page' => $p,
+                                                    'q1' => $q1,
+                                                    'q2' => $q2
+                                                )
+                                            ); ?>">Empresa Cliente</a>
+                                        </th>
+                                        <th>
+                                            <a href="<?= $this->url(
+                                                'asignaciones-premios',
+                                                array(
+                                                    'order_by' => 'Campania',
+                                                    'order' => ($order_by == 'Campania') ? $order : 'asc',
+                                                    'page' => $p,
+                                                    'q1' => $q1,
+                                                    'q2' => $q2
+                                                )
+                                            ); ?>">Campaña</a>
+                                        </th>
+                                        <th>
+                                            <a href="<?= $this->url(
+                                                'asignaciones-premios',
+                                                array(
+                                                    'order_by' => 'Segmento',
+                                                    'order' => ($order_by == 'Segmento') ? $order : 'asc',
+                                                    'page' => $p,
+                                                    'q1' => $q1,
+                                                    'q2' => $q2
+                                                )
+                                            ); ?>">Segmento</a>
+                                        </th>
+                                        <th>
+                                            <a href="<?= $this->url(
+                                                'asignaciones-premios',
+                                                array(
+                                                    'order_by' => 'Presupuesto',
+                                                    'order' => ($order_by == 'Presupuesto') ? $order : 'asc',
+                                                    'page' => $p,
+                                                    'q1' => $q1,
+                                                    'q2' => $q2
+                                                )
+                                            ); ?>">Presupuesto Premios</a>
+                                        </th>
+                                        <th>
+                                            <a href="<?= $this->url(
+                                                'asignaciones-premios',
+                                                array(
+                                                    'order_by' => 'Asignado',
+                                                    'order' => ($order_by == 'Asignado') ? $order : 'asc',
+                                                    'page' => $p,
+                                                    'q1' => $q1,
+                                                    'q2' => $q2
+                                                )
+                                            ); ?>">Premios Asignados</a>
+                                        </th>
+                                        <th>
+                                            <a href="<?= $this->url(
+                                                'asignaciones-premios',
+                                                array(
+                                                    'order_by' => 'Disponible',
+                                                    'order' => ($order_by == 'Disponible') ? $order : 'asc',
+                                                    'page' => $p,
+                                                    'q1' => $q1,
+                                                    'q2' => $q2
+                                                )
+                                            ); ?>">Premios Disponibles</a>
+                                        </th>
+                                        <th>
+                                            <a href="<?= $this->url(
+                                                'asignaciones-premios',
+                                                array(
+                                                    'order_by' => 'Estado',
+                                                    'order' => ($order_by == 'Estado') ? $order : 'asc',
+                                                    'page' => $p,
+                                                    'q1' => $q1,
+                                                    'q2' => $q2
+                                                )
+                                            ); ?>">Estado de la campaña</a>
+                                        </th>
+                                        <th>
+                                            <a href="<?= $this->url(
+                                                'asignaciones-premios',
+                                                array(
+                                                    'order_by' => 'Tipo',
+                                                    'order' => ($order_by == 'Tipo') ? $order : 'asc',
+                                                    'page' => $p,
+                                                    'q1' => $q1,
+                                                    'q2' => $q2
+                                                )
+                                            ); ?>">Tipo</a>
+                                        </th>
+                                        <th style="max-width: 100px"><a>Usuarios Asignados</a></th>
+                                        <th style="max-width: 100px"><a>Asignar</a></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php if (count($asignaciones) > 0) {
+                                        foreach ($asignaciones as $dato) : ?>
+                                            <tr data-id="<?php echo $dato->id ?>">
+                                                <td><?= $this->escapeHtml($dato->Empresa); ?></td>
+                                                <td><?= $this->escapeHtml($dato->Campania); ?></td>
+                                                <td><?= $this->escapeHtml($dato->NombreSegmento); ?></td>
+                                                <td><?= (int)$dato->Subtotal; ?></td>
+                                                <td><?= ($dato->Eliminado == 0) ? $dato->AsignadoActivo : ' - '; ?></td>
+                                                <td><?= ($dato->Eliminado == 0) ? $dato->DisponibleAsignar : ' - '; ?></td>
+                                                <td><?= $this->escapeHtml($dato->EstadoCampania); ?></td>
+                                                <td><?= $dato->Tipo == "Clasico" ? "Clásico" : "Personalizado" ?></td>
+                                                <td style="max-width: 100px">
+                                                    <a href="<?= $this->url('asignaciones-premios', array('action' => 'usuarios', 'id' => $dato->id)); ?>">
+                                                        <i class="btn btn-info fa fa-eye"></i></a>
+                                                </td>
+                                                <td style="max-width: 100px">
+                                                    <?php if ($dato->Tipo == "Clasico"): ?>
+                                                        <a href="<?= $this->url('asignaciones-premios', array('action' => 'clasico', 'id' => $dato->id)); ?>">
+                                                            <i class="btn btn-warning fa fa-pencil-square-o"></i></a>
+                                                    <?php elseif ($dato->Tipo == "Personalizado"): ?>
+                                                        <a href="<?= $this->url('asignaciones-premios', array('action' => 'personalizado', 'id' => $dato->id)); ?>">
+                                                            <i class="btn btn-warning fa fa-pencil-square-o"></i></a>
+                                                    <?php endif; ?>
+                                                </td>
+                                            </tr>
+                                            <?php
+                                        endforeach;
+                                    } else {
+                                        echo '<tr><td colspan="10">No hay Asignaciones Registradas</td></tr>';
+                                    } ?>
+                                    </tbody>
+                                </table>
+                                <div class="col-md-4"><br>
+                                    <p>
+                                        <?php if (count($asignaciones) > 0) { ?>
+                                            <?= (($asignaciones->getCurrentPageNumber() * $asignaciones->getItemCountPerPage()) -
+                                                ($asignaciones->getItemCountPerPage() - 1)); ?>
+                                            -
+                                            <?= ($asignaciones->getCurrentPageNumber() * $asignaciones->getItemCountPerPage() <
+                                                $asignaciones->getTotalItemCount())
+                                                ? $asignaciones->getCurrentPageNumber() * $asignaciones->getItemCountPerPage()
+                                                : $asignaciones->getTotalItemCount() ?> de
+                                            <?= $asignaciones->getTotalItemCount(); ?> Registros
+                                            <?php
+                                        }
+                                        ?>
+                                    </p>
+                                </div>
+                                <?php
+                                if (isset($asignaciones)) {
+                                    echo $this->paginationControl(
+                                        $asignaciones,
+                                        'Sliding',
+                                        'paginator-asignaciones-premios',
+                                        array(
+                                            'order_by' => $order_by,
+                                            'order' => ($order == "desc") ? 'asc' : 'desc',
+                                            'q1' => $q1,
+                                            'q2' => $q2,
+                                        )
+                                    );
+                                } ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<?php
+$this->inlineScript()->appendFile($this->basePath('js/premios/asignacion.js'));
+
+$empresaCli = $this->form->get("Empresas")->getValue();
+$campania = $this->form->get("Campania")->getValue();
+
+$this->inlineScript()->captureStart();
+echo <<<JS
+    $(document).ready(function() {
+        $('#empresa-cli').val('$empresaCli').trigger('change');
+        $('#campanias').val('$campania').trigger('change');
+    })
+JS;
+$this->inlineScript()->captureEnd();
+$this->inlineScript();

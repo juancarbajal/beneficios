@@ -1,0 +1,80 @@
+<div class="modal fade modal-vcenter custon-modal modal-active" id="elegirOpcion" tabindex="-1" role="dialog"
+     aria-labelledby="elegirOpcion">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <button type="button" class="close col-xs-1" data-dismiss="modal" aria-label="Close">
+                <span class="glyphicon glyphicon-remove star-ico" aria-hidden="true"></span>
+            </button>
+            <div class="modal-body">
+                <?php if ($this->identity()['flagcheckboxLogo']) { ?>
+                <div class="fluid-list cnt-logo-m">
+                    <img src="<?= $this->rlogos . $this->cupon->LogoEmpresa ?>">
+                </div>
+                <div class="fluid-list cnt-body-m custon-on">
+                    <p>Selecciona si el delivery será en Lima o provincias.</p>
+                </div>
+                <?php }?>
+                <?php
+                $count = 0;
+                $dato = "";
+                ?>
+                <?php foreach ($this->atributosData as $item): ?>
+                    <?php if ($item->Stock > 0): ?>
+                        <div class="fluid-list list-change">
+					                                <?php if ($item->DatoBeneficio != null) : ?>
+                                                    <?php if ($this->cupon->idTipoBeneficio == 1) :
+                                                        $dato = $item->DatoBeneficio . " % Descuento ";
+                                                    elseif ($this->cupon->idTipoBeneficio == 2) :
+                                                        $dato = "S/." . $item->DatoBeneficio . " Descuento ";
+                                                    /*elseif ($this->cupon->idTipoBeneficio == 3) :
+                                                      $dato = $item->DatoBeneficio . " en ";*/
+                                                    else :
+                                                        $dato = str_replace(' por','', $item->DatoBeneficio) . " ";
+                                                    endif; ?>
+                                                <?php endif; ?>
+                            <p><span><?=$item->NombreAtributo?></span><br>
+                               <span><?=$dato?></span><br> 
+                            <?php if ($item->FechaVigencia != null) :
+                                $date = new DateTime($item->FechaVigencia);
+                                $mes = $date->format('m'); ?>
+                                Cupón válido hasta el <?= '' . $date->format('d') . ' de ' . $this->meses[$mes - 1] ?>
+                            <?php endif; ?>
+                            </p>
+                            <a href="#" class="btn btn-belcorp enviarMail" data-value="<?= $item->id ?>">
+                                Seleccionar
+                                <input type="hidden" id="nombreAtributo" value="<?= $item->NombreAtributo .' '. $dato ?>">
+                            </a>
+                        </div>
+                    <?php else: ?>
+                        <div class="fluid-list list-change">
+									               <?php if ($item->DatoBeneficio != null) : ?>
+                                                    <?php if ($this->cupon->idTipoBeneficio == 1) :
+                                                        $dato =  $item->DatoBeneficio . " % Descuento ";
+                                                    elseif ($this->cupon->idTipoBeneficio == 2) :
+                                                        $dato = "S/." . $item->DatoBeneficio . " Descuento ";
+                                                    /*elseif ($this->cupon->idTipoBeneficio == 3) :
+                                                      $dato =  $item->DatoBeneficio . " en "; */
+                                                    else :
+                                                        $dato = str_replace(' por', '', $item->DatoBeneficio) . " ";
+                                                    endif; ?>
+                                                <?php endif; ?>
+
+                            <p><span><?=$item->NombreAtributo?></span><br>
+                               <span><?=$dato?></span> <br> 
+                                                <?php if ($item->FechaVigencia != null) :
+                                                    $date = new DateTime($item->FechaVigencia);
+                                                    $mes = $date->format('m'); ?>
+                                                    Cupón válido hasta el <?= '' . $date->format('d') . ' de ' . $this->meses[$mes - 1] ?>
+                                                <?php endif; ?>
+                            </p>
+                            <a href="#" class="btn btn-belcorp a-locked">
+                                Seleccionar
+                                <input type="hidden" id="nombreAtributo" value="<?=$item->NombreAtributo .' '. $dato?>">
+                            </a>
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+</div>

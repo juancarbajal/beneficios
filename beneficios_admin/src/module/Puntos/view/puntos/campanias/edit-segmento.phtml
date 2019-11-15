@@ -1,0 +1,195 @@
+<section class="content-header">
+    <br><br><br>
+
+    <h1 class="box-title">Editar Segmento</h1>
+    <br><br>
+    <?php if (isset($confirm) && $confirm != null) {
+        echo '<div class="callout alert alert-' . $this->type . '">' .
+            '<button class="close" data-dismiss="alert" type="button">×</button>';
+        foreach ($confirm as $message) {
+            echo '<li>' . $message . '</li>';
+        }
+        echo '</div>';
+    }
+    ?>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <?php
+                            $segmento = $this->segmento;
+                            $form = $this->form;
+                            $form->setAttribute('action', $this->url('campanias-puntos', array('action' => 'editSegmento', 'id' => $this->id)));
+                            $form->setAttribute('class', 'form-horizontal');
+                            $form->prepare();
+                            echo $this->form()->openTag($form);
+                            echo $this->formElement($form->get('csrf'));
+                            echo $this->formHidden($form->get('id'));
+                            ?>
+                            <fieldset>
+                                <input type="hidden" name="campania" value="<?= $this->idCampania ?>">
+                                <div class="form-group">
+                                    <div>
+                                        <div class="col-md-2"><label>Empresa:</label></div>
+                                        <div class="col-md-10">
+                                            <?php echo $this->empresa; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div>
+                                        <div class="col-md-2"><label>Campaña:</label></div>
+                                        <div class="col-md-10">
+                                            <?php echo $this->campania; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div
+                                        class="<?= $this->formElementErrors($form->get('NombreSegmento')) ? 'has-error' : '' ?>">
+                                        <div class="col-md-2"><label>Segmento:</label></div>
+                                        <div class="col-md-4">
+                                            <div class="row-fluid campo">
+                                                <div class="col-md-11 null-padding input">
+                                                    <?= $this->formRow($form->get('NombreSegmento')); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div
+                                        class="<?= $this->formElementErrors($form->get('CantidadPuntos')) ? 'has-error' : '' ?>">
+                                        <div class="col-md-2"><label>Puntos por usuarios:</label></div>
+                                        <div class="col-md-4">
+                                            <div class="row-fluid campo">
+                                                <div class="col-md-11 null-padding input">
+                                                    <?= $this->formRow($form->get('CantidadPuntos')); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div
+                                        class="<?= $this->formElementErrors($form->get('CantidadPersonas')) ? 'has-error' : '' ?>">
+                                        <div class="col-md-2"><label>Cant. max de Usuarios:</label></div>
+                                        <div class="col-md-4">
+                                            <div class="row-fluid campo">
+                                                <div class="col-md-11 null-padding input">
+                                                    <?= $this->formRow($form->get('CantidadPersonas')); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div>
+                                        <div class="col-md-2"><label>Presupuesto de Segmento:</label></div>
+                                        <div class="col-md-4">
+                                            <div class="row-fluid campo">
+                                                <div class="col-md-11 null-padding input">
+                                                    <?= $segmento->CantidadPuntos * $segmento->CantidadPersonas ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div>
+                                        <div class="col-md-2"><label>Estado de Segmento:</label></div>
+                                        <div class="col-md-4">
+                                            <div class="row-fluid campo">
+                                                <div class="col-md-11 null-padding input">
+                                                    <?= ((int)$segmento->Eliminado == 0) ? 'Activo' : 'Eliminado' ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div
+                                        class="<?= $this->formElementErrors($form->get('Comentario')) ? 'has-error' : '' ?>">
+                                        <div class="col-md-2"><label>Comentarios:</label></div>
+                                        <div class="col-md-10">
+                                            <div class="row-fluid campo">
+                                                <div class="col-md-11 null-padding input">
+                                                    <?= $this->formRow($form->get('Comentario')); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <hr>
+                            <fieldset>
+                                <legend>Información de Hoy</legend>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th class="center-cell">Presupuesto Asignado Activo</th>
+                                                <th class="center-cell">Presupuesto Asignado Cancelado</th>
+                                                <th class="center-cell">Presupuesto No Asignado</th>
+                                                <th colspan="4" class="center-cell">Presupuesto Aplicado</th>
+                                                <th class="center-cell">Presupuesto por Aplicar</th>
+                                            </tr>
+                                            <tr>
+                                                <th class="center-cell">Ptos. Asignados Activos</th>
+                                                <th class="center-cell">Ptos. dispXAsignar (devuelto a la bolsa)</th>
+                                                <th class="center-cell">Ptos. dispXAsignar</th>
+                                                <th class="center-cell">Ptos. Aplicados Activos</th>
+                                                <th class="center-cell">Ptos. Aplicados No activos</th>
+                                                <th class="center-cell">Ptos. Redimidos Activos</th>
+                                                <th class="center-cell">Ptos. Redimidos No activos</th>
+                                                <th class="center-cell">Ptos. dispXAplicar</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr data-id="<?= (int)$segmento->Eliminado ?>" <?= ((int)$segmento->Eliminado == 0) ? '' : 'style="color: grey"' ?>>
+                                                <td class="center-cell"><?= ((int)$segmento->Eliminado == 0) ? (int)$segmento->AsignadoActivo : ' - ' ?></td>
+                                                <td class="center-cell"><?= ((int)$segmento->Eliminado == 0) ? $segmento->AsignadoEliminado : ' - ' ?></td>
+                                                <td class="center-cell"><?= ((int)$segmento->Eliminado == 0) ? $segmento->Subtotal - $segmento->AsignadoActivo - $segmento->AsignadoEliminado - $segmento->AplicadoInactivo : ' - ' ?></td>
+                                                <td class="center-cell"><?= ((int)$segmento->Eliminado == 0) ? $segmento->AplicadoActivo : ' - ' ?></td>
+                                                <td class="center-cell"><?= (int)$segmento->AplicadoInactivo ?></td>
+                                                <td class="center-cell"><?= ((int)$segmento->Eliminado == 0) ? $segmento->RedimidoActivo : ' - ' ?></td>
+                                                <td class="center-cell"><?= (int)$segmento->RedimidoInactivo ?></td>
+                                                <td class="center-cell"><?= ((int)$segmento->Eliminado == 0) ? $segmento->AsignadoActivo - $segmento->AplicadoActivo : ' - ' ?></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <div class="box-footer">
+                                <div class="col-md-12" style="text-align: center;">
+                                    <?php if ($segmento->Eliminado == 0): ?>
+                                        <?= $this->formSubmit($form->get('submit')); ?>
+                                        <button class="btn btn-danger" type="button" data-toggle="modal"
+                                                data-target="#modalEliminar">
+                                            Eliminar
+                                        </button>
+                                    <?php endif; ?>
+                                    <a href="<?= $this->url('campanias-puntos', array('action' => 'edit', 'id' => $this->idCampania)); ?>"
+                                       class="btn btn-default">Cancelar</a>
+                                </div>
+                            </div>
+                            <br>
+                            <?php echo $this->form()->closeTag(); ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<?php
+echo $this->partial('_modals_campania.phtml');
+$this->inlineScript()->appendFile($this->basePath('js/puntos/campanias_add.js'));

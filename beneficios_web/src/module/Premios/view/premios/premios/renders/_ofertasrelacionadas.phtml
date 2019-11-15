@@ -1,0 +1,110 @@
+<?php
+use Application\Service\MobileDetect;
+
+$ofertas = $this->ofertas_relacionadas;
+?>
+<div class="fluid-list cnt-relaciondos">
+    <h4 class="borde-titulo" style="text-align: center">Ofertas relacionadas</h4>
+    <div class="row margin-b">
+        <?php for ($i = 0; $i <= 2; $i++) {
+            if (isset($ofertas[$i])) {
+                ?>
+                <div class="col-md-4 margin-bottom-movil">
+                    <div class="fluid-list cupon-two">
+                        <a href="/<?= $this->category ?>/coupon-premios/<?= $ofertas[$i]->Slug ?>">
+                            <figure>
+                                <img class="img-responsive" src="<?php
+                                echo $this->rofertas . $ofertas[$i]->ImagenOferta
+                                ?>" title=""/>
+                                <div class="premios-ico"></div>
+                            </figure>
+                        </a>
+
+                        <div class="info-cupon-l">
+                <?php if ($this->identity()['flagcheckboxLogo']) { ?>
+                            <figure class="left">
+                                <a href="/company/<?= $ofertas[$i]->SlugEmpresa ?>">
+                                    <img src="<?php
+                                    $trozos = explode(".", $ofertas[$i]->LogoEmpresa);
+                                    $ext = end($trozos);
+                                    $ofertas[$i]->LogoEmpresa = str_replace('.' . $ext, '', $ofertas[$i]->LogoEmpresa) . '-small.' . $ext;
+                                    echo $this->rlogos . $ofertas[$i]->LogoEmpresa ?>"/>
+                                </a>
+                            </figure>
+                    <?php }?>
+                            <div class="info-interna left">
+                                <h2>
+                                    <a href="/<?= $this->category ?>/coupon-premios/<?= $ofertas[$i]->Slug ?>"
+                                       class="title-short">
+                                        <?php
+                                        $tamaño = 75;
+                                        $ismovil = new MobileDetect();
+                                        if ($ismovil->isMobile() == 2) {
+                                            $tamaño = 43;
+                                        } elseif ($ismovil->isMobile() == 0) {
+                                            $tamaño = 55;
+                                        }
+
+
+                                        if (strlen($ofertas[$i]->TituloCorto) >= $tamaño) {
+                                            echo substr($ofertas[$i]->TituloCorto, 0, $tamaño) . "...";
+                                        } else {
+                                            echo $ofertas[$i]->TituloCorto;
+                                        }
+                                        ?>
+                                    </a>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php }
+        } ?>
+    </div>
+    <div class="row margin-b">
+        <?php for ($i = 3; $i <= 5; $i++) {
+            if (isset($ofertas[$i])) {
+                ?>
+                <div class="col-md-4 margin-bottom-movil">
+                    <div class="fluid-list cupon-two">
+                        <a href="/<?= $this->category ?>/coupon-premios/<?= $ofertas[$i]->Slug ?>">
+                            <figure>
+                                <img class="img-responsive" src="<?= $this->rofertas . $ofertas[$i]->ImagenOferta ?>"
+                                     title=""/>
+                                <div class="premios-ico"></div>
+                            </figure>
+                        </a>
+
+                        <div class="info-cupon-l">
+                <?php if ($this->identity()['flagcheckboxLogo']) { ?>
+                            <figure class="left">
+                                <a href="/company/<?= $ofertas[$i]->SlugEmpresa ?>">
+                                    <img src="<?php
+                                    $trozos = explode(".", $ofertas[$i]->LogoEmpresa);
+                                    $ext = end($trozos);
+                                    $ofertas[$i]->LogoEmpresa = str_replace('.' . $ext, '', $ofertas[$i]->LogoEmpresa) . '-small.' . $ext;
+                                    echo $this->rlogos . $ofertas[$i]->LogoEmpresa ?>"/>
+                                </a>
+                            </figure>
+                    <?php }?>
+                            <div class="info-interna left">
+                                <h2>
+                                    <a href="/<?= $this->category ?>/coupon-premios/<?= $ofertas[$i]->Slug ?>"
+                                       class="title-short">
+                                        <?php $tamaño = 75;
+                                        if (strlen($ofertas[$i]->TituloCorto) >= $tamaño) {
+                                            echo substr($ofertas[$i]->TituloCorto, 0, $tamaño) . "...";
+                                        } else {
+                                            echo $ofertas[$i]->TituloCorto;
+                                        }
+                                        ?>
+                                    </a>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php }
+        } ?>
+    </div>
+</div>

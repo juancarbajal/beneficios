@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        .margin {
+            margin: 20px auto;
+        }
+
+        .content {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+<div class="content">
+    <div>
+        <h3 align="center">
+            <b><?= $this->contenido['oferta'] ?></b>
+        </h3>
+    </div>
+    <table>
+        <?php foreach ($this->contenido['delivery'] as $value) : ?>
+            <tr>
+                <td align="left"><strong><?= $value['campo'] ?>: </strong></td>
+                <td> <?= $value['valor'] ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+    <hr>
+    <div>
+        <p>
+            <b>Precio de Venta al Público: </b><?= $this->contenido['precio'] ?>
+        </p>
+        <p>
+            <b>Puntos utilizados: </b><?= $this->contenido['ptos_usados'] ?>
+        </p>
+        <p>
+            <b>Total a pagar: </b><?= $this->contenido['precio'] - $this->contenido['ptos_usados'] ?>
+        </p>
+    </div>
+    <div>
+        <p class="margin">
+            <b>Subdominio: </b><?= $this->contenido['subdomain'] ?>
+        </p>
+    </div>
+</div>
+</body>
+</html>

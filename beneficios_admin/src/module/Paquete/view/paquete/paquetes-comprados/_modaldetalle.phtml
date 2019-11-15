@@ -1,0 +1,49 @@
+<button type="button" class="btn btn-primary btn-lg hide" id="btn_modal" data-toggle="modal" data-target="#myModal">
+</button>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="btn_close_modal" type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Descripción del Paquete - <label id="paquete"></label></h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="clearfix form-group descarga">
+                        <div class="col-md-4">
+                            <label for="precio-descarga">Precio por Descarga</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input id="precio-descarga" class="form-control" type="text" disabled>
+                        </div>
+                    </div>
+                    <div class=" clearfix form-group descarga">
+                        <div class="col-md-4">
+                            <label for="bonificacion">Bonificación</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input id="bonificacion" class="form-control" type="text" disabled>
+                        </div>
+                    </div>
+                    <div class=" clearfix form-group descarga">
+                        <div class="col-md-4">
+                            <label for="precio-bonificacion">Precio por Bonificación</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input id="precio-bonificacion" class="form-control" type="text" disabled>
+                        </div>
+                    </div>
+                    <div class="clearfix form-group presencia">
+                        <div class="col-md-4">
+                            <label for="costo">Costo por día</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input id="costo" class="form-control" type="text" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

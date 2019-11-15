@@ -1,0 +1,127 @@
+<section class="content-header ">
+    <br><br><br>
+
+    <h1 class="box-title">Lista de Usuarios Asignados</h1>
+    <br><br>
+</section>
+<?php
+$segmento = $this->segmento;
+$asignaciones = $this->asignaciones;
+?>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2"><label>Empresa Cliente:</label></div>
+                            <div class="col-md-4"><?= $this->empresa ?></div>
+                            <div class="col-md-2"><label>Campaña:</label></div>
+                            <div class="col-md-4"><?= $this->campania ?></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2"><label>Tipo Campaña:</label></div>
+                            <div class="col-md-4"><?= $this->tipoSegmento ?></div>
+                            <div class="col-md-2"><label>Segmento:</label></div>
+                            <div class="col-md-4"><?= $segmento->NombreSegmento ?></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2"><label>Presupuesto:</label></div>
+                            <div class="col-md-4"><?= $this->presupuesto ?></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-3">
+                                <a href="<?= $this->url('asignaciones-puntos', array('action' => 'index')) ?>"
+                                   class="btn btn-default" role="button">Atrás</a>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form class="form" role="form" method="post"
+                                  action="<?= $this->url('asignaciones-puntos', array('action' => 'usuarios', 'id' => $this->id)) ?>">
+                                <div class="col-md-2">
+                                    <label>Buscar por Documento:</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <input name="documento" class="form-control" type="text" title="número de documento"
+                                           value="<?php echo $this->documento ?>">
+                                </div>
+                                <div class="col-md-2">
+                                    <input name="submit" id="submitButton" class="btn btn-primary" value="Buscar"
+                                           type="submit">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row-fluid">
+                        <div class="col-md-12">
+                            <table id="asignados" role="grid"
+                                   class="table table-bordered table-striped table-condensed dataTables_wrapper form-inline dt-bootstrap">
+                                <thead>
+                                <tr role="row">
+                                    <th>Nro. de Documento</th>
+                                    <th>Nombres</th>
+                                    <th>Apellidos</th>
+                                    <th>Ptos. Asignados Activos</th>
+                                    <th>Ptos. Asignados No Activos</th>
+                                    <th>Ptos. Aplicados Activos</th>
+                                    <th>Ptos. Aplicados No Activos</th>
+                                    <th>Ptos. Redimidos Activos</th>
+                                    <th>Ptos. Redimidos No Activos</th>
+                                    <th>Ptos. Disp. por Aplicar</th>
+                                    <th>Estado de la asignación</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php if (count($asignaciones) > 0) :
+                                    foreach ($asignaciones as $dato) : ?>
+                                        <tr data-id="<?php echo $dato->id ?>">
+                                            <td><?= $this->escapeHtml($dato->NumeroDocumento); ?></td>
+                                            <td><?= $this->escapeHtml($dato->Nombre); ?></td>
+                                            <td><?= $this->escapeHtml($dato->Apellido); ?></td>
+                                            <td><?= ($dato->Eliminado == 0) ? (int)$dato->CantidadPuntos : '' ?></td>
+                                            <td><?= (int)$dato->CantidadPuntosEliminados ?></td>
+                                            <td><?= ($dato->Eliminado == 0) ? (int)$dato->CantidadPuntosUsados : 0 ?></td>
+                                            <td><?= ($dato->Eliminado == 1) ? (int)$dato->CantidadPuntosUsados : 0 ?></td>
+                                            <td><?= ($dato->Eliminado == 0) ? (int)$dato->Redimidos : 0 ?></td>
+                                            <td><?= ($dato->Eliminado == 1) ? (int)$dato->Redimidos : 0 ?></td>
+                                            <td><?= ($dato->Eliminado == 0) ? $dato->CantidadPuntos - $dato->CantidadPuntosUsados : '' ?></td>
+                                            <td><?= ((int)$dato->Eliminado == 0) ? 'Activado' : 'Desactivado'; ?></td>
+                                        </tr>
+                                        <?php
+                                    endforeach;
+                                endif; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $('#asignados').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": false,
+        "info": true,
+        "autoWidth": true,
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.12/i18n/Spanish.json"
+        }
+    });
+</script>

@@ -1,0 +1,189 @@
+<section class="content-header ">
+    <br><br><br>
+    <h1 class="box-title">Lista de Usuarios del Sistema</h1>
+    <br><br>
+    <?php if ($this->flashMessenger()->hasMessages()) {
+        echo '<div class="callout alert alert-success"><button class="close" data-dismiss="alert" type="button">×</button>';
+        $messages = $this->flashMessenger()->getMessages();
+        foreach ($messages as $message) {
+            echo $message;
+        }
+        echo '</div>';
+    } ?>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                </div>
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <?php
+                        $form->setAttribute('action', $this->url('usuario', array('action' => 'index')));
+                        $form->prepare();
+                        echo $this->form()->openTag($form);
+                        echo $this->formElement($form->get('csrf'));
+
+                        ?>
+                        <div class="row">
+                            <fieldset>
+                                <legend>Buscar por:</legend>
+                                <div class="form-group">
+                                    <label class="col-md-2">Nombre o Apellido o DNI: </label>
+                                    <div class="col-md-4">
+                                        <?= $this->formRow($form->get('Nombres')); ?>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                                <br>
+                                <div class="col-md-12 text-right">
+                                    <?= $this->formSubmit($form->get('submit')); ?>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <hr>
+                        <?= $this->form()->closeTag(); ?>
+                    </div>
+
+                    <div class="dataTables_wrapper form-inline dt-bootstrap" id="example1_wrapper">
+                        <div class="row-fluid">
+                            <div class="col-md-12 text-right">
+                                <div id="example1_length" class="dataTables_length">
+                                    <a href="<?php echo $this->url('usuario', array('action' => 'export')); ?>"
+                                       class="btn btn-primary">Exportar</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="clear:both;"></div>
+                        <br>
+
+                        <div class="row-fluid">
+                            <div class="col-sm-12">
+                                <table aria-describedby="example1_info" role="grid" id="example1"
+                                       class="table table-bordered table-striped dataTable">
+                                    <thead>
+                                    <tr role="row">
+                                        <th style="width: 300px">
+                                            <?php if ($order_by == 'TipoUsuario'): ?>
+                                                <a href="<?= $this->url('usuario', array('order_by' => 'TipoUsuario', 'order' => $order, 'page' => $p, 'q1' => $q1)); ?>">Tipo
+                                                    Usuario</a>
+                                            <?php else: ?>
+                                                <a href="<?= $this->url('usuario', array('order_by' => 'TipoUsuario', 'order' => 'asc', 'page' => $p, 'q1' => $q1)); ?>">Tipo
+                                                    Usuario</a>
+                                            <?php endif; ?>
+                                        </th>
+                                        <th style="width: 300px">
+                                            <?php if ($order_by == 'Nombres'): ?>
+                                                <a href="<?= $this->url('usuario', array('order_by' => 'Nombres', 'order' => $order, 'page' => $p, 'q1' => $q1)); ?>">Nombres</a>
+                                            <?php else: ?>
+                                                <a href="<?= $this->url('usuario', array('order_by' => 'Nombres', 'order' => 'asc', 'page' => $p, 'q1' => $q1)); ?>">Nombres</a>
+                                            <?php endif; ?>
+                                        </th>
+                                        <th style="width: 300px">
+                                            <?php if ($order_by == 'Apellidos'): ?>
+                                                <a href="<?= $this->url('usuario', array('order_by' => 'Apellidos', 'order' => $order, 'page' => $p, 'q1' => $q1)); ?>">Apellidos</a>
+                                            <?php else: ?>
+                                                <a href="<?= $this->url('usuario', array('order_by' => 'Apellidos', 'order' => 'asc', 'page' => $p, 'q1' => $q1)); ?>">Apellidos</a>
+                                            <?php endif; ?>
+                                        </th>
+                                        <th style="width: 300px">
+                                            <?php if ($order_by == 'Usuario'): ?>
+                                                <a href="<?= $this->url('usuario', array('order_by' => 'Usuario', 'order' => $order, 'page' => $p, 'q1' => $q1)); ?>">Usuario</a>
+                                            <?php else: ?>
+                                                <a href="<?= $this->url('usuario', array('order_by' => 'Usuario', 'order' => 'asc', 'page' => $p, 'q1' => $q1)); ?>">Usuario</a>
+                                            <?php endif; ?>
+                                        </th>
+                                        <th style="width: 300px">
+                                            <?php if ($order_by == 'Correo'): ?>
+                                                <a href="<?= $this->url('usuario', array('order_by' => 'Correo', 'order' => $order, 'page' => $p, 'q1' => $q1)); ?>">Correo</a>
+                                            <?php else: ?>
+                                                <a href="<?= $this->url('usuario', array('order_by' => 'Correo', 'order' => 'asc', 'page' => $p, 'q1' => $q1)); ?>">Correo</a>
+                                            <?php endif; ?>
+                                        </th>
+                                        <th style="width: 310px">
+                                            <?php if ($order_by == 'Documento'): ?>
+                                                <a href="<?= $this->url('usuario', array('order_by' => 'Documento', 'order' => $order, 'page' => $p, 'q1' => $q1)); ?>">Número
+                                                    de Documento</a>
+                                            <?php else: ?>
+                                                <a href="<?= $this->url('usuario', array('order_by' => 'Documento', 'order' => 'asc', 'page' => $p, 'q1' => $q1)); ?>">Número
+                                                    de Documento</a>
+                                            <?php endif; ?>
+                                        </th>
+                                        <th><a>Editar</a></th>
+                                        <th style="width: 50px">
+                                            <?php if ($order_by == 'Activo'): ?>
+                                                <a href="<?= $this->url('usuario', array('order_by' => 'Activo', 'order' => $order, 'page' => $p, 'q1' => $q1)); ?>">Activo</a>
+                                            <?php else: ?>
+                                                <a href="<?= $this->url('usuario', array('order_by' => 'Activo', 'order' => 'asc', 'page' => $p, 'q1' => $q1)); ?>">Activo</a>
+                                            <?php endif; ?>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                    if (count($datos)):
+                                        foreach ($datos as $dato) : ?>
+                                            <tr data-id="<?php echo $dato->id ?>">
+                                                <td><?php echo $this->escapeHtml($dato->NombreTipoUsuario); ?></td>
+                                                <td><?php echo $this->escapeHtml($dato->Nombres); ?></td>
+                                                <td><?php echo $this->escapeHtml($dato->Apellidos); ?></td>
+                                                <td><?php echo $this->escapeHtml($dato->NombreUsuario); ?></td>
+                                                <td><?php echo $this->escapeHtml($dato->Correo); ?></td>
+                                                <td><?php echo $this->escapeHtml($dato->NumeroDocumento); ?></td>
+                                                <td>
+                                                    <a href="<?php echo $this->url('usuario', array('action' => 'edit',
+                                                        'id' => $dato->id)); ?>">
+                                                        <i class="btn btn-warning fa fa-pencil-square-o"></i></a></td>
+                                                </td>
+                                                <td>
+                                                    <?php if ($dato->Eliminado == 1): ?>
+                                                        <input id="elim<?php echo $dato->id ?>"
+                                                               name="<?php echo $dato->Eliminado ?>"
+                                                               class="elim" type="checkbox">
+                                                    <?php else: ?>
+                                                        <input id="elim<?php echo $dato->id ?>"
+                                                               name="<?php echo $dato->Eliminado ?>"
+                                                               class="elim" type="checkbox" checked>
+                                                    <?php endif; ?>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach;
+                                    else: ?>
+                                        <tr>
+                                            <td colspan="8">No hay Usuarios Registrados</td>
+                                        </tr>
+                                    <?php endif; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.box-body -->
+                <div class="col-md-4"><br>
+
+                    <p>
+                        <?= (($datos->getCurrentPageNumber() * $datos->getItemCountPerPage()) -
+                            ($datos->getItemCountPerPage() - 1)); ?>
+                        -
+                        <?= ($datos->getCurrentPageNumber() * $datos->getItemCountPerPage() <
+                            $datos->getTotalItemCount())
+                            ? $datos->getCurrentPageNumber() * $datos->getItemCountPerPage()
+                            : $datos->getTotalItemCount() ?> de
+                        <?= $datos->getTotalItemCount(); ?> Registros
+                    </p>
+                </div>
+                <?= $this->paginationControl($datos, 'Sliding', 'paginator-usuario',
+                    array(
+                        'order_by' => $order_by,
+                        'order' => ($order == "desc") ? 'asc' : 'desc',
+                        'q1' => $q1
+                    )
+                );
+                ?>
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section>
+
+<?php echo $this->inlineScript()->prependFile($this->basePath('js/usuario/UsuarioSistema.js?' . $this->configItem('version_script'))); ?>

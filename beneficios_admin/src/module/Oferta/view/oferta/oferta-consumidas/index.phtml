@@ -1,0 +1,198 @@
+<?php
+const TIPO_OFERTA_DESCARGA = 1;
+const TIPO_OFERTA_PRESENCIA = 2;
+const TIPO_OFERTA_LEAD = 3;
+?>
+<section class="content-header">
+    <br><br><br>
+
+    <h1 class="box-title">Ofertas Consumidas</h1>
+    <br>
+
+    <div style="clear:both;"></div>
+    <?php if ($this->flashMessenger()->hasMessages()) {
+        echo '<div class="callout alert alert-success">' .
+            '<button class="close" data-dismiss="alert" type="button">×</button>';
+        $messages = $this->flashMessenger()->getMessages();
+        foreach ($messages as $message) {
+            echo $message;
+        }
+        echo '</div>';
+    } ?>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                </div>
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <?php
+                        $form->setAttribute('action', $this->url('paquete-oferta', array('action' => 'index')));
+                        $form->prepare();
+                        echo $this->form()->openTag($form);
+                        echo $this->formElement($form->get('csrf'));
+
+                        ?>
+                        <div class="row">
+                            <fieldset>
+                                <legend>Buscar por:</legend>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Titulo Oferta:</label>
+
+                                    <div class="col-md-4">
+                                        <?= $this->formRow($form->get('Titulo')); ?>
+                                    </div>
+                                    <label class="col-md-2 control-label">Estado:</label>
+
+                                    <div class="col-md-4">
+                                        <?= $this->formRow($form->get('Estado')); ?>
+                                    </div>
+                                </div>
+                                <br><br>
+
+                                <div class="form-group">
+                                    <label class="col-md-2">Fecha de Asignación Desde :</label>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <?= $this->formRow($form->get('FechaInicio')); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <label class="col-md-2">Hasta :</label>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <?= $this->formRow($form->get('FechaFin')); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br><br>
+
+                                <div class="form-group">
+                                    <div class="col-md-offset-6 col-md-6 text-right">
+                                        <?= $this->formSubmit($form->get('submit')); ?>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <hr>
+                            <?php
+                            echo $this->form()->closeTag();
+                            ?>
+                        </div>
+
+                        <div class="dataTables_wrapper form-inline dt-bootstrap" id="example1_wrapper">
+                            <div class="row-fluid">
+                                <div class="col-md-12 text-right">
+                                    <div id="example1_length" class="dataTables_length"><br>
+                                        <a href="<?php echo $this->url('paquete-oferta', array('action' => 'export',
+                                            'q1' => $q1, 'q2' => $q2, 'q3' => $q3, 'q4' => $q4)); ?>"
+                                           class="btn btn-primary">Exportar</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="clear:both;"></div>
+                            <br>
+
+                            <div class="row-fluid">
+                                <div class="col-sm-12">
+                                    <table aria-describedby="example1_info" role="grid" id="example1"
+                                           class="table table-bordered table-striped dataTable">
+                                        <thead>
+                                        <tr role="row">
+                                            <th><a>Titulo Oferta</a></th>
+                                            <th><a>Fecha Inicio publicación</a></th>
+                                            <th><a>Estado</a></th>
+                                            <th><a>Asignaciones</a></th>
+                                            <th><a>Descargados</a></th>
+                                            <th><a>No Utilizados</a></th>
+                                            <th><a>Redimidos</a></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php
+                                        if (isset($ofertas) && count($ofertas)) {
+                                            foreach ($ofertas as $dato) { ?>
+                                                <tr data-id="<?php echo $dato->id ?>">
+                                                    <td width="100"><?php echo $this->escapeHtml($dato->Titulo); ?></td>
+                                                    <td width="100"><?php echo $this->escapeHtml($dato->FechaInicioPublicacion); ?></td>
+                                                    <td width="100"><?php echo $this->escapeHtml($dato->Estado); ?></td>
+                                                    <td width="100">
+                                                        <?php if ($dato->BNF_BolsaTotal_TipoPaquete_id == TIPO_OFERTA_DESCARGA) {
+                                                            echo $this->escapeHtml($dato->Stock) != 1
+                                                                ? $this->escapeHtml((int)$dato->Stock) . ' Descargas' : '1 Descarga';
+                                                        } elseif ($dato->BNF_BolsaTotal_TipoPaquete_id == TIPO_OFERTA_PRESENCIA) {
+                                                            echo $this->escapeHtml($dato->Stock) != 1
+                                                                ? $this->escapeHtml((int)$dato->Stock) . ' Días' : '1 Día';
+                                                        } elseif ($dato->BNF_BolsaTotal_TipoPaquete_id == TIPO_OFERTA_LEAD) {
+                                                            echo $this->escapeHtml($dato->Stock) != 1
+                                                                ? $this->escapeHtml((int)$dato->Stock) . ' Leads' : '1 Lead';
+                                                        } ?>
+                                                    </td>
+                                                    <td width="100">
+                                                        <?php if ($dato->BNF_BolsaTotal_TipoPaquete_id != TIPO_OFERTA_LEAD) {
+                                                            echo (int)$this->escapeHtml($dato->Descargados);
+                                                        } ?>
+                                                    </td>
+                                                    <td width="100">
+                                                        <?php if ($dato->BNF_BolsaTotal_TipoPaquete_id != TIPO_OFERTA_LEAD) {
+                                                            echo (int)$this->escapeHtml($dato->NoUtilizados);
+                                                        } ?>
+                                                    </td>
+                                                    <td width="100">
+                                                        <?php if ($dato->BNF_BolsaTotal_TipoPaquete_id != TIPO_OFERTA_LEAD) {
+                                                            echo (int)$this->escapeHtml($dato->Redimidos);
+                                                        } ?>
+                                                    </td>
+                                                </tr>
+                                                <?php
+                                            }
+                                        } else { ?>
+                                            <tr>
+                                                <td colspan="7">No hay Paquetes Asignados</td>
+                                            </tr>
+                                        <?php } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <p>
+                            <?php if (isset($ofertas) && count($ofertas)): ?>
+                                <?= (($ofertas->getCurrentPageNumber() * $ofertas->getItemCountPerPage()) -
+                                    ($ofertas->getItemCountPerPage() - 1)); ?>
+                                -
+                                <?= ($ofertas->getCurrentPageNumber() * $ofertas->getItemCountPerPage() <
+                                    $ofertas->getTotalItemCount())
+                                    ? $ofertas->getCurrentPageNumber() * $ofertas->getItemCountPerPage()
+                                    : $ofertas->getTotalItemCount() ?> de
+                                <?= $ofertas->getTotalItemCount(); ?> Registros
+                            <?php endif; ?>
+                        </p>
+                    </div>
+                    <?php
+                    if (isset($ofertas)):
+                        echo $this->paginationControl($ofertas, 'Sliding', 'paginator-offcons', array(
+                                'page' => $p, 'q1' => $q1, 'q2' => $q2, 'q3' => $q3, 'q4' => $q4)
+                        );
+                    endif;
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript" src="<?= $this->basePath('js/paquete/Paquete.js?'.$this->configItem('version_script'));?>"></script>

@@ -1,0 +1,28 @@
+<?php echo $this->doctype(); ?>
+<html lang="es">
+<head>
+    <?php include('renders/_head.phtml') ?>
+    <?php echo  $this->partial('layout/renders/analytics') ?>
+    <?php if($this->damoain_sullana) {?>
+    <!--Agregar Cuando es caja sullana-->
+        <style type="text/css">
+            .btn-block{background: #bf0811;border-bottom: 3px solid #bc0e2e;}
+            .btn-block span{-webkit-text-shadow: 0 0px 0 rgba(191, 8, 17, 1);-moz-text-shadow: 0 0px 0 rgba(191, 8, 17, 1);text-shadow: 0 0px 0 rgba(191, 8, 17, 1);}
+            .btn-block:hover{background: #F29D20;border: 0;border-bottom: 3px solid #F29D20;}
+            .btn-block.btn-primary:active, .btn-block.btn-primary:focus {background: #F29D20;border: 0;border-bottom: 3px solid #F29D20;}
+            .btn-block.btn-primary.disabled, .btn-primary[disabled], .btn-primary[disabled]:hover, .btn-primary[disabled]:focus, .btn-primary[disabled]:active{background: #F29D20;border-bottom: 3px solid #F29D20;opacity: 0.8;}
+            .contenido-login h5 a{color: #d9963e;}
+            .header-login{background: #bf0811;height: 110px;border-radius: 5px 5px 0 0;}
+            .header-login span{display: block;width: 320px;height: 85px;background: url("img/cajasullana.png") no-repeat;background-size: 100% 100%;top: 10px;}
+        </style>
+    <!--Final de caja sullana-->
+    <?php }?>
+</head>
+<body class="login-wrapper">
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
+<?php echo $this->content; ?>
+</body>
+</html>

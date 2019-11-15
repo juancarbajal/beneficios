@@ -1,0 +1,38 @@
+<?php if (count($tarjetas) > 0) { ?>
+    <fieldset id="form-config">
+        <legend>Tarjetas TEBCA</legend>
+        <div class="form-group">
+            <?php foreach ($tarjetas as $tarjeta) { ?>
+                <div class="col-md-3">
+                    <label for="<?= $tarjeta->Descripcion ?>"><?= $tarjeta->Descripcion ?></label>
+                    <input type="checkbox" name="tarjetas_input[]" class="checkbox-inline"
+                           id="<?= $tarjeta->Descripcion ?>" value="<?= $tarjeta->id ?>"
+                        <?= (isset($tarjetasAsignar))
+                            ? (in_array($tarjeta->id, $tarjetasAsignar) ? 'checked' : '')
+                            : '' ?>>
+                </div>
+            <?php } ?>
+        </div>
+    </fieldset>
+    <fieldset id="form-config2">
+        <legend>Terminos y Condiciones TEBCA</legend>
+        <div class="form-group">
+            <div
+                class="<?= $this->formElementErrors($form->get('CondicionesTebca'))
+                    ? 'has-error' : '' ?>">
+                <div class="col-md-2"><label>Condiciones TEBCA:</label></div>
+                <div class="col-md-10">
+                    <div class="row-fluid campo">
+                        <div class="col-md-11 null-padding input">
+                            <div class="box">
+                                <div class="box-body pad">
+                                    <?= $this->formRow($form->get('CondicionesTebca')); ?>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+<?php } ?>

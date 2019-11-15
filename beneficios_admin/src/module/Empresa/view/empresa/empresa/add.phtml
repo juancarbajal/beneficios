@@ -1,0 +1,670 @@
+<section class="content-header">
+    <br><br><br>
+
+    <h1 class="box-title">Registrar Empresa</h1>
+    <br><br>
+    <?php if (isset($confir) && $confir != null) {
+        echo '<div class="callout alert alert-' . $type . '"><button class="close" data-dismiss="alert" type="button">×</button>';
+        foreach ($confir as $message) {
+            echo '<li>' . $message . '</li>';
+        }
+        echo '</div>';
+    } ?>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                </div>
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <?php
+                        $form->setAttribute('action', $this->url('empresa', array('action' => 'add')));
+                        $form->setAttribute('id', 'addform');
+                        $form->setAttribute('class', 'form-horizontal');
+                        $form->prepare();
+                        echo $this->form()->openTag($form);
+                        echo $this->formElement($form->get('csrf'));
+
+                        ?>
+                        <fieldset>
+                            <legend>Datos Generales:</legend>
+                            <?= $this->formHidden($form->get('id')); ?>
+                            <div class="form-group">
+                                <div
+                                    class="<?= $this->formElementErrors($form->get('TipoEmpresa')) ? 'has-error' : '' ?>">
+                                    <div class="col-md-2"><label>Rol:</label></div>
+                                    <div class="col-md-4">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-11 null-padding input">
+                                                <?php echo $this->formElement($form->get('TipoEmpresa')); ?>
+                                                <?= (isset($param1['rol'])) ? '<ul><li>' . $param1['rol'] . '</li></ul>' : ''; ?>
+                                            </div>
+                                            <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="input-col-7 <?= $this->formElementErrors($form->get('ClaseEmpresaCliente')) ? 'has-error' : '' ?>">
+                                    <div class="col-md-2 text-right"><label>Clase:</label></div>
+                                    <div class="col-md-4">
+                                        <?= $this->formElement($form->get('ClaseEmpresaCliente')); ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-2">
+                                    <label class="control-label" id="lsub"></label>
+                                </div>
+                                <div class="col-md-6">
+                                    <table class="table" id="addtable"></table>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-2">
+                                    <label class="control-label">Nombre Comercial:</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <?= $this->formRow($form->get('NombreComercial')); ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-2">
+                                    <label class="control-label">Razón Social:</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <?= $this->formRow($form->get('RazonSocial')); ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-2">
+                                    <label class="control-label">Apellido Paterno:</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <?= $this->formRow($form->get('ApellidoPaterno')); ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-2">
+                                    <label class="control-label">Apellido Materno:</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <?= $this->formRow($form->get('ApellidoMaterno')); ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-2">
+                                    <label class="control-label">Nombres:</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <?= $this->formRow($form->get('Nombre')); ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="IdSAP" class="col-md-2">Habilitar Logo de Beneficios:</label>
+
+                                <div class="col-md-4 less-pad">
+                                    <div class="col-md-12 campo">
+                                        <?= $this->formRow($form->get('checkboxLogoBeneficio')); ?>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="IdSAP" class="col-md-2">Habilitar el ingreso del 100% del precio del cupón:</label>
+
+                                <div class="col-md-4 less-pad">
+                                    <div class="col-md-12 campo">
+                                        <?= $this->formRow($form->get('checkboxTotalPuntos')); ?>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="IdSAP" class="col-md-2">Habilitar Formato de Puntos no soles:</label>
+
+                                <div class="col-md-4 less-pad">
+                                    <div class="col-md-12 campo">
+                                        <?= $this->formRow($form->get('checkboxMoney')); ?>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div
+                                class="form-group <?= $this->formElementErrors($form->get('Ruc')) ? 'has-error' : '' ?>">
+                                <div class="col-md-2">
+                                    <label class="control-label">RUC:</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row-fluid campo">
+                                        <div class="col-md-11 null-padding input">
+                                            <?php echo $this->formRow($form->get('Ruc')); ?>
+                                            <?= (isset($param1['Ruc'])) ? '<ul><li>' . $param1['Ruc'] . '</li></ul>' : ''; ?>
+                                        </div>
+                                        <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-2">
+                                    <label class="control-label">Descripción:</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <?= $this->formRow($form->get('Descripcion')); ?>
+                                </div>
+                            </div>
+                            <div class="form-group <?= (isset($param1['logoc'])) ? $param1['logoc'] : ''; ?>">
+                                <div class="col-md-2"><label>Seleccionar Logo y Agregar:</label></div>
+                                <div class="col-md-10 ">
+                                    <div class="row-fluid campo">
+                                        <div class="col-md-11 null-padding input">
+                                            <input id="input-logo" type="file" data-show-preview="false">
+                                            <?php echo (isset($param1['logo']))
+                                                ? '<ul class="error-logo">' . $param1['logo'] . '</ul>' : ''; ?>
+                                        </div>
+                                        <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                    </div>
+                                    <div class="col-xs-2" style="padding-left:0px;">
+                                        <input type="button" class="btn btn-primary left" id="btn-logo" value="Agregar">
+                                        <div id="download-logo" class="loader left hidden">
+                                            <img src="<?= $this->basepath('img/ajax_clock_small.gif') ?>">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+                                <div class="col-xs-10 col-xs-offset-2">
+                                    <table aria-describedby="example1_info" role="grid" id="list-logo"
+                                           class="table table-bordered table-striped dataTable">
+                                        <thead>
+                                        <tr role="row">
+                                            <th>Imagen</th>
+                                            <th style="width: 120px">Acción</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php
+                                        if (isset($logo)) {
+                                            $rand = rand(300, 500);
+                                            ?>
+                                            <tr id="<?= $rand ?>">
+                                                <td>
+                                                    <a id="single_image"
+                                                       href="/elements/empresa/<?= $logo ?>?<?= $rand ?>">
+                                                        <img style="height: 50px;width: 100px;"
+                                                             src="/elements/empresa/<?= $logo ?>?<?= $rand ?>">
+                                                    </a>
+                                                    <input type="hidden" name="Logo" value="<?= $logo ?>">
+                                                </td>
+                                                <td>
+                                                    <a onclick="deleteLogo(<?= $rand ?>,'<?= $logo ?>')"
+                                                       class="btn btn-danger">Eliminar</a>
+                                                </td>
+                                            </tr>
+                                            <?php
+                                        }
+                                        ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="IdSAP" class="col-md-2">Habilitar Logo de Proveedores:</label>
+
+                                <div class="col-md-4 less-pad">
+                                    <div class="col-md-12 campo">
+                                        <?= $this->formRow($form->get('checkboxLogo')); ?>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="IdSAP" class="col-md-2">IdSAP:</label>
+
+                                <div class="col-md-4 less-pad">
+                                    <div class="col-md-12">
+                                        <?= $this->formRow($form->get('IdSap')); ?>
+                                    </div>
+                                </div>
+                                <label class="col-md-2">Sub Dominio:</label>
+
+                                <div class="col-md-4 less-pad">
+                                    <div
+                                        class="col-md-12 campo <?= $this->formElementErrors($form->get('SubDominio')) ? 'has-error' : '' ?>
+                                    <?= (isset($param1['subdc'])) ? $param1['subdc'] : ''; ?>">
+                                        <?= $this->formRow($form->get('SubDominio')); ?>
+                                        <?php echo (isset($param1['subd']))
+                                            ? '<ul class="error-subd">' . $param1['subd'] . '</ul>' : ''; ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2">Sito Web:</label>
+
+                                <div class="col-md-10 less-pad">
+                                    <div class="col-md-6">
+                                        <?= $this->formRow($form->get('SitioWeb')); ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <div class="row-fluid">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-10">
+                                        <div class="col-md-2">
+                                            <label class="col-md-12 control-label">País:</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label class="col-md-12 control-label less-pad"
+                                                   for="dirl_dep">Departamento:</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label class="col-md-12 control-label">Provincia:</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="col-md-12 control-label">Distrito:</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="col-md-12 control-label">Dirección Detalle:</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row-fluid">
+                                    <label class="col-md-2">Dirección de Empresa:</label>
+
+                                    <div class="col-md-10">
+                                        <div class="col-md-2">
+                                            <?= $this->formRow($form->get('PaisEmpresa')); ?>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <?= $this->formRow($form->get('DepartamentoEmpresa')); ?>
+                                        </div>
+                                        <div
+                                            class="col-md-2 <?= $this->formElementErrors($form->get('BNF_Ubigeo_id_empresa')) ? 'has-error' : '' ?>">
+                                            <?= $this->formElement($form->get('BNF_Ubigeo_id_empresa')); ?>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <?= $this->formElement($form->get('DireccionEmpresa')); ?>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <?= $this->formElement($form->get('DireccionEmpresaDetalle')); ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>En caso de Consultas:</legend>
+                            <div class="form-group">
+                                <div class="col-md-2">
+                                    <label class="control-label">Nombre del Contacto:</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <?= $this->formRow($form->get('NombreContacto')); ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-2">
+                                    <label class="control-label">Telefono del Contacto:</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <?= $this->formRow($form->get('TelefonoContacto')); ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-2">
+                                    <label class="control-label">Correo del Contacto:</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <?= $this->formRow($form->get('CorreoContacto')); ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-2">
+                                    <label class="control-label" for="horario">Horario de Atención:</label>
+                                </div>
+                                <div class="col-md-10 less-pad">
+                                    <div class="col-md-4">
+                                        <?= $this->formRow($form->get('HoraAtencionContacto')); ?>
+                                    </div>
+                                    <div class="col-md-4 less-pad">
+                                        <label class="col-md-4 control-label">de</label>
+
+                                        <div class="col-md-8">
+                                            <?= $this->formRow($form->get('HoraAtencionInicioContacto')); ?>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 less-pad">
+                                        <label class="col-md-4 control-label">a</label>
+
+                                        <div class="col-md-8">
+                                            <?= $this->formRow($form->get('HoraAtencionFinContacto')); ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Datos del Contacto:</legend>
+                            <div class="form-group">
+                                <div class="col-md-2">
+                                    <label class="control-label">Representante Legal:</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <?= $this->formRow($form->get('RepresentanteLegal')); ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="">
+                                    <div class="col-md-2">
+                                        <label class="control-label">Tipo de Documento:</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <?= $this->formElement($form->get('BNF_TipoDocumento_id')); ?>
+                                    </div>
+                                </div>
+                                <div class="<?php if (isset($errornd)) {
+                                    echo $errornd;
+                                } ?> <?= $this->formElementErrors($form->get('RepresentanteNumeroDocumento')) ? 'has-error' : '' ?>">
+                                    <div class="col-md-2">
+                                        <label class="control-label">Número de Documento:</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="row-fluid campo">
+                                            <div class="col-md-12 null-padding input">
+                                                <?php echo $this->formRow($form->get('RepresentanteNumeroDocumento')); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row-fluid">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-10">
+                                        <div class="col-md-2">
+                                            <label class="col-md-12 control-label" for="dirl_pais">País:</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label class="col-md-12 control-label less-pad"
+                                                   for="dirl_dep">Departamento:</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label class="col-md-12 control-label" for="dirl_prov">Provincia:</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="col-md-12 control-label" for="dirl_dist">Distrito:</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="col-md-12 control-label" for="dirl_dist">Dirección
+                                                Detalle:</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row-fluid">
+                                    <div class="col-md-2">
+                                        <label class="control-label" for="dirl">Dirección Legal:</label>
+                                    </div>
+                                    <div class="col-md-10 less-pad">
+                                        <div class="col-md-2">
+                                            <?= $this->formRow($form->get('PaisLegal')); ?>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <?= $this->formRow($form->get('DepartamentoLegal')); ?>
+                                        </div>
+                                        <div
+                                            class="col-md-2 <?= $this->formElementErrors($form->get('BNF_Ubigeo_id_legal')) ? 'has-error' : '' ?>">
+                                            <?= $this->formElement($form->get('BNF_Ubigeo_id_legal')); ?>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <?= $this->formElement($form->get('DireccionLegal')); ?>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <?= $this->formElement($form->get('DireccionLegalDetalle')); ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row-fluid">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-10">
+                                        <div class="col-md-2">
+                                            <label class="col-md-12 control-label" for="dirl_pais">País:</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label class="col-md-12 control-label less-pad"
+                                                   for="dirl_dep">Departamento:</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label class="col-md-12 control-label" for="dirl_prov">Provincia:</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="col-md-12 control-label" for="dirl_dist">Distrito:</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="col-md-12 control-label" for="dirl_dist">Dirección
+                                                Detalle:</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row-fluid">
+                                    <div class="col-md-2">
+                                        <label class="control-label" for="dirl">Dirección de Envío:</label>
+                                    </div>
+                                    <div class="col-md-10 less-pad">
+                                        <div class="col-md-2">
+                                            <?= $this->formRow($form->get('PaisEnvio')); ?>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <?= $this->formRow($form->get('DepartamentoEnvio')); ?>
+                                        </div>
+                                        <div
+                                            class="col-md-2 <?= $this->formElementErrors($form->get('BNF_Ubigeo_id_envio')) ? 'has-error' : '' ?>">
+                                            <?= $this->formElement($form->get('BNF_Ubigeo_id_envio')); ?>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <?= $this->formRow($form->get('DireccionEnvio')); ?>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <?= $this->formRow($form->get('DireccionEnvioDetalle')); ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-2">
+                                    <label class="control-label" for="horario">Horario de Atención:</label>
+                                </div>
+                                <div class="col-md-10 less-pad">
+                                    <div class="col-md-4">
+                                        <?= $this->formRow($form->get('HoraAtencion')); ?>
+                                    </div>
+                                    <div class="col-md-4 less-pad">
+                                        <label class="col-md-4 control-label">de</label>
+
+                                        <div class="col-md-8">
+                                            <?= $this->formRow($form->get('HoraAtencionInicio')); ?>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 less-pad">
+                                        <label class="col-md-4 control-label">a</label>
+
+                                        <div class="col-md-8">
+                                            <?= $this->formRow($form->get('HoraAtencionFin')); ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-2">
+                                    <label class="control-label">Teléfono Fijo:</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <?= $this->formRow($form->get('Telefono')); ?>
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="control-label">Teléfono Celular:</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <?= $this->formRow($form->get('Celular')); ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-2">
+                                    <label class="control-label">Persona de Contacto:</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <?= $this->formRow($form->get('PersonaAtencion')); ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-2">
+                                    <label class="control-label">Cargo de Contacto:</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <?= $this->formRow($form->get('CargoPersonaAtencion')); ?>
+                                </div>
+                            </div>
+                            <div class="form-group <?php if (isset($errornd)) {
+                                echo $errornd;
+                            } ?> <?= $this->formElementErrors($form->get('CorreoPersonaAtencion')) ? 'has-error' : '' ?>">
+                                <div class="col-md-2">
+                                    <label class="control-label">Correo de Contacto:</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <?php echo $this->formRow($form->get('CorreoPersonaAtencion')); ?>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Configuracion del Sitio</legend>
+                            <div class="form-group <?= (isset($param1['logosc'])) ? '<ul><li>'
+                                . $param1['logosc'] . '</li></ul>' : ''; ?>">
+                                <div class="col-md-2"><label>Seleccionar Logo y Agregar:</label></div>
+                                <div class="col-md-10 ">
+                                    <div class="row-fluid campo">
+                                        <div class="col-md-11 null-padding input">
+                                            <input id="input-logo-site" type="file" data-show-preview="false">
+                                            <?php echo (isset($param1['logos']))
+                                                ? '<ul class="error-logo-site">' . $param1['logos'] . '</ul>' : ''; ?>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-2" style="padding-left:0px;">
+                                        <input type="button" class="btn btn-primary left" id="btn-logo-site"
+                                               value="Agregar">
+                                        <div id="download-logo-site" class="loader left hidden">
+                                            <img src="<?= $this->basepath('img/ajax_clock_small.gif') ?>">
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+
+                                <div class="col-xs-10 col-xs-offset-2">
+                                    <table aria-describedby="example1_info" role="grid" id="list-logo-site"
+                                           class="table table-bordered table-striped dataTable">
+                                        <thead>
+                                        <tr role="row">
+                                            <th>Imagen</th>
+                                            <th style="width: 120px">Acción</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php
+                                        if (isset($logo_sitio)):
+                                            $fullpath = './public/elements/empresa/' . $logo_sitio;
+                                            if (file_exists($fullpath)):
+                                                $rand = rand(300, 500); ?>
+                                                <tr id="<?= $rand ?>">
+                                                    <td>
+                                                        <a id="single_image"
+                                                           href="/elements/empresa/<?= $logo_sitio ?>?<?= $rand ?>">
+                                                            <img style="height: 50px;width: 100px;"
+                                                                 src="/elements/empresa/<?= $logo_sitio ?>?<?= $rand ?>">
+                                                        </a>
+                                                        <input type="hidden" name="Logo_sitio"
+                                                               value="<?= $logo_sitio ?>">
+                                                    </td>
+                                                    <td>
+                                                        <a onclick="confimacion(<?= $rand ?>,'<?= $logo_sitio ?>')"
+                                                           class="btn btn-danger">Eliminar</a>
+                                                    </td>
+                                                </tr>
+                                            <?php endif;
+                                        endif;
+                                        ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="<?= $this->formElementErrors($form->get('Color')) ? 'has-error' : '' ?>">
+                                    <div class="col-md-2"><label>Seleccionar Color de Menu Admin:</label></div>
+                                    <div class="col-md-2 ">
+                                        <?php echo $this->formRow($form->get('Color')); ?>
+                                    </div>
+                                </div>
+                                <div
+                                    class="<?= $this->formElementErrors($form->get('Color_hover')) ? 'has-error' : '' ?>">
+                                    <div class="col-md-2"><label>Seleccionar Color de Menu Web:</label></div>
+                                    <div class="col-md-2 ">
+                                        <?php echo $this->formRow($form->get('Color_menu')); ?>
+                                    </div>
+                                </div>
+                                <div
+                                    class="<?= $this->formElementErrors($form->get('Color_hover')) ? 'has-error' : '' ?>">
+                                    <div class="col-md-2"><label>Seleccionar Color de Hover Web:</label></div>
+                                    <div class="col-md-2 ">
+                                        <?php echo $this->formRow($form->get('Color_hover')); ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Otros</legend>
+                            <div
+                                class="form-group <?= $this->formElementErrors($form->get('BNF_Usuario_id')) ? 'has-error' : '' ?>">
+                                <label class="col-md-2 control-label">Asesor: </label>
+
+                                <div class="col-md-10">
+                                    <div class="row-fluid campo">
+                                        <div class="col-md-11 null-padding input">
+                                            <?php echo $this->formRow($form->get('BNF_Usuario_id')); ?>
+                                        </div>
+                                        <div class="col-md-1 null-padding text-center p"><p>*</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-10 col-md-2">
+                                    <p>(*) Campos Obligatorios</p>
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                <div class="col-md-10">
+                                    <?= $this->formSubmit($form->get('submit')); ?>
+                                    <a href="/empresa" class="btn btn-default">Cancelar</a>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <hr>
+                        <?= $this->form()->closeTag(); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<?php
+echo $this->inlineScript()->appendFile(
+    $this->basePath('js/empresa/empresa_add.js?' . $this->configItem('version_script'))
+);
+include("script_empresa.phtml");

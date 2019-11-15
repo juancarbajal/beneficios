@@ -1,0 +1,65 @@
+<?php $this->partial('_functions.phtml'); ?>
+<style type="text/css">
+    .left-info-c ul li {
+        text-align: center;
+    }
+</style>
+<section class="wrapper-main">
+    <div class="fluid-list cnt-content-user">
+        <h3>Bienvenid@ <span><?= $this->identity()["Nombre"] . ' ' . $this->identity()["Apellido"] ?></span></h3>
+        <div class="fluid-list cnt-mis-datos">
+            <h3>Mis Puntos</h3>
+            <div class="fluid-list cnt-puntos-o">
+                <div class="fluid-list puntos-u">
+                    <ul>
+                        <li class="p-dispo"><span class="left">Puntos Disponibles</span>
+                            <em class="right">
+                                <?= $this->dataAsignacion[0] ?>
+                            </em>
+                        </li>
+                    </ul>
+                </div>
+                <p><a href="<?= $this->url('perfil-puntos', array('action' => 'pdfPuntos')); ?>"><span></span> Descargar
+                        Historial de puntos (PDF)</a></p>
+            </div>
+            <h3 class="border-bottom-g">Historial de puntos</h3>
+            <div class="fluid-list list-table-user">
+                <?php
+                $dataHistoria = $this->dataHistoria;
+                $total = count($dataHistoria);
+                for ($i = 0; $i < $total; $i++) : ?>
+                    <div class="fluid-list list-items">
+                        <h4>
+                            <?php if ($dataHistoria[$i]['PrecioVentaPublico']) : ?>
+                                <b>S/. <?= $dataHistoria[$i]['PrecioVentaPublico'] ?> por </b>
+                            <?php endif; ?>
+                            <?php echo $dataHistoria[$i]['TituloCorto'] ?>
+                        </h4>
+                        <ul class="item-name-i">
+                            <li>
+                                <span
+                                    class="left"><?= date('d/m/Y', strtotime($dataHistoria[$i]['FechaGenerado'])) ?></span>
+                                <?php if ($dataHistoria[$i]['Descarga'] == 0) : ?>
+                                    <?php if ($dataHistoria[$i]['TituloCorto'] == "Puntos ganados" || $dataHistoria[$i]['TituloCorto'] == "Puntos sumados" || $dataHistoria[$i]['TituloCorto'] == "Puntos reactivados") : ?>
+                                        <em class="right green-g">
+                                            <?= (int)$dataHistoria[$i]['CantidadPuntos'] ?>
+                                        </em>
+                                    <?php else : ?>
+                                        <em class="right red-g">
+                                            <?php echo '(' . (((int)$dataHistoria[$i]['CantidadPuntos'] > 0) ? '-' : '' ) . (int)$dataHistoria[$i]['CantidadPuntos'] . ')'; ?>
+                                        </em>
+                                    <?php endif; ?>
+                                <?php else : ?>
+                                    <em class="right red-g">
+                                        <?php echo '(' . (((int)$dataHistoria[$i]['CantidadPuntos'] > 0) ? '-' : '' ) . (int)$dataHistoria[$i]['CantidadPuntos'] . ')'; ?>
+                                    </em>
+                                <?php endif; ?>
+                            </li>
+                        </ul>
+                    </div>
+                    <?php $i = VerificarSiguiente($dataHistoria, $i); ?>
+                <?php endfor; ?>
+            </div>
+        </div>
+    </div>
+</section>

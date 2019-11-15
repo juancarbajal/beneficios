@@ -1,0 +1,57 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        var text = parseInt('<?= $form->get('Oferta')->getValue();?>');
+
+        <?php if (!empty($id)) { ?>
+            text = parseInt(<?= $id ?>);
+            $('input[name="oferta"]').val(text);
+        <?php } ?>
+
+        var oferta = $("#oferta");
+        $('.select_normal label input[name="normal"]').removeAttr('checked');
+        $('.select_especial label input[name="especial"]').removeAttr('checked');
+
+        oferta.find("option").filter(function () {
+            return $(this).val() == text;
+        }).attr('selected', true);
+
+        $("#hnormal").val(text);
+        $("#hespecial").val(text);
+
+        var tabla = $('#EmpNorm').find("tbody  tr");
+        cleanAssigns(tabla, 4);
+        var tabla2 = $('#EmpEsp').find('tbody  tr');
+        cleanAssigns(tabla2, 5);
+        var idOferta = oferta.find("option:selected").val();
+        $.post("/oferta/loadassign", {
+            id: idOferta
+        }, function (data) {
+            if (data.response == true) {
+                console.log(data.message);
+                var opt = "load";
+                var resultado = data.normal;
+                var fila = 4;
+                loadAssigns(tabla, resultado, fila, opt);
+                var resultado2 = data.especial;
+                var fila2 = 5;
+                loadAssigns(tabla2, resultado2, fila2, opt);
+            } else {
+                console.log(data.message);
+            }
+        }, 'json');
+
+        $("#formularioEspecial").submit(function () {
+            var idOferta = parseInt($("select[name=Oferta] option:selected").val());
+            if (!isNaN(idOferta)) {
+                return verifyData(tabla2, 5);
+            }
+        });
+
+        $("#formularioNormal").submit(function () {
+            var idOferta = parseInt($("select[name=Oferta] option:selected").val());
+            if (!isNaN(idOferta)) {
+                return verifyData(tabla, 4);
+            }
+        });
+    });
+</script>

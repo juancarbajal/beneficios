@@ -1,0 +1,60 @@
+<section>
+    <div class="container">
+        <div class="fluid-list cnt-content-user">
+            <h3>Bienvenid@ <span><?= $this->identity()["Nombre"] . ' ' . $this->identity()["Apellido"] ?></span></h3>
+            <div class="row">
+                <?php echo $this->partial('perfil/perfil/_sidebar') ?>
+                <div class="col-md-9">
+                    <div class="fluid-list cnt-mis-datos">
+                        <h3>Cupones Descargados</h3>
+                        <div class="fluid-list cnt-puntos-o">
+                            <p><a href="<?= $this->url('perfil-puntos', array('action' => 'pdfDescargados')); ?>"><span></span> Descargar Listado de Cupones Descargados (PDF)</a></p>
+                        </div>
+                        <div class="fluid-list cnt-table-user cnt-user-descargado">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Descripción</th>
+                                    <th>Fecha de Expiración</th>
+                                    <th>Puntos Asignados</th>
+                                    <th class="text-left-u">Puntos Usados</th>
+                                    <th class="text-left-u">Saldo</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php foreach ($this->descargados as $value) { ?>
+                                    <tr>
+                                        <td><?= date('d/m/Y', strtotime($value->FechaGenerado)) ?><br>
+                                            <?= date('H:i', strtotime($value->FechaGenerado)) ?> hrs</td>
+                                        <td>
+                                            <?php if ($value->PrecioBeneficio) { ?>
+                                                <b>S/. <?= $value->PrecioBeneficio ?> por </b>
+                                            <?php } ?>
+                                            <?= $value->TituloCorto ?>
+                                        </td>
+                                        <td><?= date('d/m/Y', strtotime($value->FechaVigencia)) ?></td>
+                                        <td class="p-asig"><?= $value->PuntosUsuario ?></td>
+                                        <td class="p-usados text-left-u">(-<?= $value->PuntosUtilizados ?>)</td>
+                                        <td class="p-saldo text-left-u">
+                                            <?= $value->PuntosUsuario - $value->PuntosUtilizados?>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                                </tbody>
+                            </table>
+                            <?php
+                            if (isset($this->descargados)) {
+                                echo $this->paginationControl(
+                                    $this->descargados,
+                                    'Sliding',
+                                    'paginator-descar'
+                                );
+                            } ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Beneficios</title>
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="../../src/public/css/scroll-sidebar.css?44" media="screen" rel="stylesheet" type="text/css">
+    <link href="../../src/public/css/plugins.min.css?44" media="screen" rel="stylesheet" type="text/css">
+    <link href="../../src/public/css/main.min.css?44" media="screen" rel="stylesheet" type="text/css">
+    <link href="../../src/public/css/style.css?44" media="screen" rel="stylesheet" type="text/css">
+    <link href="/img/favicon-01.ico" rel="shortcut icon" type="image/x-icon">
+    <link href="/img/Icon-bnfs-1.png" rel="apple-touch-icon">
+    <link href="/img/Icon-bnfs-1.png" rel="apple-touch-icon" sizes="152x152">
+    <link href="/img/Icon-bnfs-2.png" rel="apple-touch-icon" sizes="120x120">
+    <link href="/img/Icon-bnfs-3.png" rel="apple-touch-icon" sizes="76x76">
+    <!--[if lt IE 9]><script type="text/javascript" src="/js/html5shiv.min.js?44"></script><![endif]-->
+    <!--[if lt IE 9]><script type="text/javascript" src="/js/respond.min.js?44"></script><![endif]-->
+    <script type="text/javascript" src="../../src/public/js/modernizr-2.8.3.min.js?44"></script>
+    <script type="text/javascript" src="../../src/public/js/plugins.min.js?44"></script>
+    <script type="text/javascript" src="../../src/public/js/main.min.js?44"></script>
+    <script type="text/javascript" src="../../src/public/js/preguntas.js?44"></script>
+    <script type="text/javascript" src="../../src/public/js/loader.js?44"></script>
+    <script type="text/javascript" src="../../src/public/js/flyout.js?44"></script>
+    <script type="text/javascript">
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-71506955-1', 'auto');
+    ga('send', 'pageview');
+
+    jQuery.support.cors = true;
+
+
+    function ja(param1, param2, param3) {
+        var params = {
+            id_empresa: (param2) ? param2 : '3',
+            slug: (param1) ? param1 : 'destacados',
+            dni: (param3) ? param3 : '40989209',
+            id_key: '96lfdl35ipbsm5hulna048rro6',
+            dispositivo: 'desktop',
+            ip: '190.119.228.246',
+            os: 'Win',
+            navegador: 'Chrome',
+            subdominio: ''
+        };
+        $.ajax({
+            type: 'GET',
+            url: 'http://50.16.136.96:3000/api/v1/save_event',
+            data: params,
+            cache: false,
+            crossDomain: true,
+            success: function(data) {
+                if (data.error) {
+                    console.log("Error Analytics");
+                }
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        if ('destacados' !== '') {
+            if ('destacados' !== 'null') {
+                ja('', '', '');
+            }
+        }
+    });
+    </script>
+    <style type="text/css" media="screen">
+    <!-- .top-bar {
+        background: #000000;
+    }
+    
+    ul.menu-city {
+        background: #000000;
+    }
+    
+    nav {
+        background: -moz-linear-gradient(top, #000000 8%, #000000 100%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(8%, #000000), color-stop(100%, #000000));
+        background: -webkit-linear-gradient(top, #000000 8%, #000000 100%);
+        background: -o-linear-gradient(top, #000000 8%, #000000 100%);
+        background: -ms-linear-gradient(top, #000000 8%, #000000 100%);
+        background: linear-gradient(to bottom, #000000 8%, #000000 100%);
+        filter: progid: DXImageTransform.Microsoft.gradient( startColorstr=#000000, endColorstr=#000000, GradientType=0);
+        position: relative;
+        z-index: 4;
+    }
+    
+    footer {
+        background: #000000;
+    }
+    
+    nav ul,
+    nav ul li,
+    nav ul li a {
+        border-right: 1px solid #000000;
+        border-left: 1px solid #000000;
+    }
+    
+    nav ul li a.active,
+    nav ul li a:hover {
+        background: -moz-linear-gradient(top, #400090 31%, #400090 31%, #400090 100%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(31%, #400090), color-stop(31%, #400090), color-stop(100%, #400090));
+        background: -webkit-linear-gradient(top, #400090 31%, #400090 31%, #400090 100%);
+        background: -o-linear-gradient(top, #400090 31%, #400090 31%, #400090 100%);
+        background: -ms-linear-gradient(top, #400090 31%, #400090 31%, #400090 100%);
+        background: linear-gradient(to bottom, #400090 31%, #400090 31%, #400090 100%);
+        filter: progid: DXImageTransform.Microsoft.gradient( startColorstr=#400090, endColorstr=#400090, GradientType=0);
+    }
+    
+    .search .frm-search button {
+        background: #400090 !important;
+    }
+    
+    a.btn-cupon-d {
+        background: #400090 !important;
+        text-shadow: 0 4px 0 rgba(0, 0, 0, 0.48) !important;
+        border-bottom: 3px solid #400090 !important;
+    }
+    
+    span.btn-cupon {
+        background: #400090 !important;
+        border-bottom: 3px solid #400090 !important;
+    }
+    
+    em.text-cupon {
+        color: #400090 !important;
+    }
+    
+    a.btn-cupon {
+        background: #400090 !important;
+        border-bottom: 3px solid #400090 !important;
+    }
+    
+    a.btn-cupon:hover,
+    a.btn-cupon:active,
+    a.btn-cupon:focus {
+        background: #400090 !important;
+        border-bottom: 3px solid #400090 !important;
+    }
+    
+    .btn-block {
+        background: #400090 !important;
+        border-bottom: 3px solid #400090 !important;
+    }
+    
+    .btn-block:hover,
+    btn-block:active,
+    btn-block:focus {
+        background: #400090 !important;
+        border-bottom: 3px solid #400090 !important;
+    }
+    
+    .btn-enviar {
+        background: #400090 !important;
+        border-bottom: 3px solid #400090 !important;
+    }
+    
+    .btn-enviar span,
+    a.btn-cupon span,
+    .btn-block span {
+        text-shadow: 0 4px 0 rgba(0, 0, 0, 0.48) !important;
+    }
+    
+    .btn-enviar:hover,
+    .btn-enviar:active,
+    .btn-enviar:focus {
+        background: #400090 !important;
+        border-bottom: 3px solid #400090 !important;
+    }
+    
+    a.a-descb {
+        color: #400090 !important;
+    }
+    
+    .bread ul li a {
+        color: #400090;
+    }
+    
+    ul.dropdown-menu,
+    ul.dropdown-menu li {
+        width: 300px !important;
+    }
+    
+    .menu-city .dropdown-menu {
+        padding-left: 30px;
+        padding-right: 15px;
+    }
+    
+    .menu-city .dropdown-menu li {
+        float: left;
+        width: 50% !important;
+        list-style-type: square;
+        list-style-position: outside;
+        background: none;
+        color: #400090;
+    }
+    
+    .menu-city .dropdown-menu li a {
+        padding-top: 6px;
+        padding-left: 0px;
+        padding-bottom: 6px;
+        color: #400090;
+    }
+    
+    .modal-vcenter .modal-header {
+        background: #000000;
+    }
+    
+    -->
+    </style>
+    <style type="text/css" media="screen">
+    <!-- body {
+        scrollbar-3dlight-color: #000000;
+        scrollbar-arrow-color: #000000;
+        scrollbar-darkshadow-color: #efefef;
+        scrollbar-face-color: #000000;
+        scrollbar-highlight-color: #d33;
+        scrollbar-shadow-color: #000000;
+        scrollbar-track-color: #efefef;
+        scrollbar-base-color: transparent;
+    }
+    /*SCROLL GENERAL*/
+    /*Chrome*/
+    
+    ::-webkit-scrollbar {
+        zoom: 1;
+        width: 8px;
+        height: 12px;
+        overflow: visible;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        border-width: 0;
+        border-radius: 10px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        border-width: 0 0 0 1px;
+    }
+    
+    ::-webkit-scrollbar-button {
+        height: 0;
+        width: 0;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background-clip: padding-box;
+        border: solid transparent;
+        border-width: 0 0 0 1px;
+    }
+    
+    ::-webkit-scrollbar-track:horizontal {
+        border-width: 4px 0 0
+    }
+    
+    ::-webkit-scrollbar-track:hover {
+        background-color: #000000;
+        box-shadow: none;
+    }
+    
+    ::-webkit-scrollbar-track:horizontal:hover {
+        box-shadow: none
+    }
+    
+    ::-webkit-scrollbar-track:active {
+        background-color: #000000;
+        box-shadow: none
+    }
+    
+    ::-webkit-scrollbar-track:horizontal:active {
+        box-shadow: none
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background-color: #000000;
+        background-clip: padding-box;
+        border-width: 0;
+        min-height: 28px;
+        padding: 100px 0 0;
+        box-shadow: none;
+    }
+    
+    ::-webkit-scrollbar-thumb:horizontal {
+        border-width: 6px 1px 1px;
+        padding: 0;
+        box-shadow: none;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: #000000;
+        box-shadow: none;
+    }
+    
+    ::-webkit-scrollbar-thumb:active {
+        background-color: #000000;
+        box-shadow: none;
+    }
+    
+    ::-webkit-scrollbar-track {
+        border-width: 0 1px 0 6px
+    }
+    
+    ::-webkit-scrollbar-track:horizontal {
+        border-width: 6px 0 1px
+    }
+    
+    ::-webkit-scrollbar-track:hover {
+        background-color: rgba(47, 188, 99, .035);
+        box-shadow: none;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        border-width: 0 1px 0 6px
+    }
+    
+    ::-webkit-scrollbar-thumb:horizontal {
+        border-width: 6px 0 1px
+    }
+    
+    ::-webkit-scrollbar-corner {
+        background: transparent
+    }
+    
+    body::-webkit-scrollbar-track-piece {
+        background-clip: padding-box;
+        background-color: #EDEDED;
+        border: 0;
+        box-shadow: none;
+    }
+    
+    body::-webkit-scrollbar-track-piece:horizontal {
+        border-width: 0;
+        box-shadow: none;
+    }
+    
+    body::-webkit-scrollbar-thumb {
+        border-width: 0
+    }
+    
+    body::-webkit-scrollbar-thumb:horizontal {
+        border-width: 0
+    }
+    
+    body::-webkit-scrollbar-corner {
+        background-clip: padding-box;
+        background-color: #f5f5f5;
+        border: solid #fff;
+        border-width: 3px 0 0 3px;
+        box-shadow: none;
+    }
+    /*sidebar*/
+    
+    .scroll-main-sidebar {
+        height: 100%;
+        overflow-y: scroll;
+    }
+    
+    -->
+    </style>
+</head>
+<body>
+    <div id="main-container" class="wrapper">
+        <header>
+            <div class="top-bar fluid-list">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="navbar-toggle icon-menu-swipe" type="button">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a href="/home" class="left company">
+                                <img src="http://admin.beneficios.pe/elements/empresa/20549659315.png" style="max-width: 190px; max-height: 120px">
+                            </a>
+                            <a href="/" class="left beneficios"><img src="http://dev.bnfcios.xyz/img/beneficios.png"></a>
+                            <a href="/home" class="left company_fixed">
+                                <img src="http://admin.beneficios.pe/elements/empresa/20549659315-fixed.png" style="max-width: 150px; max-height: 90px">
+                            </a>
+                            <a href="/" class="left beneficios_fixed"><img src="http://dev.bnfcios.xyz/img/beneficios_fixed.png"></a>
+                            <ul class="list-reset left menu-city">
+                                <li>
+                                    <span>
+                                LIMA                                <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></span>
+                                    <div class="dropdown">
+                                        <button id="ubic" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Cambiar Ubicación
+                                        </button>
+                                        <ul id="listubic" class="dropdown-menu" aria-labelledby="dLabel"></ul>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="list-reset right menu-city menu-user-d">
+                                <li>
+                                    <span>Bienvenid@</span>
+                                    <div class="dropdown">
+                                        <button id="listU" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Gulliana Burga Farfán </button>
+                                        <ul id="list-option" class="dropdown-menu" aria-labelledby="dLabel">
+                                            <span></span>
+                                            <li>
+                                                <a class="listU" href="/perfil">Mis Datos</a>
+                                            </li>
+                                            <li>
+                                                <a class="listU" href="/perfil/puntos/puntos">Mis Puntos</a>
+                                            </li>
+                                            <li>
+                                                <a class="listU" href="/perfil/premios/vigentes">Mis Premios</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span>Puntos disponibles: </span>
+                                    <span class="num-p" id="cant-puntos">13 puntos</span>
+                                </li>
+                                <li>
+                                    <span>Premios disponibles: </span>
+                                    <span class="num-p" id="cant-premios">6 premios</span>
+                                </li>
+                                <li>
+                                    <a href="/logout">Cerrar Sesión</a>
+                                </li>
+                            </ul>
+                            <a href="#" class="search-lupa">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="city_country fluid-list">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a href="#" class="city-m">
+                                <div class="city-movil">
+                                    <span>Lima <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></span>
+                                    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-center fluid-list">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="search right">
+                                <form action="/resultado/1-noche-para-2-habitacion-doble-twin-desayunos-buffet-hotel-hacienda-del-valle-cusco-oferta-524" method="post" class="frm-search" id="form-search">
+                                    <input type="text" name="search" id="search" value="" placeholder="Ingrese lo que estas buscando">
+                                    <input type="hidden" name="oferta_id" id="oferta_id">
+                                    <input type="hidden" name="ubigeo_id" id="ubigeo_id" value="14">
+                                    <input type="hidden" name="categoria_id" id="categoria_id" value="">
+                                    <input type="hidden" name="campania_id" id="campania_id" value="">
+                                    <input type="hidden" name="premium" id="premium" value="0">
+                                    <input type="hidden" name="destacados" id="destacados" value="0">
+                                    <input type="hidden" name="novedades" id="novedades" value="0">
+                                    <input type="hidden" name="category" id="category" value="destacados">
+                                    <input type="hidden" name="tipoOferta" id="tipoOferta" value="">
+                                    <button type="submit" class="search-btn">
+                                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                        <span class="btn-title">Buscar</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <form action="/home" method="post" id="form-ubic">
+                <input name="ubigeo" type="hidden" id="hidden-ubic" value="14">
+                <input type="hidden" name="search" value="">
+                <input type="hidden" name="categoria_id" id="categoria_id" value="">
+            </form>
+            <nav class="fluid-list">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="list-reset">
+                                <li>
+                                    <a href="/home" class="category ">
+                                        <span class="icon-nav destacados"></span>
+                                        <span class="name-title">Destacados</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/category/belleza-salud" class="category ">
+                                        <span class="icon-nav belleza-salud"></span>
+                                        <span class="name-title">Belleza & Salud</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/category/viajes" class="category ">
+                                        <span class="icon-nav viajes"></span>
+                                        <span class="name-title">Viajes</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/category/restaurantes" class="category ">
+                                        <span class="icon-nav restaurantes"></span>
+                                        <span class="name-title">Restaurantes</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/category/entretenimiento" class="category ">
+                                        <span class="icon-nav entretenimiento"></span>
+                                        <span class="name-title">Entretenimiento</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/category/productos" class="category ">
+                                        <span class="icon-nav productos"></span>
+                                        <span class="name-title">Productos</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/tiendas" class="">
+                                        <span class="icon-nav tiendas"></span>
+                                        <span class="name-title">Tienda</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/category/otros" class="category ">
+                                        <span class="icon-nav otros"></span>
+                                        <span class="name-title">Otros</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <a href="#" class="search-fixed"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <link rel="stylesheet" href="/js/jquery-ui/jquery-ui.css?44">
+        <style type="text/css" media="screen">
+        <!-- .top-bar {
+            background: #000000;
+        }
+        
+        ul.menu-city {
+            background: #000000;
+        }
+        
+        nav {
+            background: -moz-linear-gradient(top, #000000 8%, #000000 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(8%, #000000), color-stop(100%, #000000));
+            background: -webkit-linear-gradient(top, #000000 8%, #000000 100%);
+            background: -o-linear-gradient(top, #000000 8%, #000000 100%);
+            background: -ms-linear-gradient(top, #000000 8%, #000000 100%);
+            background: linear-gradient(to bottom, #000000 8%, #000000 100%);
+            filter: progid: DXImageTransform.Microsoft.gradient( startColorstr=#000000, endColorstr=#000000, GradientType=0);
+            position: relative;
+            z-index: 4;
+        }
+        
+        footer {
+            background: #000000;
+        }
+        
+        nav ul,
+        nav ul li,
+        nav ul li a {
+            border-right: 1px solid #000000;
+            border-left: 1px solid #000000;
+        }
+        
+        nav ul li a.active,
+        nav ul li a:hover {
+            background: -moz-linear-gradient(top, #400090 31%, #400090 31%, #400090 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(31%, #400090), color-stop(31%, #400090), color-stop(100%, #400090));
+            background: -webkit-linear-gradient(top, #400090 31%, #400090 31%, #400090 100%);
+            background: -o-linear-gradient(top, #400090 31%, #400090 31%, #400090 100%);
+            background: -ms-linear-gradient(top, #400090 31%, #400090 31%, #400090 100%);
+            background: linear-gradient(to bottom, #400090 31%, #400090 31%, #400090 100%);
+            filter: progid: DXImageTransform.Microsoft.gradient( startColorstr=#400090, endColorstr=#400090, GradientType=0);
+        }
+        
+        .search .frm-search button {
+            background: #400090 !important;
+        }
+        
+        a.btn-cupon-d {
+            background: #400090 !important;
+            text-shadow: 0 4px 0 rgba(0, 0, 0, 0.48) !important;
+            border-bottom: 3px solid #400090 !important;
+        }
+        
+        span.btn-cupon {
+            background: #400090 !important;
+            border-bottom: 3px solid #400090 !important;
+        }
+        
+        em.text-cupon {
+            color: #400090 !important;
+        }
+        
+        a.btn-cupon {
+            background: #400090 !important;
+            border-bottom: 3px solid #400090 !important;
+        }
+        
+        a.btn-cupon:hover,
+        a.btn-cupon:active,
+        a.btn-cupon:focus {
+            background: #400090 !important;
+            border-bottom: 3px solid #400090 !important;
+        }
+        
+        .btn-block {
+            background: #400090 !important;
+            border-bottom: 3px solid #400090 !important;
+        }
+        
+        .btn-block:hover,
+        btn-block:active,
+        btn-block:focus {
+            background: #400090 !important;
+            border-bottom: 3px solid #400090 !important;
+        }
+        
+        .btn-enviar {
+            background: #400090 !important;
+            border-bottom: 3px solid #400090 !important;
+        }
+        
+        .btn-enviar span,
+        a.btn-cupon span,
+        .btn-block span {
+            text-shadow: 0 4px 0 rgba(0, 0, 0, 0.48) !important;
+        }
+        
+        .btn-enviar:hover,
+        .btn-enviar:active,
+        .btn-enviar:focus {
+            background: #400090 !important;
+            border-bottom: 3px solid #400090 !important;
+        }
+        
+        a.a-descb {
+            color: #400090 !important;
+        }
+        
+        .bread ul li a {
+            color: #400090;
+        }
+        
+        ul.dropdown-menu,
+        ul.dropdown-menu li {
+            width: 300px !important;
+        }
+        
+        .menu-city .dropdown-menu {
+            padding-left: 30px;
+            padding-right: 15px;
+        }
+        
+        .menu-city .dropdown-menu li {
+            float: left;
+            width: 50% !important;
+            list-style-type: square;
+            list-style-position: outside;
+            background: none;
+            color: #400090;
+        }
+        
+        .menu-city .dropdown-menu li a {
+            padding-top: 6px;
+            padding-left: 0px;
+            padding-bottom: 6px;
+            color: #400090;
+        }
+        
+        .modal-vcenter .modal-header {
+            background: #000000;
+        }
+        
+        -->
+        </style>
+        <style type="text/css" media="screen">
+        <!-- body {
+            scrollbar-3dlight-color: #000000;
+            scrollbar-arrow-color: #000000;
+            scrollbar-darkshadow-color: #efefef;
+            scrollbar-face-color: #000000;
+            scrollbar-highlight-color: #d33;
+            scrollbar-shadow-color: #000000;
+            scrollbar-track-color: #efefef;
+            scrollbar-base-color: transparent;
+        }
+        /*SCROLL GENERAL*/
+        /*Chrome*/
+        
+        ::-webkit-scrollbar {
+            zoom: 1;
+            width: 8px;
+            height: 12px;
+            overflow: visible;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            border-width: 0;
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            border-width: 0 0 0 1px;
+        }
+        
+        ::-webkit-scrollbar-button {
+            height: 0;
+            width: 0;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background-clip: padding-box;
+            border: solid transparent;
+            border-width: 0 0 0 1px;
+        }
+        
+        ::-webkit-scrollbar-track:horizontal {
+            border-width: 4px 0 0
+        }
+        
+        ::-webkit-scrollbar-track:hover {
+            background-color: #000000;
+            box-shadow: none;
+        }
+        
+        ::-webkit-scrollbar-track:horizontal:hover {
+            box-shadow: none
+        }
+        
+        ::-webkit-scrollbar-track:active {
+            background-color: #000000;
+            box-shadow: none
+        }
+        
+        ::-webkit-scrollbar-track:horizontal:active {
+            box-shadow: none
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background-color: #000000;
+            background-clip: padding-box;
+            border-width: 0;
+            min-height: 28px;
+            padding: 100px 0 0;
+            box-shadow: none;
+        }
+        
+        ::-webkit-scrollbar-thumb:horizontal {
+            border-width: 6px 1px 1px;
+            padding: 0;
+            box-shadow: none;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #000000;
+            box-shadow: none;
+        }
+        
+        ::-webkit-scrollbar-thumb:active {
+            background-color: #000000;
+            box-shadow: none;
+        }
+        
+        ::-webkit-scrollbar-track {
+            border-width: 0 1px 0 6px
+        }
+        
+        ::-webkit-scrollbar-track:horizontal {
+            border-width: 6px 0 1px
+        }
+        
+        ::-webkit-scrollbar-track:hover {
+            background-color: rgba(47, 188, 99, .035);
+            box-shadow: none;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            border-width: 0 1px 0 6px
+        }
+        
+        ::-webkit-scrollbar-thumb:horizontal {
+            border-width: 6px 0 1px
+        }
+        
+        ::-webkit-scrollbar-corner {
+            background: transparent
+        }
+        
+        body::-webkit-scrollbar-track-piece {
+            background-clip: padding-box;
+            background-color: #EDEDED;
+            border: 0;
+            box-shadow: none;
+        }
+        
+        body::-webkit-scrollbar-track-piece:horizontal {
+            border-width: 0;
+            box-shadow: none;
+        }
+        
+        body::-webkit-scrollbar-thumb {
+            border-width: 0
+        }
+        
+        body::-webkit-scrollbar-thumb:horizontal {
+            border-width: 0
+        }
+        
+        body::-webkit-scrollbar-corner {
+            background-clip: padding-box;
+            background-color: #f5f5f5;
+            border: solid #fff;
+            border-width: 3px 0 0 3px;
+            box-shadow: none;
+        }
+        /*sidebar*/
+        
+        .scroll-main-sidebar {
+            height: 100%;
+            overflow-y: scroll;
+        }
+        
+        -->
+        </style>
+        <style type="text/css" media="screen">
+        <!-- .ui-widget-content {
+            border: 1px solid #dddddd;
+            background: #fff;
+            color: #333333;
+        }
+        
+        .ui-state-focus {
+            border: 0px solid #fbcb09;
+            background: #FECC24;
+            font-weight: normal;
+            color: #fff;
+        }
+        
+        .ui-menu .ui-state-focus,
+        .ui-menu .ui-state-active {
+            margin: 0px !important;
+            background-image: none !important;
+            color: #FFF;
+            border: 0;
+            background-color: #400090 !important;
+        }
+        
+        .ui-menu-item {
+            padding: 10px !important;
+            text-transform: capitalize;
+        }
+        
+        -->
+        </style>
+        <script type="text/javascript" src="/js/jquery-ui/jquery-ui.js?44"></script>
+        <script type="text/javascript" src="/js/header/_header.js?44"></script>
+        <!-- Modal Resultados-->
+        <div class="modal fade modal-vcenter modal-message col-xs-12" id="modalmessage" tabindex="-1" role="dialog" aria-labelledby="modalmessage">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close col-xs-1" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel"><img src="http://dev.bnfcios.xyz/img/login.png" /></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="fluid-list header-modal-c header-feli">
+                            <h3>Lo Sentimos</h3>
+                            <p>No encontramos resultados para tu búsqueda</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Find el modal Resultados-->
+        <!-- Modal Tebca-->
+        <div class="modal fade modal-vcenter modal-tebca" id="modalTebca" tabindex="-1" role="dialog" aria-labelledby="modalTebca">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel"><img src="http://dev.bnfcios.xyz/img/login.png"/></h4>
+                    </div>
+                    <div class="modal-body">
+                        <img src="http://dev.bnfcios.xyz/img/LightBox_Tebca.png" alt="" style="width: 100%">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Find el modal Tebca-->
+        <!-- =============================================== -->
+        <section>
+            <div class="container">
+                <style>
+                .cnt-tarjetas {
+                    text-align: center;
+                    display: inline-block;
+                    width: 230px;
+                    vertical-align: middle;
+                }
+                
+                .cnt-tarjetas img {
+                    width: 100px;
+                }
+                
+                .left-info-c span {
+                    width: auto;
+                    margin-right: 10px;
+                }
+                
+                h4 {
+                    display: inline-block;
+                }
+                </style>
+                <!--Agregar al css-->
+                <div class="fluid-list cnt-cupon">
+                    <div class="row primary-info">
+                        <div class="col-md-offset-1 col-md-10">
+                            <div class="row">
+                                <div class="col-md-offset-2 col-md-8">
+                                    <div class="fluid-list info-cupon header-delivery">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <figure>
+                                                    <img src="http://admin.beneficios.pe/elements/empresa/56789456783.jpg" />
+                                                </figure>    
+                                            </div>
+                                            <div class="col-md-8">
+                                                <h1><strong>S/.159 en vez de S/.354 por </strong>1 Noche para 2 (habitación doble o twin) + Desayunos buffet en Hotel Hacienda del Valle, Cusco</h1>    
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>    
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form class="form-horizontal">
+                                        <div class="fluid-list cnt-puntos-u">
+                                            <ul>
+                                                <li>
+                                                    <a class="" role="button" data-toggle="collapse" href="#collapse1" aria-expanded="false" aria-controls="collapse1">
+                                                        <div class="fluid-list head-items">
+                                                            <span>1 <i></i></span> Puntos a utilizar
+                                                        </div>
+                                                    </a>
+                                                    <div class="cnt-f-p collapse in" id="collapse1">
+                                                        <div class="fluid-list custom-m-p">
+                                                            <div class="fluid-list cnt-num-puntos">
+                                                                <h4>Cada punto equivale a S/.1</h4>
+                                                                <ul>
+                                                                    <li><div class="left label-p">Precio del Cupón:</div> <div class="right num-p">S/ 150</div></li>
+                                                                    <li><div class="left label-p">Puntos ganados:</div> <div class="right num-p">15,000</div></li>
+                                                                    <li><div class="left label-p">Quiero utilizar:</div> <div class="right num-p"><input type="" class="form-control" name="puntos" value="100" /></div></li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="fluid-list cnt-num-puntos total-puntos-u">
+                                                                <ul>
+                                                                    <li><div class="left label-p">Precio final del Cupón:</div> <div class="right num-p">...</div></li>
+                                                                    <li><div class="left label-p">Puntos disponibles:</div> <div class="right num-p">...</div></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <!--collapsed-->
+                                                    <a class="collapsed" role="button" data-toggle="collapse" href="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                                                        <div class="fluid-list head-items">
+                                                            <span>2 <i></i></span> Datos del delivery
+                                                        </div>
+                                                    </a>
+                                                    <div class="cnt-f-p collapse" id="collapse2">
+                                                        <div class="fluid-list cnt-form-d-p">
+                                                            <h4>Verifique bien los datos del delivery. Un representante se contactará con Ud. para validar los datos proporcionados.</h4>
+                                                            <div class="form-group">
+                                                                <label class="col-sm-4 control-label">Nombres y Apellidos</label>
+                                                                <div class="col-sm-8">
+                                                                  <input type="text" class="form-control" name="" id="nameA" placeholder="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-sm-4 control-label">Dirección</label>
+                                                                <div class="col-sm-8">
+                                                                  <input type="text" class="form-control" name="" id="direccion" placeholder="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-sm-4 control-label">Referencia</label>
+                                                                <div class="col-sm-8">
+                                                                  <input type="text" class="form-control" name="" id="referencia" placeholder="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-sm-4 control-label">Email</label>
+                                                                <div class="col-sm-8">
+                                                                  <input type="email" class="form-control" name="" id="email" placeholder="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-sm-4 control-label">Teléfono</label>
+                                                                <div class="col-sm-8">
+                                                                  <input type="text" class="form-control" name="" id="telefono" placeholder="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-sm-4 control-label"># de productos solicitados</label>
+                                                                <div class="col-sm-8">
+                                                                    <select class="form-control">
+                                                                        <option value=""># de productos solicitados</option>
+                                                                        <option value="1">2</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <h3>Términos y Condiciones de Uso</h3>
+                                                            <div class="fluid-list cnt-terminos-c">
+                                                                <p>Los datos ingresados son legítimos y correctos.</p>
+                                                                <p>Conozco el uso que se le dará a los datos que he proporcionado a Belia.</p>
+                                                                <p>Entiendo que los Proveedores son los únicos responsables por cualquier inconveniente con los bienes y servicios ofrecidos a través de la Página Web.</p>
+                                                                <p>Sé cual es la información y datos personales requeridos para poder acceder a los bienes y servicios</p>
+                                                                <p>Los datos ingresados son legítimos y correctos.</p>
+                                                                <p>Conozco el uso que se le dará a los datos que he proporcionado a Belia.</p>
+                                                                <p>Entiendo que los Proveedores son los únicos responsables por cualquier inconveniente con los bienes y servicios ofrecidos a través de la Página Web.</p>
+                                                                <p>Sé cual es la información y datos personales requeridos para poder acceder a los bienes y servicios</p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="fluid-list body-cnt-c cnt-form-b-p">
+                                                            <h4>Ingrese el email en donde desea recibir este cupón</h4>
+                                                            <div class="fluid-list cnt-f-a-t">
+                                                                <div class="form-group has-feedback has-feedback-left cnt-form-error">
+                                                                    <div class="form-control-feedback">
+                                                                        <i class="glyphicon glyphicon-envelope text-muted"></i>
+                                                                    </div>
+                                                                    <input type="email" name="email" class="form-control" placeholder="Ingresa tu email" id="email" value="gullibf@gmail.com">
+                                                                    <div class="error-check"></div>
+                                                                </div>
+                                                                <div class="checkbox cnt-form-error">
+                                                                    <label>
+                                                                        <input type="checkbox" name="terminos" id="activeChek"> Acepto las Condiciones, Términos y Políticas de uso
+                                                                    </label>
+                                                                    <div class="error-check"></div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <button type="submit" class="btn btn-primary btn-block text-center" id="send_coupon"><span>Recibir Cupón</span></button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                $(document).ready(function() {
+                    empresas_e.push('tebca');
+                    getSubDominio('dev.bnfcios.xyz');
+                });
+                </script>
+            </div>
+        </section>
+        <!-- =============================================== -->
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="fluid-list sub-footer-logo text-center">
+                            <a href="#"><img src="http://dev.bnfcios.xyz/img/logo-footer.png"></a>
+                            <span>
+                        ©2010-2017 Beneficios.pe, Todos los derechos reservados
+                    </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<div class="col-md-3">
+    <ul class="list-opciones-user">
+        <li>
+            <a href="<?= $this->url('perfil') ?>"
+               class="<?= ($this->active == 'datos') ?'active' :'' ?>">
+                Mis Datos
+            </a>
+        </li>
+        <?php if ($this->identity()["exist_puntos"]) { ?>
+        <li>
+            <a href="<?= $this->url('perfil-puntos', array('action' => 'puntos')) ?>"
+               class="<?= ($this->active == 'puntos' || $this->active == 'vigentes' || $this->active == 'utilizados')
+                   ?'active' :'' ?>">Mis Puntos</a>
+            <ul>
+                <li>
+                    <a href="<?= $this->url('perfil-puntos', array('action' => 'puntos')) ?>"
+                       class="<?= ($this->active == 'puntos') ?'active' :'' ?>">
+                        Estado de cuenta
+                    </a>
+                </li>
+                <li>
+                    <a href="<?= $this->url('perfil-puntos', array('action' => 'vigentes')) ?>"
+                       class="<?= ($this->active == 'vigentes') ?'active' :'' ?>">
+                        Cupones Vigentes
+                    </a>
+                </li>
+                <li>
+                    <a href="<?= $this->url('perfil-puntos', array('action' => 'utilizados')) ?>"
+                       class="<?= ($this->active == 'utilizados') ?'active' :'' ?>">
+                        Cupones Utilizados
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <?php } ?>
+        <?php if ($this->identity()["exist_premios"]) { ?>
+        <li>
+            <a href="<?= $this->url('perfil-premios', array('action' => 'vigentes')) ?>"
+               class="<?= ($this->active == 'premios' || $this->active == 'vigentes-premios'
+                   || $this->active == 'utilizados-premios') ?'active' :'' ?>">
+                Mis Premios
+            </a>
+            <ul>
+                <li>
+                    <a href="<?= $this->url('perfil-premios', array('action' => 'vigentes')) ?>"
+                       class="<?= ($this->active == 'vigentes-premios') ?'active' :'' ?>">
+                        Mis premios vigentes
+                    </a>
+                </li>
+                <li>
+                    <a href="<?= $this->url('perfil-premios', array('action' => 'utilizados')) ?>"
+                       class="<?= ($this->active == 'utilizados-premios') ?'active' :'' ?>">
+                        Mis premios utilizados
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <?php } ?>
+    </ul>
+</div>

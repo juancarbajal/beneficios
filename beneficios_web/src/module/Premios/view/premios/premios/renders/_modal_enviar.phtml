@@ -1,0 +1,85 @@
+<style type="text/css">
+    .title-premios {
+        font-size: 24px;
+        font-weight: bold;
+        color: #0a0d12;;
+    }
+
+    .line-li {
+        border-bottom: 2px solid #666;
+    }
+
+    .text-premios {
+        font-size: 20px;
+    }
+</style>
+<div class="modal fade modal-vcenter modal-active" id="enviarPremios" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"><img src="http://beneficios.pe/img/login.png" /></h4>
+            </div>
+            <div class="modal-body">
+                <div class="fluid-list header-modal-c">
+                    <?php if ($this->identity()['flagcheckboxLogo']) { ?>
+                    <div class="fluid-list logo-cupon">
+                        <span><img src="<?= $this->rlogos . $this->cupon->LogoEmpresa ?>"></span> Tanta
+                    </div>
+                    <?php }?>
+                    <div class="fluid-list cnt-body-m custon-on">
+                        <p>Zermatt is famed as a mounering and ski destome banmdo liono</p>
+                    </div>
+                    <div class="fluid-list desc-ut">
+                        <span class="left">S/ 60</span>
+                    </div>
+                    <!--<h2 id="tituloCupon"><?= $this->cupon->Titulo ?></h2>-->
+                </div>
+                <div class="fluid-list body-cnt-c">
+                    <h4>Cada descarga es una opción utilizada<br> de tus premios asignados</h4>
+                    <h5>Ingrese el email donde desea recibir<br> el cupón de su premio</h5>
+                    <form action="" class="form-login form-modal-c" id="emailCuponPremios" novalidate="novalidate">
+                        <div class="form-group has-feedback has-feedback-left cnt-form-error">
+                            <input type="email" name="email" class="form-control" placeholder="Ingresa tu email"
+                                   id="email" value="<?= $this->email_user ?>">
+                            <input type="hidden" value="<?= $this->cupon->idOferta ?>" id="idOferta" name="idoferta">
+                            <input type="hidden" value="<?= $this->empresaID ?>" id="idEmpresa" name="idEmpresa">
+                            <input type="hidden" value="<?= $this->clienteID ?>" id="idCliente" name="idCliente">
+                            <input type="hidden" value="<?= $this->category ?>" id="slug_cat" name="slug_cat">
+                            <input type="hidden" value="" id="atributo" name="atributo">
+                            <div class="error-check"></div>
+                        </div>
+                        <div class="checkbox cnt-form-error">
+                            <label>
+                                <input type="checkbox" name="terminos" id="activeChek" checked> Acepto las Condiciones, Términos y Políticas de uso
+                            </label>
+                            <div class="error-check"></div>
+                            <div class="fluid-list cnt-terminos-info">
+                                <ul>
+                                    <li>
+                                        <p>Los datos ingresados son legítimos y correctos.</p>
+                                    </li>
+                                    <li>
+                                        <p>Conozco el uso que se le dará a los datos que he proporcionado a Belia.</p>
+                                    </li>
+                                    <li>
+                                        <p>Entiendo que los Proveedores son los únicos responsables por cualquier inconveniente con los bienes y servicios ofrecidos a través de la Página Web.</p>
+                                    </li>
+                                    <li>
+                                        <p>Sé cual es la información y datos personales requeridos para poder acceder a los bienes y servicios ofrecidos a través de la Página Web.</p>
+                                    </li>
+                                    <li>
+                                        <p>He autorizado a mi Empleador a brindar o he brindado directamente a Belia mis datos personales para poder ingresar a la Pagina Web.</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block text-center" id="send_coupon"><span>Recibir Cupón</span></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

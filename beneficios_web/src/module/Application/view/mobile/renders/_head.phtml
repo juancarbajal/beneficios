@@ -1,0 +1,24 @@
+<meta charset="utf-8">
+<title>Beneficios</title>
+<?php echo $this->headMeta()
+    ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+    ->appendHttpEquiv('X-UA-Compatible', 'IE=edge');
+
+echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/x-icon', 'href' => $this->basePath() . '/img/favicon-01.ico'))
+    ->headLink(array('rel' => 'apple-touch-icon', 'href' => $this->basePath() . '/img/Icon-bnfs-1.png'))
+    ->headLink(array('rel' => 'apple-touch-icon', 'sizes' => '152x152', 'href' => $this->basePath() . '/img/Icon-bnfs-1.png'))
+    ->headLink(array('rel' => 'apple-touch-icon', 'sizes' => '120x120', 'href' => $this->basePath() . '/img/Icon-bnfs-2.png'))
+    ->headLink(array('rel' => 'apple-touch-icon', 'sizes' => '76x76', 'href' => $this->basePath() . '/img/Icon-bnfs-3.png'))
+    ->prependStylesheet($this->basePath('movil/css/main.min.css?' . $this->configItem('version_script')))
+    ->prependStylesheet($this->basePath('css/plugins.min.css?' . $this->configItem('version_script')));
+
+echo $this->headScript()
+    ->prependFile($this->basePath('movil/js/modal_puntos.js?' . $this->configItem('version_script')))
+    ->prependFile($this->basePath('js/preguntas.js?' . $this->configItem('version_script')))
+    ->prependFile($this->basePath('movil/js/loader.js?' . $this->configItem('version_script')))
+    ->prependFile($this->basePath('movil/js/main.min.js?' . $this->configItem('version_script')))
+    ->prependFile($this->basePath('movil/js/plugins.min.js?' . $this->configItem('version_script')))
+    ->prependFile($this->basePath('js/modernizr-2.8.3.min.js?' . $this->configItem('version_script')))
+    ->prependFile($this->basePath('js/respond.min.js?' . $this->configItem('version_script')), 'text/javascript', array('conditional' => 'lt IE 9',))
+    ->prependFile($this->basePath('js/html5shiv.min.js?' . $this->configItem('version_script')), 'text/javascript', array('conditional' => 'lt IE 9',));
+?>

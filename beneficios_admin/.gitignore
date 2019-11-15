@@ -1,0 +1,34 @@
+# Created by .ignore support plugin (hsz.mobi)
+### ZendFramework template
+# Composer files
+src/composer.lock
+src/vendor/
+
+# Local configs
+src/config/autoload/*.local.php
+
+# Binary gettext files
+*.mo
+
+# Data
+data/logs/
+data/cache/
+data/sessions/
+data/tmp/
+temp/
+src/public/elements/*.*
+
+#Doctrine 2
+src/data/DoctrineORMModule/Proxy/
+src/data/DoctrineORMModule/cache/
+
+# Legacy ZF1
+src/demos/
+src/extras/documentation
+
+# IntelliJ project files
+.idea/
+*.iml
+out
+gen
+.DS_Store
